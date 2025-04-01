@@ -25,7 +25,7 @@ jobs:
         with:
           source-directory: "output"
           destination-github-username: 78-artilleryman # 개인 레포 주인 username
-          destination-repository-name: SM-Frontend # 개인-레포-이름
+          destination-repository-name: frontend-sarang # 개인-레포-이름
           user-email: ${{ secrets.AUTO_EMAIL }} # secret 변수(이메일)
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main # 개인 레포 브랜치(vercel과 연동된 브랜치)
