@@ -1,0 +1,21 @@
+name: To-do Task
+description: 해야 할 작업을 기록하고 관리합니다.
+title: "[To-do] 카톡 로그인 기능 개발"
+labels: ["todo"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 💚 어떤 기능인가요?
+        카톡 로그인 기능을 개발.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## ✅ To Dos
+
+        - [ ] 
+        - [ ] 
+        - [ ]
