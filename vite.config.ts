@@ -12,7 +12,7 @@ export default defineConfig({
       filename: "sw.ts",
       registerType: "autoUpdate",
       injectRegister: false,
-
+    
       manifest: {
         name: "sarang-mate",
         short_name: "sarang-mate",
