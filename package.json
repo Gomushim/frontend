@@ -38,5 +38,10 @@
   "resolutions": {
     "sharp": "0.32.6",
     "sharp-ico": "0.1.5"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
