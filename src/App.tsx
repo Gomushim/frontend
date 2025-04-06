@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className="bg-red-100">
         <a href="https://vite.dev" target="_blank">
           <img src={appLogo} className="logo" alt="sarang-mate logo" />
         </a>
