@@ -79,7 +79,7 @@ self.addEventListener("message", async function (event) {
     case "CLIENT_CLOSED": {
       activeClientIds.delete(clientId);
 
-      const remainingClients = allClients.filter((client) => {
+      const remainingClients = allClients.filter(client => {
         return client.id !== clientId;
       });
 
@@ -144,7 +144,7 @@ async function handleRequest(event, requestId) {
             headers: Object.fromEntries(responseClone.headers.entries()),
           },
         },
-        [responseClone.body],
+        [responseClone.body]
       );
     })();
   }
@@ -172,11 +172,11 @@ async function resolveMainClient(event) {
   });
 
   return allClients
-    .filter((client) => {
+    .filter(client => {
       // Get only those clients that are currently visible.
       return client.visibilityState === "visible";
     })
-    .find((client) => {
+    .find(client => {
       // Find the client ID that's recorded in the
       // set of clients that have registered the worker.
       return activeClientIds.has(client.id);
@@ -200,10 +200,8 @@ async function getResponse(event, client, requestId) {
     // user-defined CORS policies.
     const acceptHeader = headers.get("accept");
     if (acceptHeader) {
-      const values = acceptHeader.split(",").map((value) => value.trim());
-      const filteredValues = values.filter(
-        (value) => value !== "msw/passthrough",
-      );
+      const values = acceptHeader.split(",").map(value => value.trim());
+      const filteredValues = values.filter(value => value !== "msw/passthrough");
 
       if (filteredValues.length > 0) {
         headers.set("accept", filteredValues.join(", "));
@@ -251,7 +249,7 @@ async function getResponse(event, client, requestId) {
         keepalive: request.keepalive,
       },
     },
-    [requestBuffer],
+    [requestBuffer]
   );
 
   switch (clientMessage.type) {
@@ -271,7 +269,7 @@ function sendToClient(client, message, transferrables = []) {
   return new Promise((resolve, reject) => {
     const channel = new MessageChannel();
 
-    channel.port1.onmessage = (event) => {
+    channel.port1.onmessage = event => {
       if (event.data && event.data.error) {
         return reject(event.data.error);
       }
@@ -279,10 +277,7 @@ function sendToClient(client, message, transferrables = []) {
       resolve(event.data);
     };
 
-    client.postMessage(
-      message,
-      [channel.port2].concat(transferrables.filter(Boolean)),
-    );
+    client.postMessage(message, [channel.port2].concat(transferrables.filter(Boolean)));
   });
 }
 
