@@ -1,4 +1,3 @@
-import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import appLogo from "/favicon.svg";
 import PWABadge from "./PWABadge.tsx";
@@ -6,8 +5,6 @@ import "./App.css";
 import { requestNotificationPermission } from "./firebase/setupFCM.ts";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <div className="flex justify-between rounded bg-blue-500 px-4 py-2 text-sm text-white">
@@ -20,7 +17,7 @@ function App() {
       </div>
       <h1>sarang-mate</h1>
       <div className="card">
-        <button onClick={() => requestNotificationPermission()}>count is {count}</button>
+        <button onClick={() => requestNotificationPermission()}>count is</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
