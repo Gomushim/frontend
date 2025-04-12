@@ -55,8 +55,8 @@ export default defineConfig({
       injectManifest: {
         globPatterns: ["**/*.{js,css,html,svg,png,ico}"],
         injectionPoint: "self.__WB_MANIFEST",
-        swSrc: "src/sw.ts",
-        swDest: "sw.js",
+        swSrc: "sw.ts",
+        swDest: "dist/sw.js",
         maximumFileSizeToCacheInBytes: 5000000,
       },
 
