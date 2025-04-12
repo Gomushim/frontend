@@ -23,9 +23,9 @@ export default defineConfig({
       registerType: "prompt",
       manifest: {
         id: "sarang.vercel.app",
-        name: "sarang-mate",
-        short_name: "sarang-mate",
-        description: "사랑하는군",
+        name: "사랑꾼",
+        short_name: "사랑꾼",
+        description: "사랑꾼",
         theme_color: "#ffffff",
         background_color: "#ffffff",
         display: "standalone",
