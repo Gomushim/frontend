@@ -17,11 +17,10 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       strategies: "injectManifest",
+      injectRegister: "auto",
       srcDir: "src",
       filename: "sw.ts",
-      registerType: "autoUpdate",
-      injectRegister: false,
-
+      registerType: "prompt",
       manifest: {
         name: "sarang-mate",
         short_name: "sarang-mate",
@@ -58,10 +57,14 @@ export default defineConfig({
       },
 
       devOptions: {
-        enabled: false,
+        enabled: true,
         navigateFallback: "index.html",
         suppressWarnings: true,
         type: "module",
+      },
+      workbox: {
+        clientsClaim: true,
+        skipWaiting: true,
       },
     }),
   ],

@@ -6,7 +6,18 @@ import "./index.css";
 
 if (import.meta.env.DEV) {
   const { worker } = await import("./mocks/browser");
-  worker.start();
+
+  // MSW가 특정 API 요청만 가로채도록 설정
+  worker.start({
+    onUnhandledRequest: "bypass", // 처리하지 않는 요청은 통과
+    serviceWorker: {
+      url: "/mockServiceWorker.js",
+      options: {
+        // API 경로만 처리하도록 스코프 제한 (필요한 경우)
+        scope: "/api/",
+      },
+    },
+  });
 }
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -19,7 +30,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register("/sw.js")
+      .register("/sw.ts")
       .then(reg => {
         console.log("Service worker registered:", reg);
       })
