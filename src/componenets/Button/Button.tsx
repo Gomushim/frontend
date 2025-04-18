@@ -1,0 +1,43 @@
+import React from 'react';
+import clsx from 'clsx';
+
+export type ButtonVariant = 'inactive' | 'active' | 'pressed' | 'special';
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  text: string;
+  variant?: ButtonVariant;
+}
+
+const Button: React.FC<ButtonProps> = ({
+  text,
+  variant = 'active',
+  className,
+  ...props
+}) => {
+  const baseClasses = `
+    w-[21.875rem] h-[3.5rem] rounded-[1rem]
+    px-[10rem] py-[1.125rem]
+    flex items-center justify-center gap-[0.625rem]
+    text-xl font-semibold
+    transition-colors duration-200
+    whitespace-nowrap
+  `;
+
+  const variantClasses: Record<ButtonVariant, string> = {
+    inactive: 'bg-gray-200 text-gray-0',
+    active: 'bg-green-500 text-gray-0',
+    pressed: 'bg-gray-1000 text-gray-0',
+    special: 'bg-green-100 text-green-500',
+  };
+
+  return (
+    <button
+      className={clsx(baseClasses, variantClasses[variant], className)}
+      {...props}
+    >
+      {text}
+    </button>
+  );
+};
+
+export default Button;
