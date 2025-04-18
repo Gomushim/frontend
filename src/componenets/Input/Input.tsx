@@ -63,7 +63,7 @@ const Input = ({
   return (
     <div
       className={`flex items-center bg-gray-50 
-        w-[21.8125rem] h-[3.375rem] 
+        w-full h-[3.375rem] 
         px-[1.25rem] py-[1rem] 
         rounded-[1rem] gap-[0.625rem] 
         border ${getBorderStyle()} ${className}`}

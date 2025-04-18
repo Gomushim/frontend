@@ -70,7 +70,7 @@ const Text = ({
   return (
     <div
       className={`flex items-center bg-gray-50 
-        w-[21.8125rem] h-[3rem] 
+        w-full h-[3rem] 
         px-[1rem] py-[1rem] 
         rounded-[1rem] gap-[0.625rem] 
         border ${getBorderStyle()} ${className}`}

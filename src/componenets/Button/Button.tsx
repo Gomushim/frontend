@@ -15,9 +15,9 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseClasses = `
-    w-[21.875rem] h-[3.5rem] rounded-[1rem]
-    px-[10rem] py-[1.125rem]
-    flex items-center justify-center gap-[0.625rem]
+    w-full h-14 rounded-xl
+    px-6 py-3
+    flex items-center justify-center gap-2.5
     text-xl font-semibold
     transition-colors duration-200
     whitespace-nowrap
