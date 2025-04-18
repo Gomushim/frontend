@@ -2,7 +2,7 @@
 import { useRef, useState } from 'react';
 import DeleteIcon from '@/assets/images/delete.svg';
 
-type InputStatus = 'default' | 'typing' | 'error' | 'completed';
+type InputStatus = 'inactive' | 'typing' | 'error' | 'active';
 
 interface InputProps {
   value?: string;
@@ -38,22 +38,22 @@ const Input = ({
     setHasBlurred(false);
   };
 
-  //상태 감지
+  // 상태 감지
   const derivedStatus: InputStatus = (() => {
     if (status) return status;
-    if (value.length === 0) return 'default'; //초기 상태
-    if (value.length > 0 && !hasBlurred) return 'typing'; //타이핑하고 있을때
-    if (value.length > 0 && hasBlurred) return 'completed'; //타이핑 후 다른 곳 눌렀을때
-    return 'default';
+    if (value.length === 0) return 'inactive'; // 초기 상태
+    if (value.length > 0 && !hasBlurred) return 'typing'; // 타이핑하고 있을 때
+    if (value.length > 0 && hasBlurred) return 'active'; // 타이핑 후 다른 곳 눌렀을 때
+    return 'inactive';
   })();
 
   const getBorderStyle = () => {
     switch (derivedStatus) {
       case 'typing':
-        return 'border-pink-300';
+        return 'border-green-300';
       case 'error':
-        return 'border-red';
-      case 'completed':
+        return 'border-red-0';
+      case 'active':
         return 'border-transparent';
       default:
         return 'border-transparent';

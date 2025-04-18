@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-export type ButtonVariant = 'lightGray' | 'darkGray' | 'darkerGray' | 'pink';
+export type ButtonVariant = 'inactive' | 'active' | 'pressed' | 'special';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
@@ -10,7 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: React.FC<ButtonProps> = ({
   text,
-  variant = 'lightGray',
+  variant = 'active',
   className,
   ...props
 }) => {
@@ -24,10 +24,10 @@ const Button: React.FC<ButtonProps> = ({
   `;
 
   const variantClasses: Record<ButtonVariant, string> = {
-    lightGray: 'bg-gray-200 text-gray-0',
-    darkGray: 'bg-gray-900 text-gray-0',
-    darkerGray: 'bg-gray-1000 text-gray-0',
-    pink: 'bg-pink-200 text-red-500',
+    inactive: 'bg-gray-200 text-gray-0',
+    active: 'bg-green-500 text-gray-0',
+    pressed: 'bg-gray-1000 text-gray-0',
+    special: 'bg-green-100 text-green-500',
   };
 
   return (

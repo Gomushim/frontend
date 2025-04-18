@@ -1,7 +1,7 @@
 // src/components/Text.tsx
 import { useRef, useState } from 'react';
 
-type TextStatus = 'default' | 'typing' | 'error' | 'completed';
+type TextStatus = 'inactive' | 'typing' | 'error' | 'active';
 
 interface TextProps {
   value?: string;
@@ -22,7 +22,7 @@ const Text = ({
 }: TextProps) => {
   const textRef = useRef<HTMLInputElement>(null);
   const [hasBlurred, setHasBlurred] = useState(false);
-  const [currentStatus, setCurrentStatus] = useState<TextStatus>('default'); // 상태 추적
+  const [currentStatus, setCurrentStatus] = useState<TextStatus>('inactive'); // 상태 추적
 
   const handleBlur = () => {
     setHasBlurred(true);
@@ -36,19 +36,19 @@ const Text = ({
   const derivedStatus: TextStatus = (() => {
     if (status) return status;
     if (currentStatus === 'error') return 'error'; // error 상태 유지
-    if (value.length === 0) return 'default'; // 초기 상태
+    if (value.length === 0) return 'inactive'; // 초기 상태
     if (value.length > 0 && !hasBlurred) return 'typing'; // 타이핑하고 있을 때
-    if (value.length > 0 && hasBlurred) return 'completed'; // 타이핑 후 다른 곳 눌렀을 때
-    return 'default';
+    if (value.length > 0 && hasBlurred) return 'active'; // 타이핑 후 다른 곳 눌렀을 때
+    return 'inactive';
   })();
 
   const getBorderStyle = () => {
     switch (derivedStatus) {
       case 'typing':
-        return 'border-pink-300';
+        return 'border-green-300';
       case 'error':
-        return 'border-red-500'; 
-      case 'completed':
+        return 'border-red-0'; 
+      case 'active':
         return 'border-transparent';
       default:
         return 'border-transparent';
@@ -62,7 +62,7 @@ const Text = ({
     if (newValue.length > maxLength) {
       setCurrentStatus('error');
     } else {
-      setCurrentStatus('default');
+      setCurrentStatus('inactive');
       onChange?.(newValue); 
     }
   };
