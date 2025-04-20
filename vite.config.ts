@@ -39,32 +39,32 @@ export default defineConfig({
         icons: [
           // 안드로이드 아이콘
           {
-            src: "/ios/180.png",
+            src: "android/android-launchericon-512-512.png",
             sizes: "512x512",
             type: "image/png",
           },
           {
-            src: "/ios/180.png",
+            src: "android/android-launchericon-192-192.png",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "/ios/180.png",
+            src: "android/android-launchericon-144-144.png",
             sizes: "144x144",
             type: "image/png",
           },
           {
-            src: "/ios/180.png",
+            src: "android/android-launchericon-96-96.png",
             sizes: "96x96",
             type: "image/png",
           },
           {
-            src: "/ios/180.png",
+            src: "android/android-launchericon-72-72.png",
             sizes: "72x72",
             type: "image/png",
           },
           {
-            src: "/ios/180.png",
+            src: "android/android-launchericon-48-48.png",
             sizes: "48x48",
             type: "image/png",
           },
@@ -88,45 +88,45 @@ export default defineConfig({
 
           // Windows 11 아이콘 (주요 크기)
           {
-            src: "/ios/180.png",
+            src: "windows11/Square44x44Logo.scale-100.png",
             sizes: "44x44",
             type: "image/png",
           },
           {
-            src: "/ios/180.png",
+            src: "windows11/Square150x150Logo.scale-100.png",
             sizes: "150x150",
             type: "image/png",
           },
           {
-            src: "/ios/180.png",
+            src: "windows11/Square150x150Logo.scale-200.png",
             sizes: "300x300",
             type: "image/png",
           },
           {
-            src: "/ios/180.png",
+            src: "windows11/Square150x150Logo.scale-400.png",
             sizes: "600x600",
             type: "image/png",
           },
           {
-            src: "/ios/180.png",
+            src: "windows11/Wide310x150Logo.scale-100.png",
             sizes: "310x150",
             type: "image/png",
           },
           {
-            src: "/ios/180.png",
+            src: "windows11/LargeTile.scale-100.png",
             sizes: "310x310",
             type: "image/png",
           },
 
           // Maskable 아이콘 (적응형 아이콘 지원)
           {
-            src: "/ios/180.png",
+            src: "android/android-launchericon-192-192.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "maskable",
           },
           {
-            src: "/ios/180.png",
+            src: "android/android-launchericon-512-512.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "maskable",
