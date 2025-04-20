@@ -10,6 +10,7 @@ export const ProtectedLayout = () => {
       <input
         type="date"
         value={date}
+        inputMode="numeric"
         onChange={e => setDate(e.target.value)}
         style={{ padding: "0.5rem", fontSize: "1rem" }}
       />
