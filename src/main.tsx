@@ -1,30 +1,32 @@
-// main.tsx
-import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import "./index.css";
+import { RouterProvider } from "react-router";
+import router from "./utils/router/routes";
+import { StrictMode } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  </StrictMode>
+);
 
 if (import.meta.env.DEV) {
   const { worker } = await import("./mocks/browser");
-
-  // MSW가 특정 API 요청만 가로채도록 설정
   worker.start({
-    onUnhandledRequest: "bypass", // 처리하지 않는 요청은 통과
+    onUnhandledRequest: "bypass",
     serviceWorker: {
       url: "/mockServiceWorker.js",
       options: {
-        // API 경로만 처리하도록 스코프 제한 (필요한 경우)
         scope: "/api/",
       },
     },
   });
 }
-
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
 
 // service worker 등록
 if ("serviceWorker" in navigator) {
