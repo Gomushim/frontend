@@ -16,17 +16,18 @@ module.exports = {
       colors: {
         // Main Green
         'green-50': '#EAF7ED',
-        'green-100': '#BFE6C8',
-        'green-200': '#A0D9AD',
-        'green-300': '#75C887',
-        'green-400': '#5ABD70',
-        'green-500': '#31AD4C',
-        'green-600': '#2D9D45',
-        'green-700': '#237B36',
-        'green-800': '#1B5F2A',
-        'green-900': '#154B20',
+        'green-100': '#BFE6DA',
+        'green-200': '#A0DAC9',
+        'green-300': '#75C9B0',
+        'green-400': '#5ABFA1',
+        'green-500': '#31AF89',
+        'green-600': '#2D9F7D',
+        'green-700': '#237C61',
+        'green-800': '#1B604B',
+        'green-900': '#154A3A',
 
         // Sub Red
+        'red-0' : '#FF196D',
         'red-50': '#FFECF7',
         'red-100': '#FFC4E7',
         'red-200': '#FFA8DB',
@@ -56,13 +57,14 @@ module.exports = {
         pretendard: ['Pretendard', 'sans-serif'],
       },
       fontSize: {
-        '4xl': ['1.75rem', { lineHeight: '150%', letterSpacing: '-0.02em' }], // 28px
-        '3xl': ['1.5rem', { lineHeight: '150%', letterSpacing: '-0.02em' }],  // 24px
-        '2xl': ['1.25rem', { lineHeight: '150%', letterSpacing: '-0.02em' }], // 20px
-        'xl': ['1.125rem', { lineHeight: '150%', letterSpacing: '-0.02em' }], // 18px
-        'md': ['1rem', { lineHeight: '150%', letterSpacing: '-0.01em' }],     // 16px
-        'sm': ['0.875rem', { lineHeight: '150%', letterSpacing: '0em' }],     // 14px
-        'xs': ['0.75rem', { lineHeight: '150%', letterSpacing: '0em' }],      // 12px
+        '4xl': ['1.75rem', { lineHeight: '150%', letterSpacing: '-0.02em' }], // Heading
+        '3xl': ['1.5rem', { lineHeight: '150%', letterSpacing: '-0.02em' }],  // Title
+        '2xl': ['1.25rem', { lineHeight: '150%', letterSpacing: '-0.02em' }], // Title
+        'xl': ['1.125rem', { lineHeight: '150%', letterSpacing: '-0.02em' }], // SubTitle
+        'md': ['1rem', { lineHeight: '150%', letterSpacing: '-0.01em' }],     // text
+        'sm': ['0.875rem', { lineHeight: '150%', letterSpacing: '0em' }],     // text
+        'xs': ['0.75rem', { lineHeight: '150%', letterSpacing: '0em' }],      // caption
+        'xxs': ['0.625rem', { lineHeight: '150%', letterSpacing: '0em' }],      // caption
       },
       fontWeight: {
         regular: '400',
