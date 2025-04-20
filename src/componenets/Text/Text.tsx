@@ -1,7 +1,7 @@
 // src/components/Text.tsx
-import { useRef, useState } from 'react';
+import { useRef, useState } from "react";
 
-type TextStatus = 'inactive' | 'typing' | 'error' | 'active';
+type TextStatus = "inactive" | "typing" | "error" | "active";
 
 interface TextProps {
   value?: string;
@@ -12,17 +12,10 @@ interface TextProps {
   maxLength?: number;
 }
 
-const Text = ({
-  value = '',
-  onChange,
-  placeholder = 'Text',
-  status,
-  className = '',
-  maxLength = 15, 
-}: TextProps) => {
+const Text = ({ value = "", onChange, placeholder = "Text", status, className = "", maxLength = 15 }: TextProps) => {
   const textRef = useRef<HTMLInputElement>(null);
   const [hasBlurred, setHasBlurred] = useState(false);
-  const [currentStatus, setCurrentStatus] = useState<TextStatus>('inactive'); // 상태 추적
+  const [currentStatus, setCurrentStatus] = useState<TextStatus>("inactive"); // 상태 추적
 
   const handleBlur = () => {
     setHasBlurred(true);
@@ -35,23 +28,23 @@ const Text = ({
   // 상태 감지
   const derivedStatus: TextStatus = (() => {
     if (status) return status;
-    if (currentStatus === 'error') return 'error'; // error 상태 유지
-    if (value.length === 0) return 'inactive'; // 초기 상태
-    if (value.length > 0 && !hasBlurred) return 'typing'; // 타이핑하고 있을 때
-    if (value.length > 0 && hasBlurred) return 'active'; // 타이핑 후 다른 곳 눌렀을 때
-    return 'inactive';
+    if (currentStatus === "error") return "error"; // error 상태 유지
+    if (value.length === 0) return "inactive"; // 초기 상태
+    if (value.length > 0 && !hasBlurred) return "typing"; // 타이핑하고 있을 때
+    if (value.length > 0 && hasBlurred) return "active"; // 타이핑 후 다른 곳 눌렀을 때
+    return "inactive";
   })();
 
   const getBorderStyle = () => {
     switch (derivedStatus) {
-      case 'typing':
-        return 'border-green-300';
-      case 'error':
-        return 'border-red-0'; 
-      case 'active':
-        return 'border-transparent';
+      case "typing":
+        return "border-green-300";
+      case "error":
+        return "border-red-0";
+      case "active":
+        return "border-transparent";
       default:
-        return 'border-transparent';
+        return "border-transparent";
     }
   };
 
@@ -60,34 +53,29 @@ const Text = ({
 
     // 15자 이상이면 error 상태로 설정
     if (newValue.length > maxLength) {
-      setCurrentStatus('error');
+      setCurrentStatus("error");
     } else {
-      setCurrentStatus('inactive');
-      onChange?.(newValue); 
+      setCurrentStatus("inactive");
+      onChange?.(newValue);
     }
   };
 
   return (
     <div
-      className={`flex items-center bg-gray-50 
-        w-full h-[3rem] 
-        px-[1rem] py-[1rem] 
-        rounded-[1rem] gap-[0.625rem] 
-        border ${getBorderStyle()} ${className}`}
-    >
+      className={`flex h-[3rem] w-full items-center gap-[0.625rem] rounded-[1rem] border bg-gray-50 px-[1rem] py-[1rem] ${getBorderStyle()} ${className}`}>
       <input
         ref={textRef}
         type="text"
-        className="w-full bg-transparent outline-none text-md text-gray-1000 placeholder:text-gray-400"
+        className="text-md text-gray-1000 w-full bg-transparent outline-none placeholder:text-gray-400"
         placeholder={placeholder}
         value={value}
-        onChange={handleChange} 
+        onChange={handleChange}
         onBlur={handleBlur}
         onFocus={handleFocus}
-        maxLength={maxLength} 
+        maxLength={maxLength}
       />
       <span className="ml-2 text-sm text-gray-600">
-        {value.length}/{maxLength} 
+        {value.length}/{maxLength}
       </span>
     </div>
   );

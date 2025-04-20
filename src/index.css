@@ -111,8 +111,8 @@
 }
 
 @font-face {
-  font-family: 'Pretendard';
-  src: url('/fonts/Pretendard.woff') format('woff2');
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard.woff") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -125,6 +125,6 @@
     @apply bg-background text-foreground;
   }
   html {
-    font-family: 'Pretendard', sans-serif;
+    font-family: "Pretendard", sans-serif;
   }
 }

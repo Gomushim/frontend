@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
-import svgr from 'vite-plugin-svgr';
+import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -71,28 +71,8 @@ export default defineConfig({
 
           // iOS 아이콘 (주요 크기)
           {
-            src: "ios/57.png",
-            sizes: "57x57",
-            type: "image/png",
-          },
-          {
-            src: "ios/60.png",
-            sizes: "60x60",
-            type: "image/png",
-          },
-          {
-            src: "ios/72.png",
-            sizes: "72x72",
-            type: "image/png",
-          },
-          {
             src: "ios/76.png",
             sizes: "76x76",
-            type: "image/png",
-          },
-          {
-            src: "ios/114.png",
-            sizes: "114x114",
             type: "image/png",
           },
           {
@@ -101,28 +81,8 @@ export default defineConfig({
             type: "image/png",
           },
           {
-            src: "ios/144.png",
-            sizes: "144x144",
-            type: "image/png",
-          },
-          {
-            src: "ios/152.png",
-            sizes: "152x152",
-            type: "image/png",
-          },
-          {
             src: "ios/180.png",
             sizes: "180x180",
-            type: "image/png",
-          },
-          {
-            src: "ios/512.png",
-            sizes: "512x512",
-            type: "image/png",
-          },
-          {
-            src: "ios/1024.png",
-            sizes: "1024x1024",
             type: "image/png",
           },
 
