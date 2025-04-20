@@ -11,7 +11,7 @@ export const buttonVariants = cva(
       variant: {
         inactive: "bg-gray-200 text-gray-0",
         active: "bg-green-500 text-gray-0",
-        pressed: "bg-gray-1000 text-gray-0",
+        pressed: "bg-green-600 text-gray-0",
         special: "bg-green-100 text-green-500",
       },
     },
