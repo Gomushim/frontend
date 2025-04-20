@@ -1,9 +1,7 @@
 // components/ui/checkbox.tsx
 import * as React from "react"
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
-
-import CheckedIcon from "@/assets/images/checked.svg"
-import UncheckedIcon from "@/assets/images/unchecked.svg"
+import { Check } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -18,7 +16,8 @@ const Checkbox: React.FC<CheckboxProps> = ({ className, style, ...props }) => {
       data-slot="checkbox"
       className={cn(
         "relative size-[1.4375rem] rounded-[4px] cursor-pointer transition-colors",
-        "data-[state=checked]:bg-green-500 bg-gray-50",
+        "data-[state=checked]:bg-gray-0 data-[state=checked]:border-green-500",
+        "border-2 border-gray-100",
         className
       )}
       style={style}
@@ -26,13 +25,9 @@ const Checkbox: React.FC<CheckboxProps> = ({ className, style, ...props }) => {
     >
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
-        className="absolute inset-0 flex items-center justify-center"
+        className="absolute inset-0 flex items-center justify-center text-green-500"
       >
-        <img
-          src={props.checked ? CheckedIcon : UncheckedIcon}
-          alt={props.checked ? "체크됨" : "체크 안 됨"}
-          className="w-full h-full"
-        />
+        <Check className="size-4 stroke-[3]" />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   )
