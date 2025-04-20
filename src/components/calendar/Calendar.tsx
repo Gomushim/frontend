@@ -1,8 +1,14 @@
 import { useState } from "react";
 
-export const Calendar = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+interface CalendarProps {
+  initialDate?: Date;
+  selectedDate: Date | null;
+  // eslint-disable-next-line no-unused-vars
+  setSelectedDate: (date: Date | null) => void;
+}
+
+export const Calendar: React.FC<CalendarProps> = ({ initialDate = new Date(), selectedDate, setSelectedDate }) => {
+  const [currentDate, setCurrentDate] = useState(initialDate);
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth(); // 0 ~ 11
@@ -31,11 +37,10 @@ export const Calendar = () => {
     calendarDays.push(null);
   }
 
-  // 주 단위로 나누기 (마지막 줄에 빈 칸이 있을 경우 그 줄을 제외하고 렌더링)
+  // 주 단위로 나누기
   const weeks: (Date | null)[][] = [];
   for (let i = 0; i < calendarDays.length; i += 7) {
     const week = calendarDays.slice(i, i + 7);
-    // week에서 하나라도 날짜가 존재하면 그 주를 렌더링
     if (week.some(date => date !== null)) {
       weeks.push(week);
     }
@@ -64,14 +69,6 @@ export const Calendar = () => {
             <img src="src/assets/icons/rightArrow.svg" alt="다음 달" />
           </button>
         </div>
-        <div className="absolute top-0 right-3 flex items-center justify-center gap-2">
-          <button onClick={goToPrevMonth} className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
-            <img src="src/assets/icons/hambuk.svg" alt="이전 달" />
-          </button>
-          <button onClick={goToPrevMonth} className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
-            <img src="src/assets/icons/plus.svg" alt="이전 달" />
-          </button>
-        </div>
       </div>
 
       {/* 요일 헤더 */}
@@ -84,7 +81,7 @@ export const Calendar = () => {
       </div>
 
       {/* 날짜 셀 with 줄 */}
-      <div className="">
+      <div>
         {weeks.map((week, weekIdx) => (
           <div key={weekIdx} className={weekIdx === weeks.length - 1 ? "" : "border-b border-gray-50 py-3"}>
             <div className="grid grid-cols-7 px-1.5 text-center">
@@ -96,19 +93,17 @@ export const Calendar = () => {
                 return (
                   <div
                     key={idx}
-                    className={"flex cursor-pointer flex-col items-center justify-center"}
+                    className="flex cursor-pointer flex-col items-center justify-center gap-1"
                     onClick={() => date && setSelectedDate(date)}>
                     <p
                       className={`text-md mb-2 flex h-8 w-8 items-center justify-center rounded-[12px] pt-0.5 text-center font-normal transition ${showToday || isSelected ? "bg-gray-900 font-bold text-white" : ""} ${!date ? "cursor-default text-gray-300" : ""} ${date && !isSelected && !showToday ? "hover:bg-gray-100" : ""}`}>
                       {date ? date.getDate() : ""}
                     </p>
-                    <div className="flex min-h-7 flex-col gap-1 pl-0.5">
-                      <div className="flex h-3 w-10 items-center justify-center rounded-[8px] bg-red-50">
-                        <p className="text-[10px]">test..</p>
-                      </div>
-                      <div className="flex h-3 w-10 items-center justify-center rounded-[8px] bg-red-50">
-                        <p className="text-[10px]">test..</p>
-                      </div>
+                    <div className="flex h-3 w-10 items-center justify-center rounded-[8px] bg-red-50">
+                      <p className="text-[10px]">test..</p>
+                    </div>
+                    <div className="flex h-3 w-10 items-center justify-center rounded-[8px] bg-red-50">
+                      <p className="text-[10px]">test..</p>
                     </div>
                   </div>
                 );
