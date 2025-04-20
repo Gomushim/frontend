@@ -64,6 +64,7 @@ module.exports = {
         'md': ['1rem', { lineHeight: '150%', letterSpacing: '-0.01em' }],     // text
         'sm': ['0.875rem', { lineHeight: '150%', letterSpacing: '0em' }],     // text
         'xs': ['0.75rem', { lineHeight: '150%', letterSpacing: '0em' }],      // caption
+        'xxs': ['0.625rem', { lineHeight: '150%', letterSpacing: '0em' }],      // caption
       },
       fontWeight: {
         regular: '400',
