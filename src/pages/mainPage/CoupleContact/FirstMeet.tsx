@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import ProgressHeader from '../components/ProgressHeader';
+import ProgressHeader from '../../../components/ui/progressheader';
 import Button from '@/componenets/Button/Button';
 import Input from '@/componenets/Input/Input';
 import Picker from 'react-mobile-picker';

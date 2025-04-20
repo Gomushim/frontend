@@ -13,7 +13,7 @@ import {
 import { createBrowserRouter } from "react-router";
 import { FirstMeet } from "@/pages/onboarding";
 import { MilitaryDay } from "@/pages/onboarding";
-import { CoupleContact } from "@/pages/onboarding/CoupleContact/CoupleContact";
+import { CoupleContact } from "@/pages/mainPage/CoupleContact/CoupleContact";
 
 const router = createBrowserRouter([
   { path: "/login", element: <Login /> }, // 로그인 페이지
