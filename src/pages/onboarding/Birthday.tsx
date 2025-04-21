@@ -9,7 +9,6 @@ import {
   Drawer,
   DrawerContent,
   DrawerHeader,
-  DrawerFooter,
 } from '@/components/ui/drawer';
 
 export const Birthday: React.FC = () => {
@@ -24,11 +23,6 @@ export const Birthday: React.FC = () => {
   const months = Array.from({ length: 12 }, (_, i) => String(i + 1));
   const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
 
-  const optionGroups = {
-    year: years,
-    month: months,
-    day: days,
-  };
 
   const [pickerValue, setPickerValue] = useState({
     year: String(today.getFullYear()),
@@ -88,7 +82,7 @@ export const Birthday: React.FC = () => {
         </div>
       </div>
 
-      <div className="px-6 pb-8 flex flex-col items-center text-gray-1000 text-md font-medium">
+      <div className="p-4">
 
         <Button
           text="다음"
@@ -99,7 +93,7 @@ export const Birthday: React.FC = () => {
       </div>
 
       <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <DrawerContent className="pb-6">
+        <DrawerContent>
           <div className="flex flex-col items-center w-full">
             <div className="w-full h-[200px] flex items-center justify-center">
               <Picker value={pickerValue} onChange={setPickerValue} height={180} itemHeight={44}>
@@ -139,7 +133,7 @@ export const Birthday: React.FC = () => {
               </Picker>
             </div>
           </div>
-          <DrawerHeader className="flex justify-between px-6 pt-4">
+          <DrawerHeader >
             <Button
               text="확인"
               variant="active"

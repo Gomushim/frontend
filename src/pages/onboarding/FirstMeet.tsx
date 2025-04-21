@@ -8,8 +8,6 @@ import {
   Drawer,
   DrawerContent,
   DrawerHeader,
-  DrawerFooter,
-  DrawerClose,
 } from '@/components/ui/drawer'; // shadcn drawer
 
 export const FirstMeet: React.FC = () => {
@@ -21,11 +19,6 @@ const years = Array.from({ length: 100 }, (_, i) => String(today.getFullYear() -
 const months = Array.from({ length: 12 }, (_, i) => String(i + 1));
 const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
 
-const optionGroups = {
-  year: years,
-  month: months,
-  day: days,
-};
 
 const [pickerValue, setPickerValue] = useState({
   year: String(today.getFullYear()),
@@ -63,14 +56,13 @@ const [pickerValue, setPickerValue] = useState({
         highlight="처음 만난 날"
         subtitle="두 분의 첫 만남을 기록해주세요."
         progress={1 / 3}
-        onBack={() => console.log('뒤로가기')}
-        onClose={() => console.log('닫기')}
+        onBack={() => navigate(-1)}
+        onClose={() => navigate('/')}
       />
 
-      <div className="flex-1 px-4 mt-6">
+      <div onClick={() => setIsDrawerOpen(true)} className="cursor-pointer flex-1 px-4 mt-6">
         <Input
           value={selectedDate ? formatDate(selectedDate) : ''}
-          onChange={() => setIsDrawerOpen(true)}
           placeholder="날짜를 선택해주세요."
           status={selectedDate ? 'active' : 'inactive'}
           onClear={() => {
@@ -82,11 +74,10 @@ const [pickerValue, setPickerValue] = useState({
             });
           }}
           className="w-full border border-gray-200 rounded-lg px-4 py-3 text-left text-gray-900 placeholder-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-green-500"
-          onFocus={() => setIsDrawerOpen(true)}
         />
       </div>
 
-      <div className="px-6 pb-8 flex flex-col items-center text-gray-1000 text-md font-medium">
+      <div className="p-4">
         <Button
           text="다음"
           variant={selectedDate ? 'active' : 'inactive'}
@@ -96,7 +87,7 @@ const [pickerValue, setPickerValue] = useState({
       </div>
 
       <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <DrawerContent className="pb-6">
+        <DrawerContent >
           
           <div className="flex flex-col items-center w-full">
             <div className="w-full  h-[200px] flex items-center justify-center">
@@ -136,7 +127,7 @@ const [pickerValue, setPickerValue] = useState({
                 </Picker.Column>
               </Picker>
             </div>
-          </div><DrawerHeader className="flex justify-between px-6 pt-4">
+          </div><DrawerHeader className="p-4">
             <Button
               text="확인"
               variant="active"

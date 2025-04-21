@@ -24,7 +24,6 @@ export const CoupleContact: React.FC = () => {
       setError('초대 코드를 입력해주세요.');
       return;
     }
-    // TODO: 초대 코드 검증 로직
     console.log('입력된 코드:', inputCode);
   };
 
@@ -56,7 +55,7 @@ export const CoupleContact: React.FC = () => {
         </div>
       </div>
 
-      <div className="px-6 pb-8 flex flex-col items-center text-gray-1000 text-md font-medium">
+      <div className="p-4">
         <p className="pb-6 items-center text-gray-900 text-sm font-medium">상대방에게서 전달받은 코드가 있나요?</p>
         <Button
           text="초대 코드 입력하기"
@@ -90,7 +89,7 @@ export const CoupleContact: React.FC = () => {
               </div>
             )}
           </DrawerHeader>
-          <DrawerFooter className="px-6">
+          <DrawerFooter className="p-4">
             <Button
               text="완료"
               variant="active"

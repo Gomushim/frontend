@@ -5,13 +5,6 @@ import Button from '@/componenets/Button/Button';
 
 export const Alarm: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedMessages, setSelectedMessages] = useState<string[]>([]);
-
-  const handleSubmit = () => {
-    if (selectedMessages.length > 0) {
-      navigate('/');
-    }
-  };
 
   return (
     <div className="flex flex-col h-screen bg-white">
@@ -26,11 +19,10 @@ export const Alarm: React.FC = () => {
 
       <div className="flex-1" />
 
-      <div className="px-6 pb-8 flex flex-col items-center text-gray-1000 text-md font-medium">
+      <div className="p-4">
         <Button
           text="알림을 받을게요"
           variant= 'active' 
-          onClick={handleSubmit}
         />
       </div>
     </div>

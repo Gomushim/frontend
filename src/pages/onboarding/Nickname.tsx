@@ -36,7 +36,7 @@ export const Nickname: React.FC = () => {
         </div>
       </div>
 
-      <div className="px-6 pb-8 flex flex-col items-center text-gray-1000 text-md font-medium">
+      <div className="p-4">
         <Button
           text="다음"
           variant={nickname.trim() ? 'active' : 'inactive'}
