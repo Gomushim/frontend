@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
-import ProgressHeader from '@/components/ui/progressheader';
+import { ProgressHeader } from './components/progressheader';
 import { Button } from '@/components/ui/button';
 
 export const Alarm: React.FC = () => {

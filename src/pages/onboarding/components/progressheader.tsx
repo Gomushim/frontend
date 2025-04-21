@@ -11,7 +11,7 @@ interface ProgressHeaderProps {
   onClose?: () => void;
 }
 
-const ProgressHeader: React.FC<ProgressHeaderProps> = ({
+export const ProgressHeader: React.FC<ProgressHeaderProps> = ({
   title,
   highlight,
   subtitle,
@@ -57,4 +57,3 @@ const ProgressHeader: React.FC<ProgressHeaderProps> = ({
   );
 };
 
-export default ProgressHeader;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ProgressHeader from '@/components/ui/progressheader';
+import { ProgressHeader } from './components/progressheader';
 import { Button } from '@/components/ui/button';
 import { Drawer, DrawerContent, DrawerHeader, DrawerFooter } from "@/components/ui/drawer";
 import Input from '@/components/ui/input';
