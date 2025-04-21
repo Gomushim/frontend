@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ProgressHeader from '@/components/ui/progressheader';
 import { Button } from '@/components/ui/button';
 import { Drawer, DrawerContent, DrawerHeader, DrawerFooter } from "@/components/ui/drawer";
-import Input from '@/componenets/Input/Input';
+import Input from '@/components/ui/input';
 
 export const CoupleContact: React.FC = () => {
   // const [profileId, setProfileId] = useState<string>('');

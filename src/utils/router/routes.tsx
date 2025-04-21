@@ -18,11 +18,10 @@ const router = createBrowserRouter([
   { path: "/onboarding", element: <Onboarding /> },
   {
     path: "/",
-element: <ProtectedLayout />,
     children: [
       {
         path: "",
-        element: <App />, // 공통 레이아웃
+        element: <Nickname />, // 공통 레이아웃
         children: [
           { index: true, element: <Home /> }, // 메인 홈 화면
           { path: "calendar", element: <CalendarRoot /> }, // 캘린더 메인 화면

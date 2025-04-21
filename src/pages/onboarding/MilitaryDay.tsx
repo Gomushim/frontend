@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import ProgressHeader from '../../components/ui/progressheader';
 import { Button } from '@/components/ui/button';
-import Input from '@/componenets/Input/Input';
+import Input from '@/components/ui/input';
 import { DatePickerDrawer } from '@/components/ui/datepicker';
 
 export const MilitaryDay: React.FC = () => {
