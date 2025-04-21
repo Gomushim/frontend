@@ -10,7 +10,7 @@ export const Nickname: React.FC = () => {
 
   const handleSubmit = () => {
     if (nickname.trim()) {
-      navigate('/birthday');
+      navigate('/onboarding/birthday');
     }
   };
 
@@ -36,7 +36,7 @@ export const Nickname: React.FC = () => {
         </div>
       </div>
 
-      <div className="p-4">
+      <div className="px-6 pb-8 flex flex-col items-center text-gray-1000 text-md font-medium">
         <Button
           text="다음"
           variant={nickname.trim() ? 'active' : 'inactive'}

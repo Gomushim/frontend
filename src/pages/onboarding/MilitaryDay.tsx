@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import ProgressHeader from '../../../components/ui/progressheader';
+import ProgressHeader from '../../components/ui/progressheader';
 import Button from '@/componenets/Button/Button';
 import Input from '@/componenets/Input/Input';
 import Picker from 'react-mobile-picker';
@@ -94,7 +94,7 @@ export const MilitaryDay: React.FC = () => {
         </div>
       </div>
 
-      <div className="py-1 flex justify-center mt-auto">
+      <div className="px-6 pb-8 flex flex-col items-center text-gray-1000 text-md font-medium">
         <Button
           text="다음"
           variant={enlistmentDate && dischargeDate ? 'active' : 'inactive'}

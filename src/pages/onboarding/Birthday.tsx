@@ -38,7 +38,7 @@ export const Birthday: React.FC = () => {
 
   const handleSubmit = () => {
     if (birthday) {
-      navigate('/alarm');
+      navigate('/onboarding/alarm');
     }
   };
 
@@ -88,7 +88,8 @@ export const Birthday: React.FC = () => {
         </div>
       </div>
 
-      <div className="p-4">
+      <div className="px-6 pb-8 flex flex-col items-center text-gray-1000 text-md font-medium">
+
         <Button
           text="다음"
           variant={birthday && (isAgeVisible && isGenderVisible) ? 'active' : 'inactive'}

@@ -26,7 +26,7 @@ export const Alarm: React.FC = () => {
 
       <div className="flex-1" />
 
-      <div className="p-4">
+      <div className="px-6 pb-8 flex flex-col items-center text-gray-1000 text-md font-medium">
         <Button
           text="알림을 받을게요"
           variant= 'active' 

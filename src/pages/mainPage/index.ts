@@ -1,4 +1,4 @@
-export * from "./CoupleContact/FirstMeet"
-export * from "./CoupleContact/MilitaryDay"
-export * from "./CoupleContact/CoupleContact"
+export * from "../onboarding/FirstMeet"
+export * from "../onboarding/MilitaryDay"
+export * from "../onboarding/CoupleContact"
 export * from "../../components/ui/progressheader"
