@@ -18,24 +18,31 @@ const router = createBrowserRouter([
   { path: "/onboarding", element: <Onboarding /> },
   {
     path: "/",
-    element: <FirstMeet />,
+    element: <ProtectedLayout />,
     children: [
-      { index: true, element: <Home /> },
-      { path: "calendar", element: <CalendarRoot /> },
-      { path: "mypage", element: <MyPage /> },
-      { path: "calendar/schedule", element: <CalendarNewSchedule /> },
-      { path: "calendar/:scheduleId", element: <CalendarScheduleDetail /> },
-      { path: "calendar/dday", element: <CalendarDdayList /> },
-    ],
-  },
-  {
-    path: "/onboarding",
-    children: [
-      { path: "military-day", element: <MilitaryDay /> },
-      { path: "couple-contact", element: <CoupleContact /> },
-      { path: "nickname", element: <Nickname /> },
-      { path: "birthday", element: <Birthday /> },
-      { path: "alarm", element: <Alarm /> },
+      {
+        path: "",
+        element: <App />, // 공통 레이아웃
+        children: [
+          { index: true, element: <Home /> }, // 메인 홈 화면
+          { path: "calendar", element: <CalendarRoot /> }, // 캘린더 메인 화면
+          { path: "mypage", element: <MyPage /> }, // 마이페이지
+        ],
+      },
+      {
+        path: "/onboarding",
+        children: [
+          { path: "firstmeet", element: <FirstMeet /> },
+          { path: "military-day", element: <MilitaryDay /> },
+          { path: "couple-contact", element: <CoupleContact /> },
+          { path: "nickname", element: <Nickname /> },
+          { path: "birthday", element: <Birthday /> },
+          { path: "alarm", element: <Alarm /> },
+        ],
+      },
+      { path: "calendar/schedule", element: <CalendarNewSchedule /> }, // 일정 생성 페이지
+      { path: "calendar/:scheduleId", element: <CalendarScheduleDetail /> }, // 특정 일정 상세 페이지 (동적 라우팅)
+      { path: "calendar/dday", element: <CalendarDdayList /> }, //D-Day 일정 리스트 페이지
     ],
   },
 ]);

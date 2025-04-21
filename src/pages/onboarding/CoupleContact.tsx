@@ -5,7 +5,7 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerFooter } from "@/components/
 import Input from '@/componenets/Input/Input';
 
 export const CoupleContact: React.FC = () => {
-  const [profileId, setProfileId] = useState<string>('');
+  // const [profileId, setProfileId] = useState<string>('');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [inputCode, setInputCode] = useState('');
   const [error, setError] = useState('');
@@ -15,7 +15,8 @@ export const CoupleContact: React.FC = () => {
   };
 
   const handleCopyClick = () => {
-    const textToCopy = profileId || 'asdflfjaenasl';
+    // const textToCopy = profileId || 'asdflfjaenasl';
+    const textToCopy = 'asdflfjaenasl';
     navigator.clipboard.writeText(textToCopy);
   };
 
@@ -49,7 +50,8 @@ export const CoupleContact: React.FC = () => {
               className="w-full p-2 text-center text-2xl font-medium underline underline-offset-3 decoration-solid cursor-pointer"
               onClick={handleCopyClick}
             >
-              {profileId || 'asdflfjaenasl'}
+              {/* {profileId || 'asdflfjaenasl'} */}
+              {'asdflfjaenasl'}
             </div>
           </div>
         </div>
