@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import ProgressHeader from '@/components/ui/progressheader';
-import Button from '@/componenets/Button/Button';
+import { Button } from '@/components/ui/button';
 import Input from '@/componenets/Input/Input';
 
 export const Nickname: React.FC = () => {

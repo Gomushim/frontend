@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ProgressHeader from '@/components/ui/progressheader';
-import Button from '@/componenets/Button/Button';
+import { Button } from '@/components/ui/button';
 import { Drawer, DrawerContent, DrawerHeader, DrawerFooter } from "@/components/ui/drawer";
 import Input from '@/componenets/Input/Input';
 
