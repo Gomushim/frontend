@@ -41,53 +41,50 @@ export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({
   return (
     <Drawer open={isOpen} onOpenChange={onOpenChange}>
       <DrawerContent>
-        <div className="flex flex-col items-center w-full">
-          <div className="w-full h-[200px] flex items-center justify-center">
-            <Picker value={pickerValue} onChange={setPickerValue} height={180} itemHeight={44}>
-              <Picker.Column name="year">
-                {years.map(year => (
-                  <Picker.Item key={year} value={year}>
-                    {({ selected }) => (
-                      <div className={`w-24 text-center ${selected ? 'text-black font-semibold text-lg' : 'text-gray-400'}`}>
+        <div className="w-full ">
+          <div className="w-full h-[200px] flex items-center justify-center relative ">
+            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-11 bg-gray-100 rounded-[10px]" />
+            <div className="relative w-full">
+              <Picker value={pickerValue} onChange={setPickerValue} height={180} itemHeight={44} className="bg-transparent">
+                <Picker.Column name="year" className="flex-1 min-w-0 px-4">
+                  {years.map(year => (
+                    <Picker.Item key={year} value={year}>
+                      <div className="text-center text-gray-800 text-xl">
                         {year}
                       </div>
-                    )}
-                  </Picker.Item>
-                ))}
-              </Picker.Column>
-              <Picker.Column name="month">
-                {months.map(month => (
-                  <Picker.Item key={month} value={month}>
-                    {({ selected }) => (
-                      <div className={`w-24 text-center ${selected ? 'text-black font-semibold text-lg' : 'text-gray-400'}`}>
+                    </Picker.Item>
+                  ))}
+                </Picker.Column>
+                <Picker.Column name="month" className="flex-1 min-w-0 px-4">
+                  {months.map(month => (
+                    <Picker.Item key={month} value={month}>
+                      <div className="text-center text-gray-800 text-xl">
                         {month}
                       </div>
-                    )}
-                  </Picker.Item>
-                ))}
-              </Picker.Column>
-              <Picker.Column name="day">
-                {days.map(day => (
-                  <Picker.Item key={day} value={day}>
-                    {({ selected }) => (
-                      <div className={`w-24 text-center ${selected ? 'text-black font-semibold text-lg' : 'text-gray-400'}`}>
+                    </Picker.Item>
+                  ))}
+                </Picker.Column>
+                <Picker.Column name="day" className="flex-1 min-w-0 px-4">
+                  {days.map(day => (
+                    <Picker.Item key={day} value={day}>
+                      <div className="text-center text-gray-800 text-xl">
                         {day}
                       </div>
-                    )}
-                  </Picker.Item>
-                ))}
-              </Picker.Column>
-            </Picker>
+                    </Picker.Item>
+                  ))}
+                </Picker.Column>
+              </Picker>
+            </div>
           </div>
+          <DrawerHeader>
+            <Button
+              text="확인"
+              variant="active"
+              onClick={handleConfirm}
+              className="w-full"
+            />
+          </DrawerHeader>
         </div>
-        <DrawerHeader className="p-4">
-          <Button
-            text="확인"
-            variant="active"
-            onClick={handleConfirm}
-            className="w-full"
-          />
-        </DrawerHeader>
       </DrawerContent>
     </Drawer>
   );
