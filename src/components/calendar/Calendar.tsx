@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
+import { useNavigate } from "react-router";
 
 interface CalendarProps {
   initialDate?: Date;
@@ -9,6 +10,8 @@ interface CalendarProps {
 
 export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDate }: CalendarProps) => {
   const [currentDate, setCurrentDate] = useState(initialDate);
+
+  const navigate = useNavigate();
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth(); // 0 ~ 11
@@ -51,6 +54,16 @@ export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDa
     setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
   };
 
+  // D-day 페이지 경로로 이동
+  const goToDdayPage = () => {
+    navigate("/calendar/dday");
+  };
+
+  // 일정 추가 페이지 경로로 이동
+  const goToAddSchedulePage = () => {
+    navigate("/calendar/schedule");
+  };
+
   return (
     <div className="mx-auto max-w-md p-5">
       {/* 헤더 */}
@@ -64,10 +77,12 @@ export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDa
           </button>
         </div>
         <div className="flex items-center justify-center gap-2">
-          <button className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
+          <button className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1" onClick={goToDdayPage}>
             <img src="src/assets/icons/hambuk.svg" alt="D-day 보러가기" />
           </button>
-          <button className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
+          <button
+            className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1"
+            onClick={goToAddSchedulePage}>
             <img src="src/assets/icons/plus.svg" alt="일정 추가" />
           </button>
         </div>
