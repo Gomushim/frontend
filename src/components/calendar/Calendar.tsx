@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface CalendarProps {
   initialDate?: Date;
-  selectedDate: Date | null;
-  // eslint-disable-next-line no-unused-vars
-  setSelectedDate: (date: Date | null) => void;
+  selectedDate: Date;
+
+  setSelectedDate: Dispatch<SetStateAction<Date>>;
 }
 
-export const Calendar: React.FC<CalendarProps> = ({ initialDate = new Date(), selectedDate, setSelectedDate }) => {
+export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDate }: CalendarProps) => {
   const [currentDate, setCurrentDate] = useState(initialDate);
 
   const year = currentDate.getFullYear();
@@ -46,27 +46,29 @@ export const Calendar: React.FC<CalendarProps> = ({ initialDate = new Date(), se
     }
   }
 
+  //  변경 예정
   const goToPrevMonth = () => {
     setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
   };
 
-  const goToNextMonth = () => {
-    setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
-  };
-
   return (
-    <div className="mx-auto max-w-md">
+    <div className="mx-auto max-w-md p-5">
       {/* 헤더 */}
-      <div className="relative mb-3 flex justify-center px-3">
+      <div className="relative mb-3 flex justify-between">
         <div className="flex items-center justify-center gap-2.5">
-          <button onClick={goToPrevMonth} className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
-            <img src="src/assets/icons/leftArrow.svg" alt="이전 달" />
-          </button>
           <h2 className="text-xl font-semibold text-gray-900">
             {year}년 {month + 1}월
           </h2>
-          <button onClick={goToNextMonth} className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
-            <img src="src/assets/icons/rightArrow.svg" alt="다음 달" />
+          <button className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1" onClick={goToPrevMonth}>
+            <img src="src/assets/icons/bottomArrow.svg" alt="날짜 선택" />
+          </button>
+        </div>
+        <div className="flex items-center justify-center gap-2">
+          <button className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
+            <img src="src/assets/icons/hambuk.svg" alt="D-day 보러가기" />
+          </button>
+          <button className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
+            <img src="src/assets/icons/plus.svg" alt="일정 추가" />
           </button>
         </div>
       </div>
@@ -74,7 +76,7 @@ export const Calendar: React.FC<CalendarProps> = ({ initialDate = new Date(), se
       {/* 요일 헤더 */}
       <div className="grid grid-cols-7 px-1.5 text-center font-medium">
         {["일", "월", "화", "수", "목", "금", "토"].map(day => (
-          <div key={day} className={day === "일" ? "text-red-500" : ""}>
+          <div key={day} className={day === "일" ? "text-red-0" : ""}>
             {day}
           </div>
         ))}

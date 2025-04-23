@@ -12,7 +12,8 @@ interface InfoCardProps {
 
 interface InfoCardTagProps {
   children: ReactNode;
-  barColor?: string;
+  tagColor?: string;
+  textColor?: string;
   className?: string;
 }
 
@@ -58,20 +59,21 @@ const InfoCard = ({ children, barColor, circleColor, className, selected, onClic
         className
       )}
       onClick={onClick}>
-      {barColor && <div className="mr-4 h-12 w-1 rounded-full" style={{ backgroundColor: barColor }} />}
+      {barColor && <div className={`mr-4 h-12 w-1 rounded-full ${barColor}`} />}
       {circleColor && <div className={`mr-5 h-9 w-11 rounded-full ${circleColor}`} />}
       <div className="flex w-full justify-between">{children}</div>
     </div>
   );
 };
 
-const Tag = ({ children, className, barColor }: InfoCardTagProps) => (
+const Tag = ({ children, className, tagColor, textColor }: InfoCardTagProps) => (
   <div
     className={cn(
       "inline-flex items-center justify-center rounded-full bg-green-700 px-2 py-0.5 text-[10px] font-bold text-white",
+      tagColor,
+      textColor,
       className
-    )}
-    style={{ backgroundColor: barColor }}>
+    )}>
     {children}
   </div>
 );
