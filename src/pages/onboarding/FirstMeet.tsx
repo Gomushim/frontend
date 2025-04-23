@@ -4,18 +4,11 @@ import { ProgressHeader } from './components/progressheader';
 import { Button } from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import { DatePickerDrawer } from '@/components/ui/datepicker';
+import { formatDate } from '@/utils/formatdate';
 
 export const FirstMeet: React.FC = () => {
   const navigate = useNavigate();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-
-  const formatDate = (date: Date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}년 ${month}월 ${day}일`;
-  };
 
   const handleNext = () => {
     if (selectedDate) {
@@ -38,16 +31,20 @@ export const FirstMeet: React.FC = () => {
         onClose={() => navigate('/')}
       />
 
-      <div onClick={() => setIsDrawerOpen(true)} className="cursor-pointer flex-1 px-4 mt-6">
-        <Input
-          value={selectedDate ? formatDate(selectedDate) : ''}
-          placeholder="날짜를 선택해주세요."
-          status={selectedDate ? 'active' : 'inactive'}
-          onClear={() => {
-            setSelectedDate(null);
-          }}
-          className="w-full border border-gray-200 rounded-lg px-4 py-3 text-left text-gray-900 placeholder-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-green-500"
-        />
+      <div className="flex-1 px-4 mt-6">
+        <DatePickerDrawer
+          onConfirm={handleDateConfirm}
+        >
+          <Input
+            value={selectedDate ? formatDate(selectedDate) : ''}
+            placeholder="날짜를 선택해주세요."
+            status={selectedDate ? 'active' : 'inactive'}
+            onClear={() => {
+              setSelectedDate(null);
+            }}
+            className="w-full border border-gray-200 rounded-lg px-4 py-3 text-left text-gray-900 placeholder-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </DatePickerDrawer>
       </div>
 
       <div className="p-4">
@@ -58,13 +55,6 @@ export const FirstMeet: React.FC = () => {
           onClick={handleNext}
         />
       </div>
-
-      <DatePickerDrawer
-        isOpen={isDrawerOpen}
-        onOpenChange={setIsDrawerOpen}
-        onConfirm={handleDateConfirm}
-        initialDate={selectedDate || undefined}
-      />
     </div>
   );
 };

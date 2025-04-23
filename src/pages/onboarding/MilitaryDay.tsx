@@ -4,50 +4,18 @@ import { ProgressHeader } from './components/progressheader';
 import { Button } from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import { DatePickerDrawer } from '@/components/ui/datepicker';
+import { formatDate } from '@/utils/formatdate';
 
 export const MilitaryDay: React.FC = () => {
   const [enlistmentDate, setEnlistmentDate] = useState<Date | null>(null);
   const [dischargeDate, setDischargeDate] = useState<Date | null>(null);
-  const [activePicker, setActivePicker] = useState<'enlistment' | 'discharge' | null>(null);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const navigate = useNavigate();
-
-  const formatDate = (date: Date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}년 ${month}월 ${day}일`;
-  };
 
   const handleNext = () => {
     if (enlistmentDate && dischargeDate) {
       navigate('/onboarding/couple-contact');
     }
-  };
-
-  const handleDateClick = (type: 'enlistment' | 'discharge') => {
-    setActivePicker(type);
-    setIsDrawerOpen(true);
-  };
-
-  const handleDateConfirm = (date: Date) => {
-    if (activePicker === 'enlistment') {
-      setEnlistmentDate(date);
-    } else if (activePicker === 'discharge') {
-      setDischargeDate(date);
-    }
-    setActivePicker(null);
-  };
-
-  const getInitialDate = () => {
-    if (activePicker === 'enlistment' && enlistmentDate) {
-      return enlistmentDate;
-    }
-    if (activePicker === 'discharge' && dischargeDate) {
-      return dischargeDate;
-    }
-    return undefined;
   };
 
   return (
@@ -65,7 +33,9 @@ export const MilitaryDay: React.FC = () => {
         <div className="mt-4 space-y-6">
           <div>
             <label className="block text-gray-1000 text-md font-medium mb-2">입대일</label>
-            <div onClick={() => handleDateClick('enlistment')} className="cursor-pointer">
+            <DatePickerDrawer
+              onConfirm={setEnlistmentDate}
+            >
               <Input
                 value={enlistmentDate ? formatDate(enlistmentDate) : ''}
                 onChange={() => {}}
@@ -73,12 +43,14 @@ export const MilitaryDay: React.FC = () => {
                 status={enlistmentDate ? 'active' : 'inactive'}
                 onClear={() => setEnlistmentDate(null)}
               />
-            </div>
+            </DatePickerDrawer>
           </div>
 
           <div>
             <label className="block text-gray-1000 text-md font-medium mb-2">전역일</label>
-            <div onClick={() => handleDateClick('discharge')} className="cursor-pointer">
+            <DatePickerDrawer
+              onConfirm={setDischargeDate}
+            >
               <Input
                 value={dischargeDate ? formatDate(dischargeDate) : ''}
                 onChange={() => {}}
@@ -86,7 +58,7 @@ export const MilitaryDay: React.FC = () => {
                 status={dischargeDate ? 'active' : 'inactive'}
                 onClear={() => setDischargeDate(null)}
               />
-            </div>
+            </DatePickerDrawer>
           </div>
         </div>
       </div>
@@ -99,13 +71,6 @@ export const MilitaryDay: React.FC = () => {
           onClick={handleNext}
         />
       </div>
-
-      <DatePickerDrawer
-        isOpen={isDrawerOpen}
-        onOpenChange={setIsDrawerOpen}
-        onConfirm={handleDateConfirm}
-        initialDate={getInitialDate()}
-      />
     </div>
   );
 };

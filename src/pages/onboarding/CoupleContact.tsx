@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
 import { ProgressHeader } from './components/progressheader';
 import { Button } from '@/components/ui/button';
-import { Drawer, DrawerContent, DrawerHeader, DrawerFooter } from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerHeader, DrawerFooter, DrawerTrigger } from "@/components/ui/drawer";
 import Input from '@/components/ui/input';
 
 export const CoupleContact: React.FC = () => {
   // const [profileId, setProfileId] = useState<string>('');
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [inputCode, setInputCode] = useState('');
   const [error, setError] = useState('');
-
-  const handleSubmit = () => {
-    setIsDrawerOpen(true);
-  };
 
   const handleCopyClick = () => {
     // const textToCopy = profileId || 'asdflfjaenasl';
@@ -58,48 +53,48 @@ export const CoupleContact: React.FC = () => {
       </div>
 
       <div className="p-4">
-        <p className="pb-6 items-center text-gray-900 text-sm font-medium">상대방에게서 전달받은 코드가 있나요?</p>
-        <Button
-          text="초대 코드 입력하기"
-          variant="special"
-          onClick={handleSubmit}
-        />
-      </div>
-
-      <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <DrawerContent>
-          <DrawerHeader className="px-6">
-            <h2 className="text-md text-gray-900 font-medium mb-2">초대 코드 입력하기</h2>
-            <Input
-              value={inputCode}
-              onChange={setInputCode}
-              placeholder="초대 코드를 입력해주세요."
-              status={error ? 'error' : undefined}
-              onClear={() => {
-                setInputCode('');
-                setError('');
-              }}
-            />
-            {error && (
-              <div className="mt-2 text-sm text-red-0">
-                {error}
-              </div>
-            )}
-            {inputCode && !error && (
-              <div className="mt-0 mb-2 ml-1 text-sm text-red-0">
-                상대방에게 전달받은 초대 코드를 입력해주세요.
-              </div>
-            )}
-          </DrawerHeader>
-          <DrawerFooter className="p-4">
+        <p className="pb-6 items-center text-center text-gray-900 text-sm font-medium">상대방에게서 전달받은 코드가 있나요?</p>
+        <Drawer>
+          <DrawerTrigger asChild>
             <Button
-              text="완료"
-              variant="active"
-              onClick={handleInputSubmit}
+              text="초대 코드 입력하기"
+              variant="special"
             />
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader className="px-6">
+              <h2 className="text-md text-gray-900 font-medium mb-2">초대 코드 입력하기</h2>
+              <Input
+                value={inputCode}
+                onChange={setInputCode}
+                placeholder="초대 코드를 입력해주세요."
+                status={error ? 'error' : undefined}
+                onClear={() => {
+                  setInputCode('');
+                  setError('');
+                }}
+              />
+              {error && (
+                <div className="mt-2 text-sm text-red-0">
+                  {error}
+                </div>
+              )}
+              {inputCode && !error && (
+                <div className="mt-0 mb-2 ml-1 text-sm text-red-0">
+                  상대방에게 전달받은 초대 코드를 입력해주세요.
+                </div>
+              )}
+            </DrawerHeader>
+            <DrawerFooter className="p-4">
+              <Button
+                text="완료"
+                variant="active"
+                onClick={handleInputSubmit}
+              />
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      </div>
     </div>
   );
 };

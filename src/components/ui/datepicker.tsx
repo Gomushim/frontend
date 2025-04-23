@@ -4,42 +4,45 @@ import {
   Drawer,
   DrawerContent,
   DrawerHeader,
+  DrawerTrigger,
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
 
 interface DatePickerDrawerProps {
-  isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
   onConfirm: (date: Date) => void;
-  initialDate?: Date;
+  children?: React.ReactNode;
 }
 
 export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({
-  isOpen,
-  onOpenChange,
   onConfirm,
-  initialDate,
+  children,
 }) => {
+  const [open, setOpen] = useState(false);
   const today = new Date();
   const years = Array.from({ length: 100 }, (_, i) => String(today.getFullYear() - i));
   const months = Array.from({ length: 12 }, (_, i) => String(i + 1));
   const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
 
   const [pickerValue, setPickerValue] = useState({
-    year: initialDate ? String(initialDate.getFullYear()) : String(today.getFullYear()),
-    month: initialDate ? String(initialDate.getMonth() + 1) : String(today.getMonth() + 1),
-    day: initialDate ? String(initialDate.getDate()) : String(today.getDate()),
+    year: String(today.getFullYear()),
+    month: String(today.getMonth() + 1),
+    day: String(today.getDate()),
   });
 
   const handleConfirm = () => {
     const { year, month, day } = pickerValue;
     const date = new Date(Number(year), Number(month) - 1, Number(day));
     onConfirm(date);
-    onOpenChange(false);
+    setOpen(false);
   };
 
   return (
-    <Drawer open={isOpen} onOpenChange={onOpenChange}>
+    <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger asChild>
+        <div className="w-full">
+          {children}
+        </div>
+      </DrawerTrigger>
       <DrawerContent>
         <div className="w-full ">
           <div className="w-full h-[200px] flex items-center justify-center relative ">

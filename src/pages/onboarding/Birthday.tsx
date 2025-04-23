@@ -5,10 +5,10 @@ import { Button } from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DatePickerDrawer } from '@/components/ui/datepicker';
+import { formatDate } from '@/utils/formatdate';
 
 export const Birthday: React.FC = () => {
   const [birthday, setBirthday] = useState('');
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isAgeVisible, setIsAgeVisible] = useState(false);
   const [isGenderVisible, setIsGenderVisible] = useState(false);
   const navigate = useNavigate();
@@ -20,10 +20,7 @@ export const Birthday: React.FC = () => {
   };
 
   const handleDateConfirm = (date: Date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    setBirthday(`${year}년 ${month}월 ${day}일`);
+    setBirthday(formatDate(date));
   };
 
   return (
@@ -39,13 +36,15 @@ export const Birthday: React.FC = () => {
       
       <div className="flex-1 px-4">
         <div className="mt-4">
-          <div onClick={() => setIsDrawerOpen(true)} className="cursor-pointer">
+          <DatePickerDrawer
+            onConfirm={handleDateConfirm}
+          >
             <Input
               value={birthday}
               placeholder="날짜를 선택해주세요."
               onChange={() => {}}
             />
-          </div>
+          </DatePickerDrawer>
         </div>
 
         <div className="ml-2 mt-17 space-y-4">
@@ -74,12 +73,6 @@ export const Birthday: React.FC = () => {
           disabled={!birthday || !(isAgeVisible && isGenderVisible)}
         />
       </div>
-
-      <DatePickerDrawer
-        isOpen={isDrawerOpen}
-        onOpenChange={setIsDrawerOpen}
-        onConfirm={handleDateConfirm}
-      />
     </div>
   );
 };

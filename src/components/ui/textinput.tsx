@@ -1,13 +1,7 @@
 import { useRef, useState } from 'react';
+import { InputProps, InputStatus } from './input';
 
-type TextinputStatus = 'inactive' | 'typing' | 'error' | 'active';
-
-interface TextinputProps {
-  value?: string;
-  onChange?: (value: string) => void;
-  placeholder?: string;
-  status?: TextinputStatus;
-  className?: string;
+interface TextinputProps extends InputProps {
   maxLength?: number;
 }
 
@@ -17,11 +11,11 @@ const Textinput = ({
   placeholder = 'Textinput',
   status,
   className = '',
-  maxLength = 15, 
+  maxLength = 15,
 }: TextinputProps) => {
   const textRef = useRef<HTMLInputElement>(null);
   const [hasBlurred, setHasBlurred] = useState(false);
-  const [currentStatus, setCurrentStatus] = useState<TextinputStatus>('inactive'); // 상태 추적
+  const [currentStatus, setCurrentStatus] = useState<InputStatus>('inactive'); // 상태 추적
 
   const handleBlur = () => {
     setHasBlurred(true);
@@ -32,7 +26,7 @@ const Textinput = ({
   };
 
   // 상태 감지
-  const derivedStatus: TextinputStatus = (() => {
+  const derivedStatus: InputStatus = (() => {
     if (status) return status;
     if (currentStatus === 'error') return 'error'; // error 상태 유지
     if (value.length === 0) return 'inactive'; // 초기 상태

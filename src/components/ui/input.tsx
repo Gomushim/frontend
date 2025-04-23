@@ -2,9 +2,9 @@
 import { useRef, useState } from 'react';
 import DeleteIcon from '@/assets/images/delete.svg';
 
-type InputStatus = 'inactive' | 'typing' | 'error' | 'active';
+export type InputStatus = 'inactive' | 'typing' | 'error' | 'active';
 
-interface InputProps {
+export interface InputProps {
   value?: string;
   onChange?: (value: string) => void;
   placeholder?: string;
