@@ -19,6 +19,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         square: "text-gray-0 bg-gray-900 text-xs font-medium",
         calendar: "rounded-2xl bg-gray-50 text-base font-normal text-gray-400 gap-1",
+        submit: "bg-green-500 text-white hover:bg-green-600",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -26,6 +27,7 @@ const buttonVariants = cva(
         xs: "px-3 py-2",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
+        xl: "h-14 py-4.5 rounded-2xl text-xl",
         icon: "size-9",
       },
     },

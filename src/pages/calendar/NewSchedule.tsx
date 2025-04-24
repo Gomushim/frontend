@@ -1,4 +1,4 @@
-import { Topbar } from "@/components/calendar";
+import { FatigueBottomSheet, Topbar } from "@/components/calendar";
 import { Switch } from "@/components/ui/switch";
 import grayCalendar from "@/assets/icons/grayCalendar.svg";
 import grayClock from "@/assets/icons/grayClock.svg";
@@ -15,14 +15,14 @@ export const CalendarNewSchedule = () => {
         <Topbar />
       </header>
       <main className="flex flex-col gap-6 p-5">
-        <div className="flex flex-col gap-2">
+        <section className="flex flex-col gap-2">
           <label htmlFor="title" className="text-gary-900 text-xl font-semibold">
             제목
           </label>
           <input className="h-6 w-full border border-gray-200 p-3" type="text" />
-        </div>
+        </section>
         <Divider thickness="h-px" color="bg-gray-100" />
-        <div className="flex flex-col gap-4">
+        <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <h3 className="text-gary-900 text-xl font-semibold">하루종일</h3>
             <Switch id="airplane-mode" />
@@ -49,14 +49,12 @@ export const CalendarNewSchedule = () => {
               오후 5:00
             </Button>
           </div>
-        </div>
+        </section>
         <Divider thickness="h-px" color="bg-gray-100" />
-        <div className="flex items-center justify-between">
+        <section className="flex items-center justify-between">
           <h3 className="text-gary-900 text-xl font-semibold">피로도 선택</h3>
-          <Button variant="square" size="2xs">
-            피로도 선택하기
-          </Button>
-        </div>
+          <FatigueBottomSheet />
+        </section>
       </main>
     </div>
   );
