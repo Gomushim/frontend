@@ -1,9 +1,8 @@
-import { EmojiSelector, FatigueBottomSheet, TimeSelector, Topbar } from "@/components/calendar";
-import { Switch } from "@/components/ui/switch";
-import Divider from "@/components/ui/Divider";
-import useToggle from "@/hooks/useToggle";
-import DateSelector from "@/components/calendar/DateSelector";
-import { Button } from "@/components/ui/button";
+import { Switch, TimeSelector, Topbar, Divider, Button } from "@/shared/ui";
+import { useToggle } from "@/shared/hooks";
+import DateSelector from "@/shared/ui/DateSelector";
+import { EmojiSelector } from "@/features/d-day/widgets";
+import { FatigueBottomSheet } from "@/features/schedule/widgets";
 
 export const CalendarNewSchedule = () => {
   const { isToggle, onToggle } = useToggle();

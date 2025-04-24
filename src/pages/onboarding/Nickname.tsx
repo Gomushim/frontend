@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { ProgressHeader } from "./components/progressheader";
-import { Button } from "@/components/ui/button";
-import Input from "@/components/ui/input";
+import { Input, Button, ProgressHeader } from "@/shared/ui";
 
 export const Nickname: React.FC = () => {
   const [nickname, setNickname] = useState("");

@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { ProgressHeader } from "./components/progressheader";
-import { Button } from "@/components/ui/button";
-import Input from "@/components/ui/input";
-import { DatePickerDrawer } from "@/components/ui/datepicker";
-import { formatDate } from "@/utils/formatdate";
+import { Button, Input, DatePickerDrawer, ProgressHeader } from "@/shared/ui";
+import { formatDate } from "@/shared/utils/date/formatdate";
 
 export const FirstMeet: React.FC = () => {
   const navigate = useNavigate();

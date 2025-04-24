@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { ProgressHeader } from "./components/progressheader";
-import { Button } from "@/components/ui/button";
-import { Drawer, DrawerContent, DrawerHeader, DrawerFooter, DrawerTrigger } from "@/components/ui/drawer";
-import Input from "@/components/ui/input";
+import {
+  Input,
+  Button,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerTrigger,
+  ProgressHeader,
+} from "@/shared/ui";
 
 export const CoupleContact: React.FC = () => {
   // const [profileId, setProfileId] = useState<string>('');

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Calendar, ScheduleCard } from "@/components/calendar";
-import { formatDateToKorean } from "@/utils/date/FomatDateToKr";
+import { formatDateToKorean } from "@/shared/utils/date/FomatDateToKr";
+import { ScheduleCard, Calendar } from "@/features/schedule/widgets";
 
 const schedultestData = [
   {

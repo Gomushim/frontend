@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { ProgressHeader } from "./components/progressheader";
-import { Button } from "@/components/ui/button";
+import { Button, ProgressHeader } from "@/shared/ui";
 
 export const Where: React.FC = () => {
   const [selectedLocation, setSelectedLocation] = useState<string>("");

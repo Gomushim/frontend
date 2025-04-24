@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { ProgressHeader } from "./components/progressheader";
-import { Button } from "@/components/ui/button";
+import { ProgressHeader, Button } from "@/shared/ui/";
 
 export const Alarm: React.FC = () => {
   const navigate = useNavigate();

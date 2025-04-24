@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { ProgressHeader } from "./components/progressheader";
-import { Button } from "@/components/ui/button";
-import Input from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import { DatePickerDrawer } from "@/components/ui/datepicker";
-import { formatDate } from "@/utils/formatdate";
+import { Button, ProgressHeader, Input, Checkbox, DatePickerDrawer } from "@/shared/ui";
+import { formatDate } from "@/shared/utils/date/formatdate";
 
 export const Birthday: React.FC = () => {
   const [birthday, setBirthday] = useState("");
