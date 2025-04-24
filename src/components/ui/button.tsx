@@ -1,41 +1,58 @@
-// components/ui/button.tsx
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
+
 import { cn } from "@/lib/utils";
 
-export const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-xl font-semibold transition-colors duration-200 px-6 py-3 h-14 w-full disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500",
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer",
   {
     variants: {
       variant: {
-        inactive: "bg-gray-200 text-gray-0",
-        active: "bg-green-500 text-gray-0",
-        pressed: "bg-green-600 text-gray-0",
-        special: "bg-green-100 text-green-500",
+        default: "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+        outline:
+          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+        secondary: "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+        link: "text-primary underline-offset-4 hover:underline",
+        square: "text-gray-0 bg-gray-900 text-xs font-medium",
+        calendar: "rounded-2xl bg-gray-50 text-base font-normal text-gray-400 gap-1",
+        submit: "bg-green-500 text-white hover:bg-green-600",
+      },
+      size: {
+        default: "h-9 px-4 py-2 has-[>svg]:px-3",
+        "2xs": "px-2 py-1",
+        xs: "px-3 py-2",
+        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
+        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
+        xl: "h-14 py-4.5 rounded-2xl text-xl",
+        icon: "w-12 h-12",
       },
     },
     defaultVariants: {
-      variant: "active",
+      variant: "default",
+      size: "default",
     },
   }
 );
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-  text: string;
-}
-
-const Button: React.FC<ButtonProps> = ({ className, variant, asChild = false, text, ...props }) => {
+function Button({
+  className,
+  variant,
+  size,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+  }) {
   const Comp = asChild ? Slot : "button";
 
-  return (
-    <Comp className={cn(buttonVariants({ variant }), className)} {...props}>
-      {text}
-    </Comp>
-  );
-};
+  return <Comp data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props} />;
+}
 
-export { Button };
+// eslint-disable-next-line react-refresh/only-export-components
+export { Button, buttonVariants };
+

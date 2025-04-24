@@ -57,6 +57,7 @@ module.exports = {
         pretendard: ["Pretendard", "sans-serif"],
       },
       fontSize: {
+
         "4xl": ["1.75rem", { lineHeight: "150%", letterSpacing: "-0.02em" }], // Heading
         "3xl": ["1.5rem", { lineHeight: "150%", letterSpacing: "-0.02em" }], // Title
         "2xl": ["1.25rem", { lineHeight: "150%", letterSpacing: "-0.02em" }], // Title
@@ -65,6 +66,7 @@ module.exports = {
         sm: ["0.875rem", { lineHeight: "150%", letterSpacing: "0em" }], // text
         xs: ["0.75rem", { lineHeight: "150%", letterSpacing: "0em" }], // caption
         xxs: ["0.625rem", { lineHeight: "150%", letterSpacing: "0em" }], // caption
+
       },
       fontWeight: {
         regular: "400",
