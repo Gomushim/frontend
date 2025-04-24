@@ -11,13 +11,14 @@ import {
   ProtectedLayout,
 } from "@/pages";
 import { createBrowserRouter } from "react-router";
+import { Birthday, FirstMeet, Nickname, MilitaryDay, CoupleContact, Alarm } from "@/pages/onboarding";
 
 const router = createBrowserRouter([
-  { path: "/login", element: <Login /> }, // 로그인 페이지
-  { path: "/onboarding", element: <Onboarding /> }, // 온보딩(회원가입) 페이지
+  { path: "/login", element: <Login /> },
+  { path: "/onboarding", element: <Onboarding /> },
   {
     path: "/",
-    element: <ProtectedLayout />, //  로그인한 사용자만 접근 가능한 보호 레이아웃
+element: <ProtectedLayout />, 
     children: [
       {
         path: "",
@@ -28,10 +29,22 @@ const router = createBrowserRouter([
           { path: "mypage", element: <MyPage /> }, // 마이페이지
         ],
       },
+      {
+        path: "/onboarding",
+        children: [
+          { path: "firstmeet", element: <FirstMeet /> },
+          { path: "military-day", element: <MilitaryDay /> },
+          { path: "couple-contact", element: <CoupleContact /> },
+          { path: "nickname", element: <Nickname /> },
+          { path: "birthday", element: <Birthday /> },
+          { path: "alarm", element: <Alarm /> },
+        ],
+      },
       { path: "calendar/schedule", element: <CalendarNewSchedule /> }, // 일정 생성 페이지
       { path: "calendar/:scheduleId", element: <CalendarScheduleDetail /> }, // 특정 일정 상세 페이지 (동적 라우팅)
       { path: "calendar/dday", element: <CalendarDdayList /> }, //D-Day 일정 리스트 페이지
     ],
   },
 ]);
+
 export default router;

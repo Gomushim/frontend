@@ -21,7 +21,7 @@ export default defineConfig({
       strategies: "injectManifest",
       injectRegister: "auto",
       srcDir: "src",
-      // filename: "sw.ts",
+      filename: "sw.ts",
       registerType: "prompt",
       manifest: {
         id: "sarang.vercel.app",
@@ -142,9 +142,8 @@ export default defineConfig({
 
       devOptions: {
         enabled: true,
-        navigateFallback: "index.html",
-        suppressWarnings: true,
         type: "module",
+        navigateFallback: "index.html",
       },
       workbox: {
         clientsClaim: true,
