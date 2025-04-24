@@ -20,6 +20,10 @@ const buttonVariants = cva(
         square: "text-gray-0 bg-gray-900 text-xs font-medium",
         calendar: "rounded-2xl bg-gray-50 text-base font-normal text-gray-400 gap-1",
         submit: "bg-green-500 text-white hover:bg-green-600",
+        inactive: "bg-gray-200 text-gray-0",
+        active: "bg-green-500 text-gray-0",
+        pressed: "bg-green-600 text-gray-0",
+        special: "bg-green-100 text-green-500",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -55,4 +59,3 @@ function Button({
 
 // eslint-disable-next-line react-refresh/only-export-components
 export { Button, buttonVariants };
-

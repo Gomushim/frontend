@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
-import Picker from 'react-mobile-picker';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
-import { Button } from '@/components/ui/button';
+import React, { useState } from "react";
+import Picker from "react-mobile-picker";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
 
 interface DatePickerDrawerProps {
   onConfirm: (date: Date) => void;
   children?: React.ReactNode;
 }
 
-export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({
-  onConfirm,
-  children,
-}) => {
+export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({ onConfirm, children }) => {
   const [open, setOpen] = useState(false);
   const today = new Date();
   const years = Array.from({ length: 100 }, (_, i) => String(today.getFullYear() - i));
@@ -39,40 +31,37 @@ export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <div className="w-full">
-          {children}
-        </div>
+        <div className="w-full">{children}</div>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="w-full ">
-          <div className="w-full h-[200px] flex items-center justify-center relative ">
-            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-11 bg-gray-100 rounded-[10px]" />
+        <div className="w-full">
+          <div className="relative flex h-[200px] w-full items-center justify-center">
+            <div className="absolute inset-x-0 top-1/2 h-11 -translate-y-1/2 rounded-[10px] bg-gray-100" />
             <div className="relative w-full">
-              <Picker value={pickerValue} onChange={setPickerValue} height={180} itemHeight={44} className="bg-transparent">
-                <Picker.Column name="year" className="flex-1 min-w-0 px-4">
+              <Picker
+                value={pickerValue}
+                onChange={setPickerValue}
+                height={180}
+                itemHeight={44}
+                className="bg-transparent">
+                <Picker.Column name="year" className="min-w-0 flex-1 px-4">
                   {years.map(year => (
                     <Picker.Item key={year} value={year}>
-                      <div className="text-center text-gray-800 text-xl">
-                        {year}
-                      </div>
+                      <div className="text-center text-xl text-gray-800">{year}</div>
                     </Picker.Item>
                   ))}
                 </Picker.Column>
-                <Picker.Column name="month" className="flex-1 min-w-0 px-4">
+                <Picker.Column name="month" className="min-w-0 flex-1 px-4">
                   {months.map(month => (
                     <Picker.Item key={month} value={month}>
-                      <div className="text-center text-gray-800 text-xl">
-                        {month}
-                      </div>
+                      <div className="text-center text-xl text-gray-800">{month}</div>
                     </Picker.Item>
                   ))}
                 </Picker.Column>
-                <Picker.Column name="day" className="flex-1 min-w-0 px-4">
+                <Picker.Column name="day" className="min-w-0 flex-1 px-4">
                   {days.map(day => (
                     <Picker.Item key={day} value={day}>
-                      <div className="text-center text-gray-800 text-xl">
-                        {day}
-                      </div>
+                      <div className="text-center text-xl text-gray-800">{day}</div>
                     </Picker.Item>
                   ))}
                 </Picker.Column>
@@ -80,15 +69,12 @@ export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({
             </div>
           </div>
           <DrawerHeader>
-            <Button
-              text="확인"
-              variant="active"
-              onClick={handleConfirm}
-              className="w-full"
-            />
+            <Button variant="active" onClick={handleConfirm} className="w-full">
+              확인
+            </Button>
           </DrawerHeader>
         </div>
       </DrawerContent>
     </Drawer>
   );
-}; 
+};

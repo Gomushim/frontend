@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { ProgressHeader } from './components/progressheader';
-import { Button } from '@/components/ui/button';
+import React, { useState } from "react";
+import { ProgressHeader } from "./components/progressheader";
+import { Button } from "@/components/ui/button";
 
 export const Where: React.FC = () => {
-  const [selectedLocation, setSelectedLocation] = useState<string>('');
+  const [selectedLocation, setSelectedLocation] = useState<string>("");
 
   const locations = [
-    { id: 'army', label: '육군' },
-    { id: 'navy', label: '해군' },
-    { id: 'airforce', label: '공군' },
-    { id: 'marine', label: '해병대' },
+    { id: "army", label: "육군" },
+    { id: "navy", label: "해군" },
+    { id: "airforce", label: "공군" },
+    { id: "marine", label: "해병대" },
   ];
 
   const handleLocationSelect = (location: string) => {
@@ -24,29 +24,24 @@ export const Where: React.FC = () => {
         subtitle="나 또는 상대의 소속을 선택해주세요."
         progress={0.4}
       />
-      
-      <div className="px-4 mt-6 space-y-2">
-        {locations.map((location) => (
+
+      <div className="mt-6 space-y-2 px-4">
+        {locations.map(location => (
           <button
             key={location.id}
-            className={`w-full p-4 text-left text-medium text-regular rounded-xl border bg-gray-50 ${
-              selectedLocation === location.id
-                ? 'border-green-500 '
-                : 'border-gray-50'
+            className={`text-medium text-regular w-full rounded-xl border bg-gray-50 p-4 text-left ${
+              selectedLocation === location.id ? "border-green-500" : "border-gray-50"
             }`}
-            onClick={() => handleLocationSelect(location.id)}
-          >
+            onClick={() => handleLocationSelect(location.id)}>
             {location.label}
           </button>
         ))}
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 p-4">
-        <Button
-          text="다음"
-          variant={selectedLocation ? 'active' : 'inactive'}
-          disabled={!selectedLocation}
-        />
+      <div className="fixed right-0 bottom-0 left-0 p-4">
+        <Button variant={selectedLocation ? "active" : "inactive"} disabled={!selectedLocation}>
+          확인
+        </Button>
       </div>
     </div>
   );

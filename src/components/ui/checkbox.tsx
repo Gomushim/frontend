@@ -1,7 +1,7 @@
 // components/ui/checkbox.tsx
-import * as React from "react"
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
-import { Check } from "lucide-react"
+import * as React from "react";
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -15,7 +15,7 @@ const Checkbox: React.FC<CheckboxProps> = ({ className, style, ...props }) => {
     <CheckboxPrimitive.Root
       data-slot="checkbox"
       className={cn(
-        "relative size-[1.4375rem] rounded-[4px] cursor-pointer transition-colors",
+        "relative size-[1.4375rem] cursor-pointer rounded-[4px] transition-colors",
         "data-[state=checked]:bg-gray-0 data-[state=checked]:border-green-500",
         "border-2 border-gray-100",
         className
@@ -24,8 +24,7 @@ const Checkbox: React.FC<CheckboxProps> = ({ className, style, ...props }) => {
       {...props}>
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
-        className="absolute inset-0 flex items-center justify-center text-green-500"
-      >
+        className="absolute inset-0 flex items-center justify-center text-green-500">
         <Check className="size-4 stroke-[3]" />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>

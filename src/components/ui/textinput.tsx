@@ -1,21 +1,21 @@
-import { useRef, useState } from 'react';
-import { InputProps, InputStatus } from './input';
+import { useRef, useState } from "react";
+import { InputProps, InputStatus } from "./input";
 
 interface TextinputProps extends InputProps {
   maxLength?: number;
 }
 
 const Textinput = ({
-  value = '',
+  value = "",
   onChange,
-  placeholder = 'Textinput',
+  placeholder = "Textinput",
   status,
-  className = '',
+  className = "",
   maxLength = 15,
 }: TextinputProps) => {
   const textRef = useRef<HTMLInputElement>(null);
   const [hasBlurred, setHasBlurred] = useState(false);
-  const [currentStatus, setCurrentStatus] = useState<InputStatus>('inactive'); // 상태 추적
+  const [currentStatus, setCurrentStatus] = useState<InputStatus>("inactive"); // 상태 추적
 
   const handleBlur = () => {
     setHasBlurred(true);

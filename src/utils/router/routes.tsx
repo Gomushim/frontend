@@ -7,14 +7,12 @@ import {
   Home,
   Login,
   MyPage,
-  Onboarding,
 } from "@/pages";
 import { createBrowserRouter } from "react-router";
 import { Birthday, FirstMeet, Nickname, MilitaryDay, CoupleContact, Alarm } from "@/pages/onboarding";
 
 const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
-  { path: "/onboarding", element: <Onboarding /> },
   {
     path: "/",
 
