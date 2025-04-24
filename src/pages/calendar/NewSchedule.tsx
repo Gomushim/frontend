@@ -3,12 +3,13 @@ import { Switch } from "@/components/ui/switch";
 import Divider from "@/components/ui/Divider";
 import useToggle from "@/hooks/useToggle";
 import DateSelector from "@/components/calendar/DateSelector";
+import { Button } from "@/components/ui/button";
 
 export const CalendarNewSchedule = () => {
   const { isToggle, onToggle } = useToggle();
 
   return (
-    <div>
+    <>
       <header className="mt-[70px] mb-8 flex flex-col items-center gap-7">
         <h1 text-gary-900 text-xl font-semibold>
           생성하기
@@ -30,11 +31,15 @@ export const CalendarNewSchedule = () => {
                 <h3 className="text-gary-900 text-xl font-semibold">이모티콘</h3>
                 <EmojiSelector />
               </div>
-
               <div className="flex flex-col gap-2">
                 <h3 className="text-gary-900 text-xl font-semibold">날짜</h3>
                 <DateSelector />
               </div>
+            </section>
+            <section className="fixed bottom-6 left-1/2 w-[375px] -translate-x-1/2 transform px-4">
+              <Button className="w-full" variant="submit" size="xl">
+                확인
+              </Button>
             </section>
           </>
         ) : (
@@ -63,6 +68,6 @@ export const CalendarNewSchedule = () => {
           </>
         )}
       </main>
-    </div>
+    </>
   );
 };
