@@ -28,7 +28,7 @@ export default tseslint.config(
       "react/self-closing-comp": "warn",
       semi: ["error", "always"],
       quotes: ["error", "double"],
-      "no-unused-vars": "warn",
+      "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "warn",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/ban-ts-comment": "off",

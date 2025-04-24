@@ -3,11 +3,11 @@ import * as React from "react"
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
 import { Check } from "lucide-react"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 export interface CheckboxProps extends React.ComponentProps<typeof CheckboxPrimitive.Root> {
-  className?: string
-  style?: React.CSSProperties
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({ className, style, ...props }) => {
@@ -21,8 +21,7 @@ const Checkbox: React.FC<CheckboxProps> = ({ className, style, ...props }) => {
         className
       )}
       style={style}
-      {...props}
-    >
+      {...props}>
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
         className="absolute inset-0 flex items-center justify-center text-green-500"
@@ -30,7 +29,7 @@ const Checkbox: React.FC<CheckboxProps> = ({ className, style, ...props }) => {
         <Check className="size-4 stroke-[3]" />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
-  )
-}
+  );
+};
 
-export { Checkbox }
+export { Checkbox };
