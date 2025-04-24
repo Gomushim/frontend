@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
 import { Input, Button, ProgressHeader } from "@/shared/ui";
+import { useOnboardingAlarmStore } from "@/store/onboardingAlarmStore";
 
 export const Nickname: React.FC = () => {
-  const [nickname, setNickname] = useState("");
   const navigate = useNavigate();
+  const { nickname, setNickname } = useOnboardingAlarmStore();
 
   const handleSubmit = () => {
     if (nickname.trim()) {
