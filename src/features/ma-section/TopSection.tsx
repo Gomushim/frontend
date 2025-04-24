@@ -6,20 +6,12 @@ import AirBg from "@/assets/images/airbg.svg";
 import CoupleHeart from "@/assets/images/couple_heart.svg";
 import { useNavigate } from "react-router";
 import { useOnboardingStore } from "@/store/onboardingStore";
-import { useUserStore } from "@/store/userStore";
+import { useCoupleStore } from "@/store/coupleStore";
 
-interface TopSectionProps {
-  isConnected: boolean;
-  coupleInfo: {
-    userNickname: string;
-    coupleNickname: string;
-  };
-}
-
-export const TopSection = ({ isConnected, coupleInfo }: TopSectionProps) => {
+export const TopSection = () => {
   const navigate = useNavigate();
   const { militaryBranch } = useOnboardingStore();
-  const { isInitialized } = useUserStore();
+  const { isConnected, isInitialized, coupleInfo } = useCoupleStore();
 
   const getBackgroundImage = () => {
     if (!isConnected) return InitBg;

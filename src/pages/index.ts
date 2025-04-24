@@ -4,3 +4,4 @@ export * from "./login";
 export * from "./mypage";
 export * from "./Layout";
 export * from "./onboarding";
+export * from "./mainPage";

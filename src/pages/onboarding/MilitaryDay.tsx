@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
 import { Input, DatePickerDrawer, Button, ProgressHeader } from "@/shared/ui";
 import { formatDate } from "@/shared/utils/date/formatdate";
+import { useOnboardingStore } from "@/store/onboardingStore";
 
 export const MilitaryDay: React.FC = () => {
-  const [enlistmentDate, setEnlistmentDate] = useState<Date | null>(null);
-  const [dischargeDate, setDischargeDate] = useState<Date | null>(null);
-
+  const { enlistmentDate, dischargeDate, setEnlistmentDate, setDischargeDate, completeOnboarding } = useOnboardingStore();
   const navigate = useNavigate();
 
   const handleNext = () => {
     if (enlistmentDate && dischargeDate) {
-      navigate("/onboarding/couple-contact");
+      completeOnboarding();
+      navigate("/mainpage");
     }
   };
 
