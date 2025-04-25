@@ -41,7 +41,6 @@ const dummySchedule = {
 
 export const CalendarScheduleDetail = () => {
   const { letter, totalCount, ...rest } = dummySchedule;
-
   return (
     <>
       <div className="px-[22px]">
@@ -57,7 +56,7 @@ export const CalendarScheduleDetail = () => {
         <ScheduleOverView {...rest} />
       </div>
       <main>
-        <section className="mt-6 h-[calc(100vh-303px)] bg-gray-50 px-[22px] pt-6">
+        <section className="mt-6 bg-gray-50 px-[22px] py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img className="pb-1" src={letterIcon} alt="편지" />

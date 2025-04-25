@@ -15,7 +15,7 @@ export const LetterCard = (props: LetterCardProps) => {
 
   return (
     <InfoCard className="">
-      <InfoCard.Content className="flex-col">
+      <InfoCard.Content className="flex-col gap-4">
         <InfoCard.Title>{props.title}</InfoCard.Title>
 
         {/* 이미지 영역 */}
