@@ -53,7 +53,7 @@ interface IconTitleProps {
 
 export const InfoCard = ({ children, barColor, circleColor, className, selected, onClick }: InfoCardProps) => {
   return (
-    <div
+    <li
       className={cn(
         `flex cursor-pointer items-center justify-between rounded-2xl bg-white px-4 py-3 ${selected}`,
         className
@@ -62,7 +62,7 @@ export const InfoCard = ({ children, barColor, circleColor, className, selected,
       {barColor && <div className={`mr-4 h-12 w-1 rounded-full ${barColor}`} />}
       {circleColor && <div className={`mr-5 h-9 w-11 rounded-full ${circleColor}`} />}
       <div className="flex w-full justify-between">{children}</div>
-    </div>
+    </li>
   );
 };
 

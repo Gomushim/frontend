@@ -1,20 +1,32 @@
 import { DateText, InfoCard } from "@/shared/ui";
+import heart from "@/assets/icons/heart.svg";
+import calendar from "@/assets/icons/calendar.svg";
+import cake from "@/assets/icons/cake.svg";
+import travel from "@/assets/icons/travel.svg";
+import { calculateDday } from "@/shared/utils";
 
 interface DdayCardProps {
-  schedule: string;
-  iconSrc?: string;
-  date: string;
-  remainingDays: string;
+  title: string;
+  emoji: "HEART" | "CALENDAR" | "CAKE" | "TRAVEL";
+  date: Date;
   onClick?: () => void;
 }
 
+const emojiIconMap: Record<string, string> = {
+  HEART: heart,
+  CALENDAR: calendar,
+  CAKE: cake,
+  TRAVEL: travel,
+};
+
 export const DdayCard = (props: DdayCardProps) => {
+  const iconSrc = emojiIconMap[props.emoji];
   return (
-    <InfoCard className="justify-between">
-      <InfoCard.IconTitle iconSrc={props.iconSrc || ""}>{props.schedule}</InfoCard.IconTitle>
+    <InfoCard className="justify-between bg-gray-50">
+      <InfoCard.IconTitle iconSrc={iconSrc}>{props.title}</InfoCard.IconTitle>
       <div className="flex flex-col gap-1 text-end">
-        <InfoCard.Title>{props.remainingDays}</InfoCard.Title>
-        <DateText date={props.date} />
+        <InfoCard.Title>{calculateDday(props.date)}</InfoCard.Title>
+        <DateText date={props.date} formatType="dot" />
       </div>
     </InfoCard>
   );
