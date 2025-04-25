@@ -2,16 +2,12 @@ import { Button } from "@/shared/ui";
 import { DdayCard } from "./DdayCard";
 import calendar from "@/assets/icons/calendar.svg";
 import blackHeart from "@/assets/icons/blackHeart.svg";
+import type { Dday } from "@/entities/d-day";
 
 interface DdayListProps {
   author: string[];
   totalCount: number;
-  data: {
-    id: number;
-    emoji: "HEART" | "CALENDAR" | "CAKE" | "TRAVEL";
-    title: string;
-    date: Date;
-  }[];
+  data: Dday[];
 }
 
 export const DdayList = (props: DdayListProps) => {

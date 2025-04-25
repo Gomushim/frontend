@@ -4,11 +4,9 @@ import calendar from "@/assets/icons/calendar.svg";
 import cake from "@/assets/icons/cake.svg";
 import travel from "@/assets/icons/travel.svg";
 import { calculateDday } from "@/shared/utils";
+import type { Dday } from "@/entities/d-day";
 
-interface DdayCardProps {
-  title: string;
-  emoji: "HEART" | "CALENDAR" | "CAKE" | "TRAVEL";
-  date: Date;
+interface DdayCardProps extends Dday {
   onClick?: () => void;
 }
 
