@@ -10,6 +10,11 @@ interface InfoCardProps {
   onClick?: () => void;
 }
 
+interface InfoCardContentProps {
+  children: ReactNode;
+  className?: string;
+}
+
 interface InfoCardTagProps {
   children: ReactNode;
   tagColor?: string;
@@ -61,9 +66,14 @@ export const InfoCard = ({ children, barColor, circleColor, className, selected,
       onClick={onClick}>
       {barColor && <div className={`mr-4 h-12 w-1 rounded-full ${barColor}`} />}
       {circleColor && <div className={`mr-5 h-9 w-11 rounded-full ${circleColor}`} />}
-      <div className="flex w-full justify-between">{children}</div>
+      {/* <div className="flex w-full justify-between"></div> */}
+      {children}
     </li>
   );
+};
+
+const Content = ({ className, children }: InfoCardContentProps) => {
+  return <div className={cn("flex w-full justify-between", className)}>{children}</div>;
 };
 
 const Tag = ({ children, className, tagColor, textColor }: InfoCardTagProps) => (
@@ -141,6 +151,7 @@ const OptionButtons = ({ onEdit, onDelete, className }: OptionButtonsProps) => {
   );
 };
 
+InfoCard.Content = Content;
 InfoCard.Tag = Tag;
 InfoCard.Title = Title;
 InfoCard.Text = Text;

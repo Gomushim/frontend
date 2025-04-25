@@ -21,11 +21,13 @@ export const DdayCard = (props: DdayCardProps) => {
   const iconSrc = emojiIconMap[props.emoji];
   return (
     <InfoCard className="justify-between bg-gray-50">
-      <InfoCard.IconTitle iconSrc={iconSrc}>{props.title}</InfoCard.IconTitle>
-      <div className="flex flex-col gap-1 text-end">
-        <InfoCard.Title>{calculateDday(props.date)}</InfoCard.Title>
-        <DateText date={props.date} formatType="dot" />
-      </div>
+      <InfoCard.Content>
+        <InfoCard.IconTitle iconSrc={iconSrc}>{props.title}</InfoCard.IconTitle>
+        <div className="flex flex-col gap-1 text-end">
+          <InfoCard.Title>{calculateDday(props.date)}</InfoCard.Title>
+          <DateText date={props.date} formatType="dot" />
+        </div>
+      </InfoCard.Content>
     </InfoCard>
   );
 };

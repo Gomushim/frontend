@@ -5,7 +5,7 @@ export * from "./datepicker";
 export * from "./dateText";
 export * from "./divider";
 export * from "./drawer";
-export * from "./inCard";
+export * from "./infoCard";
 export * from "./input";
 export * from "./navbar";
 export * from "./progressheader";

@@ -44,10 +44,12 @@ export const FatigueCard = ({ fatigue, selected, onClick }: StatusCardProps) => 
       selected={selected ? cardBorderColor : ""}
       className={`justify-between border px-4 py-5 ${cardBorderColor} cursor-pointer rounded-md bg-gray-50`}
       onClick={onClick}>
-      <div className="flex flex-col">
-        <InfoCard.Title className={textColor}>{fatigue}</InfoCard.Title>
-        <InfoCard.Text>{description}</InfoCard.Text>
-      </div>
+      <InfoCard.Content>
+        <div className="flex flex-col">
+          <InfoCard.Title className={textColor}>{fatigue}</InfoCard.Title>
+          <InfoCard.Text>{description}</InfoCard.Text>
+        </div>
+      </InfoCard.Content>
     </InfoCard>
   );
 };

@@ -30,13 +30,15 @@ export const ScheduleCard = (props: ScheduleCardProps) => {
 
   return (
     <InfoCard barColor={barColor} className="justify-between">
-      <div className="flex flex-col gap-1">
-        <InfoCard.Tag tagColor={tagColor} textColor={textColor}>
-          {props.tag}
-        </InfoCard.Tag>
-        <InfoCard.Title>{props.schedule}</InfoCard.Title>
-      </div>
-      <InfoCard.Time>{props.time}</InfoCard.Time>
+      <InfoCard.Content>
+        <div className="flex flex-col gap-1">
+          <InfoCard.Tag tagColor={tagColor} textColor={textColor}>
+            {props.tag}
+          </InfoCard.Tag>
+          <InfoCard.Title>{props.schedule}</InfoCard.Title>
+        </div>
+        <InfoCard.Time>{props.time}</InfoCard.Time>
+      </InfoCard.Content>
     </InfoCard>
   );
 };
