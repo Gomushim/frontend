@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { Button, ProgressHeader, Input, Checkbox, DatePickerDrawer } from "@/shared/ui";
-import { formatDate } from "@/shared/utils/date/formatdate";
+import { formatDateKorean } from "@/shared/utils";
 
 export const Birthday: React.FC = () => {
   const [birthday, setBirthday] = useState("");
@@ -16,7 +16,7 @@ export const Birthday: React.FC = () => {
   };
 
   const handleDateConfirm = (date: Date) => {
-    setBirthday(formatDate(date));
+    setBirthday(formatDateKorean(date));
   };
 
   return (

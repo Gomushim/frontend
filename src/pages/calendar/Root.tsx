@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { formatDateToKorean } from "@/shared/utils/date/FomatDateToKr";
 import { ScheduleCard, Calendar } from "@/features/schedule/widgets";
+import { formatDateKoreanWithWeekday } from "@/shared/utils";
 
 const schedultestData = [
   {
@@ -30,7 +30,7 @@ export const CalendarRoot: React.FC = () => {
     <div className="">
       <Calendar initialDate={selectedDate} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
       <div className="mt-7 flex w-full flex-col gap-3 bg-gray-50 p-5">
-        <h2>{formatDateToKorean(selectedDate)}</h2>
+        <h2>{formatDateKoreanWithWeekday(selectedDate)}</h2>
         {schedultestData.map(schedul => (
           <ScheduleCard key={schedul.id} {...schedul} />
         ))}
