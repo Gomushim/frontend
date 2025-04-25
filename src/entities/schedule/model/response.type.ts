@@ -1,8 +1,10 @@
 import { Dday } from "@/entities/d-day";
 import { Letter } from "@/entities/letter";
 
-export interface Fatigue {
-  fatigue: "VERY_TIRED" | "TIRED" | "GOOD";
+export enum Fatigue {
+  VERY_TIRED = "VERY_TIRED",
+  TIRED = "TIRED",
+  GOOD = "GOOD",
 }
 
 export interface Schedule {
