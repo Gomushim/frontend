@@ -14,3 +14,5 @@ export * from "./textinput";
 export * from "./Topbar";
 export * from "./TimeSelector";
 export * from "./DateSelector";
+export * from "./shadcnInput";
+export * from "./textarea";

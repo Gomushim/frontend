@@ -3,7 +3,7 @@ import { Button } from "@/shared/ui";
 import letterIcon from "@/assets/icons/letter.svg";
 import backIcon from "@/assets/icons/back.svg";
 import gearIcon from "@/assets/icons/gear.svg";
-import { LetterList } from "@/features/letter";
+import { LetterList, WriteLetterBottomSheet } from "@/features/letter";
 
 const dummySchedule = {
   fatigue: "VERY_TIRED",
@@ -45,9 +45,7 @@ export const CalendarScheduleDetail = () => {
               <h2 className="text-xl font-semibold text-gray-900">작성된 편지</h2>
               <p className="text-md font-semibold text-gray-500">{totalCount}</p>
             </div>
-            <Button variant="square" size="2xs">
-              편지 작성하기
-            </Button>
+            <WriteLetterBottomSheet />
           </div>
           <LetterList letters={letter} />
           {/* <NoLetterMessage /> */}
