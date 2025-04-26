@@ -37,6 +37,11 @@ interface InfoCardLabelProps {
   className?: string;
 }
 
+interface InfoCardImageProps {
+  imageUrl: string;
+  className?: string;
+}
+
 interface OptionButtonsProps {
   onEdit?: () => void;
   onDelete?: () => void;
@@ -113,6 +118,10 @@ const Label = ({ children, className }: InfoCardLabelProps) => {
   return <p className={cn("inline-block rounded-md px-2 py-0.5 text-sm font-medium", className)}>{children}</p>;
 };
 
+const Image = ({ imageUrl, className }: InfoCardImageProps) => {
+  return <img src={imageUrl} alt="썸네일" className={cn("h-17 w-17 rounded-md object-cover", className)} />;
+};
+
 const ArrowButton = ({ direction = "right", onClick, className }: InfoCardArrowButtonProps) => {
   const directionClass = direction === "left" ? "rotate-180" : "";
 
@@ -155,6 +164,7 @@ InfoCard.Content = Content;
 InfoCard.Tag = Tag;
 InfoCard.Title = Title;
 InfoCard.Text = Text;
+InfoCard.Image = Image;
 InfoCard.IconTitle = IconTitle;
 InfoCard.Time = Time;
 InfoCard.Label = Label;

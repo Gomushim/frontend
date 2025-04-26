@@ -3,7 +3,7 @@ import { LetterCard } from "./LetterCard";
 export interface Letter {
   id: number;
   title: string;
-  imageUrl: string[];
+  imageUrl: string;
   creationDate: Date;
 }
 

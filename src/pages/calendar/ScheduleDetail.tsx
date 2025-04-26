@@ -13,27 +13,9 @@ const dummySchedule = {
   totalCount: 5,
   letter: [
     {
-      id: 1,
-      title: "테스트",
-      imageUrl: [letterIcon, backIcon, gearIcon, backIcon],
-      creationDate: new Date("2025-06-05T22:00:00"),
-    },
-    {
-      id: 2,
-      title: "테스트",
-      imageUrl: [letterIcon, backIcon, gearIcon],
-      creationDate: new Date("2025-06-05T22:00:00"),
-    },
-    {
-      id: 3,
-      title: "테스트",
-      imageUrl: [letterIcon, gearIcon],
-      creationDate: new Date("2025-06-05T22:00:00"),
-    },
-    {
       id: 4,
       title: "테스트",
-      imageUrl: [letterIcon],
+      imageUrl: letterIcon,
       creationDate: new Date("2025-06-05T22:00:00"),
     },
   ],
