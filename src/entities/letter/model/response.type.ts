@@ -8,3 +8,5 @@ export interface Letter {
   creationDate: Date;
   comments: Comment[];
 }
+
+export type LetterList = Omit<Letter, "comments">[];

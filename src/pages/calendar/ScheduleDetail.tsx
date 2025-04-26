@@ -15,6 +15,7 @@ const dummySchedule = {
     {
       id: 4,
       title: "테스트",
+      content: "테스트",
       imageUrl: letterIcon,
       creationDate: new Date("2025-06-05T22:00:00"),
     },

@@ -3,6 +3,7 @@ import { DateText, InfoCard } from "@/shared/ui";
 interface LetterCardProps {
   id: number;
   title: string;
+  content: string;
   creationDate: Date | string;
   imageUrl?: string;
   onEdit?: () => void;
@@ -17,7 +18,7 @@ export const LetterCard = (props: LetterCardProps) => {
           <InfoCard.Image imageUrl={props.imageUrl || ""} />
           <div className="flex flex-col gap-2">
             <InfoCard.Title>{props.title}</InfoCard.Title>
-            <InfoCard.Text>{props.title}</InfoCard.Text>
+            <InfoCard.Text>{props.content}</InfoCard.Text>
           </div>
         </div>
         <div className="flex justify-between">
