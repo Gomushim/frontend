@@ -6,19 +6,19 @@ const schedultestData = [
   {
     id: 1,
     schedule: "KCTC 훈련",
-    tag: "매우 피곤해요",
+    tag: "VERY_TIRED",
     time: "하루종일",
   },
   {
     id: 2,
     schedule: "근무 취짐",
-    tag: "괜찮아요",
+    tag: "GOOD",
     time: "07:00~18:00",
   },
   {
     id: 3,
     schedule: "근무 취짐",
-    tag: "조금 피곤해요",
+    tag: "TIRED",
     time: "07:00~18:00",
   },
 ];
