@@ -10,7 +10,8 @@ export const Home = () => {
     console.log(test);
   };
   return (
-    <div onClick={onClick}>
+    <div>
+      <button onClick={onClick}>토큰 생성</button>
       <p>{text}</p>
     </div>
   );
