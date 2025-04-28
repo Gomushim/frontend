@@ -15,6 +15,7 @@ import {
   Alarm,
   Where,
   MainPage,
+  StatusPage,
 } from "@/pages";
 import { createBrowserRouter } from "react-router";
 
@@ -25,13 +26,14 @@ const router = createBrowserRouter([
 
     element: <App />, // 공통 레이아웃
     children: [
-      { index: true, element: <FirstMeet /> }, // 메인 홈 화면
+      { index: true, element: <MainPage /> }, // 메인 홈 화면
       { path: "calendar", element: <CalendarRoot /> }, // 캘린더 메인 화면
       { path: "calendar/schedule", element: <CalendarNewSchedule /> }, // 일정 생성 페이지
       { path: "calendar/:scheduleId", element: <CalendarScheduleDetail /> }, // 특정 일정 상세 페이지 (동적 라우팅)
       { path: "calendar/dday", element: <CalendarDdayList /> }, //D-Day 일정 리스트 페이지
       { path: "mypage", element: <MyPage /> }, // 마이페이지
       { path: "mainpage", element: <MainPage /> }, // 마이페이지
+      { path: "status", element: <StatusPage /> }, // 마이페이지
 
       {
         path: "/onboarding",

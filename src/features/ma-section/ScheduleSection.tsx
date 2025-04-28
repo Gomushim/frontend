@@ -1,15 +1,11 @@
-import {MainHeader} from "./MainHeader";
+import { MainHeader } from "./MainHeader";
 
 export const ScheduleSection = () => {
   return (
     <>
-      <MainHeader 
-        mainTitle="우리의 일정" 
-        buttonText="더보기"
-        onClick={() => console.log('일정 더보기')}
-      />
-      <section className="bg-white rounded-2xl p-6 mb-4">
-        <div></div>
+      <MainHeader mainTitle="우리의 일정" buttonText="더보기" onClick={() => console.log("일정 더보기")} />
+      <section className="mb-4 rounded-2xl bg-white p-6">
+        <div />
       </section>
     </>
   );
