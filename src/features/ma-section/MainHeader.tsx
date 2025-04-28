@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface MainHeaderProps {
   mainTitle: string;
@@ -14,7 +14,7 @@ export const MainHeader = ({ mainTitle, buttonText, onClick, disabled = false }:
       <button
         onClick={onClick}
         disabled={disabled}
-        className={`text-sm font-medium text-gray-700`}
+        className={"text-sm font-medium text-gray-700"}
       >
         {buttonText} 
       </button>
