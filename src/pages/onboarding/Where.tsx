@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, ProgressHeader } from "@/shared/ui";
-import { useOnboardingStore, MilitaryBranch } from "@/store/onboardingStore";
+import { useOnboardingStore, MilitaryBranch } from "@/stores/maonboardingStore";
 import { useNavigate } from "react-router";
 
 export const Where: React.FC = () => {
@@ -47,11 +47,7 @@ export const Where: React.FC = () => {
       </div>
 
       <div className="fixed right-0 bottom-0 left-0 p-4">
-        <Button 
-          variant={militaryBranch ? "active" : "inactive"} 
-          disabled={!militaryBranch}
-          onClick={handleNext}
-        >
+        <Button variant={militaryBranch ? "active" : "inactive"} disabled={!militaryBranch} onClick={handleNext}>
           확인
         </Button>
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { Button, Input, DatePickerDrawer, ProgressHeader } from "@/shared/ui";
 import { formatDate } from "@/shared/utils/date/formatdate";
-import { useOnboardingStore } from "@/store/onboardingStore";
+import { useOnboardingStore } from "@/stores/maonboardingStore";
 
 export const FirstMeet: React.FC = () => {
   const navigate = useNavigate();
