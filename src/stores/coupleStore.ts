@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface CoupleState {
   isConnected: boolean;
@@ -12,14 +12,14 @@ interface CoupleState {
   setCoupleInfo: (coupleInfo: { userNickname: string; coupleNickname: string }) => void;
 }
 
-export const useCoupleStore = create<CoupleState>((set) => ({
-  isConnected: false,
-  isInitialized: false,
+export const useCoupleStore = create<CoupleState>(set => ({
+  isConnected: true,
+  isInitialized: true,
   coupleInfo: {
-    userNickname: '',
-    coupleNickname: '',
+    userNickname: "",
+    coupleNickname: "",
   },
-  setConnected: (isConnected) => set({ isConnected }),
-  setInitialized: (isInitialized) => set({ isInitialized }),
-  setCoupleInfo: (coupleInfo) => set({ coupleInfo }),
-})); 
+  setConnected: isConnected => set({ isConnected }),
+  setInitialized: isInitialized => set({ isInitialized }),
+  setCoupleInfo: coupleInfo => set({ coupleInfo }),
+}));
