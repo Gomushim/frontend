@@ -2,11 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { Button, ProgressHeader, Input, Checkbox, DatePickerDrawer } from "@/shared/ui";
 import { formatDate } from "@/shared/utils/date/formatdate";
-import { useOnboardingAlarmStore } from "@/store/onboardingAlarmStore";
+import { useOnboardingAlarmStore } from "@/stores/onboardingStore";
 
 export const Birthday: React.FC = () => {
   const navigate = useNavigate();
-  const { birthday, isAgeVisible, isGenderVisible, setBirthday, setAgeVisible, setGenderVisible } = useOnboardingAlarmStore();
+  const { birthday, isAgeVisible, isGenderVisible, setBirthday, setAgeVisible, setGenderVisible } =
+    useOnboardingAlarmStore();
 
   const handleSubmit = () => {
     if (birthday && isAgeVisible && isGenderVisible) {
