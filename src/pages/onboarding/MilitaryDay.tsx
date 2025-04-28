@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { Input, DatePickerDrawer, Button, ProgressHeader } from "@/shared/ui";
-import { formatDate } from "@/shared/utils/date/formatdate";
+import { formatDateKorean } from "@/shared/utils";
 
 export const MilitaryDay: React.FC = () => {
   const [enlistmentDate, setEnlistmentDate] = useState<Date | null>(null);
@@ -32,7 +32,7 @@ export const MilitaryDay: React.FC = () => {
             <label className="text-gray-1000 text-md mb-2 block font-medium">입대일</label>
             <DatePickerDrawer onConfirm={setEnlistmentDate}>
               <Input
-                value={enlistmentDate ? formatDate(enlistmentDate) : ""}
+                value={enlistmentDate ? formatDateKorean(enlistmentDate) : ""}
                 onChange={() => {}}
                 placeholder="입대일을 선택해주세요."
                 status={enlistmentDate ? "active" : "inactive"}
@@ -45,7 +45,7 @@ export const MilitaryDay: React.FC = () => {
             <label className="text-gray-1000 text-md mb-2 block font-medium">전역일</label>
             <DatePickerDrawer onConfirm={setDischargeDate}>
               <Input
-                value={dischargeDate ? formatDate(dischargeDate) : ""}
+                value={dischargeDate ? formatDateKorean(dischargeDate) : ""}
                 onChange={() => {}}
                 placeholder="전역일을 선택해주세요."
                 status={dischargeDate ? "active" : "inactive"}

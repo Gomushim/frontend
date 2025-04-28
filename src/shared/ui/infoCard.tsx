@@ -10,6 +10,11 @@ interface InfoCardProps {
   onClick?: () => void;
 }
 
+interface InfoCardContentProps {
+  children: ReactNode;
+  className?: string;
+}
+
 interface InfoCardTagProps {
   children: ReactNode;
   tagColor?: string;
@@ -29,6 +34,11 @@ interface InfoCardTimeProps {
 
 interface InfoCardLabelProps {
   children: ReactNode;
+  className?: string;
+}
+
+interface InfoCardImageProps {
+  imageUrl: string;
   className?: string;
 }
 
@@ -53,7 +63,7 @@ interface IconTitleProps {
 
 export const InfoCard = ({ children, barColor, circleColor, className, selected, onClick }: InfoCardProps) => {
   return (
-    <div
+    <li
       className={cn(
         `flex cursor-pointer items-center justify-between rounded-2xl bg-white px-4 py-3 ${selected}`,
         className
@@ -61,9 +71,14 @@ export const InfoCard = ({ children, barColor, circleColor, className, selected,
       onClick={onClick}>
       {barColor && <div className={`mr-4 h-12 w-1 rounded-full ${barColor}`} />}
       {circleColor && <div className={`mr-5 h-9 w-11 rounded-full ${circleColor}`} />}
-      <div className="flex w-full justify-between">{children}</div>
-    </div>
+      {/* <div className="flex w-full justify-between"></div> */}
+      {children}
+    </li>
   );
+};
+
+const Content = ({ className, children }: InfoCardContentProps) => {
+  return <div className={cn("flex w-full justify-between", className)}>{children}</div>;
 };
 
 const Tag = ({ children, className, tagColor, textColor }: InfoCardTagProps) => (
@@ -101,6 +116,10 @@ const Time = ({ children, className }: InfoCardTimeProps) => (
 
 const Label = ({ children, className }: InfoCardLabelProps) => {
   return <p className={cn("inline-block rounded-md px-2 py-0.5 text-sm font-medium", className)}>{children}</p>;
+};
+
+const Image = ({ imageUrl, className }: InfoCardImageProps) => {
+  return <img src={imageUrl} alt="썸네일" className={cn("h-17 w-17 rounded-md object-cover", className)} />;
 };
 
 const ArrowButton = ({ direction = "right", onClick, className }: InfoCardArrowButtonProps) => {
@@ -141,9 +160,11 @@ const OptionButtons = ({ onEdit, onDelete, className }: OptionButtonsProps) => {
   );
 };
 
+InfoCard.Content = Content;
 InfoCard.Tag = Tag;
 InfoCard.Title = Title;
 InfoCard.Text = Text;
+InfoCard.Image = Image;
 InfoCard.IconTitle = IconTitle;
 InfoCard.Time = Time;
 InfoCard.Label = Label;

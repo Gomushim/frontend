@@ -128,3 +128,12 @@
     font-family: "Pretendard", sans-serif;
   }
 }
+
+/* 스크롤 숨기기 (모바일 포함) */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
