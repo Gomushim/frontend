@@ -4,7 +4,7 @@ import { Textinput } from "@/shared/ui";
 import { EmotionType } from "@/entities/types/emotion";
 import { Button } from "@/shared/ui";
 import { useNavigate } from "react-router";
-import { updateMyEmotionAndStatusMessage } from "@/api/emotion_status";
+import { emotionStatusQueries } from "@/entities/axios/emotion_status/queries";
 
 const EMOTION_TO_NUMBER: Record<EmotionType, number> = {
   miss: 1,
@@ -34,11 +34,11 @@ export const StatusPage = () => {
 
     try {
       setIsSubmitting(true);
-      await updateMyEmotionAndStatusMessage({
+      await emotionStatusQueries.updateMyEmotionAndStatusMessage({
         emotion: EMOTION_TO_NUMBER[selectedEmotion],
         statusMessage: message,
       });
-      navigate(-1);
+      navigate("/mainpage");
     } catch (error) {
       console.error("상태 메시지 업데이트 실패:", error);
       alert("상태 메시지 업데이트에 실패했습니다. 다시 시도해주세요.");

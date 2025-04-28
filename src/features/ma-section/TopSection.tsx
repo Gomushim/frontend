@@ -7,35 +7,23 @@ import CoupleHeart from "@/assets/images/couple_heart.svg";
 import { useNavigate } from "react-router";
 import { useOnboardingStore } from "@/stores/maonboardingStore";
 import { useCoupleStore } from "@/stores/coupleStore";
-import { getNickName } from "@/api/couple_nickname";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export const TopSection: React.FC = () => {
   const navigate = useNavigate();
   const { militaryBranch } = useOnboardingStore();
-  const { isConnected, isInitialized, coupleInfo, setCoupleInfo } = useCoupleStore();
-  const [isLoading, setIsLoading] = useState(false);
+  const { isConnected, isInitialized, coupleInfo, isLoading, fetchCoupleStatus, fetchCoupleNicknames } = useCoupleStore();
 
   useEffect(() => {
-    const fetchNicknames = async () => {
+    const initializeCoupleData = async () => {
+      await fetchCoupleStatus();
       if (isConnected) {
-        try {
-          setIsLoading(true);
-          const response = await getNickName();
-          setCoupleInfo({
-            userNickname: response.result.userNickname,
-            coupleNickname: response.result.coupleNickname,
-          });
-        } catch (error) {
-          console.error("닉네임 조회 실패:", error);
-        } finally {
-          setIsLoading(false);
-        }
+        await fetchCoupleNicknames();
       }
     };
 
-    fetchNicknames();
-  }, [isConnected, setCoupleInfo]);
+    initializeCoupleData();
+  }, [fetchCoupleStatus, fetchCoupleNicknames, isConnected]);
 
   const getBackgroundImage = () => {
     if (!isConnected || !isInitialized) return InitBg;
@@ -52,6 +40,59 @@ export const TopSection: React.FC = () => {
     }
   };
 
+  const renderContent = () => {
+    if (!isConnected) {
+      return (
+        <>
+          <h1 className="text-2xl font-bold text-gray-50">
+            커플 연결이<br />
+            필요해요
+          </h1>
+          <button
+            onClick={() => navigate("/onboarding/couple-contact")}
+            className="mt-2 flex items-center text-sm font-medium text-gray-700">
+            연결하기 <span className="ml-1">&gt;</span>
+          </button>
+        </>
+      );
+    }
+
+    if (!isInitialized) {
+      return (
+        <>
+          <h1 className="flex items-center text-2xl font-bold text-gray-50">
+            {isLoading ? (
+              "로딩중..."
+            ) : (
+              <>
+                {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
+                {coupleInfo.coupleNickname}
+              </>
+            )}
+          </h1>
+          <button
+            onClick={() => navigate("/onboarding/firstmeet")}
+            className="mt-2 flex items-center text-sm font-medium text-gray-700">
+            초기 설정하기 <span className="ml-1">&gt;</span>
+          </button>
+        </>
+      );
+    }
+
+    return (
+      <h1 className="flex items-center text-2xl font-bold text-gray-50">
+        {isLoading ? (
+          "로딩중..."
+        ) : (
+          <>
+            {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
+            {coupleInfo.coupleNickname}
+          </>
+        )}
+      </h1>
+    );
+  };
+
   return (
     <div className="relative h-[259px] overflow-hidden">
       {/* 배경 이미지 */}
@@ -62,54 +103,7 @@ export const TopSection: React.FC = () => {
       </button>
 
       <div className="absolute top-16 left-4">
-        {/* 커플 연결 x */}
-        {!isConnected ? (
-          <>
-            <h1 className="text-2xl font-bold text-gray-50">
-              커플 연결이
-              <br />
-              필요해요
-            </h1>
-            <button
-              onClick={() => navigate("/onboarding/couple-contact")}
-              className="mt-2 flex items-center text-sm font-medium text-gray-700">
-              연결하기 <span className="ml-1">&gt;</span>
-            </button>
-          </>
-        ) : /* 커플 연결 o 초기설정 x*/
-        !isInitialized ? (
-          <>
-            <h1 className="flex items-center text-2xl font-bold text-gray-50">
-              {isLoading ? (
-                "로딩중..."
-              ) : (
-                <>
-                  {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
-                  {coupleInfo.coupleNickname}
-                </>
-              )}
-            </h1>
-            <button
-              onClick={() => navigate("/onboarding/firstmeet")}
-              className="mt-2 flex items-center text-sm font-medium text-gray-700">
-              초기 설정하기 <span className="ml-1">&gt;</span>
-            </button>
-          </>
-        ) : (
-          /* 커플 연결 o 초기설정 o */
-          <>
-            <h1 className="flex items-center text-2xl font-bold text-gray-50">
-              {isLoading ? (
-                "로딩중..."
-              ) : (
-                <>
-                  {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
-                  {coupleInfo.coupleNickname}
-                </>
-              )}
-            </h1>
-          </>
-        )}
+        {renderContent()}
       </div>
     </div>
   );

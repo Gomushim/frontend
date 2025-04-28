@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import svgr from "vite-plugin-svgr";
+import fs from "fs";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,6 +13,13 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "src"),
     },
+  },
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, "_wildcard.sarang-backend.o-r.kr+2-key.pem")),
+      cert: fs.readFileSync(path.resolve(__dirname, "_wildcard.sarang-backend.o-r.kr+2.pem")),
+    },
+    host: "vite.sarang-backend.o-r.kr",
   },
   plugins: [
     react(),
@@ -145,6 +153,7 @@ export default defineConfig({
         type: "module",
         navigateFallback: "index.html",
       },
+
       workbox: {
         clientsClaim: true,
         skipWaiting: true,

@@ -2,79 +2,26 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { ProgressHeader, Button } from "@/shared/ui/";
 import { useOnboardingAlarmStore } from "@/stores/onboardingStore";
-import { postOnboarding } from "@/api/onboarding";
-import axios, { AxiosError } from "axios";
 
 export const Alarm: React.FC = () => {
   const navigate = useNavigate();
-  const { nickname, birthday, isAgeVisible, isGenderVisible, setAlarmEnabled, resetOnboarding } =
-    useOnboardingAlarmStore();
+  const { submitOnboarding, resetOnboarding, isLoading, error } = useOnboardingAlarmStore();
 
   const handleAlarmAccept = async () => {
-    console.log("알림 수신 버튼 클릭됨");
     try {
-      console.log("API 요청 데이터:", {
-        nickname,
-        birthDate: birthday,
-        fcmToken: "string",
-        isNotification: true,
-      });
-
-      const response = await postOnboarding({
-        nickname,
-        birthDate: birthday,
-        fcmToken: "string",
-        isNotification: true,
-      });
-
-      console.log("API 응답:", response);
-      setAlarmEnabled(true);
-
-      // 리다이렉트를 막고 콘솔 확인을 위해 alert 사용
-      alert("API 응답을 확인하세요. 확인 버튼을 누르면 메인 페이지로 이동합니다.");
+      await submitOnboarding(true);
       navigate("/mainpage");
     } catch (error) {
-      console.error("온보딩 API 호출 실패:", error);
-      if (axios.isAxiosError(error)) {
-        // 카카오 로그인 페이지로 리다이렉트
-        const redirectUri = encodeURIComponent(`${window.location.origin}/onboarding/alarm`);
-        alert("API 에러를 확인하세요. 확인 버튼을 누르면 카카오 로그인 페이지로 이동합니다.");
-        window.location.href = `${import.meta.env.VITE_BASE_URL}/oauth2/authorization/kakao?redirect_uri=${redirectUri}`;
-      }
+      console.error("온보딩 처리 중 오류 발생:", error);
     }
   };
 
   const handleSkip = async () => {
-    console.log("건너뛰기 버튼 클릭됨");
     try {
-      console.log("API 요청 데이터:", {
-        nickname,
-        birthDate: birthday,
-        fcmToken: "string",
-        isNotification: false,
-      });
-
-      const response = await postOnboarding({
-        nickname,
-        birthDate: birthday,
-        fcmToken: "string",
-        isNotification: false,
-      });
-
-      console.log("API 응답:", response);
-      setAlarmEnabled(false);
-
-      // 리다이렉트를 막고 콘솔 확인을 위해 alert 사용
-      alert("API 응답을 확인하세요. 확인 버튼을 누르면 메인 페이지로 이동합니다.");
+      await submitOnboarding(false);
       navigate("/mainpage");
     } catch (error) {
-      console.error("온보딩 API 호출 실패:", error);
-      if (axios.isAxiosError(error)) {
-        // 카카오 로그인 페이지로 리다이렉트
-        const redirectUri = encodeURIComponent(`${window.location.origin}/onboarding/alarm`);
-        alert("API 에러를 확인하세요. 확인 버튼을 누르면 카카오 로그인 페이지로 이동합니다.");
-        window.location.href = `${import.meta.env.VITE_BASE_URL}/oauth2/authorization/kakao?redirect_uri=${redirectUri}`;
-      }
+      console.error("온보딩 처리 중 오류 발생:", error);
     }
   };
 
@@ -94,13 +41,24 @@ export const Alarm: React.FC = () => {
 
       <div className="flex-1" />
 
-      <div className="space-y-2 p-4">
-        <Button variant="active" onClick={handleAlarmAccept}>
-          알림을 받을게요
+      <div className="p-4 space-y-2">
+        <Button 
+          variant="active" 
+          onClick={handleAlarmAccept}
+          disabled={isLoading}
+        >
+          {isLoading ? "처리 중..." : "알림을 받을게요"}
         </Button>
-        <Button variant="inactive" onClick={handleSkip}>
-          건너뛰기
+        <Button 
+          variant="inactive" 
+          onClick={handleSkip}
+          disabled={isLoading}
+        >
+          {isLoading ? "처리 중..." : "건너뛰기"}
         </Button>
+        {error && (
+          <p className="text-red-500 text-center text-sm">{error}</p>
+        )}
       </div>
     </div>
   );

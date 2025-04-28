@@ -1,14 +1,10 @@
+import React, { useEffect, useState } from "react";
+import { checkStatusQueries } from "@/entities/axios/check_status/queries";
 import CharacterDefaultIcon from "@/assets/images/character_default.svg";
 import { EMOTION_IMAGES } from "@/entities/types/emotion";
 import { MainHeader } from "./MainHeader";
 import { useNavigate } from "react-router";
 import { useCoupleStore } from "@/stores/coupleStore";
-import { getMyStatusMessage, getMyEmotion } from "@/api/check_status";
-import { useEffect, useState } from "react";
-
-interface StatusSectionProps {
-  isConnected: boolean;
-}
 
 const NUMBER_TO_EMOTION: Record<number, keyof typeof EMOTION_IMAGES> = {
   1: "miss",
@@ -20,9 +16,9 @@ const NUMBER_TO_EMOTION: Record<number, keyof typeof EMOTION_IMAGES> = {
   7: "angry",
 };
 
-export const StatusSection = ({ isConnected }: StatusSectionProps) => {
+export const StatusSection = () => {
   const navigate = useNavigate();
-  const { isInitialized } = useCoupleStore();
+  const { isConnected, isInitialized } = useCoupleStore();
   const [statusMessage, setStatusMessage] = useState<string>("");
   const [emotion, setEmotion] = useState<number>(0);
 
@@ -30,7 +26,10 @@ export const StatusSection = ({ isConnected }: StatusSectionProps) => {
     const fetchData = async () => {
       if (isConnected && isInitialized) {
         try {
-          const [statusResponse, emotionResponse] = await Promise.all([getMyStatusMessage(), getMyEmotion()]);
+          const [statusResponse, emotionResponse] = await Promise.all([
+            checkStatusQueries.getMyStatusMessage(),
+            checkStatusQueries.getMyEmotion()
+          ]);
           setStatusMessage(statusResponse.result.statusMessage);
           setEmotion(emotionResponse.result.emotion);
         } catch (error) {
@@ -48,7 +47,7 @@ export const StatusSection = ({ isConnected }: StatusSectionProps) => {
     }
   };
 
-  const EmotionIcon = emotion ? EMOTION_IMAGES[NUMBER_TO_EMOTION[emotion]].base : null;
+  const EmotionIcon = isConnected && isInitialized && emotion ? EMOTION_IMAGES[NUMBER_TO_EMOTION[emotion]].base : null;
 
   return (
     <>

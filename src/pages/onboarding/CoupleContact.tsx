@@ -10,7 +10,7 @@ import {
   DrawerTrigger,
   ProgressHeader,
 } from "@/shared/ui";
-import { generateCoupleCode, connectCouple } from "@/api/coupleconnect";
+import { coupleConnectQueries } from "@/entities/axios/coupleconnect/queries";
 import checkcircle from "@/assets/images/checkcircle.svg";
 
 export const CoupleContact: React.FC = () => {
@@ -24,7 +24,7 @@ export const CoupleContact: React.FC = () => {
   const handleGenerateCode = async () => {
     try {
       setIsLoading(true);
-      const response = await generateCoupleCode();
+      const response = await coupleConnectQueries.generateCoupleCode();
       setCoupleCode(response.result);
     } catch (error) {
       setError("커플 코드 생성에 실패했습니다. 다시 시도해주세요.");
@@ -52,7 +52,7 @@ export const CoupleContact: React.FC = () => {
 
     try {
       setIsLoading(true);
-      await connectCouple({ coupleCode: inputCode });
+      await coupleConnectQueries.connectCouple({ coupleCode: inputCode });
       navigate("/");
     } catch (error) {
       setError("커플 연결에 실패했습니다. 다시 시도해주세요.");
@@ -124,8 +124,8 @@ export const CoupleContact: React.FC = () => {
               )}
             </DrawerHeader>
             <DrawerFooter className="p-4">
-              <Button variant="active" onClick={handleInputSubmit}>
-                완료
+              <Button variant="active" onClick={handleInputSubmit} disabled={isLoading}>
+                {isLoading ? "연결 중..." : "완료"}
               </Button>
             </DrawerFooter>
           </DrawerContent>

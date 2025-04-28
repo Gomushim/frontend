@@ -26,7 +26,7 @@ const router = createBrowserRouter([
 
     element: <App />, // 공통 레이아웃
     children: [
-      { index: true, element: <MainPage /> }, // 메인 홈 화면
+      { index: true, element: <StatusPage /> }, // 메인 홈 화면
       { path: "calendar", element: <CalendarRoot /> }, // 캘린더 메인 화면
       { path: "calendar/schedule", element: <CalendarNewSchedule /> }, // 일정 생성 페이지
       { path: "calendar/:scheduleId", element: <CalendarScheduleDetail /> }, // 특정 일정 상세 페이지 (동적 라우팅)

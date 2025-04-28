@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { registerAnniversary } from "@/api/maonboarding";
+import { maonboardingQueries } from "@/entities/axios/maonboarding/queries";
 
 export type MilitaryBranch = "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE" | "";
 
@@ -36,7 +36,7 @@ export const useOnboardingStore = create<OnboardingState>(set => ({
     }
 
     try {
-      await registerAnniversary({
+      await maonboardingQueries.registerAnniversary({
         coupleId: 1, // TODO: 실제 coupleId를 가져오는 로직 필요
         relationshipStartDate: state.firstMeetDate.toISOString().split("T")[0],
         militaryStartDate: state.enlistmentDate.toISOString().split("T")[0],
