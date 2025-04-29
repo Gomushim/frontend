@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { ConnectCoupleRequest } from "./types";
-import { coupleConnectQueries } from "./queries";
+import { coupleConnectQueries } from "./service";
 
 export const useCoupleConnect = () => {
   const generateCoupleCode = useMutation({

@@ -1,7 +1,7 @@
 import HeartIcon from "@/assets/images/heart.svg";
 import BootsIcon from "@/assets/images/boots.svg";
 import HeelsIcon from "@/assets/images/heals.svg";
-import { anniversaryQueries } from "@/entities/axios/anniversary/queries";
+import { anniversaryQueries } from "@/entities/anniversary/service";
 import { useCoupleStore } from "@/stores/coupleStore";
 import { useEffect, useState } from "react";
 

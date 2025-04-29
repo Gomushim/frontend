@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { RegisterAnniversaryRequest } from "./types";
-import { maonboardingQueries } from "./queries";
+import { maonboardingQueries } from "./service";
 
 export const useMaonboarding = () => {
   const registerAnniversary = useMutation({

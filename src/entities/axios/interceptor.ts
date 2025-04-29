@@ -1,4 +1,4 @@
-import { HTTP_STATUS_CODE } from "../types/api";
+import { HTTP_STATUS_CODE } from "../../shared/contant/api";
 import { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 /**

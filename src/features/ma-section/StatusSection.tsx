@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { checkStatusQueries } from "@/entities/axios/check_status/queries";
+import { checkStatusQueries } from "@/entities/check_status/service";
 import CharacterDefaultIcon from "@/assets/images/character_default.svg";
 import { EMOTION_IMAGES } from "@/entities/types/emotion";
 import { MainHeader } from "./MainHeader";

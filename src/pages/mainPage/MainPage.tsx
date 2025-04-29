@@ -7,16 +7,8 @@ import {
   IconSection,
   TopSection,
 } from "@/features/ma-section";
-import { useCoupleStore } from "@/stores/coupleStore";
-import { useEffect } from "react";
 
 export const MainPage = () => {
-  const { fetchCoupleStatus } = useCoupleStore();
-
-  useEffect(() => {
-    fetchCoupleStatus();
-  }, [fetchCoupleStatus]);
-
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
       {/* 상단 배경 */}

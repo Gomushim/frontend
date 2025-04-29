@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { coupleNicknameQueries } from "@/entities/axios/couple_nickname/queries";
-import { iscoupleQueries } from "@/entities/axios/iscouple/queries";
+import { coupleNicknameQueries } from "@/entities/couple_nickname/service";
+import { iscoupleQueries } from "@/entities/iscouple/service";
 
 interface CoupleState {
   isConnected: boolean;

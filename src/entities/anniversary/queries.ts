@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { anniversaryQueries } from "./queries";
+import { anniversaryQueries } from "./service";
 
 export const useAnniversary = () => {
   const getDday = useQuery({

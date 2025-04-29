@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { OnboardingRequest } from "./types";
-import { onboardingQueries } from "./queries";
+import { onboardingQueries } from "./service";
 
 export const useOnboarding = () => {
   const postOnboarding = useMutation({

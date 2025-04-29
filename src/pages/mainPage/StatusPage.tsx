@@ -4,7 +4,7 @@ import { Textinput } from "@/shared/ui";
 import { EmotionType } from "@/entities/types/emotion";
 import { Button } from "@/shared/ui";
 import { useNavigate } from "react-router";
-import { emotionStatusQueries } from "@/entities/axios/emotion_status/queries";
+import { emotionStatusQueries } from "@/entities/emotion_status/service";
 
 const EMOTION_TO_NUMBER: Record<EmotionType, number> = {
   miss: 1,
@@ -57,10 +57,9 @@ export const StatusPage = () => {
       <div className="p-4">
         <Button
           onClick={handleSubmit}
-          text={isSubmitting ? "저장 중..." : "다음"}
           variant="active"
           disabled={isSubmitting}
-        />
+        >확인 </Button>
       </div>
     </div>
   );

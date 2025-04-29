@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { checkStatusQueries } from "./queries";
+import { checkStatusQueries } from "./service";
 
 export const useCheckStatus = () => {
   const getMyStatusMessage = useQuery({

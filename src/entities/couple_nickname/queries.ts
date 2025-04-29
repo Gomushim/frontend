@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { coupleNicknameQueries } from "./queries";
+import { coupleNicknameQueries } from "./service";
 
 export const useCoupleNickname = () => {
   const getNickName = useQuery({

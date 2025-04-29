@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { maonboardingQueries } from "@/entities/axios/maonboarding/queries";
+import { maonboardingQueries } from "@/entities/maonboarding/service";
+import { useCoupleStore } from "./coupleStore";
 
 export type MilitaryBranch = "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE" | "";
 
@@ -8,7 +9,6 @@ interface OnboardingState {
   firstMeetDate: Date | null;
   enlistmentDate: Date | null;
   dischargeDate: Date | null;
-  isOnboardingComplete: boolean;
 
   setMilitaryBranch: (branch: MilitaryBranch) => void;
   setFirstMeetDate: (date: Date | null) => void;
@@ -23,7 +23,6 @@ export const useOnboardingStore = create<OnboardingState>(set => ({
   firstMeetDate: null,
   enlistmentDate: null,
   dischargeDate: null,
-  isOnboardingComplete: false,
 
   setMilitaryBranch: branch => set({ militaryBranch: branch }),
   setFirstMeetDate: date => set({ firstMeetDate: date }),
@@ -60,14 +59,17 @@ export const useOnboardingStore = create<OnboardingState>(set => ({
     }
 
     try {
-      await maonboardingQueries.registerAnniversary({
+      const response = await maonboardingQueries.registerAnniversary({
         coupleId: 1, // TODO: 실제 coupleId를 가져오는 로직 필요
         relationshipStartDate: state.firstMeetDate.toISOString().split("T")[0],
         militaryStartDate: state.enlistmentDate.toISOString().split("T")[0],
         militaryEndDate: state.dischargeDate.toISOString().split("T")[0],
         military: state.militaryBranch as "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE",
       });
-      set({ isOnboardingComplete: true });
+      
+      if (response.result) {
+        useCoupleStore.getState().setInitialized(true);
+      }
     } catch (error) {
       console.error("온보딩 완료 중 오류 발생:", error);
       throw error;
@@ -79,6 +81,5 @@ export const useOnboardingStore = create<OnboardingState>(set => ({
       firstMeetDate: null,
       enlistmentDate: null,
       dischargeDate: null,
-      isOnboardingComplete: false,
     }),
 }));

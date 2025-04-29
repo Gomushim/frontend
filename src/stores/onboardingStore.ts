@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { onboardingQueries } from "@/entities/axios/onboarding/queries";
+import { onboardingQueries } from "@/entities/onboarding/service";
 import axios from "axios";
 
 interface OnboardingAlarmState {

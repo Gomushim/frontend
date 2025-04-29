@@ -9,7 +9,7 @@ import {
   DrawerFooter,
   DrawerTrigger,
 } from "@/shared/ui";
-import { coupleConnectQueries } from "@/entities/axios/coupleconnect/queries";
+import { coupleConnectQueries } from "@/entities/coupleconnect/service";
 import checkcircle from "@/assets/images/checkcircle.svg";
 import CloseIcon from "@/assets/images/close.svg";
 

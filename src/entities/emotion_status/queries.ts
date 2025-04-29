@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { UpdateEmotionAndStatusMessageRequest } from "./types";
-import { emotionStatusQueries } from "./queries";
+import { emotionStatusQueries } from "./service";
 
 export const useEmotionStatus = () => {
   const updateMyEmotionAndStatusMessage = useMutation({

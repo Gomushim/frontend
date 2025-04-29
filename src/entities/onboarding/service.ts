@@ -1,5 +1,5 @@
 import { OnboardingRequest, OnboardingResponse } from "./types";
-import { api } from "../instance";
+import { api } from "../axios/instance";
 
 // 날짜 형식을 "YYYY-MM-DD" 형식으로 변환하는 함수
 const formatDate = (dateString: string) => {
@@ -18,7 +18,7 @@ export const onboardingQueries = {
       birthDate: formatDate(data.birthDate),
     };
     
-    const response = await api.post<OnboardingResponse>("/v1/member/onboarding", formattedData);
+    const response = await api.post<OnboardingResponse>("/member/onboarding", formattedData);
     return response.data;
   },
 }; 
