@@ -8,10 +8,10 @@ import {
   DrawerHeader,
   DrawerFooter,
   DrawerTrigger,
-  ProgressHeader,
 } from "@/shared/ui";
 import { coupleConnectQueries } from "@/entities/axios/coupleconnect/queries";
 import checkcircle from "@/assets/images/checkcircle.svg";
+import CloseIcon from "@/assets/images/close.svg";
 
 export const CoupleContact: React.FC = () => {
   const [coupleCode, setCoupleCode] = useState<string>("");
@@ -25,7 +25,7 @@ export const CoupleContact: React.FC = () => {
     try {
       setIsLoading(true);
       const response = await coupleConnectQueries.generateCoupleCode();
-      setCoupleCode(response.result);
+      setCoupleCode(response.code);
     } catch (error) {
       setError("커플 코드 생성에 실패했습니다. 다시 시도해주세요.");
     } finally {
@@ -63,14 +63,20 @@ export const CoupleContact: React.FC = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      <ProgressHeader
-        onBack={() => navigate(-1)}
-        onClose={() => navigate("/")}
-        progress={3 / 3}
-        title="커플 연결을 진행해주세요"
-        highlight="커플 연결"
-        subtitle="초대 코드를 통해 연결을 완료하고 우리만의 소중한 추억을 공유해보세요!"
-      />
+      <div className="bg-white px-4 pt-6 pb-4">
+        <div className="mb-3 flex items-center justify-end">
+          <button onClick={() => navigate("/mainpage")}>
+            <img src={CloseIcon} alt="닫기" className="h-6 w-6" />
+          </button>
+        </div>
+
+        <h1 className="text-left text-3xl font-bold text-gray-900">
+          <span className="text-green-500">커플 연결</span>을 진행해주세요
+        </h1>
+        <p className="text-md font-regular text-left text-gray-500">
+          초대 코드를 통해 연결을 완료하고<br/>우리만의 소중한 추억을 공유해보세요!
+        </p>
+      </div>
 
       <div className="flex-1 px-6">
         <div className="mt-12 flex flex-col items-center justify-center">

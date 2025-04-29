@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { checkStatusQueries } from "@/entities/axios/check_status/queries";
 import CharacterDefaultIcon from "@/assets/images/character_default.svg";
 import { EMOTION_IMAGES } from "@/entities/types/emotion";

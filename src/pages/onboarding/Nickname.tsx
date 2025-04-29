@@ -38,7 +38,6 @@ export const Nickname: React.FC = () => {
             onChange={setNickname}
             placeholder="클릭하여 입력해주세요"
             onClear={() => setNickname("")}
-            maxLength={3}
           />
         </div>
         {error && (

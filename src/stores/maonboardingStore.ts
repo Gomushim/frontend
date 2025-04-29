@@ -32,7 +32,31 @@ export const useOnboardingStore = create<OnboardingState>(set => ({
   completeOnboarding: async () => {
     const state = useOnboardingStore.getState();
     if (!state.firstMeetDate || !state.enlistmentDate || !state.dischargeDate || !state.militaryBranch) {
-      throw new Error("모든 필수 정보가 입력되지 않았습니다.");
+      throw new Error("입력되지 않은 정보가 있어요");
+    }
+
+    // 날짜 유효성 검사
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (state.firstMeetDate > today) {
+      throw new Error("만난 날짜는 오늘보다 이전이어야 합니다");
+    }
+
+    if (state.enlistmentDate > today) {
+      throw new Error("입대일은 오늘보다 이전이어야 합니다");
+    }
+
+    if (state.dischargeDate > today) {
+      throw new Error("전역일은 오늘보다 이전이어야 합니다");
+    }
+
+    if (state.dischargeDate <= state.enlistmentDate) {
+      throw new Error("전역일은 입대일보다 이후여야 합니다");
+    }
+
+    if (state.enlistmentDate <= state.firstMeetDate) {
+      throw new Error("입대일은 만난 날짜보다 이후여야 합니다");
     }
 
     try {

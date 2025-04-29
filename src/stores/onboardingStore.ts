@@ -42,7 +42,7 @@ export const useOnboardingAlarmStore = create<OnboardingAlarmState>(set => ({
       const state = useOnboardingAlarmStore.getState();
       
       if (!state.nickname || !state.birthday || !state.isAgeVisible || !state.isGenderVisible) {
-        throw new Error("모든 필수 정보가 입력되지 않았습니다.");
+        throw new Error("입력되지 않은 정보가 있어요");
       }
 
       const response = await onboardingQueries.postOnboarding({

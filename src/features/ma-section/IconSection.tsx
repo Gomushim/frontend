@@ -30,7 +30,6 @@ export const IconSection = () => {
 
   return (
     <>
-      {isConnected && isInitialized && (
         <div className="relative z-20 -mt-15 px-6">
           <section className="grid grid-cols-3 gap-5">
             <div className="flex flex-col items-center">
@@ -53,7 +52,6 @@ export const IconSection = () => {
             </div>
           </section>
         </div>
-      )}
     </>
   );
 };

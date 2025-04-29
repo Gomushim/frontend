@@ -4,7 +4,6 @@ import {
   CalendarNewSchedule,
   CalendarRoot,
   CalendarScheduleDetail,
-  Home,
   Login,
   MyPage,
   Birthday,
