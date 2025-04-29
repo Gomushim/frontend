@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, ProgressHeader } from "@/shared/ui";
+import { useOnboardingStore, MilitaryBranch } from "@/stores/maonboardingStore";
+import { useNavigate } from "react-router";
 
 export const Where: React.FC = () => {
-  const [selectedLocation, setSelectedLocation] = useState<string>("");
+  const { militaryBranch, setMilitaryBranch } = useOnboardingStore();
+  const navigate = useNavigate();
 
   const locations = [
-    { id: "army", label: "육군" },
-    { id: "navy", label: "해군" },
-    { id: "airforce", label: "공군" },
-    { id: "marine", label: "해병대" },
+    { id: "ARMY", label: "육군" },
+    { id: "NAVY", label: "해군" },
+    { id: "AIR_FORCE", label: "공군" },
+    { id: "MARINE", label: "해병대" },
   ];
 
-  const handleLocationSelect = (location: string) => {
-    setSelectedLocation(location);
+  const handleLocationSelect = (location: MilitaryBranch) => {
+    setMilitaryBranch(location);
+  };
+
+  const handleNext = () => {
+    if (militaryBranch) {
+      navigate("/onboarding/military-day");
+    }
   };
 
   return (
@@ -29,16 +38,16 @@ export const Where: React.FC = () => {
           <button
             key={location.id}
             className={`text-medium text-regular w-full rounded-xl border bg-gray-50 p-4 text-left ${
-              selectedLocation === location.id ? "border-green-500" : "border-gray-50"
+              militaryBranch === location.id ? "border-green-500" : "border-gray-50"
             }`}
-            onClick={() => handleLocationSelect(location.id)}>
+            onClick={() => handleLocationSelect(location.id as MilitaryBranch)}>
             {location.label}
           </button>
         ))}
       </div>
 
       <div className="fixed right-0 bottom-0 left-0 p-4">
-        <Button variant={selectedLocation ? "active" : "inactive"} disabled={!selectedLocation}>
+        <Button variant={militaryBranch ? "active" : "inactive"} disabled={!militaryBranch} onClick={handleNext}>
           확인
         </Button>
       </div>

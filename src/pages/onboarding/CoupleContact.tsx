@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import {
   Input,
   Button,
@@ -7,37 +8,75 @@ import {
   DrawerHeader,
   DrawerFooter,
   DrawerTrigger,
-  ProgressHeader,
 } from "@/shared/ui";
+import { coupleConnectQueries } from "@/entities/coupleconnect/service";
+import checkcircle from "@/assets/images/checkcircle.svg";
+import CloseIcon from "@/assets/images/close.svg";
 
 export const CoupleContact: React.FC = () => {
-  // const [profileId, setProfileId] = useState<string>('');
+  const [coupleCode, setCoupleCode] = useState<string>("");
   const [inputCode, setInputCode] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const navigate = useNavigate();
 
-  const handleCopyClick = () => {
-    // const textToCopy = profileId || 'asdflfjaenasl';
-    const textToCopy = "asdflfjaenasl";
-    navigator.clipboard.writeText(textToCopy);
+  const handleGenerateCode = async () => {
+    try {
+      setIsLoading(true);
+      const response = await coupleConnectQueries.generateCoupleCode();
+      setCoupleCode(response.code);
+    } catch (error) {
+      setError("커플 코드 생성에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleInputSubmit = () => {
+  useEffect(() => {
+    handleGenerateCode();
+  }, []);
+
+  const handleCopyClick = () => {
+    if (coupleCode) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
+  };
+
+  const handleInputSubmit = async () => {
     if (!inputCode) {
       setError("초대 코드를 입력해주세요.");
       return;
     }
-    console.log("입력된 코드:", inputCode);
+
+    try {
+      setIsLoading(true);
+      await coupleConnectQueries.connectCouple({ coupleCode: inputCode });
+      navigate("/");
+    } catch (error) {
+      setError("커플 연결에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      <ProgressHeader
-        onClose={() => {}}
-        progress={3 / 3}
-        title="커플 연결을 진행해주세요"
-        highlight="커플 연결"
-        subtitle="초대 코드를 통해 연결을 완료하고 우리만의 소중한 추억을 공유해보세요!"
-      />
+      <div className="bg-white px-4 pt-6 pb-4">
+        <div className="mb-3 flex items-center justify-end">
+          <button onClick={() => navigate("/mainpage")}>
+            <img src={CloseIcon} alt="닫기" className="h-6 w-6" />
+          </button>
+        </div>
+
+        <h1 className="text-left text-3xl font-bold text-gray-900">
+          <span className="text-green-500">커플 연결</span>을 진행해주세요
+        </h1>
+        <p className="text-md font-regular text-left text-gray-500">
+          초대 코드를 통해 연결을 완료하고<br/>우리만의 소중한 추억을 공유해보세요!
+        </p>
+      </div>
 
       <div className="flex-1 px-6">
         <div className="mt-12 flex flex-col items-center justify-center">
@@ -50,9 +89,16 @@ export const CoupleContact: React.FC = () => {
             <div
               className="w-full cursor-pointer p-2 text-center text-2xl font-medium underline decoration-solid underline-offset-3"
               onClick={handleCopyClick}>
-              {/* {profileId || 'asdflfjaenasl'} */}
-              {"asdflfjaenasl"}
+              {isLoading ? "코드 생성 중..." : coupleCode || "코드 생성 실패"}
             </div>
+            {copied && (
+              <div className="mt-2 flex w-full items-center justify-center">
+                <div className="flex items-center rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-500">
+                  <img src={checkcircle} alt="check" className="mr-1 h-4 w-4" />
+                  복사되었습니다.
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -80,12 +126,12 @@ export const CoupleContact: React.FC = () => {
               />
               {error && <div className="text-red-0 mt-2 text-sm">{error}</div>}
               {inputCode && !error && (
-                <div className="text-red-0 mt-0 mb-2 ml-1 text-sm">상대방에게 전달받은 초대 코드를 입력해주세요.</div>
+                <div className="mt-0 mb-2 ml-1 text-sm">상대방에게 전달받은 초대 코드를 입력해주세요.</div>
               )}
             </DrawerHeader>
             <DrawerFooter className="p-4">
-              <Button variant="active" onClick={handleInputSubmit}>
-                완료
+              <Button variant="active" onClick={handleInputSubmit} disabled={isLoading}>
+                {isLoading ? "연결 중..." : "완료"}
               </Button>
             </DrawerFooter>
           </DrawerContent>

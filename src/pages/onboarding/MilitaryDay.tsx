@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
 import { Input, DatePickerDrawer, Button, ProgressHeader } from "@/shared/ui";
+import { formatDate } from "@/shared/utils/date/formatdate";
+import { useOnboardingStore } from "@/stores/maonboardingStore";
 import { formatDateKorean } from "@/shared/utils";
 
 export const MilitaryDay: React.FC = () => {
-  const [enlistmentDate, setEnlistmentDate] = useState<Date | null>(null);
-  const [dischargeDate, setDischargeDate] = useState<Date | null>(null);
-
+  const { enlistmentDate, dischargeDate, setEnlistmentDate, setDischargeDate, completeOnboarding } =
+    useOnboardingStore();
   const navigate = useNavigate();
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (enlistmentDate && dischargeDate) {
-      navigate("/onboarding/couple-contact");
+      try {
+        await completeOnboarding();
+        navigate("/mainpage");
+      } catch (error) {
+        console.error("온보딩 완료 중 오류 발생:", error);
+      }
     }
   };
 

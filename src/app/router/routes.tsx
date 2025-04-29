@@ -4,7 +4,6 @@ import {
   CalendarNewSchedule,
   CalendarRoot,
   CalendarScheduleDetail,
-  Home,
   Login,
   MyPage,
   Birthday,
@@ -13,6 +12,9 @@ import {
   MilitaryDay,
   CoupleContact,
   Alarm,
+  Where,
+  MainPage,
+  StatusPage,
   LetterListPage,
 } from "@/pages";
 import { createBrowserRouter } from "react-router";
@@ -31,6 +33,9 @@ const router = createBrowserRouter([
       { path: "calendar/letter", element: <LetterListPage /> }, //편지 리스트 페이지
       { path: "calendar/letter/:letter", element: <LetterListPage /> }, //편지 상세 보기 페이지
       { path: "mypage", element: <MyPage /> }, // 마이페이지
+      { path: "mainpage", element: <MainPage /> }, // 메인페이지
+      { path: "status", element: <StatusPage /> }, // 상태페이지
+
       {
         path: "/onboarding",
         children: [
@@ -40,6 +45,7 @@ const router = createBrowserRouter([
           { path: "nickname", element: <Nickname /> },
           { path: "birthday", element: <Birthday /> },
           { path: "alarm", element: <Alarm /> },
+          { path: "where", element: <Where /> },
         ],
       },
     ],

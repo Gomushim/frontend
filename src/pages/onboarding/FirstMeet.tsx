@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
 import { Button, Input, DatePickerDrawer, ProgressHeader } from "@/shared/ui";
+import { formatDate } from "@/shared/utils/date/formatdate";
+import { useOnboardingStore } from "@/stores/maonboardingStore";
 import { formatDateKorean } from "@/shared/utils";
 
 export const FirstMeet: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const { firstMeetDate, setFirstMeetDate } = useOnboardingStore();
 
   const handleNext = () => {
-    if (selectedDate) {
-      navigate("/onboarding/military-day");
+    if (firstMeetDate) {
+      navigate("/onboarding/where");
     }
   };
 
   const handleDateConfirm = (date: Date) => {
-    setSelectedDate(date);
+    setFirstMeetDate(date);
   };
 
   return (
@@ -31,11 +33,13 @@ export const FirstMeet: React.FC = () => {
       <div className="mt-6 flex-1 px-4">
         <DatePickerDrawer onConfirm={handleDateConfirm}>
           <Input
+            value={firstMeetDate ? formatDate(firstMeetDate) : ""}
             value={selectedDate ? formatDateKorean(selectedDate) : ""}
+
             placeholder="날짜를 선택해주세요."
-            status={selectedDate ? "active" : "inactive"}
+            status={firstMeetDate ? "active" : "inactive"}
             onClear={() => {
-              setSelectedDate(null);
+              setFirstMeetDate(null);
             }}
             className="w-full rounded-lg border border-gray-200 px-4 py-3 text-left text-base text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:outline-none"
           />
@@ -43,7 +47,7 @@ export const FirstMeet: React.FC = () => {
       </div>
 
       <div className="p-4">
-        <Button variant={selectedDate ? "active" : "inactive"} disabled={!selectedDate} onClick={handleNext}>
+        <Button variant={firstMeetDate ? "active" : "inactive"} disabled={!firstMeetDate} onClick={handleNext}>
           다음
         </Button>
       </div>

@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
 import { Input, Button, ProgressHeader } from "@/shared/ui";
+import { useOnboardingAlarmStore } from "@/stores/onboardingStore";
 
 export const Nickname: React.FC = () => {
-  const [nickname, setNickname] = useState("");
   const navigate = useNavigate();
+  const { nickname, setNickname, isLoading, error } = useOnboardingAlarmStore();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (nickname.trim()) {
-      navigate("/onboarding/birthday");
+      try {
+        if (nickname.length > 3) {
+          throw new Error("닉네임은 3글자 이내로 입력해주세요.");
+        }
+        navigate("/onboarding/birthday");
+      } catch (error) {
+        console.error("닉네임 처리 중 오류 발생:", error);
+      }
     }
   };
 
@@ -32,11 +40,18 @@ export const Nickname: React.FC = () => {
             onClear={() => setNickname("")}
           />
         </div>
+        {error && (
+          <p className="text-red-500 text-center text-sm mt-2">{error}</p>
+        )}
       </div>
 
       <div className="p-4">
-        <Button variant={nickname.trim() ? "active" : "inactive"} onClick={handleSubmit} disabled={!nickname.trim()}>
-          다음
+        <Button 
+          variant={nickname.trim() ? "active" : "inactive"} 
+          onClick={handleSubmit} 
+          disabled={!nickname.trim() || isLoading}
+        >
+          {isLoading ? "처리 중..." : "다음"}
         </Button>
       </div>
     </div>
