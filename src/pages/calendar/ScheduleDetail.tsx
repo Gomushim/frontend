@@ -28,11 +28,11 @@ export const CalendarScheduleDetail = () => {
     <>
       <div className="px-[22px]">
         <header className="mt-[70px] mb-4 flex items-center justify-between">
-          <Button variant="ghost" size="xs" className="">
+          <Button variant="ghost" size="sIcon" className="">
             <img src={backIcon} alt="뒤로가기" />
           </Button>
           <h1 className="">일정 세부사항</h1>
-          <Button variant="ghost" size="xs" className="">
+          <Button variant="ghost" size="sIcon" className="">
             <img src={gearIcon} alt="일정 세부사항 설정" />
           </Button>
         </header>
