@@ -109,11 +109,11 @@ export const CoupleContact: React.FC = () => {
         </p>
         <Drawer>
           <DrawerTrigger asChild>
-            <Button variant="special">초대 코드 입력하기</Button>
+            <Button variant="special" size="onicon">초대 코드 입력하기</Button>
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader className="px-6">
-              <h2 className="text-md mb-2 font-medium text-gray-900">초대 코드 입력하기</h2>
+              <h2 className="text-2xl mb-2 font-semibold text-gray-900">초대 코드 입력하기</h2>
               <Input
                 value={inputCode}
                 onChange={setInputCode}
@@ -130,7 +130,7 @@ export const CoupleContact: React.FC = () => {
               )}
             </DrawerHeader>
             <DrawerFooter className="p-4">
-              <Button variant="active" onClick={handleInputSubmit} disabled={isLoading}>
+              <Button variant="active" size="onicon" onClick={handleInputSubmit} disabled={isLoading}>
                 {isLoading ? "연결 중..." : "완료"}
               </Button>
             </DrawerFooter>

@@ -69,7 +69,7 @@ export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({ onConfirm, c
             </div>
           </div>
           <DrawerHeader>
-            <Button variant="active" onClick={handleConfirm} className="w-full">
+            <Button variant="active" size="onicon" onClick={handleConfirm} className="w-full">
               확인
             </Button>
           </DrawerHeader>

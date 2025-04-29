@@ -47,7 +47,9 @@ export const StatusSection = () => {
     }
   };
 
-  const EmotionIcon = isConnected && isInitialized && emotion ? EMOTION_IMAGES[NUMBER_TO_EMOTION[emotion]].base : null;
+  const EmotionIcon = isConnected && isInitialized && emotion && NUMBER_TO_EMOTION[emotion] 
+    ? EMOTION_IMAGES[NUMBER_TO_EMOTION[emotion]].base 
+    : null;
 
   return (
     <>

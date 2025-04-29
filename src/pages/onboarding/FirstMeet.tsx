@@ -44,7 +44,7 @@ export const FirstMeet: React.FC = () => {
       </div>
 
       <div className="p-4">
-        <Button variant={firstMeetDate ? "active" : "inactive"} disabled={!firstMeetDate} onClick={handleNext}>
+        <Button variant={firstMeetDate ? "active" : "inactive"} size="onicon" disabled={!firstMeetDate} onClick={handleNext}>
           다음
         </Button>
       </div>

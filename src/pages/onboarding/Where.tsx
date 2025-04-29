@@ -47,7 +47,7 @@ export const Where: React.FC = () => {
       </div>
 
       <div className="fixed right-0 bottom-0 left-0 p-4">
-        <Button variant={militaryBranch ? "active" : "inactive"} disabled={!militaryBranch} onClick={handleNext}>
+        <Button variant={militaryBranch ? "active" : "inactive"} size="onicon" disabled={!militaryBranch} onClick={handleNext}>
           확인
         </Button>
       </div>

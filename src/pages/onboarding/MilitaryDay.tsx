@@ -65,7 +65,8 @@ export const MilitaryDay: React.FC = () => {
         <Button
           variant={enlistmentDate && dischargeDate ? "active" : "inactive"}
           disabled={!enlistmentDate || !dischargeDate}
-          onClick={handleNext}>
+          onClick={handleNext}
+          size="onicon">
           다음
         </Button>
       </div>

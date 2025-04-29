@@ -1,64 +1,40 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { ProgressHeader, Button } from "@/shared/ui/";
-import { useOnboardingAlarmStore } from "@/stores/onboardingStore";
+import { Button } from "@/shared/ui";
+import CloseIcon from "@/assets/images/close.svg";
 
 export const Alarm: React.FC = () => {
   const navigate = useNavigate();
-  const { submitOnboarding, resetOnboarding, isLoading, error } = useOnboardingAlarmStore();
-
-  const handleAlarmAccept = async () => {
-    try {
-      await submitOnboarding(true);
-      navigate("/mainpage");
-    } catch (error) {
-      console.error("온보딩 처리 중 오류 발생:", error);
-    }
-  };
-
-  const handleSkip = async () => {
-    try {
-      await submitOnboarding(false);
-      navigate("/mainpage");
-    } catch (error) {
-      console.error("온보딩 처리 중 오류 발생:", error);
-    }
-  };
 
   return (
-    <div className="flex h-screen flex-col bg-white">
-      <ProgressHeader
-        title="멀리 있어도, 마음은 늘 가까이"
-        highlight="마음은 늘 가까이"
-        subtitle="문득 생각날 때, 당신의 마음을 전해드릴게요."
-        progress={1}
-        onBack={() => navigate(-1)}
-        onClose={() => {
-          resetOnboarding();
-          navigate("/");
-        }}
-      />
+    <div className="flex min-h-screen flex-col bg-white">
+      <div className="bg-white px-4 pt-6 pb-4">
+        <div className="mb-3 flex items-center justify-end">
+          <button onClick={() => navigate("/mainpage")}>
+            <img src={CloseIcon} alt="닫기" className="h-6 w-6" />
+          </button>
+        </div>
 
-      <div className="flex-1" />
+        <h1 className="text-left text-3xl font-bold text-gray-900">
+          <span className="text-green-500">알림 설정</span>을 진행해주세요
+        </h1>
+        <p className="text-md font-regular text-left text-gray-500">
+          중요한 일정과 기념일을 놓치지 않도록<br/>알림을 설정해보세요!
+        </p>
+      </div>
 
-      <div className="p-4 space-y-2">
-        <Button 
-          variant="active" 
-          onClick={handleAlarmAccept}
-          disabled={isLoading}
-        >
-          {isLoading ? "처리 중..." : "알림을 받을게요"}
+      <div className="flex-1 px-6">
+        <div className="mt-12 flex flex-col items-center justify-center">
+          <div className="mb-8 flex h-40 w-40 items-center justify-center rounded-lg bg-gray-200">
+            <span className="text-gray-400">그래픽 넣기</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-4">
+        <Button variant="special" size="onicon" onClick={() => navigate("/onboarding/where")}>
+          다음으로
         </Button>
-        <Button 
-          variant="inactive" 
-          onClick={handleSkip}
-          disabled={isLoading}
-        >
-          {isLoading ? "처리 중..." : "건너뛰기"}
-        </Button>
-        {error && (
-          <p className="text-red-500 text-center text-sm">{error}</p>
-        )}
       </div>
     </div>
   );

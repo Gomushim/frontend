@@ -25,7 +25,8 @@ import * as React from "react";
          special: "bg-green-100 text-green-500",
        },
        size: {
-         default: "h-9 px-4 py-2 has-[>svg]:px-3",
+        onicon: "w-full h-[56px] font-semibold text-xl",
+        default: "h-9 px-4 py-2 has-[>svg]:px-3",
          "2xs": "px-2 py-1",
          xs: "px-3 py-2",
          sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",

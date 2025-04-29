@@ -4,7 +4,7 @@ import { Textinput } from "@/shared/ui";
 import { EmotionType } from "@/entities/types/emotion";
 import { Button } from "@/shared/ui";
 import { useNavigate } from "react-router";
-import { emotionStatusQueries } from "@/entities/emotion_status/service";
+import { useEmotionStatus } from "@/entities/emotion_status/queries";
 
 const EMOTION_TO_NUMBER: Record<EmotionType, number> = {
   miss: 1,
@@ -19,8 +19,8 @@ const EMOTION_TO_NUMBER: Record<EmotionType, number> = {
 export const StatusPage = () => {
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionType | undefined>();
   const [message, setMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { updateMyEmotionAndStatusMessage } = useEmotionStatus();
 
   const handleSubmit = async () => {
     if (!selectedEmotion) {
@@ -33,8 +33,7 @@ export const StatusPage = () => {
     }
 
     try {
-      setIsSubmitting(true);
-      await emotionStatusQueries.updateMyEmotionAndStatusMessage({
+      await updateMyEmotionAndStatusMessage.mutateAsync({
         emotion: EMOTION_TO_NUMBER[selectedEmotion],
         statusMessage: message,
       });
@@ -42,8 +41,6 @@ export const StatusPage = () => {
     } catch (error) {
       console.error("상태 메시지 업데이트 실패:", error);
       alert("상태 메시지 업데이트에 실패했습니다. 다시 시도해주세요.");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -58,7 +55,8 @@ export const StatusPage = () => {
         <Button
           onClick={handleSubmit}
           variant="active"
-          disabled={isSubmitting}
+          size="onicon"
+          disabled={updateMyEmotionAndStatusMessage.isPending}
         >확인 </Button>
       </div>
     </div>

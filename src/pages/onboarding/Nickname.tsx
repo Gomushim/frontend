@@ -50,6 +50,7 @@ export const Nickname: React.FC = () => {
           variant={nickname.trim() ? "active" : "inactive"} 
           onClick={handleSubmit} 
           disabled={!nickname.trim() || isLoading}
+          size="onicon"
         >
           {isLoading ? "처리 중..." : "다음"}
         </Button>
