@@ -3,7 +3,7 @@ function App() {
   return (
 
     <div className="flex h-screen justify-center bg-gray-500">
-      <div className="scrollbar-hide relative h-full w-full max-w-[375px] overflow-y-auto bg-white">
+      <div className="relative w-full bg-white shadow-md">
         <Outlet />
       </div>
     </div>

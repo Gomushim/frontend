@@ -43,7 +43,7 @@ export const LetterListPage = () => {
   return (
     <div className="px-[22px]">
       <header className="relative flex items-center justify-center">
-        <Button variant="ghost" size="sIcon" className="absolute top-[70px] left-0">
+        <Button variant="ghost" size="xs" className="absolute top-[70px] left-0">
           <img src={backIcon} alt="뒤로가기" />
         </Button>
         <h1 className="pt-[70px]">편지</h1>

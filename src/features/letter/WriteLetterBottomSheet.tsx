@@ -129,7 +129,7 @@ export const WriteLetterBottomSheet = () => {
                             />
                             <Button
                               variant="ghost"
-                              size="2xsIcon"
+                              size="2xs"
                               type="button"
                               className="absolute top-3 right-3"
                               onClick={() => handleRemoveImage(index)}

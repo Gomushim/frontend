@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import { Button, Input, DatePickerDrawer, ProgressHeader } from "@/shared/ui";
-import { formatDate } from "@/shared/utils/date/formatdate";
 import { useOnboardingStore } from "@/stores/maonboardingStore";
 import { formatDateKorean } from "@/shared/utils";
 
@@ -33,9 +32,7 @@ export const FirstMeet: React.FC = () => {
       <div className="mt-6 flex-1 px-4">
         <DatePickerDrawer onConfirm={handleDateConfirm}>
           <Input
-            value={firstMeetDate ? formatDate(firstMeetDate) : ""}
-            value={selectedDate ? formatDateKorean(selectedDate) : ""}
-
+            value={firstMeetDate ? formatDateKorean(firstMeetDate) : ""}
             placeholder="날짜를 선택해주세요."
             status={firstMeetDate ? "active" : "inactive"}
             onClear={() => {

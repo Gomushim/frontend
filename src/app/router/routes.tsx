@@ -16,7 +16,8 @@ import {
   MainPage,
   StatusPage,
   LetterListPage,
-} from "@/pages";
+  Home
+  } from "@/pages";
 import { createBrowserRouter } from "react-router";
 
 const router = createBrowserRouter([
