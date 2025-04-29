@@ -6,6 +6,8 @@ import path from "path";
 import svgr from "vite-plugin-svgr";
 import fs from "fs";
 
+const isDev = process.env.NODE_ENV !== "production";
+
 // https://vitejs.dev/config/
 export default defineConfig({
   base: "/",
@@ -14,13 +16,15 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
-  server: {
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, "_wildcard.sarang-backend.o-r.kr+2-key.pem")),
-      cert: fs.readFileSync(path.resolve(__dirname, "_wildcard.sarang-backend.o-r.kr+2.pem")),
-    },
-    host: "vite.sarang-backend.o-r.kr",
-  },
+  server: isDev
+    ? {
+        https: {
+          key: fs.readFileSync(path.resolve(__dirname, "_wildcard.sarang-backend.o-r.kr+2-key.pem")),
+          cert: fs.readFileSync(path.resolve(__dirname, "_wildcard.sarang-backend.o-r.kr+2.pem")),
+        },
+        host: "vite.sarang-backend.o-r.kr",
+      }
+    : {},
   plugins: [
     react(),
     tailwindcss(),
