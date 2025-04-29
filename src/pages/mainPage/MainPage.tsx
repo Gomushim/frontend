@@ -28,7 +28,7 @@ export const MainPage = () => {
         </main>
       </div>
       {/* 네비게이션 바 */}
-      <div className="z-50 bg-white">
+      <div className="z-10 fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] bg-white">
         <NavBar />
       </div>
     </div>
