@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import { Input, DatePickerDrawer, Button, ProgressHeader } from "@/shared/ui";
-import { formatDate } from "@/shared/utils/date/formatdate";
 import { useOnboardingStore } from "@/stores/maonboardingStore";
 import { formatDateKorean } from "@/shared/utils";
 
