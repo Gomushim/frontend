@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { Button, Input, DatePickerDrawer, ProgressHeader } from "@/shared/ui";
 import { formatDate } from "@/shared/utils/date/formatdate";
 import { useOnboardingStore } from "@/stores/maonboardingStore";
+import { formatDateKorean } from "@/shared/utils";
 
 export const FirstMeet: React.FC = () => {
   const navigate = useNavigate();
@@ -33,6 +34,8 @@ export const FirstMeet: React.FC = () => {
         <DatePickerDrawer onConfirm={handleDateConfirm}>
           <Input
             value={firstMeetDate ? formatDate(firstMeetDate) : ""}
+            value={selectedDate ? formatDateKorean(selectedDate) : ""}
+
             placeholder="날짜를 선택해주세요."
             status={firstMeetDate ? "active" : "inactive"}
             onClear={() => {

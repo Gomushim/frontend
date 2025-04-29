@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { Button, ProgressHeader, Input, Checkbox, DatePickerDrawer } from "@/shared/ui";
 import { formatDate } from "@/shared/utils/date/formatdate";
 import { useOnboardingAlarmStore } from "@/stores/onboardingStore";
+import { formatDateKorean } from "@/shared/utils";
 
 export const Birthday: React.FC = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export const Birthday: React.FC = () => {
   };
 
   const handleDateConfirm = (date: Date) => {
-    setBirthday(formatDate(date));
+    setBirthday(formatDateKorean(date));
   };
 
   return (
