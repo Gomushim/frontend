@@ -11,14 +11,16 @@ export interface Schedule {
   id: number;
   title: string;
   fatigue: Fatigue;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   letter: Omit<Letter, "content">[];
 }
 
-export interface ScheduleList {
-  schedule: Omit<Schedule, "letter">[];
-  dday: Dday[];
+export interface ScheduleListResponse {
+  result: {
+    schedules: Omit<Schedule, "letter" | "id">[];
+    dday: Dday[];
+  };
 }
 
 export interface CalendarSchedule {

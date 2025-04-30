@@ -1,46 +1,58 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Fatigue } from "@/entities/schedule";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
+
+interface Tag {
+  title: string;
+  fatigue: Fatigue;
+  startDate: string;
+  endDate: string;
+}
 
 interface CalendarProps {
   initialDate?: Date;
   selectedDate: Date;
-
   setSelectedDate: Dispatch<SetStateAction<Date>>;
+  tags: Tag[];
 }
 
-export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDate }: CalendarProps) => {
-  const [currentDate, setCurrentDate] = useState(initialDate);
+// 날짜 비교를 위한 정규화 함수 (시, 분, 초 제거)
+const normalizeDate = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
+export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDate, tags }: CalendarProps) => {
+  const [currentDate, setCurrentDate] = useState(initialDate);
   const navigate = useNavigate();
 
   const year = currentDate.getFullYear();
-  const month = currentDate.getMonth(); // 0 ~ 11
-
+  const month = currentDate.getMonth();
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   const lastDate = new Date(year, month + 1, 0).getDate();
-
   const today = new Date();
-  const isSameDate = (d1: Date, d2: Date) =>
+
+  const isSameDay = (d1: Date, d2: Date) =>
     d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
+
+  // 태그 날짜 정규화
+  const normalizedTags = useMemo(() => {
+    return tags.map(tag => ({
+      ...tag,
+      startDate: normalizeDate(new Date(tag.startDate)),
+      endDate: normalizeDate(new Date(tag.endDate)),
+    }));
+  }, [tags]);
 
   const calendarDays: (Date | null)[] = [];
 
-  // 첫날을 위해 빈 칸 추가
   for (let i = 0; i < firstDayOfMonth; i++) {
     calendarDays.push(null);
   }
-
-  // 날짜 추가
   for (let date = 1; date <= lastDate; date++) {
     calendarDays.push(new Date(year, month, date));
   }
-
-  // 남는 빈 칸을 추가
   while (calendarDays.length < 42) {
     calendarDays.push(null);
   }
 
-  // 주 단위로 나누기
   const weeks: (Date | null)[][] = [];
   for (let i = 0; i < calendarDays.length; i += 7) {
     const week = calendarDays.slice(i, i + 7);
@@ -49,17 +61,14 @@ export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDa
     }
   }
 
-  //  변경 예정
   const goToPrevMonth = () => {
     setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
   };
 
-  // D-day 페이지 경로로 이동
   const goToDdayPage = () => {
     navigate("/calendar/dday");
   };
 
-  // 일정 추가 페이지 경로로 이동
   const goToAddSchedulePage = () => {
     navigate("/calendar/schedule");
   };
@@ -97,31 +106,42 @@ export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDa
         ))}
       </div>
 
-      {/* 날짜 셀 with 줄 */}
+      {/* 날짜 셀 */}
       <div>
         {weeks.map((week, weekIdx) => (
           <div key={weekIdx} className={weekIdx === weeks.length - 1 ? "" : "border-b border-gray-50 py-3"}>
             <div className="grid grid-cols-7 px-1.5 text-center">
               {week.map((date, idx) => {
-                const isToday = date && isSameDate(date, today);
-                const isSelected = date && selectedDate && isSameDate(date, selectedDate);
+                const isToday = date && isSameDay(date, today);
+                const isSelected = date && selectedDate && isSameDay(date, selectedDate);
                 const showToday = isToday && selectedDate === null;
+
+                const dayTags =
+                  date != null
+                    ? normalizedTags.filter(tag => {
+                        const d = normalizeDate(date);
+                        return d >= tag.startDate && d <= tag.endDate;
+                      })
+                    : [];
 
                 return (
                   <div
                     key={idx}
-                    className="flex cursor-pointer flex-col items-center justify-center gap-1"
+                    className="flex cursor-pointer flex-col items-center gap-1"
                     onClick={() => date && setSelectedDate(date)}>
                     <p
-                      className={`text-md mb-2 flex h-8 w-8 items-center justify-center rounded-[12px] pt-0.5 text-center font-normal transition ${showToday || isSelected ? "bg-gray-900 font-bold text-white" : ""} ${!date ? "cursor-default text-gray-300" : ""} ${date && !isSelected && !showToday ? "hover:bg-gray-100" : ""}`}>
+                      className={`text-md mb-2 flex h-8 w-8 items-center justify-center rounded-[12px] pt-0.5 text-center font-normal transition ${
+                        showToday || isSelected ? "bg-gray-900 font-bold text-white" : ""
+                      } ${!date ? "cursor-default text-gray-300" : ""} ${
+                        date && !isSelected && !showToday ? "hover:bg-gray-100" : ""
+                      }`}>
                       {date ? date.getDate() : ""}
                     </p>
-                    <div className="flex h-3 w-10 items-center justify-center rounded-[8px] bg-red-50">
-                      <p className="text-[10px]">test..</p>
-                    </div>
-                    <div className="flex h-3 w-10 items-center justify-center rounded-[8px] bg-red-50">
-                      <p className="text-[10px]">test..</p>
-                    </div>
+                    {dayTags.map((tag, tagIdx) => (
+                      <div key={tagIdx} className="flex h-3 w-10 items-center justify-center rounded-[8px] bg-red-50">
+                        <p className="truncate text-[10px]">{tag.title}</p>
+                      </div>
+                    ))}
                   </div>
                 );
               })}
