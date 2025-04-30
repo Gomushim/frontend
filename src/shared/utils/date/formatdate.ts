@@ -33,3 +33,6 @@ export const formatDateKoreanWithWeekday = (date: Date): string => {
   const weekday = weekdays[date.getDay()];
   return `${year}년 ${month}월 ${day}일 ${weekday}`;
 };
+
+// 2025년 06월
+export const formatYearMonth = (year: number, month: number) => `${year}년 ${month}월`;
