@@ -23,6 +23,7 @@ export default defineConfig({
           cert: fs.readFileSync(path.resolve(__dirname, "_wildcard.sarang-backend.o-r.kr+2.pem")),
         },
         host: "vite.sarang-backend.o-r.kr",
+        port: 5173,
       }
     : {},
   plugins: [
