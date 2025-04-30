@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getDateList, getShiftedWeekdays } from "../utils";
 import { ScheduleCard } from "./ScheduleCard";
+import { Fatigue } from "@/entities/schedule";
 
 const fatigueTagMap: Record<string, { bgColor: string; textColor: string }> = {
   VERY_TIRED: {
@@ -19,22 +20,22 @@ const fatigueTagMap: Record<string, { bgColor: string; textColor: string }> = {
 
 const schedultestData = [
   {
-    id: 1,
-    schedule: "KCTC 훈련",
-    tag: "VERY_TIRED",
-    time: "하루종일",
+    title: "KCTC 훈련",
+    fatigue: Fatigue.GOOD,
+    startDate: "2025-04-30T16:10:30.567Z",
+    endDate: "2025-04-30T16:10:30.567Z",
   },
   {
-    id: 2,
-    schedule: "근무 취짐",
-    tag: "GOOD",
-    time: "07:00~18:00",
+    title: "근무 취짐",
+    fatigue: Fatigue.GOOD,
+    startDate: "2025-04-30T16:10:30.567Z",
+    endDate: "2025-04-30T16:10:30.567Z",
   },
   {
-    id: 3,
-    schedule: "근무 취짐",
-    tag: "TIRED",
-    time: "07:00~18:00",
+    title: "근무 취짐",
+    fatigue: Fatigue.GOOD,
+    startDate: "2025-04-30T16:10:30.567Z",
+    endDate: "2025-04-30T16:10:30.567Z",
   },
 ];
 
@@ -90,8 +91,8 @@ export const MiniCalendar = () => {
         })}
       </div>
       <div className="mt-7 flex flex-col gap-3">
-        {schedultestData.map(schedul => (
-          <ScheduleCard key={schedul.id} className="bg-gray-50" {...schedul} />
+        {schedultestData.map((schedul, index) => (
+          <ScheduleCard key={index} className="bg-gray-50" {...schedul} />
         ))}
       </div>
     </div>
