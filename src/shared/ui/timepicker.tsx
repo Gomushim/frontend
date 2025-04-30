@@ -4,37 +4,26 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from "./drawer";
 import { Button } from "./button";
 
 interface TimePickerDrawerProps {
-  // onConfirm: (date: { ampm: string; hour: string; minute: string }) => void;
+  onConfirm: (date: { ampm: string; hour: string; minute: string }) => void;
   children?: React.ReactNode;
 }
 
-const generateLoopArray = (array: string[], times: number) => {
-  return Array.from({ length: times })
-    .flatMap(() => array)
-    .map(String);
-};
-
-export const TimePickerDrawer: React.FC<TimePickerDrawerProps> = ({ children }) => {
+export const TimePickerDrawer: React.FC<TimePickerDrawerProps> = ({ onConfirm, children }) => {
   const [open, setOpen] = useState(false);
 
   const ampmOptions = ["오전", "오후"];
   const hourBase = Array.from({ length: 12 }, (_, i) => String(i + 1));
   const minuteBase = Array.from({ length: 60 }, (_, i) => String(i).padStart(2, "0"));
 
-  const hours = generateLoopArray(hourBase, 3); // 12 * 3 = 36개
-  const minutes = generateLoopArray(minuteBase, 3); // 60 * 3 = 180개
-
-  const middleHourIndex = Math.floor(hours.length / 2);
-  const middleMinuteIndex = Math.floor(minutes.length / 2);
-
+  // 초기 값 설정
   const [pickerValue, setPickerValue] = useState({
     ampm: "오전",
-    hour: hours[middleHourIndex],
-    minute: minutes[middleMinuteIndex],
+    hour: hourBase[0],
+    minute: minuteBase[0],
   });
 
   const handleConfirm = () => {
-    // onConfirm(pickerValue);
+    onConfirm(pickerValue);
     setOpen(false);
   };
 
@@ -62,14 +51,14 @@ export const TimePickerDrawer: React.FC<TimePickerDrawerProps> = ({ children }) 
                   ))}
                 </Picker.Column>
                 <Picker.Column name="hour" className="min-w-0 flex-1 px-4">
-                  {hours.map((value, i) => (
+                  {hourBase.map((value, i) => (
                     <Picker.Item key={`${value}-${i}`} value={value}>
                       <div className="text-center text-xl text-gray-800">{value}</div>
                     </Picker.Item>
                   ))}
                 </Picker.Column>
                 <Picker.Column name="minute" className="min-w-0 flex-1 px-4">
-                  {minutes.map((value, i) => (
+                  {minuteBase.map((value, i) => (
                     <Picker.Item key={`${value}-${i}`} value={value}>
                       <div className="text-center text-xl text-gray-800">{value}</div>
                     </Picker.Item>

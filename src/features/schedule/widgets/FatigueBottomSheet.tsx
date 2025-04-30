@@ -1,20 +1,31 @@
 import { FatigueCard } from "./FatigueCard";
-import { useState } from "react";
-import { Button, Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/shared/ui";
 
-type FatigueType = "VERY_TIRED" | "TIRED" | "GOOD";
+import { Button, Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/shared/ui";
+import { Fatigue, useScheduleStore } from "@/entities/schedule";
+import { useShallow } from "zustand/shallow";
+import { useToggle } from "@/shared/hooks";
 
 export const FatigueBottomSheet = () => {
-  const [selectedFatigue, setSelectedFatigue] = useState<FatigueType | null>(null);
+  const { isToggle, onToggle } = useToggle();
 
-  const handleSelect = (fatigue: FatigueType) => {
-    setSelectedFatigue(fatigue);
+  // 전역 상태에서 피로도를 가져옵니다.
+  const { schedule, setFatigue } = useScheduleStore(
+    useShallow(state => ({
+      schedule: state.schedule,
+      setFatigue: state.setFatigue,
+    }))
+  );
+
+  const handleSelect = (fatigue: Fatigue) => {
+    setFatigue(fatigue); // 피로도를 전역 상태로 설정
   };
 
-  // function onClick() {}
+  const handleClose = () => {
+    onToggle();
+  };
 
   return (
-    <Drawer>
+    <Drawer open={isToggle} onOpenChange={onToggle}>
       <DrawerTrigger asChild>
         <Button variant="square" size="2xs">
           피로도 선택하기
@@ -27,15 +38,23 @@ export const FatigueBottomSheet = () => {
           </DrawerHeader>
           <div className="flex flex-col gap-3">
             <FatigueCard
-              fatigue="VERY_TIRED"
-              selected={selectedFatigue === "VERY_TIRED"}
-              onClick={() => handleSelect("VERY_TIRED")}
+              fatigue={Fatigue.VERY_TIRED}
+              selected={schedule.fatigue === Fatigue.VERY_TIRED} // 전역 상태와 비교
+              onClick={() => handleSelect(Fatigue.VERY_TIRED)} // 전역 상태로 선택
             />
-            <FatigueCard fatigue="TIRED" selected={selectedFatigue === "TIRED"} onClick={() => handleSelect("TIRED")} />
-            <FatigueCard fatigue="GOOD" selected={selectedFatigue === "GOOD"} onClick={() => handleSelect("GOOD")} />
+            <FatigueCard
+              fatigue={Fatigue.TIRED}
+              selected={schedule.fatigue === Fatigue.TIRED} // 전역 상태와 비교
+              onClick={() => handleSelect(Fatigue.TIRED)} // 전역 상태로 선택
+            />
+            <FatigueCard
+              fatigue={Fatigue.GOOD}
+              selected={schedule.fatigue === Fatigue.GOOD} // 전역 상태와 비교
+              onClick={() => handleSelect(Fatigue.GOOD)} // 전역 상태로 선택
+            />
           </div>
           <DrawerFooter className="p-0 py-3">
-            <Button variant="submit" size="xl">
+            <Button variant="submit" size="xl" onClick={handleClose}>
               확인
             </Button>
           </DrawerFooter>

@@ -1,7 +1,8 @@
-import { Switch, Topbar, Divider, Button } from "@/shared/ui";
+import { Topbar, Divider, Button } from "@/shared/ui";
 import { useToggle } from "@/shared/hooks";
 import { EmojiSelector } from "@/features/d-day/widgets";
-import { DateBottomSheet, FatigueBottomSheet, TimeBottomSheet } from "@/features/schedule/widgets";
+import { AllDayToggleButton, DateBottomSheet, FatigueBottomSheet, TimeBottomSheet } from "@/features/schedule/widgets";
+import { TitleInput } from "@/features/schedule/widgets/TitleInput";
 
 export const CalendarNewSchedule = () => {
   const { isToggle, onToggle } = useToggle();
@@ -16,10 +17,7 @@ export const CalendarNewSchedule = () => {
       </header>
       <main className="flex flex-col gap-6 p-5">
         <section className="flex flex-col gap-2">
-          <label htmlFor="title" className="text-gary-900 text-xl font-semibold">
-            제목
-          </label>
-          <input className="h-6 w-full border border-gray-200 p-3" type="text" />
+          <TitleInput />
         </section>
         <Divider thickness="h-px" color="bg-gray-100" />
         {isToggle ? (
@@ -31,7 +29,7 @@ export const CalendarNewSchedule = () => {
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="text-gary-900 text-xl font-semibold">날짜</h3>
-                <DateBottomSheet />
+                <DateBottomSheet type="dday" />
               </div>
             </section>
             <section className="fixed bottom-6 left-1/2 w-[375px] -translate-x-1/2 transform px-4">
@@ -45,17 +43,17 @@ export const CalendarNewSchedule = () => {
             <section className="flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-gary-900 text-xl font-semibold">하루종일</h3>
-                <Switch id="airplane-mode" />
+                <AllDayToggleButton />
               </div>
               <div className="grid grid-cols-[1fr_112px_112px] gap-2">
                 <h3 className="text-gary-900 text-xl font-semibold">시작</h3>
-                <DateBottomSheet />
-                <TimeBottomSheet />
+                <DateBottomSheet type="start" />
+                <TimeBottomSheet target="start" />
               </div>
               <div className="grid grid-cols-[1fr_112px_112px] gap-2">
                 <h3 className="text-gary-900 text-xl font-semibold">종료</h3>
-                <DateBottomSheet />
-                <TimeBottomSheet />
+                <DateBottomSheet type="end" />
+                <TimeBottomSheet target="end" />
               </div>
             </section>
             <Divider thickness="h-px" color="bg-gray-100" />
