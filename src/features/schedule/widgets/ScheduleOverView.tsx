@@ -1,7 +1,8 @@
 import { DateText } from "@/shared/ui";
 import { ScheduleOverViewProps } from "../type";
-import { Fatigue } from "@/entities/schedule/model";
+
 import tripleArrow from "@/assets/icons/tripleArrow.svg";
+import { Fatigue } from "@/entities/schedule";
 
 const statusMap: Record<Fatigue, { bgColor: string; textColor: string; text: string }> = {
   VERY_TIRED: {

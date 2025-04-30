@@ -1,4 +1,4 @@
-import { Fatigue } from "@/entities/schedule/model";
+import { Fatigue } from "@/entities/schedule";
 
 export interface ScheduleOverViewProps {
   fatigue: Fatigue | string;
