@@ -1,8 +1,7 @@
-import { Switch, TimeSelector, Topbar, Divider, Button } from "@/shared/ui";
+import { Switch, Topbar, Divider, Button } from "@/shared/ui";
 import { useToggle } from "@/shared/hooks";
-import DateSelector from "@/shared/ui/DateSelector";
 import { EmojiSelector } from "@/features/d-day/widgets";
-import { FatigueBottomSheet } from "@/features/schedule/widgets";
+import { DateBottomSheet, FatigueBottomSheet, TimeBottomSheet } from "@/features/schedule/widgets";
 
 export const CalendarNewSchedule = () => {
   const { isToggle, onToggle } = useToggle();
@@ -32,7 +31,7 @@ export const CalendarNewSchedule = () => {
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="text-gary-900 text-xl font-semibold">날짜</h3>
-                <DateSelector />
+                <DateBottomSheet />
               </div>
             </section>
             <section className="fixed bottom-6 left-1/2 w-[375px] -translate-x-1/2 transform px-4">
@@ -50,19 +49,24 @@ export const CalendarNewSchedule = () => {
               </div>
               <div className="grid grid-cols-[1fr_112px_112px] gap-2">
                 <h3 className="text-gary-900 text-xl font-semibold">시작</h3>
-                <DateSelector />
-                <TimeSelector />
+                <DateBottomSheet />
+                <TimeBottomSheet />
               </div>
               <div className="grid grid-cols-[1fr_112px_112px] gap-2">
                 <h3 className="text-gary-900 text-xl font-semibold">종료</h3>
-                <DateSelector />
-                <TimeSelector />
+                <DateBottomSheet />
+                <TimeBottomSheet />
               </div>
             </section>
             <Divider thickness="h-px" color="bg-gray-100" />
             <section className="flex items-center justify-between">
               <h3 className="text-gary-900 text-xl font-semibold">피로도 선택</h3>
               <FatigueBottomSheet />
+            </section>
+            <section className="fixed bottom-6 left-1/2 w-[375px] -translate-x-1/2 transform px-4">
+              <Button className="w-full" variant="submit" size="xl">
+                확인
+              </Button>
             </section>
           </>
         )}

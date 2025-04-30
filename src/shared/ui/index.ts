@@ -16,3 +16,4 @@ export * from "./TimeSelector";
 export * from "./DateSelector";
 export * from "./shadcnInput";
 export * from "./textarea";
+export * from "./timepicker";
