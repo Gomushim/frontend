@@ -24,3 +24,16 @@ export interface ScheduleList {
 export interface CalendarSchedule {
   schedule: Omit<Schedule, "letter" | "startDate">[];
 }
+
+export interface ScheduleRequst {
+  id?: number | null;
+  title: string;
+  startDate: string;
+  endDate: string;
+  fatigue: Fatigue | string;
+  isAllDay: boolean;
+}
+
+export interface NewScheduleResponse {
+  result: boolean;
+}

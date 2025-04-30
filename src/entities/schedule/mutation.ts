@@ -1,0 +1,26 @@
+import { useMutation } from "@tanstack/react-query";
+import { createSchedule } from "./service";
+import { ScheduleRequst } from "./type";
+
+type mutationMethodType = "post" | "delete" | "update";
+
+export const useNovelMutation = (data: ScheduleRequst, mutationMethod: mutationMethodType) => {
+  return useMutation({
+    mutationFn: async () => {
+      switch (mutationMethod) {
+        case "delete":
+          return await createSchedule(data);
+        case "post":
+          return await createSchedule(data);
+        case "update":
+          return await createSchedule(data);
+        default:
+          throw new Error("Invalid mutation method");
+      }
+    },
+    onSuccess: () => {},
+    onError: error => {
+      console.error("Error:", error);
+    },
+  });
+};

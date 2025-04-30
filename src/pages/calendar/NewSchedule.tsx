@@ -3,9 +3,28 @@ import { useToggle } from "@/shared/hooks";
 import { EmojiSelector } from "@/features/d-day/widgets";
 import { AllDayToggleButton, DateBottomSheet, FatigueBottomSheet, TimeBottomSheet } from "@/features/schedule/widgets";
 import { TitleInput } from "@/features/schedule/widgets/TitleInput";
+import { useScheduleStore } from "@/entities/schedule";
+import { useShallow } from "zustand/shallow";
+import { useNovelMutation } from "@/entities/schedule/mutation";
 
 export const CalendarNewSchedule = () => {
+  const { schedule } = useScheduleStore(
+    useShallow(state => ({
+      schedule: state.schedule,
+    }))
+  );
+
   const { isToggle, onToggle } = useToggle();
+  const { mutate } = useNovelMutation(schedule, "post");
+
+  const handlePostSchedule = async () => {
+    mutate(undefined, {
+      onSuccess: () => {},
+      onError: error => {
+        console.log(error);
+      },
+    });
+  };
 
   return (
     <>
@@ -62,7 +81,7 @@ export const CalendarNewSchedule = () => {
               <FatigueBottomSheet />
             </section>
             <section className="fixed bottom-6 left-1/2 w-[375px] -translate-x-1/2 transform px-4">
-              <Button className="w-full" variant="submit" size="xl">
+              <Button className="w-full" variant="submit" size="xl" onClick={handlePostSchedule}>
                 확인
               </Button>
             </section>
