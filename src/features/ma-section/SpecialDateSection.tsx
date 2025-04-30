@@ -5,7 +5,7 @@ import { anniversaryQueries } from "@/entities/anniversary/service";
 import { useCoupleStore } from "@/stores/coupleStore";
 import { useEffect, useState } from "react";
 
-export const IconSection = () => {
+export const SpecialDateSection = () => {
   const { isConnected, isInitialized } = useCoupleStore();
   const [ddayInfo, setDdayInfo] = useState<{
     sinceLove: number;

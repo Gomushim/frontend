@@ -4,7 +4,7 @@ import {
   ScheduleSection,
   LetterSection,
   DDaySection,
-  IconSection,
+  SpecialDateSection,
   TopSection,
 } from "@/features/ma-section";
 
@@ -15,7 +15,7 @@ export const MainPage = () => {
       <TopSection />
 
       {/* 상단 디데이 */}
-      <IconSection />
+      <SpecialDateSection />
       {/* 메인 컨텐츠 */}
       <div className="relative z-10 -mt-12 flex-grow rounded-t-[20px] bg-gray-50">
         <main className="container mx-auto max-w-screen-lg px-4 pt-15 pb-[95px]">

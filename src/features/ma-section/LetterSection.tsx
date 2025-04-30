@@ -1,4 +1,4 @@
-import { MainHeader } from "./MainHeader";
+import { MainHeader } from "./utils/MainHeader";
 import LetterIcon from "@/assets/images/letter.svg";
 
 export const LetterSection = () => {

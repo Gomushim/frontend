@@ -1,4 +1,4 @@
-import { MainHeader } from "./MainHeader";
+import { MainHeader } from "./utils/MainHeader";
 
 export const ScheduleSection = () => {
   return (

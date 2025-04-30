@@ -2,9 +2,46 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { Button } from "@/shared/ui";
 import CloseIcon from "@/assets/images/close.svg";
+import { useOnboardingAlarmStore } from "@/stores/onboardingStore";
+import { onboardingQueries } from "@/entities/onboarding/service";
+import axios from "axios";
 
 export const Alarm: React.FC = () => {
   const navigate = useNavigate();
+  const { 
+    nickname, birthday, isAgeVisible, isGenderVisible,isLoading, error,
+    setLoading,setError,setAlarmEnabled
+  } = useOnboardingAlarmStore();
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      if (!nickname || !birthday || !isAgeVisible || !isGenderVisible) {
+        throw new Error("입력되지 않은 정보가 있어요");
+      }
+
+      await onboardingQueries.postOnboarding({
+        nickname,
+        birthDate: birthday,
+        fcmToken: "string", 
+        isNotification: true
+      });
+
+      setAlarmEnabled(true);
+      navigate("/onboarding/where");
+    } catch (error) {
+      console.error("온보딩 API 호출 실패:", error);
+      if (axios.isAxiosError(error)) {
+        const redirectUri = encodeURIComponent(`${window.location.origin}/onboarding/alarm`);
+        window.location.href = `${import.meta.env.VITE_BASE_URL}/oauth2/authorization/kakao?redirect_uri=${redirectUri}`;
+      }
+      setError(error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
@@ -32,9 +69,17 @@ export const Alarm: React.FC = () => {
       </div>
 
       <div className="p-4">
-        <Button variant="special" size="onicon" onClick={() => navigate("/onboarding/where")}>
-          다음으로
+        <Button 
+          variant="special" 
+          size="onicon" 
+          onClick={handleSubmit}
+          disabled={isLoading}
+        >
+          {isLoading ? "처리중..." : "다음으로"}
         </Button>
+        {error && (
+          <p className="mt-2 text-center text-red-500">{error}</p>
+        )}
       </div>
     </div>
   );

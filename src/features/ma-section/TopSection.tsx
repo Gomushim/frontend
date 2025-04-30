@@ -7,12 +7,15 @@ import CoupleHeart from "@/assets/images/couple_heart.svg";
 import { useNavigate } from "react-router";
 import { useOnboardingStore } from "@/stores/maonboardingStore";
 import { useCoupleStore } from "@/stores/coupleStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { maonboardingQueries } from "@/entities/maonboarding/service";
 
 export const TopSection: React.FC = () => {
   const navigate = useNavigate();
   const { militaryBranch } = useOnboardingStore();
-  const { isConnected, isInitialized, coupleInfo, isLoading, fetchCoupleStatus, fetchCoupleNicknames } = useCoupleStore();
+  const { isConnected, isInitialized, coupleInfo, isLoading, fetchCoupleStatus, fetchCoupleNicknames, setInitialized } = useCoupleStore();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const initializeCoupleData = async () => {
@@ -24,6 +27,31 @@ export const TopSection: React.FC = () => {
 
     initializeCoupleData();
   }, [fetchCoupleStatus, fetchCoupleNicknames, isConnected]);
+
+  const handleInitialize = async () => {
+    setIsSubmitting(true);
+    setError(null);
+    
+    try {
+      const response = await maonboardingQueries.registerAnniversary({
+        coupleId: 1, // TODO: 실제 coupleId를 가져오는 로직 필요
+        relationshipStartDate: new Date().toISOString().split("T")[0],
+        militaryStartDate: new Date().toISOString().split("T")[0],
+        militaryEndDate: new Date().toISOString().split("T")[0],
+        military: "ARMY",
+      });
+      
+      if (response.result) {
+        setInitialized(true);
+        navigate("/onboarding/firstmeet");
+      }
+    } catch (error) {
+      console.error("온보딩 완료 중 오류 발생:", error);
+      setError(error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const getBackgroundImage = () => {
     if (!isConnected || !isInitialized) return InitBg;
@@ -71,10 +99,14 @@ export const TopSection: React.FC = () => {
             )}
           </h1>
           <button
-            onClick={() => navigate("/onboarding/firstmeet")}
+            onClick={handleInitialize}
+            disabled={isSubmitting}
             className="mt-2 flex items-center text-sm font-medium text-gray-700">
-            초기 설정하기 <span className="ml-1">&gt;</span>
+            {isSubmitting ? "처리중..." : "초기 설정하기"} <span className="ml-1">&gt;</span>
           </button>
+          {error && (
+            <p className="mt-2 text-sm text-red-500">{error}</p>
+          )}
         </>
       );
     }

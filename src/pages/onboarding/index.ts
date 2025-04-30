@@ -4,5 +4,4 @@ export * from "./Birthday";
 export * from "./Alarm";
 export * from "./FirstMeet";
 export * from "./MilitaryDay";
-export * from "./CoupleContact";
 export * from "./Where";
