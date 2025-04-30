@@ -37,3 +37,22 @@ export interface ScheduleRequst {
 export interface NewScheduleResponse {
   result: boolean;
 }
+
+export interface InitialSchedule {
+  id: number | null;
+  title: string;
+  startDate: string;
+  endDate: string;
+  fatigue: Fatigue | string;
+  isAllDay: boolean;
+}
+
+export interface ScheduleStore {
+  schedule: InitialSchedule;
+  setTitle: (title: string) => void;
+  setStartDate: (date: string) => void;
+  setEndDate: (date: string) => void;
+  setFatigue: (fatigue: Fatigue) => void;
+  setIsAllDay: (value: boolean) => void;
+  reset: () => void;
+}
