@@ -5,7 +5,7 @@ import { AllDayToggleButton, DateBottomSheet, FatigueBottomSheet, TimeBottomShee
 import { TitleInput } from "@/features/schedule/widgets/TitleInput";
 import { useScheduleStore } from "@/entities/schedule";
 import { useShallow } from "zustand/shallow";
-import { useNovelMutation } from "@/entities/schedule/mutation";
+import { useScheduleMutation } from "@/entities/schedule/mutation";
 
 export const CalendarNewSchedule = () => {
   const { schedule } = useScheduleStore(
@@ -15,7 +15,7 @@ export const CalendarNewSchedule = () => {
   );
 
   const { isToggle, onToggle } = useToggle();
-  const { mutate } = useNovelMutation(schedule, "post");
+  const { mutate } = useScheduleMutation(schedule, "post");
 
   const handlePostSchedule = async () => {
     mutate(undefined, {

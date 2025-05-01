@@ -14,7 +14,7 @@ export const Topbar = ({ isToggle, onToggle }: TopbarProps) => {
       <div
         className={`flex h-full flex-1 items-center justify-center rounded-full ${isToggle ? "bg-gray-1000" : "bg-gray-100"}`}
         onClick={onToggle}>
-        디테일
+        디테일1
       </div>
     </div>
   );

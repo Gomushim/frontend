@@ -4,7 +4,7 @@ import { ScheduleRequst } from "./type";
 
 type mutationMethodType = "post" | "delete" | "update";
 
-export const useNovelMutation = (data: ScheduleRequst, mutationMethod: mutationMethodType) => {
+export const useScheduleMutation = (data: ScheduleRequst, mutationMethod: mutationMethodType) => {
   return useMutation({
     mutationFn: async () => {
       switch (mutationMethod) {
