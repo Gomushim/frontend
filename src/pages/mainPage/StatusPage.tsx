@@ -6,14 +6,16 @@ import { Button } from "@/shared/ui";
 import { useNavigate } from "react-router";
 import { useEmotionStatus } from "@/entities/emotion_status/queries";
 
-const EMOTION_TO_NUMBER: Record<EmotionType, number> = {
-  miss: 1,
-  happy: 2,
-  common: 3,
-  tired: 4,
-  sad: 5,
-  worry: 6,
-  angry: 7,
+type ApiEmotionType = "MISS" | "HAPPY" | "COMMON" | "TIRED" | "SAD" | "WORRY" | "ANGRY";
+
+const EMOTION_TO_API: Record<EmotionType, ApiEmotionType> = {
+  miss: "MISS",
+  happy: "HAPPY",
+  common: "COMMON",
+  tired: "TIRED",
+  sad: "SAD",
+  worry: "WORRY",
+  angry: "ANGRY",
 };
 
 export const StatusPage = () => {
@@ -34,7 +36,7 @@ export const StatusPage = () => {
 
     try {
       await updateMyEmotionAndStatusMessage.mutateAsync({
-        emotion: EMOTION_TO_NUMBER[selectedEmotion],
+        emotion: EMOTION_TO_API[selectedEmotion],
         statusMessage: message,
       });
       navigate("/mainpage");

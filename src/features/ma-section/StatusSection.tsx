@@ -4,7 +4,6 @@ import CharacterDefaultIcon from "@/assets/images/character_default.svg";
 import { EMOTION_IMAGES } from "@/entities/types/emotion";
 import { MainHeader } from "./utils/MainHeader";
 import { useNavigate } from "react-router";
-import { GetCoupleEmotionResponse } from "@/entities/emotion_status/types";
 
 interface StatusSectionProps {
   isConnected: boolean;
@@ -22,27 +21,41 @@ const EMOTION_TO_ICON: Record<string, keyof typeof EMOTION_IMAGES> = {
 
 export const StatusSection = ({ isConnected }: StatusSectionProps) => {
   const navigate = useNavigate();
-  const { getCoupleEmotion } = useEmotionStatus();
+  const { getCoupleEmotion, getStatusMessage } = useEmotionStatus();
   const [emotion, setEmotion] = useState<string>("");
   const [statusMessage, setStatusMessage] = useState<string>("");
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchData = async () => {
-      if (isConnected) {
-        try {
-          const response = await getCoupleEmotion.refetch();
-          if (response.data) {
-            setEmotion(response.data.result.emotion);
-            setStatusMessage(response.data.result.statusMessage);
+      if (!isConnected) return;
+
+      try {
+        const [emotionResponse, statusResponse] = await Promise.all([
+          getCoupleEmotion.refetch(),
+          getStatusMessage.refetch()
+        ]);
+
+        if (isMounted) {
+          if (emotionResponse.data?.data) {
+            setEmotion(emotionResponse.data.data.result.emotion);
           }
-        } catch (error) {
-          console.error("데이터 조회 실패:", error);
+          if (statusResponse.data?.data) {
+            setStatusMessage(statusResponse.data.data.result.statusMessage);
+          }
         }
+      } catch (error) {
+        console.error("데이터 조회 실패:", error);
       }
     };
 
     fetchData();
-  }, [isConnected, getCoupleEmotion]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isConnected]);
 
   const handleStatusClick = () => {
     if (isConnected) {

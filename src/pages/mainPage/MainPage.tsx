@@ -39,9 +39,9 @@ export const MainPage = () => {
         <main className="container mx-auto max-w-screen-lg px-4 pt-15 pb-[95px]">
           <div className="grid w-full gap-4">
             <StatusSection isConnected={isConnected} />
-            <ScheduleSection isConnected={isConnected} />
-            <LetterSection isConnected={isConnected} />
-            <DDaySection isConnected={isConnected} />
+            <ScheduleSection  />
+            <LetterSection  />
+            <DDaySection />
           </div>
         </main>
       </div>
