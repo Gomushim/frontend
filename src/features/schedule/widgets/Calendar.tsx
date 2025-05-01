@@ -1,6 +1,7 @@
 import { Fatigue } from "@/entities/schedule";
-import { Dispatch, SetStateAction, useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useMemo } from "react";
 import { useNavigate } from "react-router";
+import { CalendarBottomSheet } from "./CalendarBottomSheet";
 
 interface Tag {
   title: string;
@@ -20,11 +21,10 @@ interface CalendarProps {
 const normalizeDate = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
 export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDate, tags }: CalendarProps) => {
-  const [currentDate, setCurrentDate] = useState(initialDate);
   const navigate = useNavigate();
 
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
+  const year = initialDate.getFullYear();
+  const month = initialDate.getMonth();
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   const lastDate = new Date(year, month + 1, 0).getDate();
   const today = new Date();
@@ -61,10 +61,6 @@ export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDa
     }
   }
 
-  const goToPrevMonth = () => {
-    setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
-  };
-
   const goToDdayPage = () => {
     navigate("/calendar/dday");
   };
@@ -78,12 +74,7 @@ export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDa
       {/* 헤더 */}
       <div className="relative mb-3 flex justify-between">
         <div className="flex items-center justify-center gap-2.5">
-          <h2 className="text-xl font-semibold text-gray-900">
-            {year}년 {month + 1}월
-          </h2>
-          <button className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1" onClick={goToPrevMonth}>
-            <img src="src/assets/icons/bottomArrow.svg" alt="날짜 선택" />
-          </button>
+          <CalendarBottomSheet year={year} month={month} setCurrentDate={setSelectedDate} />
         </div>
         <div className="flex items-center justify-center gap-2">
           <button className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1" onClick={goToDdayPage}>
