@@ -1,6 +1,6 @@
 import { Fatigue } from "@/entities/schedule";
 import { InfoCard } from "@/shared/ui";
-import { formatTime } from "@/shared/utils/time/format";
+import { formatTimeFromString } from "@/shared/utils/time/format";
 
 interface ScheduleCardProps {
   title: string;
@@ -12,7 +12,7 @@ interface ScheduleCardProps {
 }
 
 const statusTagMap: Record<string, { barColor: string; textColor: string; tagColor: string; tagName: string }> = {
-  VERT_TIRED: {
+  VERY_TIRED: {
     barColor: "bg-red-0",
     textColor: "text-red-0",
     tagColor: "bg-red-100",
@@ -34,7 +34,7 @@ const statusTagMap: Record<string, { barColor: string; textColor: string; tagCol
 
 export const ScheduleCard = (props: ScheduleCardProps) => {
   const { barColor, textColor, tagColor, tagName } = statusTagMap[props.fatigue] ?? "";
-  const formattedTimeRange = `${formatTime(props.startDate)}~${formatTime(props.endDate)}`;
+  const formattedTimeRange = `${formatTimeFromString(props.startDate)}~${formatTimeFromString(props.endDate)}`;
 
   return (
     <InfoCard barColor={barColor} className={`justify-between ${props.className}`}>

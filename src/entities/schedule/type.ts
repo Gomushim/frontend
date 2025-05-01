@@ -18,7 +18,7 @@ export interface Schedule {
 
 export interface ScheduleListResponse {
   result: {
-    schedules: Omit<Schedule, "letter" | "id">[];
+    schedules: Omit<Schedule, "letter">[];
     anniversaries: Dday[];
   };
 }
