@@ -7,12 +7,30 @@ import {
   SpecialDateSection,
   TopSection,
 } from "@/features/ma-section";
+import { useEffect, useState } from "react";
+import { iscoupleQueries } from "@/entities/iscouple/service";
 
 export const MainPage = () => {
+  const [isConnected, setIsConnected] = useState(false);
+
+  useEffect(() => {
+    const checkCoupleStatus = async () => {
+      try {
+        const response = await iscoupleQueries.checkCoupleConnect();
+        setIsConnected(response.result);
+      } catch (error) {
+        console.error("커플 상태 조회 실패:", error);
+        setIsConnected(false);
+      }
+    };
+
+    checkCoupleStatus();
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
       {/* 상단 배경 */}
-      <TopSection />
+      <TopSection isConnected={isConnected} />
 
       {/* 상단 디데이 */}
       <SpecialDateSection />
@@ -20,10 +38,10 @@ export const MainPage = () => {
       <div className="relative z-10 -mt-12 flex-grow rounded-t-[20px] bg-gray-50">
         <main className="container mx-auto max-w-screen-lg px-4 pt-15 pb-[95px]">
           <div className="grid w-full gap-4">
-            <StatusSection />
-            <ScheduleSection />
-            <LetterSection />
-            <DDaySection />
+            <StatusSection isConnected={isConnected} />
+            <ScheduleSection isConnected={isConnected} />
+            <LetterSection isConnected={isConnected} />
+            <DDaySection isConnected={isConnected} />
           </div>
         </main>
       </div>

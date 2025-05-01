@@ -4,7 +4,6 @@ import { Input, DatePickerDrawer, Button, ProgressHeader } from "@/shared/ui";
 import { useOnboardingStore } from "@/stores/maonboardingStore";
 import { formatDateKorean } from "@/shared/utils";
 import { maonboardingQueries } from "@/entities/maonboarding/service";
-import { useCoupleStore } from "@/stores/coupleStore";
 
 export const MilitaryDay: React.FC = () => {
   const { 
@@ -15,7 +14,6 @@ export const MilitaryDay: React.FC = () => {
     setEnlistmentDate, 
     setDischargeDate 
   } = useOnboardingStore();
-  const { setInitialized } = useCoupleStore();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -67,8 +65,7 @@ export const MilitaryDay: React.FC = () => {
       });
       
       if (response.result) {
-        setInitialized(true);
-        navigate("/mainpage");
+        navigate("/mainpage", { replace: true });
       }
     } catch (error) {
       console.error("온보딩 완료 중 오류 발생:", error);

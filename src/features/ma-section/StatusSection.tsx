@@ -1,35 +1,40 @@
 import { useEffect, useState } from "react";
-import { useCheckStatus } from "@/entities/check_status/queries";
+import { useEmotionStatus } from "@/entities/emotion_status/queries";
 import CharacterDefaultIcon from "@/assets/images/character_default.svg";
 import { EMOTION_IMAGES } from "@/entities/types/emotion";
 import { MainHeader } from "./utils/MainHeader";
 import { useNavigate } from "react-router";
+import { GetCoupleEmotionResponse } from "@/entities/emotion_status/types";
 
 interface StatusSectionProps {
   isConnected: boolean;
 }
 
 const EMOTION_TO_ICON: Record<string, keyof typeof EMOTION_IMAGES> = {
-  "miss": "miss",
-  "happy": "happy",
-  "common": "common",
-  "tired": "tired",
-  "sad": "sad",
-  "worry": "worry",
-  "angry": "angry",
+  "MISS": "miss",
+  "HAPPY": "happy",
+  "COMMON": "common",
+  "TIRED": "tired",
+  "SAD": "sad",
+  "WORRY": "worry",
+  "ANGRY": "angry",
 };
 
 export const StatusSection = ({ isConnected }: StatusSectionProps) => {
   const navigate = useNavigate();
-  const { getCoupleEmotion } = useCheckStatus();
+  const { getCoupleEmotion } = useEmotionStatus();
   const [emotion, setEmotion] = useState<string>("");
+  const [statusMessage, setStatusMessage] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
       if (isConnected) {
         try {
-          const response = await getCoupleEmotion();
-          setEmotion(response.result.emotion);
+          const response = await getCoupleEmotion.refetch();
+          if (response.data) {
+            setEmotion(response.data.result.emotion);
+            setStatusMessage(response.data.result.statusMessage);
+          }
         } catch (error) {
           console.error("데이터 조회 실패:", error);
         }
@@ -67,7 +72,7 @@ export const StatusSection = ({ isConnected }: StatusSectionProps) => {
           <span className="text-gray-500">
             {!isConnected
               ? "커플 연결을 해주세요."
-              : "오늘 기분은 어떤가요?"}
+              : statusMessage || "오늘 기분은 어떤가요?"}
           </span>
         </div>
       </section>

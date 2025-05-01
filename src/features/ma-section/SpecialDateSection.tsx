@@ -6,7 +6,7 @@ import { useCoupleStore } from "@/stores/coupleStore";
 import { useEffect, useState } from "react";
 
 export const SpecialDateSection = () => {
-  const { isConnected, isInitialized } = useCoupleStore();
+  const { coupleInfo, isInitialized, fetchInitializationStatus } = useCoupleStore();
   const [ddayInfo, setDdayInfo] = useState<{
     sinceLove: number;
     sinceMilitaryStart: number;
@@ -14,19 +14,22 @@ export const SpecialDateSection = () => {
   } | null>(null);
 
   useEffect(() => {
-    const fetchDday = async () => {
-      if (isConnected && isInitialized) {
+    const fetchData = async () => {
+      if (coupleInfo) {
         try {
-          const response = await anniversaryQueries.getDday();
-          setDdayInfo(response.result);
+          const [ddayResponse] = await Promise.all([
+            anniversaryQueries.getDday(),
+            fetchInitializationStatus()
+          ]);
+          setDdayInfo(ddayResponse.result);
         } catch (error) {
-          console.error("디데이 정보를 가져오는데 실패했습니다:", error);
+          console.error("데이터를 가져오는데 실패했습니다:", error);
         }
       }
     };
 
-    fetchDday();
-  }, [isConnected, isInitialized]);
+    fetchData();
+  }, [coupleInfo, fetchInitializationStatus]);
 
   return (
     <>
@@ -36,7 +39,7 @@ export const SpecialDateSection = () => {
               <div className="flex w-full max-w-[300px] flex-col items-center justify-center rounded-2xl bg-white">
                 <img src={HeartIcon} alt="하트" className=" h-12 w-12" />
                 <span className="text-md font-medium text-gray-900 mb-2">
-                  {isConnected ? `D+${ddayInfo?.sinceLove ?? "-"}` : "-"}
+                  {coupleInfo && isInitialized ? `D+${ddayInfo?.sinceLove ?? "-"}` : "-"}
                 </span>
               </div>
             </div>
@@ -44,7 +47,7 @@ export const SpecialDateSection = () => {
               <div className="flex w-full max-w-[300px] flex-col items-center justify-center rounded-2xl bg-white">
                 <img src={BootsIcon} alt="부츠" className=" h-12 w-12" />
                 <span className="text-md font-medium text-gray-900 mb-2">
-                  {isConnected ? `D+${ddayInfo?.sinceMilitaryStart ?? "-"}` : "-"}
+                  {coupleInfo && isInitialized ? `D+${ddayInfo?.sinceMilitaryStart ?? "-"}` : "-"}
                 </span>
               </div>
             </div>
@@ -52,7 +55,7 @@ export const SpecialDateSection = () => {
               <div className="flex w-full max-w-[300px] flex-col items-center justify-center rounded-2xl bg-white">
                 <img src={HeelsIcon} alt="힐" className="h-12 w-12" />
                 <span className="text-md font-medium text-gray-900 mb-2">
-                  {isConnected ? `D-${ddayInfo?.militaryEndLeft ?? "-"}` : "-"}
+                  {coupleInfo && isInitialized ? `D-${ddayInfo?.militaryEndLeft ?? "-"}` : "-"}
                 </span>
               </div>
             </div>

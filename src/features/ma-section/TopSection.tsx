@@ -10,30 +10,44 @@ import { useCoupleStore } from "@/stores/coupleStore";
 import { useEffect, useState } from "react";
 import { maonboardingQueries } from "@/entities/maonboarding/service";
 
-export const TopSection: React.FC = () => {
+interface TopSectionProps {
+  isConnected: boolean;
+}
+
+export const TopSection: React.FC<TopSectionProps> = ({ isConnected }) => {
   const navigate = useNavigate();
-  const { militaryBranch } = useOnboardingStore();
-  const { isConnected, isInitialized, coupleInfo, isLoading, fetchCoupleStatus, fetchCoupleNicknames, setInitialized } = useCoupleStore();
+  const { militaryBranch, setMilitaryBranch } = useOnboardingStore();
+  const { coupleInfo, isLoading, fetchCoupleNicknames } = useCoupleStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    const initializeCoupleData = async () => {
-      await fetchCoupleStatus();
+    const initializeData = async () => {
       if (isConnected) {
-        await fetchCoupleNicknames();
+        try {
+          const [coupleResponse, coupleInfoResponse] = await Promise.all([
+            fetchCoupleNicknames(),
+            maonboardingQueries.getCoupleInfo()
+          ]);
+          setIsInitialized(coupleInfoResponse.result.isAnniversariesRegistered);
+          setMilitaryBranch(coupleInfoResponse.result.military);
+        } catch (error) {
+          console.error("데이터 초기화 중 오류 발생:", error);
+          setError(error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.");
+        }
       }
     };
 
-    initializeCoupleData();
-  }, [fetchCoupleStatus, fetchCoupleNicknames, isConnected]);
+    initializeData();
+  }, [isConnected, fetchCoupleNicknames, setMilitaryBranch]);
 
   const handleInitialize = async () => {
     setIsSubmitting(true);
     setError(null);
     
     try {
-      setInitialized(true);
+      setIsInitialized(true);
       navigate("/onboarding/firstmeet");
     } catch (error) {
       console.error("초기화 중 오류 발생:", error);
@@ -53,6 +67,8 @@ export const TopSection: React.FC = () => {
         return NavyBg;
       case "AIR_FORCE":
         return AirBg;
+      case "MARINE":
+        return NavyBg; // 해병대는 해군 배경 사용
       default:
         return InitBg;
     }
