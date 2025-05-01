@@ -1,9 +1,10 @@
 import { Fatigue } from "@/entities/schedule";
 import { Dispatch, SetStateAction, useMemo } from "react";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 import { CalendarBottomSheet } from "./CalendarBottomSheet";
 
 interface Tag {
+  id: number;
   title: string;
   fatigue: Fatigue;
   startDate: string;
@@ -21,8 +22,6 @@ interface CalendarProps {
 const normalizeDate = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
 export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDate, tags }: CalendarProps) => {
-  const navigate = useNavigate();
-
   const year = initialDate.getFullYear();
   const month = initialDate.getMonth();
   const firstDayOfMonth = new Date(year, month, 1).getDay();
@@ -61,14 +60,6 @@ export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDa
     }
   }
 
-  const goToDdayPage = () => {
-    navigate("/calendar/dday");
-  };
-
-  const goToAddSchedulePage = () => {
-    navigate("/calendar/schedule");
-  };
-
   return (
     <div className="mx-auto max-w-md p-5">
       {/* 헤더 */}
@@ -77,14 +68,12 @@ export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDa
           <CalendarBottomSheet year={year} month={month} setCurrentDate={setSelectedDate} />
         </div>
         <div className="flex items-center justify-center gap-2">
-          <button className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1" onClick={goToDdayPage}>
+          <Link to="/calendar/dday" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
             <img src="src/assets/icons/hambuk.svg" alt="D-day 보러가기" />
-          </button>
-          <button
-            className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1"
-            onClick={goToAddSchedulePage}>
+          </Link>
+          <Link to="/calendar/schedule" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
             <img src="src/assets/icons/plus.svg" alt="일정 추가" />
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -128,8 +117,8 @@ export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDa
                       }`}>
                       {date ? date.getDate() : ""}
                     </p>
-                    {dayTags.map((tag, tagIdx) => (
-                      <div key={tagIdx} className="flex h-3 w-10 items-center justify-center rounded-[8px] bg-red-50">
+                    {dayTags.map(tag => (
+                      <div key={tag.id} className="flex h-3 w-10 items-center justify-center rounded-[8px] bg-red-50">
                         <p className="truncate text-[10px]">{tag.title}</p>
                       </div>
                     ))}
