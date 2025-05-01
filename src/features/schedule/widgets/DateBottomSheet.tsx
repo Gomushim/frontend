@@ -3,7 +3,7 @@ import { DatePickerDrawer, DateSelector } from "@/shared/ui";
 import { useShallow } from "zustand/shallow";
 
 interface DateBottomSheetProps {
-  type: "start" | "end" | "dday";
+  type: "start" | "end";
 }
 
 export const DateBottomSheet = ({ type }: DateBottomSheetProps) => {

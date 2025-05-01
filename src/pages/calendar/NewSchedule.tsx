@@ -1,6 +1,6 @@
 import { Topbar, Divider, Button } from "@/shared/ui";
 import { useToggle } from "@/shared/hooks";
-import { EmojiSelector } from "@/features/d-day/widgets";
+import { DdayDateBottomSheet, EmojiSelector } from "@/features/d-day/widgets";
 import { AllDayToggleButton, DateBottomSheet, FatigueBottomSheet, TimeBottomSheet } from "@/features/schedule/widgets";
 import { TitleInput } from "@/features/schedule/widgets/TitleInput";
 import { useScheduleStore } from "@/entities/schedule";
@@ -46,7 +46,7 @@ export const CalendarNewSchedule = () => {
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="text-xl font-semibold text-gray-900">날짜</h3>
-                <DateBottomSheet type="dday" />
+                <DdayDateBottomSheet />
               </div>
             </section>
             <section className="fixed bottom-6 left-1/2 w-[375px] -translate-x-1/2 transform px-4">
