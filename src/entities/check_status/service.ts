@@ -1,14 +1,14 @@
-import { GetMyStatusMessageResponse, GetMyEmotionResponse } from "./types";
+import { GetCoupleStatusMessageResponse, GetCoupleEmotionResponse } from "./types";
 import { api } from "../axios/instance";
 
 export const checkStatusQueries = {
-  getMyStatusMessage: async (): Promise<GetMyStatusMessageResponse> => {
-    const response = await api.get<GetMyStatusMessageResponse>("/member/my-status-message");
+  getCoupleStatusMessage: async (): Promise<GetCoupleStatusMessageResponse> => {
+    const response = await api.get<GetCoupleStatusMessageResponse>("/couple/status-message");
     return response.data;
   },
 
-  getMyEmotion: async (): Promise<GetMyEmotionResponse> => {
-    const response = await api.get<GetMyEmotionResponse>("/member/my-emotion");
+  getCoupleEmotion: async (): Promise<GetCoupleEmotionResponse> => {
+    const response = await api.get<GetCoupleEmotionResponse>("/couple/emotion");
     return response.data;
   },
 }; 

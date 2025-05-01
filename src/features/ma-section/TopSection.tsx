@@ -33,20 +33,10 @@ export const TopSection: React.FC = () => {
     setError(null);
     
     try {
-      const response = await maonboardingQueries.registerAnniversary({
-        coupleId: 1, // TODO: 실제 coupleId를 가져오는 로직 필요
-        relationshipStartDate: new Date().toISOString().split("T")[0],
-        militaryStartDate: new Date().toISOString().split("T")[0],
-        militaryEndDate: new Date().toISOString().split("T")[0],
-        military: "ARMY",
-      });
-      
-      if (response.result) {
-        setInitialized(true);
-        navigate("/onboarding/firstmeet");
-      }
+      setInitialized(true);
+      navigate("/onboarding/firstmeet");
     } catch (error) {
-      console.error("온보딩 완료 중 오류 발생:", error);
+      console.error("초기화 중 오류 발생:", error);
       setError(error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.");
     } finally {
       setIsSubmitting(false);

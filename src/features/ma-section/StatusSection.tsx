@@ -1,37 +1,35 @@
 import { useEffect, useState } from "react";
-import { checkStatusQueries } from "@/entities/check_status/service";
+import { useCheckStatus } from "@/entities/check_status/queries";
 import CharacterDefaultIcon from "@/assets/images/character_default.svg";
 import { EMOTION_IMAGES } from "@/entities/types/emotion";
 import { MainHeader } from "./utils/MainHeader";
 import { useNavigate } from "react-router";
-import { useCoupleStore } from "@/stores/coupleStore";
 
-const NUMBER_TO_EMOTION: Record<number, keyof typeof EMOTION_IMAGES> = {
-  1: "miss",
-  2: "happy",
-  3: "common",
-  4: "tired",
-  5: "sad",
-  6: "worry",
-  7: "angry",
+interface StatusSectionProps {
+  isConnected: boolean;
+}
+
+const EMOTION_TO_ICON: Record<string, keyof typeof EMOTION_IMAGES> = {
+  "miss": "miss",
+  "happy": "happy",
+  "common": "common",
+  "tired": "tired",
+  "sad": "sad",
+  "worry": "worry",
+  "angry": "angry",
 };
 
-export const StatusSection = () => {
+export const StatusSection = ({ isConnected }: StatusSectionProps) => {
   const navigate = useNavigate();
-  const { isConnected, isInitialized } = useCoupleStore();
-  const [statusMessage, setStatusMessage] = useState<string>("");
-  const [emotion, setEmotion] = useState<number>(0);
+  const { getCoupleEmotion } = useCheckStatus();
+  const [emotion, setEmotion] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
-      if (isConnected && isInitialized) {
+      if (isConnected) {
         try {
-          const [statusResponse, emotionResponse] = await Promise.all([
-            checkStatusQueries.getMyStatusMessage(),
-            checkStatusQueries.getMyEmotion()
-          ]);
-          setStatusMessage(statusResponse.result.statusMessage);
-          setEmotion(emotionResponse.result.emotion);
+          const response = await getCoupleEmotion();
+          setEmotion(response.result.emotion);
         } catch (error) {
           console.error("데이터 조회 실패:", error);
         }
@@ -39,16 +37,16 @@ export const StatusSection = () => {
     };
 
     fetchData();
-  }, [isConnected, isInitialized]);
+  }, [isConnected, getCoupleEmotion]);
 
   const handleStatusClick = () => {
-    if (isConnected && isInitialized) {
+    if (isConnected) {
       navigate("/status");
     }
   };
 
-  const EmotionIcon = isConnected && isInitialized && emotion && NUMBER_TO_EMOTION[emotion] 
-    ? EMOTION_IMAGES[NUMBER_TO_EMOTION[emotion]].base 
+  const EmotionIcon = isConnected && emotion && EMOTION_TO_ICON[emotion] 
+    ? EMOTION_IMAGES[EMOTION_TO_ICON[emotion]].base 
     : null;
 
   return (
@@ -57,7 +55,7 @@ export const StatusSection = () => {
         mainTitle="연인의 상태 메세지"
         buttonText="상태 메세지 쓰러가기"
         onClick={handleStatusClick}
-        disabled={!isConnected || !isInitialized}
+        disabled={!isConnected}
       />
       <section className="mb-4 rounded-2xl bg-white p-6">
         <div className="flex items-center text-sm font-semibold">
@@ -66,12 +64,10 @@ export const StatusSection = () => {
           ) : (
             <img src={CharacterDefaultIcon} alt="캐릭터" className="mr-3 h-5 w-5" />
           )}
-          <span className={statusMessage ? "text-gray-900" : "text-gray-500"}>
+          <span className="text-gray-500">
             {!isConnected
               ? "커플 연결을 해주세요."
-              : !isInitialized
-                ? "초기 설정을 완료해주세요."
-                : statusMessage || "오늘 기분은 어떤가요?"}
+              : "오늘 기분은 어떤가요?"}
           </span>
         </div>
       </section>

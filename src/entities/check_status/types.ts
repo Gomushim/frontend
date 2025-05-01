@@ -1,11 +1,11 @@
-export interface GetMyStatusMessageResponse {
+export interface GetCoupleStatusMessageResponse {
   result: {
     statusMessage: string;
   };
 }
 
-export interface GetMyEmotionResponse {
+export interface GetCoupleEmotionResponse {
   result: {
-    emotion: number;
+    emotion: string;
   };
 } 

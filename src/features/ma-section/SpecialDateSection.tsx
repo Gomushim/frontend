@@ -30,24 +30,30 @@ export const SpecialDateSection = () => {
 
   return (
     <>
-        <div className="relative z-20 -mt-15 px-6">
+        <div className="relative z-20 -mt-22 px-6">
           <section className="grid grid-cols-3 gap-5">
             <div className="flex flex-col items-center">
               <div className="flex w-full max-w-[300px] flex-col items-center justify-center rounded-2xl bg-white">
-                <img src={HeartIcon} alt="하트" className="mb-2 h-12 w-12" />
-                <span className="text-xs text-gray-900">{ddayInfo?.sinceLove ?? "-"}일 </span>
+                <img src={HeartIcon} alt="하트" className=" h-12 w-12" />
+                <span className="text-md font-medium text-gray-900 mb-2">
+                  {isConnected ? `D+${ddayInfo?.sinceLove ?? "-"}` : "-"}
+                </span>
               </div>
             </div>
             <div className="flex flex-col items-center">
               <div className="flex w-full max-w-[300px] flex-col items-center justify-center rounded-2xl bg-white">
-                <img src={BootsIcon} alt="부츠" className="mb-2 h-12 w-12" />
-                <span className="text-xs text-gray-900">{ddayInfo?.sinceMilitaryStart ?? "-"}일</span>
+                <img src={BootsIcon} alt="부츠" className=" h-12 w-12" />
+                <span className="text-md font-medium text-gray-900 mb-2">
+                  {isConnected ? `D+${ddayInfo?.sinceMilitaryStart ?? "-"}` : "-"}
+                </span>
               </div>
             </div>
             <div className="flex flex-col items-center">
               <div className="flex w-full max-w-[300px] flex-col items-center justify-center rounded-2xl bg-white">
-                <img src={HeelsIcon} alt="힐" className="mb-2 h-12 w-12" />
-                <span className="text-xs text-gray-900">{ddayInfo?.militaryEndLeft ?? "-"}일</span>
+                <img src={HeelsIcon} alt="힐" className="h-12 w-12" />
+                <span className="text-md font-medium text-gray-900 mb-2">
+                  {isConnected ? `D-${ddayInfo?.militaryEndLeft ?? "-"}` : "-"}
+                </span>
               </div>
             </div>
           </section>

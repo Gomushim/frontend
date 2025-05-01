@@ -1,19 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { checkStatusQueries } from "./service";
+import { GetCoupleEmotionResponse } from "./types";
+import { api } from "@/entities/axios/instance";
 
 export const useCheckStatus = () => {
-  const getMyStatusMessage = useQuery({
-    queryKey: ["myStatusMessage"],
-    queryFn: () => checkStatusQueries.getMyStatusMessage(),
+  const getCoupleStatusMessage = useQuery({
+    queryKey: ["coupleStatusMessage"],
+    queryFn: () => checkStatusQueries.getCoupleStatusMessage(),
   });
 
-  const getMyEmotion = useQuery({
-    queryKey: ["myEmotion"],
-    queryFn: () => checkStatusQueries.getMyEmotion(),
-  });
+  const getCoupleEmotion = async () => {
+    const response = await api.get<GetCoupleEmotionResponse>("/couple/emotion");
+    return response.data;
+  };
 
   return {
-    getMyStatusMessage,
-    getMyEmotion,
+    getCoupleStatusMessage,
+    getCoupleEmotion,
   };
 }; 
