@@ -62,12 +62,12 @@ export const CalendarNewSchedule = () => {
                 <h3 className="text-xl font-semibold text-gray-900">하루종일</h3>
                 <AllDayToggleButton />
               </div>
-              <div className="grid grid-cols-[1fr_112px_112px] gap-2">
+              <div className="grid grid-cols-[1fr_120px_115px] gap-2">
                 <h3 className="text-xl font-semibold text-gray-900">시작</h3>
                 <DateBottomSheet type="start" />
                 <TimeBottomSheet target="start" />
               </div>
-              <div className="grid grid-cols-[1fr_112px_112px] gap-2">
+              <div className="grid grid-cols-[1fr_120px_115px] gap-2">
                 <h3 className="text-xl font-semibold text-gray-900">종료</h3>
                 <DateBottomSheet type="end" />
                 <TimeBottomSheet target="end" />

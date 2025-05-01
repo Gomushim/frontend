@@ -1,10 +1,12 @@
 import { Button } from "@/shared/ui";
 import grayClock from "@/assets/icons/grayClock.svg";
+import blackClock from "@/assets/icons/blackClock.svg";
 interface TimeSelectorProps {
   time: string;
+  deactivate?: boolean;
 }
 
-export const TimeSelector = ({ time }: TimeSelectorProps) => {
+export const TimeSelector = ({ time, deactivate }: TimeSelectorProps) => {
   // 전역 상태에서 startDate와 setStartDate를 불러옵니다.
 
   const formatTime = (date: Date | null) => {
@@ -23,10 +25,12 @@ export const TimeSelector = ({ time }: TimeSelectorProps) => {
     return `${ampm} ${formattedHour}:${formattedMinute}`;
   };
 
+  const textColor = time && !deactivate ? "text-gray-900" : "text-gray-400";
+
   return (
-    <Button variant="calendar" size="xs">
-      <img src={grayClock} alt="시간 선택" className="h-5 w-5" />
-      {formatTime(time ? new Date(time) : new Date())}
+    <Button variant="calendar" size="xs" className={`${textColor}`}>
+      <img src={time && !deactivate ? blackClock : grayClock} alt="시간 선택" className="h-5 w-5" />
+      {formatTime(time && !deactivate ? new Date(time) : new Date())}
     </Button>
   );
 };

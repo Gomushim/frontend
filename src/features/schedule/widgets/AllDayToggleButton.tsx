@@ -14,5 +14,5 @@ export const AllDayToggleButton = () => {
     setIsAllDay(!isAllDay); // 전역 상태 업데이트
   };
 
-  return <Switch id="airplane-mode" onClick={handleToggle} />;
+  return <Switch id="airplane-mode" className="checked:bg-green-500" onClick={handleToggle} />;
 };

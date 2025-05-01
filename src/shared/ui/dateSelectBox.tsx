@@ -1,11 +1,13 @@
 import grayCalendar from "@/assets/icons/grayCalendar.svg";
+import balckCalendar from "@/assets/images/calendar_black.svg";
 import { Button } from "@/shared/ui";
 
 interface DateSelectorProps {
   date: string;
+  deactivate?: boolean;
 }
 
-export const DateSelector = ({ date }: DateSelectorProps) => {
+export const DateSelector = ({ date, deactivate }: DateSelectorProps) => {
   const formatDate = (newDate: Date | string) => {
     const date = new Date(newDate);
 
@@ -18,10 +20,12 @@ export const DateSelector = ({ date }: DateSelectorProps) => {
     return `${year}.${month}.${day}`;
   };
 
+  const textColor = date && !deactivate ? "text-gray-900" : "text-gray-400";
+
   return (
-    <Button variant="calendar" size="xs" className="max-w-[112px]">
-      <img src={grayCalendar} alt="날짜 선택" className="h-4.5 w-4.5" />
-      {date ? formatDate(date) : formatDate(new Date())}
+    <Button variant="calendar" size="xs" className={` ${textColor}`}>
+      <img src={date && !deactivate ? balckCalendar : grayCalendar} alt="날짜 선택" className="h-5 w-5 pb-0.5" />
+      {date && !deactivate ? formatDate(date) : formatDate(new Date())}
     </Button>
   );
 };

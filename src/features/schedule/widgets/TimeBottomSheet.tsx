@@ -7,8 +7,9 @@ interface TimeBottomSheetProps {
 }
 
 export const TimeBottomSheet = ({ target }: TimeBottomSheetProps) => {
-  const { setStartDate, setEndDate, startDate, endDate } = useScheduleStore(
+  const { setStartDate, setEndDate, isAllDay, startDate, endDate } = useScheduleStore(
     useShallow(state => ({
+      isAllDay: state.schedule.isAllDay,
       startDate: state.schedule.startDate,
       endDate: state.schedule.endDate,
       setStartDate: state.setStartDate,
@@ -36,7 +37,7 @@ export const TimeBottomSheet = ({ target }: TimeBottomSheetProps) => {
 
   return (
     <TimePickerDrawer onConfirm={handleTimeConfirm}>
-      <TimeSelector time={target === "start" ? startDate : endDate} />
+      <TimeSelector time={target === "start" ? startDate : endDate} deactivate={isAllDay} />
     </TimePickerDrawer>
   );
 };
