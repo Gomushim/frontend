@@ -4,3 +4,7 @@ import { novelQueryKey } from "./queryKey";
 export const useGetCalendarSchedule = (date: Date) => {
   return useQuery(novelQueryKey.calendar(date));
 };
+
+export const useGetScheduleList = (date: Date) => {
+  return useQuery(novelQueryKey.list(date));
+};

@@ -13,3 +13,11 @@ export const getCalendarSchedule = async (date: Date): Promise<ScheduleListRespo
   const response = await api.get<ScheduleListResponse>(`/schedules?year=${year}&month=${month}`);
   return response.data;
 };
+
+export const getScheduleList = async (date: Date): Promise<ScheduleListResponse> => {
+  const formattedDate = date.toISOString().split("T")[0];
+
+  console.log("formattedDate", formattedDate);
+  const response = await api.get<ScheduleListResponse>(`/schedules/date?date=${formattedDate}`);
+  return response.data;
+};

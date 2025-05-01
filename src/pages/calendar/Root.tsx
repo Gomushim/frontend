@@ -7,10 +7,12 @@ export const CalendarRoot: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const { data: scheduleData } = useGetCalendarSchedule(selectedDate);
+  // const { data: scheduleListData } = useGetScheduleList(selectedDate);
 
   if (!scheduleData) {
     return;
   }
+
   return (
     <div className="">
       <Calendar
