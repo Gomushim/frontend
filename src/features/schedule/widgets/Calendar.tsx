@@ -7,6 +7,21 @@ import { useGetCalendarSchedule } from "@/entities/schedule/query";
 // 날짜 비교를 위한 정규화 함수 (시, 분, 초 제거)
 const normalizeDate = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
+const fatigueTagMap: Record<string, { bgColor: string; textColor: string }> = {
+  VERY_TIRED: {
+    bgColor: "bg-red-100",
+    textColor: "text-red-0",
+  },
+  TIRED: {
+    bgColor: "bg-green-100",
+    textColor: "text-green-500",
+  },
+  GOOD: {
+    bgColor: "bg-green-500",
+    textColor: "text-white",
+  },
+};
+
 export const Calendar = () => {
   const { selectedMonth, selectedDay, setSelectedMonth, setSelectedDay } = useSelectedDateStore();
 
@@ -111,11 +126,17 @@ export const Calendar = () => {
                       }`}>
                       {date ? date.getDate() : ""}
                     </p>
-                    {dayTags.map(tag => (
-                      <div key={tag.id} className="flex h-3 w-10 items-center justify-center rounded-[8px] bg-red-50">
-                        <p className="truncate text-[10px]">{tag.title}</p>
-                      </div>
-                    ))}
+                    {dayTags.map(tag => {
+                      const { bgColor, textColor } = fatigueTagMap[tag.fatigue || "VERY_TIRED"];
+
+                      return (
+                        <div
+                          key={tag.id}
+                          className={`flex h-3 w-10 items-center justify-center rounded-[8px] ${bgColor}`}>
+                          <p className={`truncate text-[10px] ${textColor}`}>{tag.title}</p>
+                        </div>
+                      );
+                    })}
                   </div>
                 );
               })}

@@ -35,30 +35,38 @@ export const WriteLetterBottomSheet = () => {
 
   // 폼 제출 핸들러
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // 기본 페이지 리로드 막기
+    event.preventDefault();
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    formData.append("scheduleId", scheduleId || "");
 
-    // 이미지 파일도 FormData에 추가
+    const data = {
+      letterId: null,
+      scheduleId: scheduleId || "",
+      title: formData.get("title"),
+      content: formData.get("content"),
+    };
+    console.log(data);
+    const finalFormData = new FormData();
+
+    finalFormData.append("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
+
     images.forEach(file => {
-      formData.append("pictures", file);
+      finalFormData.append("pictures", file);
     });
 
-    mutate(formData, {
-      onSuccess: () => {},
+    mutate(finalFormData, {
+      onSuccess: () => {
+        alert("폼이 제출되었습니다.");
+      },
       onError: error => {
-        console.log(error);
+        console.error(error);
       },
     });
 
-    // 예: formData 내용 확인 (디버깅용)
-    for (const pair of formData.entries()) {
+    for (const pair of finalFormData.entries()) {
       console.log(pair[0], pair[1]);
     }
-
-    alert("폼이 제출되었습니다.");
   };
 
   return (
