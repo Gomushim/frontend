@@ -19,3 +19,17 @@ export const useScheduleStore = create<ScheduleStore>(set => ({
   setIsAllDay: isAllDay => set(state => ({ schedule: { ...state.schedule, isAllDay } })),
   reset: () => set({ schedule: initialSchedule }),
 }));
+
+interface SelectedDateState {
+  selectedMonth: Date;
+  selectedDay: Date;
+  setSelectedMonth: (date: Date) => void;
+  setSelectedDay: (date: Date) => void;
+}
+
+export const useSelectedDateStore = create<SelectedDateState>(set => ({
+  selectedMonth: new Date(),
+  selectedDay: new Date(),
+  setSelectedMonth: date => set({ selectedMonth: date }),
+  setSelectedDay: date => set({ selectedDay: date }),
+}));

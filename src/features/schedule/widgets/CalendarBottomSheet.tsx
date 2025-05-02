@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from "react";
 interface CalendarBottomSheetProps {
   year: number;
   month: number;
-  setCurrentDate: Dispatch<SetStateAction<Date>>;
+  setCurrentDate: (date: Date) => void;
 }
 
 export const CalendarBottomSheet = ({ year, month, setCurrentDate }: CalendarBottomSheetProps) => {

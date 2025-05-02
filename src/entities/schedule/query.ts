@@ -1,10 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import { novelQueryKey } from "./queryKey";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { scheduleQueryKey } from "./queryKey";
 
 export const useGetCalendarSchedule = (date: Date) => {
-  return useQuery(novelQueryKey.calendar(date));
+  return useSuspenseQuery(scheduleQueryKey.calendar(date));
 };
 
 export const useGetScheduleList = (date: Date) => {
-  return useQuery(novelQueryKey.list(date));
+  return useSuspenseQuery(scheduleQueryKey.list(date));
 };

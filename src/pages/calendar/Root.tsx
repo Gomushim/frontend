@@ -1,32 +1,18 @@
-import { useState } from "react";
-import { ScheduleCard, Calendar } from "@/features/schedule/widgets";
-import { formatDateKoreanWithWeekday } from "@/shared/utils";
-import { useGetCalendarSchedule, useGetScheduleList } from "@/entities/schedule/query";
+import { Calendar } from "@/features/schedule/widgets";
+import { ScheduleCardList } from "@/features/schedule/widgets/ScheduleCardList";
+import { Suspense } from "react";
 
-export const CalendarRoot: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
-  const { data: scheduleData } = useGetCalendarSchedule(selectedDate);
-  const { data: scheduleListData } = useGetScheduleList(selectedDate);
-
-  if (!scheduleData || !scheduleListData) {
-    return;
-  }
-
+export const CalendarRoot = () => {
   return (
-    <div className="">
-      <Calendar
-        initialDate={selectedDate}
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-        tags={scheduleData.result.schedules}
-      />
-      <div className="mt-7 flex w-full flex-col gap-3 bg-gray-50 p-5">
-        <h2>{formatDateKoreanWithWeekday(selectedDate)}</h2>
-        {scheduleListData.result.schedules.map((schedul, index) => (
-          <ScheduleCard key={index} {...schedul} />
-        ))}
+    <>
+      <Suspense fallback={<div>로딩중...</div>}>
+        <Calendar />
+      </Suspense>
+      <div className="mt-7 flex min-h-[500px] w-full flex-col gap-3 bg-gray-50 p-5">
+        <Suspense fallback={<div>로딩중...</div>}>
+          <ScheduleCardList />
+        </Suspense>
       </div>
-    </div>
+    </>
   );
 };

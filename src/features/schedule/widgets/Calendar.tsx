@@ -1,29 +1,30 @@
-import { Fatigue } from "@/entities/schedule";
-import { Dispatch, SetStateAction, useMemo } from "react";
+import { useSelectedDateStore } from "@/entities/schedule";
+import { useMemo } from "react";
 import { Link } from "react-router";
 import { CalendarBottomSheet } from "./CalendarBottomSheet";
-
-interface Tag {
-  id: number;
-  title: string;
-  fatigue: Fatigue;
-  startDate: string;
-  endDate: string;
-}
-
-interface CalendarProps {
-  initialDate?: Date;
-  selectedDate: Date;
-  setSelectedDate: Dispatch<SetStateAction<Date>>;
-  tags: Tag[];
-}
+import { useGetCalendarSchedule } from "@/entities/schedule/query";
 
 // 날짜 비교를 위한 정규화 함수 (시, 분, 초 제거)
 const normalizeDate = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
-export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDate, tags }: CalendarProps) => {
-  const year = initialDate.getFullYear();
-  const month = initialDate.getMonth();
+export const Calendar = () => {
+  const { selectedMonth, selectedDay, setSelectedMonth, setSelectedDay } = useSelectedDateStore();
+
+  const { data: scheduleData } = useGetCalendarSchedule(selectedMonth);
+
+  const normalizedTags = useMemo(() => {
+    return (
+      scheduleData &&
+      scheduleData.result.schedules.map(tag => ({
+        ...tag,
+        startDate: normalizeDate(new Date(tag.startDate)),
+        endDate: normalizeDate(new Date(tag.endDate)),
+      }))
+    );
+  }, [scheduleData]);
+
+  const year = selectedMonth.getFullYear();
+  const month = selectedMonth.getMonth();
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   const lastDate = new Date(year, month + 1, 0).getDate();
   const today = new Date();
@@ -32,13 +33,6 @@ export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDa
     d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
 
   // 태그 날짜 정규화
-  const normalizedTags = useMemo(() => {
-    return tags.map(tag => ({
-      ...tag,
-      startDate: normalizeDate(new Date(tag.startDate)),
-      endDate: normalizeDate(new Date(tag.endDate)),
-    }));
-  }, [tags]);
 
   const calendarDays: (Date | null)[] = [];
 
@@ -65,7 +59,7 @@ export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDa
       {/* 헤더 */}
       <div className="relative mb-3 flex justify-between">
         <div className="flex items-center justify-center gap-2.5">
-          <CalendarBottomSheet year={year} month={month} setCurrentDate={setSelectedDate} />
+          <CalendarBottomSheet year={year} month={month} setCurrentDate={setSelectedMonth} />
         </div>
         <div className="flex items-center justify-center gap-2">
           <Link to="/calendar/dday" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
@@ -93,8 +87,8 @@ export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDa
             <div className="grid grid-cols-7 px-1.5 text-center">
               {week.map((date, idx) => {
                 const isToday = date && isSameDay(date, today);
-                const isSelected = date && selectedDate && isSameDay(date, selectedDate);
-                const showToday = isToday && selectedDate === null;
+                const isSelected = date && selectedDay && isSameDay(date, selectedDay);
+                const showToday = isToday && selectedDay === null;
 
                 const dayTags =
                   date != null
@@ -108,7 +102,7 @@ export const Calendar = ({ initialDate = new Date(), selectedDate, setSelectedDa
                   <div
                     key={idx}
                     className="flex cursor-pointer flex-col items-center gap-1"
-                    onClick={() => date && setSelectedDate(date)}>
+                    onClick={() => date && setSelectedDay(date)}>
                     <p
                       className={`text-md mb-2 flex h-8 w-8 items-center justify-center rounded-[12px] pt-0.5 text-center font-normal transition ${
                         showToday || isSelected ? "bg-gray-900 font-bold text-white" : ""
