@@ -7,7 +7,7 @@ interface DateBottomSheetProps {
 }
 
 export const DateBottomSheet = ({ type }: DateBottomSheetProps) => {
-  const { startDate, endDate, isAllDay, setStartDate, setEndDate } = useScheduleStore(
+  const { startDate, endDate, setStartDate, setEndDate } = useScheduleStore(
     useShallow(state => ({
       isAllDay: state.schedule.isAllDay,
       startDate: state.schedule.startDate,
@@ -38,7 +38,7 @@ export const DateBottomSheet = ({ type }: DateBottomSheetProps) => {
 
   return (
     <DatePickerDrawer onConfirm={handleDateConfirm}>
-      <DateSelector date={type === "start" ? startDate : endDate} deactivate={isAllDay} />
+      <DateSelector date={type === "start" ? startDate : endDate} />
     </DatePickerDrawer>
   );
 };

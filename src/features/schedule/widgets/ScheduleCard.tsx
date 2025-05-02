@@ -9,6 +9,7 @@ interface ScheduleCardProps {
   fatigue: Fatigue;
   startDate: string;
   endDate: string;
+  isAllDay: boolean;
   className?: string;
   onClick?: () => void;
 }
@@ -53,7 +54,9 @@ export const ScheduleCard = (props: ScheduleCardProps) => {
           </InfoCard.Tag>
           <InfoCard.Title>{props.title}</InfoCard.Title>
         </div>
-        <InfoCard.Time>{formattedTimeRange}</InfoCard.Time>
+
+        {!props.isAllDay && <InfoCard.Time>{formattedTimeRange}</InfoCard.Time>}
+        {props.isAllDay && <InfoCard.Time>하루종일</InfoCard.Time>}
       </InfoCard.Content>
     </InfoCard>
   );

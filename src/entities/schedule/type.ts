@@ -13,6 +13,7 @@ export interface Schedule {
   fatigue: Fatigue;
   startDate: string;
   endDate: string;
+  isAllDay: boolean;
   letter: Omit<Letter, "comments">[];
 }
 
