@@ -8,3 +8,7 @@ export const useGetCalendarSchedule = (date: Date) => {
 export const useGetScheduleList = (date: Date) => {
   return useSuspenseQuery(scheduleQueryKey.list(date));
 };
+
+export const useGetScheduleDetail = (scheduleId: number) => {
+  return useSuspenseQuery(scheduleQueryKey.detail(scheduleId));
+};

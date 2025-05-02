@@ -1,5 +1,5 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-import { getCalendarSchedule, getScheduleList } from "./service";
+import { getCalendarSchedule, getScheduleDetail, getScheduleList } from "./service";
 
 export const scheduleQueryKey = createQueryKeys("schedule", {
   calendar: (date: Date) => ({
@@ -9,5 +9,9 @@ export const scheduleQueryKey = createQueryKeys("schedule", {
   list: (date: Date) => ({
     queryKey: [date],
     queryFn: () => getScheduleList(date),
+  }),
+  detail: (scheduleId: number) => ({
+    queryKey: [scheduleId],
+    queryFn: () => getScheduleDetail(scheduleId),
   }),
 });

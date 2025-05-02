@@ -1,5 +1,5 @@
 import { api } from "../axios/instance";
-import { ScheduleRequst, NewScheduleResponse, ScheduleListResponse } from "./type";
+import { ScheduleRequst, NewScheduleResponse, ScheduleListResponse, ScheduleDetailResponse } from "./type";
 
 export const createSchedule = async (data: ScheduleRequst): Promise<NewScheduleResponse> => {
   const response = await api.post<NewScheduleResponse>("/schedules", data);
@@ -25,5 +25,10 @@ export const getScheduleList = async (date: Date): Promise<ScheduleListResponse>
     .replace(".", "");
 
   const response = await api.get<ScheduleListResponse>(`/schedules/date?date=${formattedDate}`);
+  return response.data;
+};
+
+export const getScheduleDetail = async (scheduleId: number): Promise<ScheduleDetailResponse> => {
+  const response = await api.get<ScheduleDetailResponse>(`/schedules/detail/${scheduleId}`);
   return response.data;
 };

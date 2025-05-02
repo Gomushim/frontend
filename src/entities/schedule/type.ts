@@ -16,17 +16,11 @@ export interface Schedule {
   letter: Omit<Letter, "content">[];
 }
 
-export interface ScheduleListResponse {
-  result: {
-    schedules: Omit<Schedule, "letter">[];
-    anniversaries: Dday[];
-  };
-}
-
 export interface CalendarSchedule {
   schedule: Omit<Schedule, "letter" | "startDate">[];
 }
 
+// API 통신에서 쓰는 타입들
 export interface ScheduleRequst {
   id?: number | null;
   title: string;
@@ -36,10 +30,29 @@ export interface ScheduleRequst {
   isAllDay: boolean;
 }
 
+export interface ScheduleListResponse {
+  result: {
+    schedules: Omit<Schedule, "letter">[];
+    anniversaries: Dday[];
+  };
+}
+
 export interface NewScheduleResponse {
   result: boolean;
 }
 
+export interface ScheduleDetailResponse {
+  result: {
+    id: number;
+    title: string;
+    fatigue: Fatigue;
+    startDate: string;
+    endDate: string;
+    letter: Omit<Letter, "content">[];
+  };
+}
+
+// 전역 상태에서 쓰는 타입들
 export interface InitialSchedule {
   id: number | null;
   title: string;
