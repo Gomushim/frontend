@@ -15,9 +15,15 @@ export const getCalendarSchedule = async (date: Date): Promise<ScheduleListRespo
 };
 
 export const getScheduleList = async (date: Date): Promise<ScheduleListResponse> => {
-  const formattedDate = date.toISOString().split("T")[0];
+  const formattedDate = date
+    .toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .replace(/\. /g, "-")
+    .replace(".", "");
 
-  console.log("formattedDate", formattedDate);
   const response = await api.get<ScheduleListResponse>(`/schedules/date?date=${formattedDate}`);
   return response.data;
 };
