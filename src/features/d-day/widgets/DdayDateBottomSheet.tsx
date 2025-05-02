@@ -21,8 +21,12 @@ export const DdayDateBottomSheet = () => {
       isValidCurrent ? current.getHours() : 0,
       isValidCurrent ? current.getMinutes() : 0
     );
+    const yyyy = newDate.getFullYear();
+    const mm = String(newDate.getMonth() + 1).padStart(2, "0");
+    const dd = String(newDate.getDate()).padStart(2, "0");
 
-    setDate(newDate.toISOString());
+    const formatted = `${yyyy}-${mm}-${dd}`;
+    setDate(formatted);
   };
 
   return (
