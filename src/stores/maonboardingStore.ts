@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { useCoupleStore } from "./coupleStore";
 
 export type MilitaryBranch = "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE" | "";
 
