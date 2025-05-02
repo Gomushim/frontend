@@ -9,36 +9,43 @@ import {
 } from "@/features/ma-section";
 import { useEffect, useState } from "react";
 import { iscoupleQueries } from "@/entities/iscouple/service";
+import { maonboardingQueries } from "@/entities/maonboarding/service";
 
 export const MainPage = () => {
   const [isConnected, setIsConnected] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    const checkCoupleStatus = async () => {
+    const checkInitialStatus = async () => {
       try {
-        const response = await iscoupleQueries.checkCoupleConnect();
-        setIsConnected(response.result);
+        const [coupleResponse, coupleInfoResponse] = await Promise.all([
+          iscoupleQueries.checkCoupleConnect(),
+          maonboardingQueries.getCoupleInfo()
+        ]);
+        setIsConnected(coupleResponse.result);
+        setIsInitialized(coupleInfoResponse.result.isAnniversariesRegistered);
       } catch (error) {
-        console.error("커플 상태 조회 실패:", error);
+        console.error("상태 조회 실패:", error);
         setIsConnected(false);
+        setIsInitialized(false);
       }
     };
 
-    checkCoupleStatus();
+    checkInitialStatus();
   }, []);
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
       {/* 상단 배경 */}
-      <TopSection isConnected={isConnected} />
+      <TopSection isConnected={isConnected} isInitialized={isInitialized} />
 
       {/* 상단 디데이 */}
-      <SpecialDateSection />
+      <SpecialDateSection isConnected={isConnected} isInitialized={isInitialized} />
       {/* 메인 컨텐츠 */}
       <div className="relative z-10 -mt-12 flex-grow rounded-t-[20px] bg-gray-50">
         <main className="container mx-auto max-w-screen-lg px-4 pt-15 pb-[95px]">
           <div className="grid w-full gap-4">
-            <StatusSection isConnected={isConnected} />
+            <StatusSection isConnected={isConnected} isInitialized={isInitialized} />
             <ScheduleSection  />
             <LetterSection  />
             <DDaySection />

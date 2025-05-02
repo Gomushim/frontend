@@ -38,17 +38,8 @@ export const MilitaryDay: React.FC = () => {
       return;
     }
 
-    if (dischargeDate > today) {
-      setError("전역일은 오늘보다 이전이어야 합니다");
-      return;
-    }
-
     if (dischargeDate <= enlistmentDate) {
       setError("전역일은 입대일보다 이후여야 합니다");
-      return;
-    }
-    if (enlistmentDate <= firstMeetDate) {
-      setError("입대일은 만난 날짜보다 이후여야 합니다");
       return;
     }
 

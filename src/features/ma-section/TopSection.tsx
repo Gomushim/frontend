@@ -6,52 +6,66 @@ import AirBg from "@/assets/images/airbg.svg";
 import CoupleHeart from "@/assets/images/couple_heart.svg";
 import { useNavigate } from "react-router";
 import { useOnboardingStore } from "@/stores/maonboardingStore";
-import { useCoupleStore } from "@/stores/coupleStore";
 import { useEffect, useState } from "react";
+import { coupleNicknameQueries } from "@/entities/couple_nickname/service";
 import { maonboardingQueries } from "@/entities/maonboarding/service";
 
 interface TopSectionProps {
   isConnected: boolean;
+  isInitialized: boolean;
 }
 
-export const TopSection: React.FC<TopSectionProps> = ({ isConnected }) => {
+interface CoupleInfo {
+  userNickname: string;
+  coupleNickname: string;
+}
+
+type MilitaryBranch = "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE";
+
+export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitialized }) => {
   const navigate = useNavigate();
   const { militaryBranch, setMilitaryBranch } = useOnboardingStore();
-  const { coupleInfo, isLoading, fetchCoupleNicknames } = useCoupleStore();
+  const [coupleInfo, setCoupleInfo] = useState<CoupleInfo>({ userNickname: "", coupleNickname: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [isInitialized, setIsInitialized] = useState(false);
+
+  const fetchCoupleNicknames = async () => {
+    try {
+      const response = await coupleNicknameQueries.getNickName();
+      setCoupleInfo({
+        userNickname: response.result.userNickname,
+        coupleNickname: response.result.coupleNickname,
+      });
+    } catch (error) {
+      console.error("닉네임 조회 실패:", error);
+      setCoupleInfo({ userNickname: "", coupleNickname: "" });
+    }
+  };
+
+  const initializeData = async () => {
+    if (!isConnected) return;
+
+    try {
+      const [, coupleInfoResponse] = await Promise.all([
+        fetchCoupleNicknames(),
+        maonboardingQueries.getCoupleInfo()
+      ]);
+      setMilitaryBranch(coupleInfoResponse.result.military);
+    } catch (error) {
+      console.error("데이터 초기화 중 오류 발생:", error);
+    }
+  };
 
   useEffect(() => {
-    const initializeData = async () => {
-      if (isConnected) {
-        try {
-          const [coupleResponse, coupleInfoResponse] = await Promise.all([
-            fetchCoupleNicknames(),
-            maonboardingQueries.getCoupleInfo()
-          ]);
-          setIsInitialized(coupleInfoResponse.result.isAnniversariesRegistered);
-          setMilitaryBranch(coupleInfoResponse.result.military);
-        } catch (error) {
-          console.error("데이터 초기화 중 오류 발생:", error);
-          setError(error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.");
-        }
-      }
-    };
-
     initializeData();
-  }, [isConnected, fetchCoupleNicknames, setMilitaryBranch]);
+  }, [isConnected, setMilitaryBranch]);
 
   const handleInitialize = async () => {
     setIsSubmitting(true);
-    setError(null);
     
     try {
-      setIsInitialized(true);
       navigate("/onboarding/firstmeet");
     } catch (error) {
-      console.error("초기화 중 오류 발생:", error);
-      setError(error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.");
+      console.error("초기설정 오류:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -60,75 +74,56 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected }) => {
   const getBackgroundImage = () => {
     if (!isConnected || !isInitialized) return InitBg;
 
-    switch (militaryBranch) {
-      case "ARMY":
-        return ArmyBg;
-      case "NAVY":
-        return NavyBg;
-      case "AIR_FORCE":
-        return AirBg;
-      case "MARINE":
-        return NavyBg; // 해병대는 해군 배경 사용
-      default:
-        return InitBg;
-    }
+    const backgroundMap: Record<MilitaryBranch, string> = {
+      ARMY: ArmyBg,
+      NAVY: NavyBg,
+      AIR_FORCE: AirBg,
+      MARINE: NavyBg,
+    };
+
+    return backgroundMap[militaryBranch as MilitaryBranch] || InitBg;
   };
+ {/* 커플연결 x */}
+  const renderNotConnectedContent = () => (
+    <>
+      <h1 className="text-2xl font-bold text-gray-50">
+        커플 연결이<br />
+        필요해요
+      </h1>
+      <button
+        onClick={() => navigate("/onboarding/couple-contact")}
+        className="mt-2 flex items-center text-sm font-medium text-gray-700">
+        연결하기 <span className="ml-1">&gt;</span>
+      </button>
+    </>
+  );
+{/* 커플연결 o 초기설정 x */}
+  const renderNotInitializedContent = () => (
+    <>
+      <h1 className="flex items-center text-2xl font-bold text-gray-50">
+        {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
+        {coupleInfo.coupleNickname}
+      </h1>
+      <button
+        onClick={handleInitialize}
+        disabled={isSubmitting}
+        className="mt-2 flex items-center text-sm font-medium text-gray-700">
+        {isSubmitting ? "처리중..." : "초기 설정하기"} <span className="ml-1">&gt;</span>
+      </button>
+    </>
+  );
+{/* 커플연결 o 초기설정 o */}
+  const renderInitializedContent = () => (
+    <h1 className="flex items-center text-2xl font-bold text-gray-50">
+      {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
+      {coupleInfo.coupleNickname}
+    </h1>
+  );
 
   const renderContent = () => {
-    if (!isConnected) {
-      return (
-        <>
-          <h1 className="text-2xl font-bold text-gray-50">
-            커플 연결이<br />
-            필요해요
-          </h1>
-          <button
-            onClick={() => navigate("/onboarding/couple-contact")}
-            className="mt-2 flex items-center text-sm font-medium text-gray-700">
-            연결하기 <span className="ml-1">&gt;</span>
-          </button>
-        </>
-      );
-    }
-
-    if (!isInitialized) {
-      return (
-        <>
-          <h1 className="flex items-center text-2xl font-bold text-gray-50">
-            {isLoading ? (
-              "로딩중..."
-            ) : (
-              <>
-                {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
-                {coupleInfo.coupleNickname}
-              </>
-            )}
-          </h1>
-          <button
-            onClick={handleInitialize}
-            disabled={isSubmitting}
-            className="mt-2 flex items-center text-sm font-medium text-gray-700">
-            {isSubmitting ? "처리중..." : "초기 설정하기"} <span className="ml-1">&gt;</span>
-          </button>
-          {error && (
-            <p className="mt-2 text-sm text-red-500">{error}</p>
-          )}
-        </>
-      );
-    }
-
-    return (
-      <h1 className="flex items-center text-2xl font-bold text-gray-50">
-        {isLoading ? (
-          "로딩중..."
-        ) : (
-          <>
-            {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
-            {coupleInfo.coupleNickname}
-          </>
-        )}
-      </h1>
-    );
+    if (!isConnected) return renderNotConnectedContent();
+    if (!isInitialized) return renderNotInitializedContent();
+    return renderInitializedContent();
   };
 
   return (

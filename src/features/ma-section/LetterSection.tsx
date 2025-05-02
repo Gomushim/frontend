@@ -1,5 +1,6 @@
 import { MainHeader } from "./utils/MainHeader";
 import LetterIcon from "@/assets/images/letter.svg";
+import LetterGreenIcon from "@/assets/images/letter_green.svg";
 import { useGetLetterListToMe } from "@/entities/my_letter/queries";
 
 const formatDate = (dateString: string) => {
@@ -40,7 +41,7 @@ export const LetterSection = () => {
       <div className="mb-4 flex h-[140px] w-[190px] flex-col gap-2.5 rounded-2xl bg-white p-4">
         <div className="flex flex-col">
           <div className="flex items-center gap-1">
-            <img src={LetterIcon} alt="편지" className="h-5 w-5" />
+            <img src={LetterGreenIcon} alt="편지" className="h-5 w-5" />
             <span className="text-sm font-semibold text-gray-900">{latestLetter.title}</span>
           </div>
           <span className="mt-1 text-xs font-medium text-gray-500">

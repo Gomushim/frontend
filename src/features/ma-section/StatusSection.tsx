@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 
 interface StatusSectionProps {
   isConnected: boolean;
+  isInitialized: boolean;
 }
 
 const EMOTION_TO_ICON: Record<string, keyof typeof EMOTION_IMAGES> = {
@@ -19,7 +20,7 @@ const EMOTION_TO_ICON: Record<string, keyof typeof EMOTION_IMAGES> = {
   "ANGRY": "angry",
 };
 
-export const StatusSection = ({ isConnected }: StatusSectionProps) => {
+export const StatusSection = ({ isConnected, isInitialized }: StatusSectionProps) => {
   const navigate = useNavigate();
   const { getCoupleEmotion, getStatusMessage } = useEmotionStatus();
   const [emotion, setEmotion] = useState<string>("");
@@ -29,7 +30,7 @@ export const StatusSection = ({ isConnected }: StatusSectionProps) => {
     let isMounted = true;
 
     const fetchData = async () => {
-      if (!isConnected) return;
+      if (!isConnected || !isInitialized) return;
 
       try {
         const [emotionResponse, statusResponse] = await Promise.all([
@@ -55,15 +56,15 @@ export const StatusSection = ({ isConnected }: StatusSectionProps) => {
     return () => {
       isMounted = false;
     };
-  }, [isConnected]);
+  }, [isConnected, isInitialized]);
 
   const handleStatusClick = () => {
-    if (isConnected) {
+    if (isConnected && isInitialized) {
       navigate("/status");
     }
   };
 
-  const EmotionIcon = isConnected && emotion && EMOTION_TO_ICON[emotion] 
+  const EmotionIcon = isConnected && isInitialized && emotion && EMOTION_TO_ICON[emotion] 
     ? EMOTION_IMAGES[EMOTION_TO_ICON[emotion]].base 
     : null;
 
@@ -73,7 +74,7 @@ export const StatusSection = ({ isConnected }: StatusSectionProps) => {
         mainTitle="연인의 상태 메세지"
         buttonText="상태 메세지 쓰러가기"
         onClick={handleStatusClick}
-        disabled={!isConnected}
+        disabled={!isConnected || !isInitialized}
       />
       <section className="mb-4 rounded-2xl bg-white p-6">
         <div className="flex items-center text-sm font-semibold">
@@ -85,6 +86,8 @@ export const StatusSection = ({ isConnected }: StatusSectionProps) => {
           <span className={`${statusMessage ? "text-gray-900" : "text-gray-500"}`}>
             {!isConnected
               ? "커플 연결을 해주세요."
+              : !isInitialized
+              ? "초기 설정을 해주세요."
               : statusMessage || "오늘 기분은 어떤가요?"}
           </span>
         </div>
