@@ -13,7 +13,7 @@ export interface Schedule {
   fatigue: Fatigue;
   startDate: string;
   endDate: string;
-  letter: Omit<Letter, "content">[];
+  letter: Omit<Letter, "comments">[];
 }
 
 export interface CalendarSchedule {
@@ -48,7 +48,7 @@ export interface ScheduleDetailResponse {
     fatigue: Fatigue;
     startDate: string;
     endDate: string;
-    letter: Omit<Letter, "content">[];
+    letters: Omit<Letter, "comments">[];
   };
 }
 

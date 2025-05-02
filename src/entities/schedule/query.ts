@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { scheduleQueryKey } from "./queryKey";
 
 export const useGetCalendarSchedule = (date: Date) => {
@@ -9,6 +9,6 @@ export const useGetScheduleList = (date: Date) => {
   return useSuspenseQuery(scheduleQueryKey.list(date));
 };
 
-export const useGetScheduleDetail = (scheduleId: number) => {
-  return useSuspenseQuery(scheduleQueryKey.detail(scheduleId));
+export const useGetScheduleDetail = (scheduleId: string) => {
+  return useQuery(scheduleQueryKey.detail(scheduleId));
 };

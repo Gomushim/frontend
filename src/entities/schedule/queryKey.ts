@@ -10,7 +10,7 @@ export const scheduleQueryKey = createQueryKeys("schedule", {
     queryKey: [date],
     queryFn: () => getScheduleList(date),
   }),
-  detail: (scheduleId: number) => ({
+  detail: (scheduleId: string) => ({
     queryKey: [scheduleId],
     queryFn: () => getScheduleDetail(scheduleId),
   }),

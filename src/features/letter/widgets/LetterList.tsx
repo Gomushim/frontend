@@ -12,6 +12,10 @@ export interface LetterListProps {
   letters: Letter[];
 }
 export const LetterList = (props: LetterListProps) => {
+  if (props.letters.length === 0) {
+    return;
+  }
+
   return (
     <ul className="mt-4 flex flex-col gap-4">
       {props.letters.map(letter => (
