@@ -25,6 +25,7 @@ const schedultestData = [
     fatigue: Fatigue.GOOD,
     startDate: "2025-04-30T16:10:30.567Z",
     endDate: "2025-04-30T16:10:30.567Z",
+    isAllDay: false,
   },
   {
     id: 1,
@@ -32,6 +33,7 @@ const schedultestData = [
     fatigue: Fatigue.GOOD,
     startDate: "2025-04-30T16:10:30.567Z",
     endDate: "2025-04-30T16:10:30.567Z",
+    isAllDay: false,
   },
   {
     id: 1,
@@ -39,6 +41,7 @@ const schedultestData = [
     fatigue: Fatigue.GOOD,
     startDate: "2025-04-30T16:10:30.567Z",
     endDate: "2025-04-30T16:10:30.567Z",
+    isAllDay: false,
   },
 ];
 
