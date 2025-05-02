@@ -1,5 +1,4 @@
 import { DatePickerDrawer } from "@/shared/ui";
-import { Dispatch, SetStateAction } from "react";
 
 interface CalendarBottomSheetProps {
   year: number;

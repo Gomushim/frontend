@@ -20,18 +20,21 @@ const fatigueTagMap: Record<string, { bgColor: string; textColor: string }> = {
 
 const schedultestData = [
   {
+    id: 1,
     title: "KCTC 훈련",
     fatigue: Fatigue.GOOD,
     startDate: "2025-04-30T16:10:30.567Z",
     endDate: "2025-04-30T16:10:30.567Z",
   },
   {
+    id: 1,
     title: "근무 취짐",
     fatigue: Fatigue.GOOD,
     startDate: "2025-04-30T16:10:30.567Z",
     endDate: "2025-04-30T16:10:30.567Z",
   },
   {
+    id: 1,
     title: "근무 취짐",
     fatigue: Fatigue.GOOD,
     startDate: "2025-04-30T16:10:30.567Z",
