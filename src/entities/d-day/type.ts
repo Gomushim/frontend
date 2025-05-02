@@ -4,7 +4,7 @@ export interface Dday {
   id: number;
   emoji: Emoji;
   title: string;
-  date: Date;
+  anniversaryDate: string;
 }
 
 export interface DdayRequst {

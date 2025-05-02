@@ -1,20 +1,21 @@
-export function calculateDday(targetDate: Date): string {
+export function calculateDday(targetDate: string): string {
   const today = new Date();
-
-  // 시간, 분, 초, 밀리초 초기화해서 날짜만 비교
   const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  const target = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
+
+  const targetObj = new Date(targetDate);
+  if (isNaN(targetObj.getTime())) {
+    return "Invalid Date";
+  }
+
+  const target = new Date(targetObj.getFullYear(), targetObj.getMonth(), targetObj.getDate());
 
   const diff = Math.floor((target.getTime() - todayDate.getTime()) / (1000 * 60 * 60 * 24));
 
   if (diff > 0) {
-    // 미래 날짜
     return `D-${diff}`;
   } else if (diff === 0) {
-    // 오늘
     return "D-Day";
   } else {
-    // 과거 날짜
     return `D+${Math.abs(diff)}`;
   }
 }

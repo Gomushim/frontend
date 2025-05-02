@@ -10,7 +10,7 @@ export const ScheduleCardList = () => {
   return (
     <>
       <h2>{formatDateKoreanWithWeekday(selectedDay)}</h2>
-      {scheduleListData?.result.anniversaries.map(dday => <DdayCard key={dday.id} {...dday} />)}
+      {scheduleListData?.result.anniversaries.map(dday => <DdayCard key={dday.id} {...dday} className="bg-white" />)}
       {scheduleListData?.result.schedules.map(schedule => <ScheduleCard key={schedule.id} {...schedule} />)}
     </>
   );
