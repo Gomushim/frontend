@@ -1,22 +1,30 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { mutationMethodType } from "../types/mutationMethod.type";
 import { createLetter } from "./service";
+import { scheduleQueryKey } from "../schedule/queryKey";
 
-export const useLetterMutation = (data: FormData, mutationMethod: mutationMethodType) => {
+export const useLetterMutation = (mutationMethod: mutationMethodType, scheduleId?: string) => {
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (data: FormData) => {
       switch (mutationMethod) {
         case "delete":
-          return await createLetter(data);
+          return;
         case "post":
           return await createLetter(data);
         case "update":
-          return await createLetter(data);
+          return;
         default:
           throw new Error("Invalid mutation method");
       }
     },
-    onSuccess: () => {},
+    onSuccess: () => {
+      if (scheduleId) {
+        queryClient.invalidateQueries({
+          queryKey: scheduleQueryKey.detail(scheduleId).queryKey,
+        });
+      }
+    },
     onError: error => {
       console.error("Error:", error);
     },
