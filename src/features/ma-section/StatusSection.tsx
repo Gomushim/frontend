@@ -82,7 +82,7 @@ export const StatusSection = ({ isConnected }: StatusSectionProps) => {
           ) : (
             <img src={CharacterDefaultIcon} alt="캐릭터" className="mr-3 h-5 w-5" />
           )}
-          <span className="text-gray-500">
+          <span className={`${statusMessage ? "text-gray-900" : "text-gray-500"}`}>
             {!isConnected
               ? "커플 연결을 해주세요."
               : statusMessage || "오늘 기분은 어떤가요?"}

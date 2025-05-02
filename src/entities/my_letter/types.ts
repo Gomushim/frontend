@@ -7,14 +7,16 @@ export interface Letter {
 }
 
 export interface LetterListResponse {
-  data: Letter[];
-  after: number;
-  count: number;
-  next: string;
-  isLastPage: boolean;
+  result: {
+    data: Letter[];
+    after: number;
+    count: number;
+    next: string;
+    isLastPage: boolean;
+  };
 }
 
-export interface LetterListParams {
+export interface GetLetterListToMeParams {
   key?: number;
   orderCreatedAt?: string;
   take?: number;

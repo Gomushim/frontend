@@ -1,9 +1,9 @@
-import { api } from "@/entities/axios/instance";
-import { LetterListParams, LetterListResponse } from "./types";
+import { api } from "../axios/instance";
+import { GetLetterListToMeParams, LetterListResponse } from "./types";
 
-export const getLetterListToMe = async (params: LetterListParams) => {
-  const { data } = await api.get<{ result: LetterListResponse }>("/schedules/letters/to-me", {
+export const getLetterListToMe = async (params?: GetLetterListToMeParams) => {
+  const response = await api.get<LetterListResponse>("/letters/to-me", {
     params,
   });
-  return data.result;
+  return response.data;
 }; 
