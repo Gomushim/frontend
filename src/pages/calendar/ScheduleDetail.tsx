@@ -15,7 +15,6 @@ export const CalendarScheduleDetail = () => {
   if (!scheduleData) {
     return;
   }
-  console.log(scheduleData);
 
   const { letters, ...rest } = scheduleData.result;
 
