@@ -6,6 +6,7 @@ import { TitleInput } from "@/features/schedule/widgets/TitleInput";
 import { useScheduleStore } from "@/entities/schedule";
 import { useShallow } from "zustand/shallow";
 import { useScheduleMutation } from "@/entities/schedule/mutation";
+import { useDdayMutation, useDdayStore } from "@/entities/d-day";
 
 export const CalendarNewSchedule = () => {
   const { schedule } = useScheduleStore(
@@ -14,11 +15,27 @@ export const CalendarNewSchedule = () => {
     }))
   );
 
+  const { dday } = useDdayStore(
+    useShallow(state => ({
+      dday: state.dday,
+    }))
+  );
+
   const { isToggle, onToggle } = useToggle();
   const { mutate } = useScheduleMutation(schedule, "post");
+  const { mutate: ddayMutate } = useDdayMutation("post");
 
   const handlePostSchedule = async () => {
     mutate(undefined, {
+      onSuccess: () => {},
+      onError: error => {
+        console.log(error);
+      },
+    });
+  };
+
+  const handlePostDday = async () => {
+    ddayMutate(dday, {
       onSuccess: () => {},
       onError: error => {
         console.log(error);
@@ -50,7 +67,7 @@ export const CalendarNewSchedule = () => {
               </div>
             </section>
             <section className="fixed bottom-6 left-1/2 w-[375px] -translate-x-1/2 transform px-4">
-              <Button className="w-full" variant="submit" size="xl">
+              <Button className="w-full" variant="submit" size="xl" onClick={handlePostDday}>
                 확인
               </Button>
             </section>

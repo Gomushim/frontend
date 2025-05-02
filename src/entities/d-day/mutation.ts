@@ -1,19 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
 import { createDday } from "./service";
 import { DdayRequst } from "./type";
+import { mutationMethodType } from "../types/mutationMethod.type";
 
-type mutationMethodType = "post" | "delete" | "update";
-
-export const useNovelMutation = (data: DdayRequst, mutationMethod: mutationMethodType) => {
+export const useDdayMutation = (mutationMethod: mutationMethodType) => {
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (data: DdayRequst) => {
       switch (mutationMethod) {
         case "delete":
-          return await createDday(data);
+          return;
         case "post":
           return await createDday(data);
         case "update":
-          return await createDday(data);
+          return;
         default:
           throw new Error("Invalid mutation method");
       }

@@ -8,7 +8,6 @@ export interface Dday {
 }
 
 export interface DdayRequst {
-  id: number | null;
   title: string;
   emoji: Emoji;
   date: string;
