@@ -116,7 +116,7 @@ export const Calendar = () => {
                 return (
                   <div
                     key={idx}
-                    className="flex cursor-pointer flex-col items-center gap-1"
+                    className="flex min-h-16 cursor-pointer flex-col items-center gap-1"
                     onClick={() => date && setSelectedDay(date)}>
                     <p
                       className={`text-md mb-2 flex h-8 w-8 items-center justify-center rounded-[12px] pt-0.5 text-center font-normal transition ${
