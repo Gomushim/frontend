@@ -3,7 +3,7 @@ import { Button } from "@/shared/ui";
 import letterIcon from "@/assets/icons/letter.svg";
 import backIcon from "@/assets/icons/back.svg";
 import gearIcon from "@/assets/icons/gear.svg";
-import { LetterList, WriteLetterBottomSheet } from "@/features/letter";
+import { LetterList, NoLetterMessage, WriteLetterBottomSheet } from "@/features/letter";
 import { useGetScheduleDetail } from "@/entities/schedule/query";
 import { useParams } from "react-router";
 
@@ -35,7 +35,7 @@ export const CalendarScheduleDetail = () => {
       </div>
       <main>
         <section className="mt-6 bg-gray-50 px-[22px] py-6">
-          <div className="flex min-h-[500px] items-start justify-between">
+          <div className="flex items-start justify-between">
             <div className="flex items-center gap-2">
               <img className="pb-1" src={letterIcon} alt="편지" />
               <h2 className="text-xl font-semibold text-gray-900">작성된 편지</h2>
@@ -43,8 +43,8 @@ export const CalendarScheduleDetail = () => {
             </div>
             <WriteLetterBottomSheet />
           </div>
+          {letters.length === 0 && <NoLetterMessage />}
           <LetterList letters={letters} />
-          {/* <NoLetterMessage /> */}
         </section>
       </main>
     </>
