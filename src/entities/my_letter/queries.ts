@@ -1,16 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { getLetterListToMe } from "./service";
-import { GetLetterListToMeParams } from "./types";
+import { getLetterListMain } from "./service";
 
 export const letterKeys = {
   all: ["letters"] as const,
   lists: () => [...letterKeys.all, "list"] as const,
-  list: (params: GetLetterListToMeParams) => [...letterKeys.lists(), params] as const,
+  main: () => [...letterKeys.lists(), "main"] as const,
 };
 
-export const useGetLetterListToMe = (params?: GetLetterListToMeParams) => {
+export const useGetLetterListMain = () => {
   return useQuery({
-    queryKey: letterKeys.list(params || {}),
-    queryFn: () => getLetterListToMe(params),
+    queryKey: letterKeys.main(),
+    queryFn: getLetterListMain,
   });
 }; 
