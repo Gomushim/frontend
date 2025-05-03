@@ -1,1 +1,2 @@
-export * from "../letter/model";
+export * from "./type";
+export * from "./store";

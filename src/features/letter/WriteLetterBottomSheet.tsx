@@ -2,10 +2,15 @@ import { useState, useRef, ChangeEvent, FormEvent } from "react";
 import { Button, Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger, SInput, Textarea } from "@/shared/ui";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
 import crossDeleteIcon from "@/assets/icons/crossDelete.svg";
+import { useLetterMutation } from "@/entities/letter/mutation";
+import { useParams } from "react-router";
 
 export const WriteLetterBottomSheet = () => {
   const [images, setImages] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const { scheduleId } = useParams<{ scheduleId: string }>();
+  const { mutate } = useLetterMutation("post");
 
   // 이미지 선택 시 처리
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -30,25 +35,40 @@ export const WriteLetterBottomSheet = () => {
 
   // 폼 제출 핸들러
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // 기본 페이지 리로드 막기
+    event.preventDefault();
 
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // 이미지 파일도 FormData에 추가
+    const upsertLetterRequest = {
+      letterId: null,
+      scheduleId: scheduleId || "",
+      title: formData.get("title"),
+      content: formData.get("content"),
+    };
+    const finalFormData = new FormData();
+
+    finalFormData.append(
+      "upsertLetterRequest",
+      new Blob([JSON.stringify(upsertLetterRequest)], { type: "application/json" })
+    );
+
     images.forEach(file => {
-      formData.append("images", file);
+      finalFormData.append("pictures", file);
     });
 
-    // 예: formData 내용 확인 (디버깅용)
-    for (const pair of formData.entries()) {
+    mutate(finalFormData, {
+      onSuccess: () => {
+        alert("폼이 제출되었습니다.");
+      },
+      onError: error => {
+        console.error(error);
+      },
+    });
+
+    for (const pair of finalFormData.entries()) {
       console.log(pair[0], pair[1]);
     }
-
-    // TODO: formData를 서버에 POST 요청 보내는 코드 작성
-    // 예: fetch('/api/letter', { method: 'POST', body: formData })
-
-    alert("폼이 제출되었습니다.");
   };
 
   return (
@@ -80,7 +100,14 @@ export const WriteLetterBottomSheet = () => {
               <label className="text-md font-semibold text-gray-900" htmlFor="title">
                 제목
               </label>
-              <SInput className="bg-gray-50" id="title" type="text" placeholder="제목을 입력해 주세요" maxLength={20} />
+              <SInput
+                className="bg-gray-50"
+                id="title"
+                name="title"
+                type="text"
+                placeholder="제목을 입력해 주세요"
+                maxLength={20}
+              />
             </div>
 
             <div className="flex flex-col gap-2">
@@ -90,6 +117,7 @@ export const WriteLetterBottomSheet = () => {
               <Textarea
                 className="min-h-[140px] bg-gray-50 p-3 focus-visible:border-green-300 focus-visible:ring-green-300"
                 id="content"
+                name="content"
                 placeholder="내용을 입력해 주세요"
               />
             </div>

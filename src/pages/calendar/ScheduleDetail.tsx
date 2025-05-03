@@ -3,27 +3,21 @@ import { Button } from "@/shared/ui";
 import letterIcon from "@/assets/icons/letter.svg";
 import backIcon from "@/assets/icons/back.svg";
 import gearIcon from "@/assets/icons/gear.svg";
-import { LetterList, WriteLetterBottomSheet } from "@/features/letter";
-
-const dummySchedule = {
-  fatigue: "VERY_TIRED",
-  title: "KCTC 훈련",
-  startDateTime: new Date("2025-06-05T22:00:00"),
-  endDateTime: new Date("2025-06-05T22:00:00"),
-  totalCount: 5,
-  letter: [
-    {
-      id: 4,
-      title: "테스트",
-      content: "테스트",
-      imageUrl: letterIcon,
-      creationDate: new Date("2025-06-05T22:00:00"),
-    },
-  ],
-};
+import { LetterList, NoLetterMessage, WriteLetterBottomSheet } from "@/features/letter";
+import { useGetScheduleDetail } from "@/entities/schedule/query";
+import { useParams } from "react-router";
 
 export const CalendarScheduleDetail = () => {
-  const { letter, totalCount, ...rest } = dummySchedule;
+  const { scheduleId } = useParams<{ scheduleId: string }>();
+
+  const { data: scheduleData } = useGetScheduleDetail(scheduleId || "");
+
+  if (!scheduleData) {
+    return;
+  }
+
+  const { letters, ...rest } = scheduleData.result;
+
   return (
     <>
       <div className="px-[22px]">
@@ -40,16 +34,16 @@ export const CalendarScheduleDetail = () => {
       </div>
       <main>
         <section className="mt-6 bg-gray-50 px-[22px] py-6">
-          <div className="flex items-center justify-between">
+          <div className="flex items-start justify-between">
             <div className="flex items-center gap-2">
               <img className="pb-1" src={letterIcon} alt="편지" />
               <h2 className="text-xl font-semibold text-gray-900">작성된 편지</h2>
-              <p className="text-md font-semibold text-gray-500">{totalCount}</p>
+              <p className="text-md font-semibold text-gray-500">{letters.length}</p>
             </div>
             <WriteLetterBottomSheet />
           </div>
-          <LetterList letters={letter} />
-          {/* <NoLetterMessage /> */}
+          {letters.length === 0 && <NoLetterMessage />}
+          <LetterList letters={letters} />
         </section>
       </main>
     </>
