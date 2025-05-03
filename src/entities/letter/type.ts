@@ -1,4 +1,4 @@
-import { Comment } from "@/entities/comment";
+import { Comment } from "../comment";
 
 export interface Letter {
   letterId: string;
@@ -19,19 +19,19 @@ export interface WriteLetterResponse {
 export interface LetterDetailResponse {
   result: {
     letter: {
-      id: number;
+      id: string;
       title: string;
       content: string;
       author: string;
       createdAt: string;
     };
     pictures: {
-      id: number;
+      id: string;
       pictureUrl: string;
       letterId: number;
     }[];
     comments: {
-      id: number;
+      id: string;
       content: string;
       author: string;
       createdAt: string;

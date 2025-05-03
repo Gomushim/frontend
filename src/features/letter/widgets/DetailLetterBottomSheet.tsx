@@ -5,6 +5,8 @@ import { useGetLetterDetail } from "@/entities/letter/query";
 import { useParams } from "react-router";
 import { formatDateFull } from "@/shared/utils";
 import { useToggle } from "@/shared/hooks";
+import { useCommentMutation } from "@/entities/comment/mutaion";
+import { FormEvent } from "react";
 
 interface DetailLetterBottomSheetProps {
   letterId: string;
@@ -21,6 +23,34 @@ export const DetailLetterBottomSheet = (props: DetailLetterBottomSheetProps) => 
 
   const { scheduleId } = useParams<{ scheduleId: string }>();
   const { data: letterDetailData } = useGetLetterDetail(scheduleId || "", props.letterId);
+  const { mutate } = useCommentMutation("post", props.letterId, scheduleId);
+
+  const handleCommentSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const content = formData.get("content");
+
+    if (typeof content !== "string" || content.trim() === "") {
+      alert("댓글 내용을 입력해주세요.");
+      return;
+    }
+
+    const commentRequestBody = {
+      commentId: null,
+      content,
+    };
+
+    mutate(commentRequestBody, {
+      onSuccess: () => {
+        alert("폼이 제출되었습니다.");
+      },
+      onError: error => {
+        console.error(error);
+      },
+    });
+  };
 
   if (!letterDetailData) {
     return;
@@ -33,7 +63,7 @@ export const DetailLetterBottomSheet = (props: DetailLetterBottomSheetProps) => 
           <LetterCard {...props} />
         </button>
       </DrawerTrigger>
-      <DrawerContent className="py10 min-h-[700px] px-5">
+      <DrawerContent className="py10 px-5">
         <DrawerHeader className="flex-row justify-between px-0">
           <Button
             type="button"
@@ -78,25 +108,27 @@ export const DetailLetterBottomSheet = (props: DetailLetterBottomSheetProps) => 
           </div>
         </div>
         <div className="my-6 h-[1px] bg-[#F6F6F7]" />
-        <div className="flex min-h-[250px] flex-col gap-6">
+        <div className="mb-[100px] flex min-h-[350px] flex-col gap-6">
           <h4 className="text-md font-semibold text-gray-900">
             댓글
             <span className="text-md font-semibold text-gray-900">{letterDetailData.result.comments.length}</span>
           </h4>
           {letterDetailData.result.comments.map(comment => (
-            <div key={comment.id} className="flex gap-1">
+            <div key={comment.id} className="flex flex-col gap-1">
               <div className="flex items-center gap-2">
                 <h5 className="text-xs font-semibold text-gray-900">{comment.author}</h5>
-                <p className="text-xs font-medium text-gray-500">{comment.createdAt}</p>
+                <p className="text-xs font-medium text-gray-500">{formatDateFull(comment.createdAt)}</p>
               </div>
               <p className="text-sm font-medium text-gray-900">{comment.content}</p>
             </div>
           ))}
         </div>
-        <form className="absolute right-0 bottom-0 w-full">
+        <form className="absolute right-0 bottom-0 w-full" onSubmit={handleCommentSubmit}>
           <Textarea
             className="mx-8 my-5 mb-14 w-full border-none shadow-none focus-visible:ring-0"
             placeholder="댓글을 작성해 주세요."
+            name="content"
+            id="content"
           />
           <Button type="submit" variant="active" className="absolute top-8 right-5">
             입력
