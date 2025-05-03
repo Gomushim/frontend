@@ -1,5 +1,5 @@
 import { api } from "../axios/instance";
-import { WriteLetterResponse } from "./type";
+import { LetterDetailResponse, WriteLetterResponse } from "./type";
 
 export const createLetter = async (data: FormData): Promise<WriteLetterResponse> => {
   const response = await api.post<WriteLetterResponse>("/schedules/letters", data, {
@@ -7,5 +7,10 @@ export const createLetter = async (data: FormData): Promise<WriteLetterResponse>
       "Content-Type": "multipart/form-data",
     },
   });
+  return response.data;
+};
+
+export const getLetterDetail = async (scheduleId: string, letterId: string): Promise<LetterDetailResponse> => {
+  const response = await api.get<LetterDetailResponse>(`/schedules/${scheduleId}/letters/${letterId}`);
   return response.data;
 };

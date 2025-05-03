@@ -15,3 +15,26 @@ export type LetterList = Omit<Letter, "comments">[];
 export interface WriteLetterResponse {
   result: string;
 }
+
+export interface LetterDetailResponse {
+  result: {
+    letter: {
+      id: number;
+      title: string;
+      content: string;
+      author: string;
+      createdAt: string;
+    };
+    pictures: {
+      id: number;
+      pictureUrl: string;
+      letterId: number;
+    }[];
+    comments: {
+      id: number;
+      content: string;
+      author: string;
+      createdAt: string;
+    }[];
+  }[];
+}
