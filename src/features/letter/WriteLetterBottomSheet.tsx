@@ -40,16 +40,18 @@ export const WriteLetterBottomSheet = () => {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    const data = {
+    const upsertLetterRequest = {
       letterId: null,
       scheduleId: scheduleId || "",
       title: formData.get("title"),
       content: formData.get("content"),
     };
-    console.log(data);
     const finalFormData = new FormData();
 
-    finalFormData.append("data", new Blob([JSON.stringify(data)], { type: "application/json" }));
+    finalFormData.append(
+      "upsertLetterRequest",
+      new Blob([JSON.stringify(upsertLetterRequest)], { type: "application/json" })
+    );
 
     images.forEach(file => {
       finalFormData.append("pictures", file);
