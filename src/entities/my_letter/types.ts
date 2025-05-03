@@ -2,22 +2,18 @@ export interface Letter {
   letterId: number;
   title: string;
   content: string;
-  pictureUrl: string;
+  pictureUrl: string | null;
   createdAt: string;
 }
 
 export interface LetterListResponse {
-  result: {
-    data: Letter[];
-    after: number;
-    count: number;
-    next: string;
-    isLastPage: boolean;
-  };
+  data: Letter[];
+  after: number;
+  count: number;
+  isLastPage: boolean;
 }
 
 export interface GetLetterListToMeParams {
   key?: number;
-  orderCreatedAt?: string;
   take?: number;
 } 

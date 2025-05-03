@@ -18,5 +18,5 @@ export interface ConnectCoupleResponse {
 }
 
 export interface GenerateCoupleCodeResponse {
-  code: string;
+  result: string;
 } 

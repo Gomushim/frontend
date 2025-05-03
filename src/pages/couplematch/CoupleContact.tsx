@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import Lottie from "lottie-react";
 import {
   Input,
   Button,
@@ -12,6 +13,7 @@ import {
 import { coupleConnectQueries } from "@/entities/coupleconnect/service";
 import checkcircle from "@/assets/images/checkcircle.svg";
 import CloseIcon from "@/assets/images/close.svg";
+import coupleConnectAnimation from "@/assets/json/coupleconnect.json";
 
 export const CoupleContact: React.FC = () => {
   const [coupleCode, setCoupleCode] = useState<string>("");
@@ -25,9 +27,14 @@ export const CoupleContact: React.FC = () => {
     try {
       setIsLoading(true);
       const response = await coupleConnectQueries.generateCoupleCode();
-      setCoupleCode(response.code);
+      if (response && response.result) {
+        setCoupleCode(response.result);
+      } else {
+        setError("코드 생성에 실패했습니다. 다시 시도해주세요.");
+      }
     } catch (error) {
-      setError("커플 코드 생성에 실패했습니다. 다시 시도해주세요.");
+      console.error("코드 생성 에러:", error);
+      setError("코드 생성에 실패했습니다. 다시 시도해주세요.");
     } finally {
       setIsLoading(false);
     }
@@ -78,10 +85,10 @@ export const CoupleContact: React.FC = () => {
         </p>
       </div>
 
-      <div className="flex-1 px-6">
-        <div className="mt-12 flex flex-col items-center justify-center">
-          <div className="mb-8 flex h-40 w-40 items-center justify-center rounded-lg bg-gray-200">
-            <span className="text-gray-400">그래픽 넣기</span>
+      <div className="flex-1 ">
+        <div className=" flex flex-col items-center justify-center">
+          <div className="flex h-75 w-75 items-center justify-center overflow-hidden">
+            <Lottie animationData={coupleConnectAnimation} loop={true}  />
           </div>
 
           <div className="w-full">

@@ -1,6 +1,7 @@
 import React from "react";
 import BackIcon from "@/assets/images/back.svg";
 import CloseIcon from "@/assets/images/close.svg";
+import Lottie from "lottie-react";
 
 interface ProgressHeaderProps {
   title: string;
@@ -9,6 +10,7 @@ interface ProgressHeaderProps {
   progress?: number;
   onBack?: () => void;
   onClose?: () => void;
+  animation?: any;
 }
 
 export const ProgressHeader: React.FC<ProgressHeaderProps> = ({
@@ -18,6 +20,7 @@ export const ProgressHeader: React.FC<ProgressHeaderProps> = ({
   progress = 0,
   onBack,
   onClose,
+  animation,
 }) => {
   return (
     <div className="bg-white px-4 pt-6 pb-4">
@@ -38,6 +41,13 @@ export const ProgressHeader: React.FC<ProgressHeaderProps> = ({
           style={{ width: `${Math.min(Math.max(progress, 0), 1) * 100}%` }}
         />
       </div>
+
+      {/* 애니메이션 */}
+      {animation && (
+        <div className="mb-4">
+          <Lottie animationData={animation} />
+        </div>
+      )}
 
       {/* 텍스트 */}
       <h1 className="text-left text-3xl font-bold text-gray-900">

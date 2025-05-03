@@ -5,6 +5,8 @@ import { useOnboardingAlarmStore } from "@/stores/onboardingStore";
 import { onboardingQueries } from "@/entities/onboarding/service";
 import axios from "axios";
 import { ProgressHeader } from "@/shared/ui/progressheader";
+import pushalarmJson from "@/assets/json/pushalarm.json";
+import Lottie from "lottie-react";
 
 export const Alarm: React.FC = () => {
   const navigate = useNavigate();
@@ -50,6 +52,9 @@ export const Alarm: React.FC = () => {
         onBack={() => navigate(-1)}
         onClose={() => navigate("/onboarding/nickname")}
       />
+      <div className="flex-1 flex items-center justify-center -mt-40">
+        <Lottie animationData={pushalarmJson} />
+      </div>
       <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[375px] bg-white p-4 space-y-3 z-10">
         <div
           className="w-full text-center text-gray-700 text-base font-medium text-sm pb-2 cursor-pointer underline underline-offset-3"
