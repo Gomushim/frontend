@@ -1,9 +1,10 @@
-import { Button, Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/shared/ui";
+import { Button, Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger, Textarea } from "@/shared/ui";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
-import { LetterCard } from "./widgets";
+import { LetterCard } from ".";
 import { useGetLetterDetail } from "@/entities/letter/query";
 import { useParams } from "react-router";
 import { formatDateFull } from "@/shared/utils";
+import { useToggle } from "@/shared/hooks";
 
 interface DetailLetterBottomSheetProps {
   letterId: string;
@@ -16,6 +17,8 @@ interface DetailLetterBottomSheetProps {
 }
 
 export const DetailLetterBottomSheet = (props: DetailLetterBottomSheetProps) => {
+  const { isToggle, onToggle } = useToggle();
+
   const { scheduleId } = useParams<{ scheduleId: string }>();
   const { data: letterDetailData } = useGetLetterDetail(scheduleId || "", props.letterId);
 
@@ -24,7 +27,7 @@ export const DetailLetterBottomSheet = (props: DetailLetterBottomSheetProps) => 
   }
 
   return (
-    <Drawer>
+    <Drawer open={isToggle} onOpenChange={onToggle}>
       <DrawerTrigger asChild>
         <button className="">
           <LetterCard {...props} />
@@ -35,7 +38,8 @@ export const DetailLetterBottomSheet = (props: DetailLetterBottomSheetProps) => 
           <Button
             type="button"
             variant="ghost"
-            className="hover:bg-gray-0 p-0 text-sm font-semibold text-green-600 hover:text-green-700">
+            className="hover:bg-gray-0 p-0 text-sm font-semibold text-green-600 hover:text-green-700"
+            onClick={onToggle}>
             취소
           </Button>
           <DrawerTitle>2025년 6월 5일 목요일</DrawerTitle>
@@ -73,6 +77,31 @@ export const DetailLetterBottomSheet = (props: DetailLetterBottomSheetProps) => 
             </p>
           </div>
         </div>
+        <div className="my-6 h-[1px] bg-[#F6F6F7]" />
+        <div className="flex min-h-[250px] flex-col gap-6">
+          <h4 className="text-md font-semibold text-gray-900">
+            댓글
+            <span className="text-md font-semibold text-gray-900">{letterDetailData.result.comments.length}</span>
+          </h4>
+          {letterDetailData.result.comments.map(comment => (
+            <div key={comment.id} className="flex gap-1">
+              <div className="flex items-center gap-2">
+                <h5 className="text-xs font-semibold text-gray-900">{comment.author}</h5>
+                <p className="text-xs font-medium text-gray-500">{comment.createdAt}</p>
+              </div>
+              <p className="text-sm font-medium text-gray-900">{comment.content}</p>
+            </div>
+          ))}
+        </div>
+        <form className="absolute right-0 bottom-0 w-full">
+          <Textarea
+            className="mx-8 my-5 mb-14 w-full border-none shadow-none focus-visible:ring-0"
+            placeholder="댓글을 작성해 주세요."
+          />
+          <Button type="submit" variant="active" className="absolute top-8 right-5">
+            입력
+          </Button>
+        </form>
       </DrawerContent>
     </Drawer>
   );
