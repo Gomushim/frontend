@@ -17,5 +17,3 @@ export interface GetCoupleInfoResponse {
     isAnniversariesRegistered: boolean;
   };
 }
-
-export type mutationMethodType = "post" | "update" | "delete"; 
