@@ -4,7 +4,7 @@ import { Textinput } from "@/shared/ui";
 import { EmotionType } from "@/entities/types/emotion";
 import { Button } from "@/shared/ui";
 import { useNavigate } from "react-router";
-import { useEmotionStatus } from "@/entities/emotion_status/queries";
+import { useEmotionStatusMutation } from "@/entities/emotion_status/mutation";
 
 type ApiEmotionType = "MISS" | "HAPPY" | "COMMON" | "TIRED" | "SAD" | "WORRY" | "ANGRY";
 
@@ -22,7 +22,7 @@ export const StatusPage = () => {
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionType | undefined>();
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const { updateMyEmotionAndStatusMessage } = useEmotionStatus();
+  const { updateMyEmotionAndStatusMessage } = useEmotionStatusMutation("post");
 
   const handleSubmit = async () => {
     if (!selectedEmotion) {

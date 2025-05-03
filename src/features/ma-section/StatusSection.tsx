@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useEmotionStatus } from "@/entities/emotion_status/queries";
+import { useEmotionStatusQueries } from "@/entities/emotion_status/mutation";
 import CharacterDefaultIcon from "@/assets/images/character_default.svg";
 import { EMOTION_IMAGES } from "@/entities/types/emotion";
 import { MainHeader } from "./utils/MainHeader";
@@ -22,7 +22,7 @@ const EMOTION_TO_ICON: Record<string, keyof typeof EMOTION_IMAGES> = {
 
 export const StatusSection = ({ isConnected, isInitialized }: StatusSectionProps) => {
   const navigate = useNavigate();
-  const { getCoupleEmotion, getStatusMessage } = useEmotionStatus();
+  const { getCoupleEmotion, getStatusMessage } = useEmotionStatusQueries();
   const [emotion, setEmotion] = useState<string>("");
   const [statusMessage, setStatusMessage] = useState<string>("");
 

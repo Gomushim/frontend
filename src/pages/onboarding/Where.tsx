@@ -30,7 +30,7 @@ export const Where: React.FC = () => {
         title="어느 군에서 복무중이신가요?"
         highlight="어느 군"
         subtitle="나 또는 상대의 소속을 선택해주세요."
-        progress={0.4}
+        progress={2/3}
         onBack={() => navigate(-1)}
         onClose={() => navigate("/")}
       />

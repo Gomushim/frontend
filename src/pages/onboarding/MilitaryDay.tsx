@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Input, DatePickerDrawer, Button, ProgressHeader } from "@/shared/ui";
 import { useOnboardingStore } from "@/stores/maonboardingStore";
 import { formatDateKorean } from "@/shared/utils";
+import { useMaonboarding } from "@/entities/maonboarding/mutation";
 import { maonboardingQueries } from "@/entities/maonboarding/service";
 
 export const MilitaryDay: React.FC = () => {
@@ -15,11 +16,25 @@ export const MilitaryDay: React.FC = () => {
     setDischargeDate 
   } = useOnboardingStore();
   const navigate = useNavigate();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [coupleId, setCoupleId] = useState<number | null>(null);
+  const { mutate: registerAnniversary, isPending } = useMaonboarding("post");
+
+  useEffect(() => {
+    const fetchCoupleInfo = async () => {
+      try {
+        const response = await maonboardingQueries.getCoupleInfo();
+        setCoupleId(response.result.coupleId);
+      } catch (error) {
+        console.error("커플 정보 조회 실패:", error);
+        setError("커플 정보를 가져오는데 실패했습니다.");
+      }
+    };
+    fetchCoupleInfo();
+  }, []);
 
   const handleNext = async () => {
-    if (!enlistmentDate || !dischargeDate || !firstMeetDate || !militaryBranch) {
+    if (!enlistmentDate || !dischargeDate || !firstMeetDate || !militaryBranch || !coupleId) {
       setError("입력되지 않은 정보가 있어요");
       return;
     }
@@ -43,27 +58,23 @@ export const MilitaryDay: React.FC = () => {
       return;
     }
 
-    setIsSubmitting(true);
     setError(null);
 
-    try {
-      const response = await maonboardingQueries.registerAnniversary({
-        coupleId: 1, // TODO: 실제 coupleId를 가져오는 로직 필요
-        relationshipStartDate: firstMeetDate.toISOString().split("T")[0],
-        militaryStartDate: enlistmentDate.toISOString().split("T")[0],
-        militaryEndDate: dischargeDate.toISOString().split("T")[0],
-        military: militaryBranch as "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE",
-      });
-      
-      if (response.result) {
+    registerAnniversary({
+      coupleId,
+      relationshipStartDate: firstMeetDate.toISOString().split("T")[0],
+      militaryStartDate: enlistmentDate.toISOString().split("T")[0],
+      militaryEndDate: dischargeDate.toISOString().split("T")[0],
+      military: militaryBranch as "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE",
+    }, {
+      onSuccess: () => {
         navigate("/mainpage", { replace: true });
+      },
+      onError: (error) => {
+        console.error("온보딩 완료 중 오류 발생:", error);
+        setError(error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.");
       }
-    } catch (error) {
-      console.error("온보딩 완료 중 오류 발생:", error);
-      setError(error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    });
   };
 
   return (
@@ -72,7 +83,7 @@ export const MilitaryDay: React.FC = () => {
         title="군 복무 기간을 입력해주세요"
         highlight="복무 기간"
         subtitle="입대일과 전역일을 정확히 입력해주세요."
-        progress={2 / 3}
+        progress={3 / 3}
         onBack={() => navigate(-1)}
         onClose={() => navigate("/")}
       />
@@ -113,10 +124,10 @@ export const MilitaryDay: React.FC = () => {
         )}
         <Button
           variant={enlistmentDate && dischargeDate ? "active" : "inactive"}
-          disabled={!enlistmentDate || !dischargeDate || isSubmitting}
+          disabled={!enlistmentDate || !dischargeDate || isPending}
           onClick={handleNext}
           size="onicon">
-          {isSubmitting ? "처리중..." : "다음"}
+          {isPending ? "처리중..." : "다음"}
         </Button>
       </div>
     </div>

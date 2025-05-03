@@ -16,4 +16,6 @@ export interface GetCoupleInfoResponse {
     military: "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE";
     isAnniversariesRegistered: boolean;
   };
-} 
+}
+
+export type mutationMethodType = "post" | "update" | "delete"; 
