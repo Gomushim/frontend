@@ -2,14 +2,8 @@ import { MainHeader } from "./utils/MainHeader";
 import LetterIcon from "@/assets/images/letter.svg";
 import LetterGreenIcon from "@/assets/images/letter_green.svg";
 import { useGetLetterListMain } from "@/entities/my_letter/queries";
-
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}.${month}.${day}`;
-};
+import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
+import { formatDateDot } from "@/shared/utils/date/formatdate";
 
 export const LetterSection = () => {
   const { data: letterList } = useGetLetterListMain();
@@ -38,32 +32,42 @@ export const LetterSection = () => {
   return (
     <>
       <MainHeader mainTitle="도착한 편지" buttonText="더보기" onClick={() => console.log("도착한 편지 더보기")} />
-      <div className="relative w-full overflow-hidden">
-        <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-          {letterList.result.map((letter) => (
-            <div key={letter.letterId} className="flex-none h-[140px] w-[190px] flex-col gap-2.5 rounded-2xl bg-white p-4">
-              <div className="flex h-full flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-1">
-                    <img src={LetterGreenIcon} alt="편지" className="h-5 w-5" />
-                    <span className="text-md font-semibold text-gray-900">
-                      {letter.title.length > 9 ? `${letter.title.slice(0, 9)}...` : letter.title}
-                    </span>
-                  </div>  
-                  <p className="mt-2 line-clamp-2 text-sm text-gray-500 font-medium">{letter.content}</p>
+      <div className="relative w-full overflow-x-auto">
+        <Carousel
+          opts={{
+            align: "start",
+            loop: false,
+            dragFree: true,
+          }}
+          className="w-full px-4">
+          <CarouselContent className="-ml-4">
+            {letterList.result.map((letter) => (
+              <CarouselItem key={letter.letterId} className="pl-4 basis-[190px]">
+                <div className="h-[140px] w-[190px] flex-col gap-2.5 rounded-2xl bg-white p-4">
+                  <div className="flex h-full flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-1">
+                        <img src={LetterGreenIcon} alt="편지" className="h-5 w-5" />
+                        <span className="text-md font-semibold text-gray-900">
+                          {letter.title.length > 9 ? `${letter.title.slice(0, 9)}...` : letter.title}
+                        </span>
+                      </div>  
+                      <p className="mt-2 line-clamp-2 text-sm text-gray-500 font-medium">{letter.content}</p>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-xs font-regular text-gray-500">
+                        {formatDateDot(new Date(letter.title))}
+                      </span>
+                      <span className="text-xs font-regular text-gray-500">
+                        {formatDateDot(new Date(letter.createdAt))}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-xs font-regular text-gray-500">
-                    {formatDate(letter.title)}
-                  </span>
-                  <span className="text-xs font-regular text-gray-500">
-                    {formatDate(letter.createdAt)}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
       </div>
     </>
   );

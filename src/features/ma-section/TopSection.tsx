@@ -26,7 +26,6 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
   const navigate = useNavigate();
   const { militaryBranch, setMilitaryBranch } = useOnboardingStore();
   const [coupleInfo, setCoupleInfo] = useState<CoupleInfo>({ userNickname: "", coupleNickname: "" });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fetchCoupleNicknames = async () => {
     try {
@@ -45,13 +44,11 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
     if (!isConnected) return;
 
     try {
-      const [, coupleInfoResponse] = await Promise.all([
-        fetchCoupleNicknames(),
-        maonboardingQueries.getCoupleInfo()
-      ]);
+      await fetchCoupleNicknames();
+      const coupleInfoResponse = await maonboardingQueries.getCoupleInfo();
       setMilitaryBranch(coupleInfoResponse.result.military);
     } catch (error) {
-      console.error("데이터 초기화 중 오류 발생:", error);
+      console.error("초기설정 오류류발생:", error);
     }
   };
 
@@ -59,16 +56,8 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
     initializeData();
   }, [isConnected, setMilitaryBranch]);
 
-  const handleInitialize = async () => {
-    setIsSubmitting(true);
-    
-    try {
-      navigate("/onboarding/firstmeet");
-    } catch (error) {
-      console.error("초기설정 오류:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handleInitialize = () => {
+    navigate("/onboarding/firstmeet");
   };
 
   const getBackgroundImage = () => {
@@ -83,7 +72,7 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
 
     return backgroundMap[militaryBranch as MilitaryBranch] || InitBg;
   };
- {/* 커플연결 x */}
+
   const renderNotConnectedContent = () => (
     <>
       <h1 className="text-2xl font-bold text-gray-50">
@@ -97,7 +86,7 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
       </button>
     </>
   );
-{/* 커플연결 o 초기설정 x */}
+
   const renderNotInitializedContent = () => (
     <>
       <h1 className="flex items-center text-2xl font-bold text-gray-50">
@@ -106,13 +95,12 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
       </h1>
       <button
         onClick={handleInitialize}
-        disabled={isSubmitting}
         className="mt-2 flex items-center text-sm font-medium text-gray-700">
-        {isSubmitting ? "처리중..." : "초기 설정하기"} <span className="ml-1">&gt;</span>
+        초기 설정하기 <span className="ml-1">&gt;</span>
       </button>
     </>
   );
-{/* 커플연결 o 초기설정 o */}
+
   const renderInitializedContent = () => (
     <h1 className="flex items-center text-2xl font-bold text-gray-50">
       {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
@@ -128,9 +116,7 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
 
   return (
     <div className="relative h-[259px] overflow-hidden">
-      {/* 배경 이미지 */}
       <img src={getBackgroundImage()} alt="배경" className="h-full w-full object-cover" />
-      {/* 알림 버튼 */}
       <button className="absolute top-16 right-4">
         <img src={NotificationIcon} alt="알림" className="h-6 w-6" />
       </button>
