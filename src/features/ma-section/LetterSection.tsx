@@ -52,9 +52,14 @@ export const LetterSection = () => {
                   </div>  
                   <p className="mt-2 line-clamp-2 text-sm text-gray-500 font-medium">{letter.content}</p>
                 </div>
-                <span className="text-xs font-regular text-gray-500 text-right">
-                  {formatDate(letter.createdAt)}
-                </span>
+                <div className="flex justify-between">
+                  <span className="text-xs font-regular text-gray-500">
+                    {formatDate(letter.title)}
+                  </span>
+                  <span className="text-xs font-regular text-gray-500">
+                    {formatDate(letter.createdAt)}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
