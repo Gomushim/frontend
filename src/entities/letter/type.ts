@@ -36,5 +36,5 @@ export interface LetterDetailResponse {
       author: string;
       createdAt: string;
     }[];
-  }[];
+  };
 }

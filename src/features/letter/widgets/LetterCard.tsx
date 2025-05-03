@@ -1,7 +1,7 @@
 import { DateText, InfoCard } from "@/shared/ui";
 
 interface LetterCardProps {
-  id: number;
+  letterId: string;
   title: string;
   content: string;
   creationDate: Date | string;
@@ -13,10 +13,10 @@ interface LetterCardProps {
 export const LetterCard = (props: LetterCardProps) => {
   return (
     <InfoCard className="">
-      <InfoCard.Content className="flex-col gap-4">
+      <InfoCard.Content className="flex-col">
         <div className="flex items-center gap-4">
           <InfoCard.Image imageUrl={props.imageUrl || ""} />
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col items-start gap-2">
             <InfoCard.Title>{props.title}</InfoCard.Title>
             <InfoCard.Text>{props.content}</InfoCard.Text>
           </div>
