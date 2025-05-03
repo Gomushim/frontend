@@ -1,11 +1,11 @@
-import { DetailLetterBottomSheet } from "../DetailLetterBottomSheet";
+import { DetailLetterBottomSheet } from "./DetailLetterBottomSheet";
 
 export interface Letter {
   letterId: string;
   title: string;
   content: string;
   imageUrl: string;
-  creationDate: Date;
+  createdAt: string;
 }
 
 export interface LetterListProps {

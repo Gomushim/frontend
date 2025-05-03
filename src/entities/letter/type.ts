@@ -1,11 +1,11 @@
 import { Comment } from "@/entities/comment";
 
 export interface Letter {
-  id: number;
+  letterId: string;
   title: string;
   content: string;
   imageUrl: string;
-  creationDate: Date;
+  createdAt: string;
   comments: Comment[];
 }
 
