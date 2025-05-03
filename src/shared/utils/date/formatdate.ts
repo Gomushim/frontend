@@ -1,5 +1,10 @@
-export const formatDateDot = (date: Date): string => {
-  // 2025. 06. 05
+export const formatDateDot = (newDate: Date | string): string => {
+  // 문자열이면 마이크로초 제거 (6자리 초과 부분 잘라냄)
+  const cleanDateStr = typeof newDate === "string" ? newDate.replace(/\.\d{6}/, "") : newDate;
+
+  const date = new Date(cleanDateStr);
+  if (isNaN(date.getTime())) return ""; // 날짜 파싱 실패 방지
+
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");

@@ -3,12 +3,13 @@ import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
 import { LetterCard } from "./widgets";
 import { useGetLetterDetail } from "@/entities/letter/query";
 import { useParams } from "react-router";
+import { formatDateFull } from "@/shared/utils";
 
 interface DetailLetterBottomSheetProps {
   letterId: string;
   title: string;
   content: string;
-  creationDate: Date | string;
+  createdAt: string;
   imageUrl?: string;
   onEdit?: () => void;
   onDelete?: () => void;
@@ -29,7 +30,7 @@ export const DetailLetterBottomSheet = (props: DetailLetterBottomSheetProps) => 
           <LetterCard {...props} />
         </button>
       </DrawerTrigger>
-      <DrawerContent className="py10 px-5">
+      <DrawerContent className="py10 min-h-[700px] px-5">
         <DrawerHeader className="flex-row justify-between px-0">
           <Button
             type="button"
@@ -65,6 +66,12 @@ export const DetailLetterBottomSheet = (props: DetailLetterBottomSheetProps) => 
               </CarouselContent>
             </Carousel>
           )}
+          <div className="flex flex-col items-end gap-1">
+            <p className="text-xs font-semibold text-gray-700">From.{letterDetailData.result.letter.author}</p>
+            <p className="text-xs font-semibold text-gray-700">
+              {formatDateFull(letterDetailData.result.letter.createdAt)}
+            </p>
+          </div>
         </div>
       </DrawerContent>
     </Drawer>

@@ -1,10 +1,11 @@
-import { DateText, InfoCard } from "@/shared/ui";
+import { InfoCard } from "@/shared/ui";
+import { formatDateDot } from "@/shared/utils";
 
 interface LetterCardProps {
   letterId: string;
   title: string;
   content: string;
-  creationDate: Date | string;
+  createdAt: string;
   imageUrl?: string;
   onEdit?: () => void;
   onDelete?: () => void;
@@ -22,7 +23,7 @@ export const LetterCard = (props: LetterCardProps) => {
           </div>
         </div>
         <div className="flex justify-between">
-          <DateText date={props.creationDate} />
+          <InfoCard.Text>{formatDateDot(props.createdAt)}</InfoCard.Text>
           <InfoCard.Option />
         </div>
       </InfoCard.Content>
