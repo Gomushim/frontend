@@ -2,7 +2,6 @@ import { Button, Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
 import { LetterCard } from ".";
 import { useGetLetterDetail } from "@/entities/letter/query";
-import { useParams } from "react-router";
 import { formatDateFull } from "@/shared/utils";
 import { useToggle } from "@/shared/hooks";
 import { useCommentMutation } from "@/entities/comment/mutaion";
@@ -10,6 +9,7 @@ import { FormEvent } from "react";
 
 interface DetailLetterBottomSheetProps {
   letterId: string;
+  scheduleId: string;
   title: string;
   content: string;
   createdAt: string;
@@ -21,9 +21,8 @@ interface DetailLetterBottomSheetProps {
 export const DetailLetterBottomSheet = (props: DetailLetterBottomSheetProps) => {
   const { isToggle, onToggle } = useToggle();
 
-  const { scheduleId } = useParams<{ scheduleId: string }>();
-  const { data: letterDetailData } = useGetLetterDetail(scheduleId || "", props.letterId);
-  const { mutate } = useCommentMutation("post", props.letterId, scheduleId);
+  const { data: letterDetailData } = useGetLetterDetail(props.scheduleId, props.letterId);
+  const { mutate } = useCommentMutation("post", props.letterId, props.scheduleId);
 
   const handleCommentSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

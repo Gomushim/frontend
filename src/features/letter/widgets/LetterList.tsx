@@ -1,15 +1,8 @@
+import { LetterList as LetterListType } from "@/entities/letter";
 import { DetailLetterBottomSheet } from "./DetailLetterBottomSheet";
 
-export interface Letter {
-  letterId: string;
-  title: string;
-  content: string;
-  imageUrl: string;
-  createdAt: string;
-}
-
 export interface LetterListProps {
-  letters: Letter[];
+  letters: LetterListType;
 }
 export const LetterList = (props: LetterListProps) => {
   return (

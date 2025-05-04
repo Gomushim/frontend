@@ -4,3 +4,7 @@ import { letterQueryKey } from "./queryKey";
 export const useGetLetterDetail = (scheduleId: string, letterId: string) => {
   return useQuery(letterQueryKey.detail(scheduleId, letterId));
 };
+
+export const useGetLetterList = () => {
+  return useQuery(letterQueryKey.list());
+};

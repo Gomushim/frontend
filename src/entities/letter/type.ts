@@ -2,6 +2,8 @@ import { Comment } from "../comment";
 
 export interface Letter {
   letterId: string;
+  scheduleId: string;
+  scheduleTitle?: string;
   title: string;
   content: string;
   imageUrl: string;
@@ -37,4 +39,11 @@ export interface LetterDetailResponse {
       createdAt: string;
     }[];
   };
+}
+
+export interface LetterListResponse {
+  data: LetterList;
+  after: number;
+  count: number;
+  isLastPage: boolean;
 }
