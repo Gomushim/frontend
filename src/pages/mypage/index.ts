@@ -1,2 +1,3 @@
 export * from "./MyPage";
-export * from "./ProfileInfo";
+export * from "./ProfileInfoPage";
+export * from "./editpage";

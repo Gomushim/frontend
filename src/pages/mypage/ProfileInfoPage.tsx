@@ -1,0 +1,45 @@
+import {EditInfoCard,MyHeader} from "@/features/mypage";
+import { useNavigate } from "react-router";
+
+export const ProfileInfoPage = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div>
+      <MyHeader title="프로필 정보" />
+      <div className="max-w-md mx-auto">
+        <EditInfoCard 
+          title="세린" 
+          onEdit={() => navigate("/mypage/nicknameedit")} 
+        />
+        <EditInfoCard 
+          title="2003.03.12" 
+          onEdit={() => navigate("/mypage/birthdayedit")} 
+        />
+        <div className="border-b-10 border-gray-50 my-3" />
+
+        <div className="mx-5 my-3 py-5 bg-gray-50 rounded-lg p-4 flex items-center justify-between mb-2">
+          <div className="text-gray-500 text-md font-medium">
+            산들
+          </div>
+        </div>
+        <div className="mx-5 my-3 py-5 bg-gray-50 rounded-lg p-4 flex items-center justify-between mb-2">
+          <div className="text-gray-500 text-md font-medium">
+            2001.01.02
+          </div>
+        </div>
+        <div className="border-b-10 border-gray-50 my-3" />
+
+        <EditInfoCard 
+          title="입대 및 전역일" 
+          onEdit={() => navigate("/mypage/militarydayedit")} 
+        />
+        <EditInfoCard 
+          title="처음 만난 날" 
+          onEdit={() => navigate("/mypage/firstmeetedit")} 
+        />
+      </div>
+    </div>
+  );
+};
+

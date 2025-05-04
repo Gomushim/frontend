@@ -1,6 +1,4 @@
-import { ProfileCard } from "@/features/mypage/ProfileCard";
-import { StatusSection } from "@/features/mypage/StatusSection";
-import { NotificationSetting } from "@/features/mypage/NotificationSetting";
+import { NotificationSetting,StatusSection,ProfileCard } from "@/features/mypage";
 import mySettingIcon from "@/assets/images/my_setting.svg";
 import { NavBar } from "@/shared/ui";
 
