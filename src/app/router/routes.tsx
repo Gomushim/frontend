@@ -22,6 +22,7 @@ import {
   MilitaryDayEditPage,
   FirstMeetEditPage,
   AlarmSettingPage,
+  SettingPage,
   } from "@/pages";
 import { createBrowserRouter } from "react-router";
 
@@ -51,8 +52,9 @@ const router = createBrowserRouter([
           { path: "birthdayedit", element: <BirthdayEditPage /> },
           { path: "militarydayedit", element: <MilitaryDayEditPage /> },
           { path: "firstmeetedit", element: <FirstMeetEditPage /> },
-        ],
-      },
+          { path: "setting", element: <SettingPage /> },
+          ],
+        },
       {
         path: "/onboarding",
         children: [
