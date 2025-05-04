@@ -25,6 +25,10 @@ export interface DDayListResponse {
   isLastPage: boolean;
 }
 
+export interface MainDdayListResponse {
+  result: Dday[];
+}
+
 //전역상태 타입
 export interface InitialDday {
   id: number | null;
