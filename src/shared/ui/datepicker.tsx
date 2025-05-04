@@ -11,7 +11,7 @@ interface DatePickerDrawerProps {
 export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({ onConfirm, children }) => {
   const [open, setOpen] = useState(false);
   const today = new Date();
-  const years = Array.from({ length: 100 }, (_, i) => String(today.getFullYear() - i));
+  const years = Array.from({ length: 100 + 3 }, (_, i) => String(today.getFullYear() + 2 - i));
   const months = Array.from({ length: 12 }, (_, i) => String(i + 1));
   const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
 
@@ -33,7 +33,7 @@ export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({ onConfirm, c
       <DrawerTrigger asChild>
         <div className="w-full">{children}</div>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="w-full max-w-[375px] mx-auto">
         <div className="w-full">
           <div className="relative flex h-[200px] w-full items-center justify-center">
             <div className="absolute inset-x-0 top-1/2 h-11 -translate-y-1/2 rounded-[10px] bg-gray-100" />
@@ -69,7 +69,7 @@ export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({ onConfirm, c
             </div>
           </div>
           <DrawerHeader>
-            <Button variant="active" onClick={handleConfirm} className="w-full">
+            <Button variant="active" size="onicon" onClick={handleConfirm} className="w-full">
               확인
             </Button>
           </DrawerHeader>

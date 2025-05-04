@@ -25,30 +25,39 @@ export const Where: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="flex h-screen flex-col bg-white">
       <ProgressHeader
         title="어느 군에서 복무중이신가요?"
         highlight="어느 군"
         subtitle="나 또는 상대의 소속을 선택해주세요."
-        progress={0.4}
+        progress={2/3}
+        onBack={() => navigate(-1)}
+        onClose={() => navigate("/")}
       />
 
-      <div className="mt-6 space-y-2 px-4">
-        {locations.map(location => (
-          <button
-            key={location.id}
-            className={`text-medium text-regular w-full rounded-xl border bg-gray-50 p-4 text-left ${
-              militaryBranch === location.id ? "border-green-500" : "border-gray-50"
-            }`}
-            onClick={() => handleLocationSelect(location.id as MilitaryBranch)}>
-            {location.label}
-          </button>
-        ))}
+      <div className="flex-1 px-4">
+        <div className="mt-4 space-y-2">
+          {locations.map(location => (
+            <button
+              key={location.id}
+              className={`text-medium text-regular w-full rounded-xl border bg-gray-50 p-4 text-left ${
+                militaryBranch === location.id ? "border-green-500" : "border-gray-50"
+              }`}
+              onClick={() => handleLocationSelect(location.id as MilitaryBranch)}>
+              {location.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div className="fixed right-0 bottom-0 left-0 p-4">
-        <Button variant={militaryBranch ? "active" : "inactive"} disabled={!militaryBranch} onClick={handleNext}>
-          확인
+      <div className="p-4">
+        <Button 
+          variant={militaryBranch ? "active" : "inactive"} 
+          size="onicon" 
+          disabled={!militaryBranch} 
+          onClick={handleNext}
+        >
+          다음
         </Button>
       </div>
     </div>

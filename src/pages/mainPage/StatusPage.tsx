@@ -4,23 +4,25 @@ import { Textinput } from "@/shared/ui";
 import { EmotionType } from "@/entities/types/emotion";
 import { Button } from "@/shared/ui";
 import { useNavigate } from "react-router";
-import { emotionStatusQueries } from "@/entities/emotion_status/service";
+import { useEmotionStatusMutation } from "@/entities/emotion_status/mutation";
 
-const EMOTION_TO_NUMBER: Record<EmotionType, number> = {
-  miss: 1,
-  happy: 2,
-  common: 3,
-  tired: 4,
-  sad: 5,
-  worry: 6,
-  angry: 7,
+type ApiEmotionType = "MISS" | "HAPPY" | "COMMON" | "TIRED" | "SAD" | "WORRY" | "ANGRY";
+
+const EMOTION_TO_API: Record<EmotionType, ApiEmotionType> = {
+  miss: "MISS",
+  happy: "HAPPY",
+  common: "COMMON",
+  tired: "TIRED",
+  sad: "SAD",
+  worry: "WORRY",
+  angry: "ANGRY",
 };
 
 export const StatusPage = () => {
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionType | undefined>();
   const [message, setMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { updateMyEmotionAndStatusMessage } = useEmotionStatusMutation("post");
 
   const handleSubmit = async () => {
     if (!selectedEmotion) {
@@ -33,17 +35,14 @@ export const StatusPage = () => {
     }
 
     try {
-      setIsSubmitting(true);
-      await emotionStatusQueries.updateMyEmotionAndStatusMessage({
-        emotion: EMOTION_TO_NUMBER[selectedEmotion],
+      await updateMyEmotionAndStatusMessage.mutateAsync({
+        emotion: EMOTION_TO_API[selectedEmotion],
         statusMessage: message,
       });
       navigate("/mainpage");
     } catch (error) {
       console.error("상태 메시지 업데이트 실패:", error);
       alert("상태 메시지 업데이트에 실패했습니다. 다시 시도해주세요.");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -58,7 +57,8 @@ export const StatusPage = () => {
         <Button
           onClick={handleSubmit}
           variant="active"
-          disabled={isSubmitting}
+          size="onicon"
+          disabled={updateMyEmotionAndStatusMessage.isPending}
         >확인 </Button>
       </div>
     </div>

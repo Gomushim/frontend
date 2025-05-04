@@ -40,11 +40,11 @@ export const EmotionSelector = ({ onSelect, selectedEmotion, onBack }: EmotionSe
 
   const getEmotionComponent = (type: EmotionType, status: EmotionStatus) => {
     const Component = EMOTION_IMAGES[type][status];
-    return <Component className="h-25 w-25 transition-all duration-300 md:h-28 md:w-28 lg:h-40 lg:w-40" />;
+    return <Component className=" transition-all duration-300  h-24 w-24" />;
   };
 
   return (
-    <div className="bg-white px-4 pt-6 pb-4">
+    <div className="bg-white px-4 pt-6 pb-13">
       <div className="mb-3 items-center justify-between">
         <button className="pb-6" onClick={handleBack}>
           <img src={BackIcon} alt="뒤로가기" className="h-6 w-6" />

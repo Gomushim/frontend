@@ -3,8 +3,9 @@ import { iscoupleQueries } from "./service";
 
 export const useIscouple = () => {
   const checkCoupleConnect = useQuery({
-    queryKey: ["coupleConnect"],
+    queryKey: ["checkCoupleConnect"],
     queryFn: () => iscoupleQueries.checkCoupleConnect(),
+
   });
 
   return {

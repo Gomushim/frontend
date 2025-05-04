@@ -8,4 +8,12 @@ export interface RegisterAnniversaryRequest {
 
 export interface RegisterAnniversaryResponse {
   result: boolean;
-} 
+}
+
+export interface GetCoupleInfoResponse {
+  result: {
+    coupleId: number;
+    military: "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE";
+    isAnniversariesRegistered: boolean;
+  };
+}

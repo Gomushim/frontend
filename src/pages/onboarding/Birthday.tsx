@@ -84,6 +84,7 @@ export const Birthday: React.FC = () => {
           variant={birthday && isAgeVisible && isGenderVisible ? "active" : "inactive"}
           onClick={handleSubmit}
           disabled={!birthday || !(isAgeVisible && isGenderVisible) || isLoading}
+          size="onicon"
         >
           {isLoading ? "처리 중..." : "다음"}
         </Button>
