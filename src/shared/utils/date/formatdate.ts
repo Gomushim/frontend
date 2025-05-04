@@ -6,7 +6,9 @@ export const formatDateDot = (date: Date): string => {
   return `${year}. ${month}. ${day}`;
 };
 
-export const formatDateFull = (date: Date) => {
+export const formatDateFull = (newDate: Date | string) => {
+  const date = new Date(newDate);
+
   const yyyy = date.getFullYear();
   const mm = String(date.getMonth() + 1).padStart(2, "0");
   const dd = String(date.getDate()).padStart(2, "0");
@@ -33,3 +35,6 @@ export const formatDateKoreanWithWeekday = (date: Date): string => {
   const weekday = weekdays[date.getDay()];
   return `${year}년 ${month}월 ${day}일 ${weekday}`;
 };
+
+// 2025년 06월
+export const formatYearMonth = (year: number, month: number) => `${year}년 ${month}월`;

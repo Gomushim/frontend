@@ -1,8 +1,9 @@
-import { Fatigue } from "@/entities/schedule/model";
+import { Fatigue } from "@/entities/schedule";
 
 export interface ScheduleOverViewProps {
-  fatigue: Fatigue | string;
+  id: number;
   title: string;
-  startDateTime: Date;
-  endDateTime: Date;
+  fatigue: Fatigue;
+  startDate: string;
+  endDate: string;
 }

@@ -1,30 +1,11 @@
 import type { LetterList as LetterListType } from "@/entities/letter";
 import { LetterList } from "@/features/letter";
+import { groupLettersByMonth } from "../utils";
+import { formatYearMonth } from "@/shared/utils";
 
 interface LetterListPageProps {
   letters: LetterListType;
 }
-
-const groupLettersByMonth = (letters: LetterListType) => {
-  const groups: Record<string, { year: number; month: number; letters: LetterListType }> = {};
-
-  letters.forEach(letter => {
-    const date = letter.creationDate;
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-
-    const key = `${year}-${month}`;
-    if (!groups[key]) groups[key] = { year, month, letters: [] };
-    groups[key].letters.push(letter);
-  });
-
-  return Object.values(groups).sort((a, b) => {
-    if (a.year !== b.year) return b.year - a.year;
-    return b.month - a.month;
-  });
-};
-
-const formatYearMonth = (year: number, month: number) => `${year}년 ${month}월`;
 
 export const MonthlyLettersView = ({ letters }: LetterListPageProps) => {
   const groupedLetters = groupLettersByMonth(letters);
