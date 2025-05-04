@@ -19,7 +19,7 @@ export const NotificationToggleList: React.FC = () => {
       {toggleItems.map((item, idx) => (
         <div
           key={item.label}
-          className="flex items-center justify-between bg-gray-50 rounded-2xl mb-1 px-4 py-5"
+          className="flex items-center justify-between bg-gray-50 rounded-2xl  px-4 py-5"
         >
           <span className="text-gray-900 text-md font-medium">{item.label}</span>
           <Switch
