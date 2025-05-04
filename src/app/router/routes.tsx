@@ -16,7 +16,11 @@ import {
   MainPage,
   StatusPage,
   LetterListPage,
-  ProfileInfo,
+  ProfileInfoPage,
+  NicknameEditPage,
+  BirthdayEditPage,
+  MilitaryDayEditPage,
+  FirstMeetEditPage,
   } from "@/pages";
 import { createBrowserRouter } from "react-router";
 
@@ -39,7 +43,12 @@ const router = createBrowserRouter([
       {
         path: "/mypage",
         children: [
-          { path: "profileinfo", element: <ProfileInfo /> },
+          { path: "", element: <MyPage /> },
+          { path: "profileinfo", element: <ProfileInfoPage /> },
+          { path: "nicknameedit", element: <NicknameEditPage /> },
+          { path: "birthdayedit", element: <BirthdayEditPage /> },
+          { path: "militarydayedit", element: <MilitaryDayEditPage /> },
+          { path: "firstmeetedit", element: <FirstMeetEditPage /> },
         ],
       },
       {
