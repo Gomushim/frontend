@@ -2,7 +2,7 @@ import { Button } from "@/shared/ui";
 import backIcon from "@/assets/icons/back.svg";
 import letterIcon from "@/assets/icons/letter.svg";
 import blackHeart from "@/assets/icons/blackHeart.svg";
-import { MonthlyLettersView } from "@/features/letter";
+import { MonthlyLettersView, NoLetterMessage } from "@/features/letter";
 import { useGetLetterList } from "@/entities/letter/query";
 import useIntersect from "@/shared/hooks/useIntersect";
 
@@ -36,6 +36,7 @@ export const LetterListPage = () => {
         {letterListData.pages.map(page => (
           <MonthlyLettersView {...page} />
         ))}
+        {letterListData.pages.length === 0 && <NoLetterMessage />}
         <div ref={ref} style={{ width: "1px", height: "1px", marginTop: "10px" }} />
       </main>
     </div>
