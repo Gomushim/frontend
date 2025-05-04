@@ -2,44 +2,20 @@ import { Button } from "@/shared/ui";
 import backIcon from "@/assets/icons/back.svg";
 import letterIcon from "@/assets/icons/letter.svg";
 import blackHeart from "@/assets/icons/blackHeart.svg";
-import { MonthlyLettersView } from "@/features/letter";
-
-const dummyData = {
-  author: ["신들", "세린"],
-  totalCount: 5,
-  letter: [
-    {
-      id: 1,
-      title: "테스트",
-      content: "테스트",
-      imageUrl: letterIcon,
-      creationDate: new Date("2025-06-05T22:00:00"),
-    },
-    {
-      id: 2,
-      title: "테스트",
-      content: "테스트",
-      imageUrl: letterIcon,
-      creationDate: new Date("2025-04-05T22:00:00"),
-    },
-    {
-      id: 3,
-      title: "테스트",
-      content: "테스트",
-      imageUrl: letterIcon,
-      creationDate: new Date("2025-05-05T22:00:00"),
-    },
-    {
-      id: 4,
-      title: "테스트",
-      content: "테스트",
-      imageUrl: letterIcon,
-      creationDate: new Date("2025-05-05T22:00:00"),
-    },
-  ],
-};
+import { MonthlyLettersView, NoLetterMessage } from "@/features/letter";
+import { useGetLetterList } from "@/entities/letter/query";
+import useIntersect from "@/shared/hooks/useIntersect";
 
 export const LetterListPage = () => {
+  const { data: letterListData, fetchNextPage, isFetched } = useGetLetterList();
+  const ref = useIntersect<HTMLDivElement>(() => {
+    fetchNextPage();
+  }, isFetched);
+
+  if (!letterListData) {
+    return;
+  }
+
   return (
     <div className="px-[22px]">
       <header className="relative flex items-center justify-center">
@@ -57,7 +33,11 @@ export const LetterListPage = () => {
           <h2 className="text-xl font-semibold text-gray-900">님의 편지</h2>
           <p className="text-md font-semibold text-gray-500">2</p>
         </section>
-        <MonthlyLettersView letters={dummyData.letter} />
+        {letterListData.pages.map(page => (
+          <MonthlyLettersView {...page} />
+        ))}
+        {letterListData.pages.length === 0 && <NoLetterMessage />}
+        <div ref={ref} style={{ width: "1px", height: "1px", marginTop: "10px" }} />
       </main>
     </div>
   );

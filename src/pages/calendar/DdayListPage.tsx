@@ -1,54 +1,21 @@
-import { DdayList } from "@/features/d-day/widgets";
+import { DdayCard, NoDdayMessage } from "@/features/d-day/widgets";
 import { Button } from "@/shared/ui";
 import backIcon from "@/assets/icons/back.svg";
-
-const dummyData: {
-  author: string[];
-  totalCount: number;
-  data: {
-    id: number;
-    emoji: "HEART" | "CALENDAR" | "CAKE" | "TRAVEL";
-    title: string;
-    anniversaryDate: string;
-  }[];
-} = {
-  author: ["세린", "산들"],
-  totalCount: 5,
-  data: [
-    {
-      id: 1,
-      emoji: "HEART",
-      title: "생일 파티",
-      anniversaryDate: "2025-06-05",
-    },
-    {
-      id: 2,
-      emoji: "TRAVEL",
-      title: "여행 준비",
-      anniversaryDate: "2025-06-05",
-    },
-    {
-      id: 3,
-      emoji: "CALENDAR",
-      title: "회의 일정",
-      anniversaryDate: "2025-06-05",
-    },
-    {
-      id: 4,
-      emoji: "HEART",
-      title: "기념일",
-      anniversaryDate: "2025-06-05",
-    },
-    {
-      id: 5,
-      emoji: "CAKE",
-      title: "대회 참가",
-      anniversaryDate: "2025-06-05",
-    },
-  ],
-};
+import useIntersect from "@/shared/hooks/useIntersect";
+import { useGetDdayList } from "@/entities/d-day";
+import calendar from "@/assets/icons/calendar.svg";
+import blackHeart from "@/assets/icons/blackHeart.svg";
 
 export const CalendarDdayList = () => {
+  const { data: ddayListData, fetchNextPage, isFetched } = useGetDdayList();
+  const ref = useIntersect<HTMLDivElement>(() => {
+    fetchNextPage();
+  }, isFetched);
+
+  if (!ddayListData) {
+    return;
+  }
+
   return (
     <div className="px-[22px]">
       <header className="relative flex items-center justify-center">
@@ -58,7 +25,28 @@ export const CalendarDdayList = () => {
         <h1 className="pt-[70px] pb-2.5">디데이</h1>
       </header>
       <main>
-        <DdayList {...dummyData} />
+        <div className="mt-4.5 flex items-center justify-between">
+          <div className="items-cente flex gap-2">
+            <img className="h-4.5 w-4.5 pt-1" src={calendar} alt="캘린더 아이콘" />
+            <h2 className="text-xl font-semibold text-gray-900">산들</h2>
+            <img src={blackHeart} alt="캘린더 아이콘" />
+            <h2 className="text-xl font-semibold text-gray-900">세린</h2>
+            <h2 className="text-xl font-semibold text-gray-900">님의 디데이</h2>
+            <p className="text-md font-semibold text-gray-500">2</p>
+          </div>
+          <Button variant="square" size="2xs">
+            디데이 추가
+          </Button>
+        </div>
+        {ddayListData.pages.map(page =>
+          page.data.map(dday => (
+            <ul className="mt-6 flex flex-col gap-3">
+              <DdayCard {...dday} />
+            </ul>
+          ))
+        )}
+        {ddayListData.pages.length === 0 && <NoDdayMessage />}
+        <div ref={ref} style={{ width: "1px", height: "1px", marginTop: "10px" }} />
       </main>
     </div>
   );

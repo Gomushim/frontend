@@ -10,7 +10,8 @@ export const groupLettersByMonth = (letters: LetterList) => {
   const letterGroups: Record<string, LetterGroupsType> = {};
 
   letters.forEach(letter => {
-    const date = letter.creationDate;
+    const newDate = letter.createdAt;
+    const date = new Date(newDate);
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
 

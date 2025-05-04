@@ -1,14 +1,10 @@
-import type { LetterList as LetterListType } from "@/entities/letter";
+import type { LetterListResponse } from "@/entities/letter";
 import { LetterList } from "@/features/letter";
 import { groupLettersByMonth } from "../utils";
 import { formatYearMonth } from "@/shared/utils";
 
-interface LetterListPageProps {
-  letters: LetterListType;
-}
-
-export const MonthlyLettersView = ({ letters }: LetterListPageProps) => {
-  const groupedLetters = groupLettersByMonth(letters);
+export const MonthlyLettersView = (props: LetterListResponse) => {
+  const groupedLetters = groupLettersByMonth(props.data);
 
   return (
     <section>
