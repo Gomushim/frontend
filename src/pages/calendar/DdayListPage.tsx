@@ -1,4 +1,4 @@
-import { DdayCard } from "@/features/d-day/widgets";
+import { DdayCard, NoDdayMessage } from "@/features/d-day/widgets";
 import { Button } from "@/shared/ui";
 import backIcon from "@/assets/icons/back.svg";
 import useIntersect from "@/shared/hooks/useIntersect";
@@ -45,6 +45,7 @@ export const CalendarDdayList = () => {
             </ul>
           ))
         )}
+        {ddayListData.pages.length === 0 && <NoDdayMessage />}
         <div ref={ref} style={{ width: "1px", height: "1px", marginTop: "10px" }} />
       </main>
     </div>
