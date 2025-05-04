@@ -11,11 +11,12 @@ import {
   Nickname,
   MilitaryDay,
   CoupleContact,
- Alarm,
+  Alarm,
   Where,
   MainPage,
   StatusPage,
   LetterListPage,
+  ProfileInfo,
   } from "@/pages";
 import { createBrowserRouter } from "react-router";
 
@@ -35,7 +36,12 @@ const router = createBrowserRouter([
       { path: "mypage", element: <MyPage /> }, // 마이페이지
       { path: "mainpage", element: <MainPage /> }, // 메인페이지
       { path: "status", element: <StatusPage /> }, // 상태페이지
-
+      {
+        path: "/mypage",
+        children: [
+          { path: "profileinfo", element: <ProfileInfo /> },
+        ],
+      },
       {
         path: "/onboarding",
         children: [

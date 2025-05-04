@@ -1,3 +1,29 @@
+import { ProfileCard } from "@/features/mypage/ProfileCard";
+import { StatusSection } from "@/features/mypage/StatusSection";
+import { NotificationSetting } from "@/features/mypage/NotificationSetting";
+import mySettingIcon from "@/assets/images/my_setting.svg";
+import { NavBar } from "@/shared/ui";
+
 export const MyPage = () => {
-  return <div>MyPage</div>;
+  return (
+    <div className="min-h-screen bg-white px-5 py-6">
+      {/* 상단 바 */}
+      <div className="flex items-center justify-between mb-6 bg-gray-50 p-4 -mx-5 -mt-6">
+        <span className="text-2xl font-semibold">마이</span>
+        <button type="button" aria-label="설정" className="p-2">
+          <img src={mySettingIcon} alt="설정" className="w-6 h-6" />
+        </button>
+      </div>
+      {/* 컨텐츠 영역 */}
+      <div className="max-w-md mx-auto space-y-4">
+        <ProfileCard />
+        <StatusSection />
+        <NotificationSetting />
+      </div>
+      {/* 네비게이션 바 */}
+      <div className="z-10 fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] bg-white">
+        <NavBar />
+      </div>
+    </div>
+  );
 };
