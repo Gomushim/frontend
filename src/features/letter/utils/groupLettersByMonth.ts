@@ -7,7 +7,6 @@ type LetterGroupsType = {
 };
 
 export const groupLettersByMonth = (letters: LetterList) => {
-  console.log(letters);
   const letterGroups: Record<string, LetterGroupsType> = {};
 
   letters.forEach(letter => {

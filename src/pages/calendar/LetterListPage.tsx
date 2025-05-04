@@ -4,9 +4,13 @@ import letterIcon from "@/assets/icons/letter.svg";
 import blackHeart from "@/assets/icons/blackHeart.svg";
 import { MonthlyLettersView } from "@/features/letter";
 import { useGetLetterList } from "@/entities/letter/query";
+import useIntersect from "@/shared/hooks/useIntersect";
 
 export const LetterListPage = () => {
-  const { data: letterListData } = useGetLetterList();
+  const { data: letterListData, fetchNextPage, isFetched } = useGetLetterList();
+  const ref = useIntersect<HTMLDivElement>(() => {
+    fetchNextPage();
+  }, isFetched);
 
   if (!letterListData) {
     return;
@@ -29,7 +33,10 @@ export const LetterListPage = () => {
           <h2 className="text-xl font-semibold text-gray-900">님의 편지</h2>
           <p className="text-md font-semibold text-gray-500">2</p>
         </section>
-        <MonthlyLettersView {...letterListData} />
+        {letterListData.pages.map(page => (
+          <MonthlyLettersView {...page} />
+        ))}
+        <div ref={ref} style={{ width: "1px", height: "1px", marginTop: "10px" }} />
       </main>
     </div>
   );
