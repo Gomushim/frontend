@@ -14,7 +14,7 @@ export const MyHeader: React.FC<MyHeaderProps> = ({ title, onBack }) => {
     if (onBack) {
       onBack();
     } else {
-      navigate("/mypage");
+      navigate(-1);
     }
   };
 

@@ -23,6 +23,7 @@ import {
   FirstMeetEditPage,
   AlarmSettingPage,
   SettingPage,
+  DisconnectPage,
   } from "@/pages";
 import { createBrowserRouter } from "react-router";
 
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
           { path: "militarydayedit", element: <MilitaryDayEditPage /> },
           { path: "firstmeetedit", element: <FirstMeetEditPage /> },
           { path: "setting", element: <SettingPage /> },
+          { path: "disconnect", element: <DisconnectPage /> },
           ],
         },
       {
