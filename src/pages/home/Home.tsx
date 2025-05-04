@@ -3,7 +3,6 @@ export const Home = () => {
   return (
     <div>
       <MiniCalendar />
-
     </div>
   );
 };
