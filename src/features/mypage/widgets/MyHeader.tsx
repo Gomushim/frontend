@@ -4,13 +4,18 @@ import { useNavigate } from "react-router";
 
 interface MyHeaderProps {
   title: string;
+  onBack?: () => void;
 }
 
-export const MyHeader: React.FC<MyHeaderProps> = ({ title}) => {
+export const MyHeader: React.FC<MyHeaderProps> = ({ title, onBack }) => {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    navigate("/mypage");
+    if (onBack) {
+      onBack();
+    } else {
+      navigate("/mypage");
+    }
   };
 
   return (

@@ -21,6 +21,7 @@ import {
   BirthdayEditPage,
   MilitaryDayEditPage,
   FirstMeetEditPage,
+  AlarmSettingPage,
   } from "@/pages";
 import { createBrowserRouter } from "react-router";
 
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
         children: [
           { path: "", element: <MyPage /> },
           { path: "profileinfo", element: <ProfileInfoPage /> },
+          { path: "alarmsetting", element: <AlarmSettingPage /> },
           { path: "nicknameedit", element: <NicknameEditPage /> },
           { path: "birthdayedit", element: <BirthdayEditPage /> },
           { path: "militarydayedit", element: <MilitaryDayEditPage /> },

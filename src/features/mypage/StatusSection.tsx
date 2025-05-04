@@ -23,7 +23,7 @@ export const StatusSection = () => {
       {/* 줄선 위 헤더 */}
       <div 
       className="text-md font-medium text-gray-900 mb-5 flex items-center justify-between border-b border-gray-200 pb-2"
-      onClick={() => navigate("/onboarding/couple-contact")}
+      onClick={() => navigate("/status")}
       > 나의 상태 표기
         <img src={nextArrow} alt="다음" className="w-4 h-4" />
       </div>
