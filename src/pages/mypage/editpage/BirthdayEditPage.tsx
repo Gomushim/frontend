@@ -8,7 +8,6 @@ export const BirthdayEditPage: React.FC = () => {
   const navigate = useNavigate();
   const [birthday, setBirthday] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async () => {
     if (birthday) {
@@ -58,11 +57,9 @@ export const BirthdayEditPage: React.FC = () => {
         <Button
           variant={birthday ? "active" : "inactive"}
           onClick={handleSubmit}
-          disabled={!birthday || isLoading}
+          disabled={!birthday}
           size="onicon"
-        >
-          {isLoading ? "처리 중..." : "완료"}
-        </Button>
+         />
       </div>
     </div>
   );

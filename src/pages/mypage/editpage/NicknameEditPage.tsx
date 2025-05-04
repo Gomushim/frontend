@@ -7,7 +7,6 @@ export const NicknameEditPage: React.FC = () => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async () => {
     if (nickname.trim()) {
@@ -50,11 +49,9 @@ export const NicknameEditPage: React.FC = () => {
         <Button 
           variant={nickname.trim() ? "active" : "inactive"} 
           onClick={handleSubmit} 
-          disabled={!nickname.trim() || isLoading}
+          disabled={!nickname.trim() }
           size="onicon"
-        >
-          {isLoading ? "처리 중..." : "확인"}
-        </Button>
+         />
       </div>
     </div>
   );
