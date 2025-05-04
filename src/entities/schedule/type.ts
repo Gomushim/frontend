@@ -1,5 +1,5 @@
 import { Dday } from "@/entities/d-day";
-import { Letter } from "@/features/letter";
+import { Letter } from "../letter";
 
 export enum Fatigue {
   VERY_TIRED = "VERY_TIRED",
