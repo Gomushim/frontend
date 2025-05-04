@@ -2,8 +2,10 @@ import nextArrow from "@/assets/images/next_arrow.svg";
 import { EMOTION_IMAGES,EMOTION_TO_ICON } from "@/entities/types/emotion";
 import CharacterDefaultIcon from "@/assets/images/character_default.svg";
 import { useMyEmotion, useMyStatusMessage } from "@/entities/mypage_info/queries";
+import { useNavigate } from "react-router";
 
 export const StatusSection = () => {
+  const navigate = useNavigate();
   const { data: emotionData } = useMyEmotion();
   const { data: statusMessageData } = useMyStatusMessage();
   const isConnected = true;
@@ -19,7 +21,10 @@ export const StatusSection = () => {
   return (
     <div className="bg-gray-50 rounded-xl p-4 ">
       {/* 줄선 위 헤더 */}
-      <div className="text-md font-medium text-gray-900 mb-5 flex items-center justify-between border-b border-gray-200 pb-2"> 나의 상태 표기
+      <div 
+      className="text-md font-medium text-gray-900 mb-5 flex items-center justify-between border-b border-gray-200 pb-2"
+      onClick={() => navigate("/onboarding/couple-contact")}
+      > 나의 상태 표기
         <img src={nextArrow} alt="다음" className="w-4 h-4" />
       </div>
       {/* 줄선 아래 */}
