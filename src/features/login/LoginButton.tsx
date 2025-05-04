@@ -1,4 +1,5 @@
 import { Button } from "@/shared/ui";
+import kakaoIcon from "@/assets/icons/kakao.svg";
 
 export const LoginButton = () => {
   const handleLogin = () => {
@@ -19,5 +20,15 @@ export const LoginButton = () => {
     }
   };
 
-  return <Button onClick={handleLogin}>LoginButton</Button>;
+  return (
+    <Button
+      type="button"
+      variant="login"
+      size="xl"
+      className="text-md absolute right-5 bottom-5 left-5 flex pt-5"
+      onClick={handleLogin}>
+      <img src={kakaoIcon} alt="로그인 버튼" />
+      카카오로 계속하기
+    </Button>
+  );
 };

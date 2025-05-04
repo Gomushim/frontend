@@ -24,6 +24,7 @@ const buttonVariants = cva(
         active: "bg-green-500 text-gray-0",
         pressed: "bg-green-600 text-gray-0",
         special: "bg-green-100 text-green-500",
+        login: "bg-[#FEE500] text-gray-1000",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
