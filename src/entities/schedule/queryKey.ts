@@ -7,7 +7,7 @@ export const scheduleQueryKey = createQueryKeys("schedule", {
     queryFn: () => getCalendarSchedule(date),
   }),
   list: (date: Date) => ({
-    queryKey: [date.getDay()],
+    queryKey: [date.getMonth(), date.getDay()],
     queryFn: () => getScheduleList(date),
   }),
   detail: (scheduleId: string) => ({
