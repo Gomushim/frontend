@@ -15,11 +15,6 @@ interface TopSectionProps {
   isInitialized: boolean;
 }
 
-interface CoupleInfo {
-  userNickname: string;
-  coupleNickname: string;
-}
-
 type MilitaryBranch = "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE";
 
 export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitialized }) => {
