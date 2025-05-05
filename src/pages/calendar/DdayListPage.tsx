@@ -5,6 +5,7 @@ import useIntersect from "@/shared/hooks/useIntersect";
 import { useGetDdayList } from "@/entities/d-day";
 import calendar from "@/assets/icons/calendar.svg";
 import blackHeart from "@/assets/icons/blackHeart.svg";
+import { useNavigate } from "react-router";
 
 export const CalendarDdayList = () => {
   const { data: ddayListData, fetchNextPage, isFetched } = useGetDdayList();
@@ -12,14 +13,21 @@ export const CalendarDdayList = () => {
     fetchNextPage();
   }, isFetched);
 
+  const navigate = useNavigate();
+
   if (!ddayListData) {
     return;
   }
 
+  const goBack = () => {
+    navigate(-1);
+    return goBack;
+  };
+
   return (
     <div className="px-[22px]">
       <header className="relative flex items-center justify-center">
-        <Button variant="ghost" size="sIcon" className="absolute top-[60px] left-0">
+        <Button variant="ghost" size="sIcon" className="absolute top-[60px] left-0" onClick={goBack}>
           <img src={backIcon} alt="뒤로가기" />
         </Button>
         <h1 className="pt-[70px] pb-2.5">디데이</h1>
