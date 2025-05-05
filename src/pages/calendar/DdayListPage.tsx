@@ -19,6 +19,10 @@ export const CalendarDdayList = () => {
     return;
   }
 
+  const goCreateDdayPage = () => {
+    navigate("/calendar/schedule");
+  };
+
   const goBack = () => {
     navigate(-1);
     return goBack;
@@ -42,7 +46,7 @@ export const CalendarDdayList = () => {
             <h2 className="text-xl font-semibold text-gray-900">님의 디데이</h2>
             <p className="text-md font-semibold text-gray-500">2</p>
           </div>
-          <Button variant="square" size="2xs">
+          <Button variant="square" size="2xs" onClick={goCreateDdayPage}>
             디데이 추가
           </Button>
         </div>
