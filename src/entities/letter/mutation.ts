@@ -2,8 +2,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { mutationMethodType } from "../types/mutationMethod.type";
 import { createLetter } from "./service";
 import { scheduleQueryKey } from "../schedule/queryKey";
+import { letterQueryKey } from "./queryKey";
 
-export const useLetterMutation = (mutationMethod: mutationMethodType, scheduleId?: string) => {
+export const useLetterMutation = (mutationMethod: mutationMethodType, scheduleId?: string, letterId?: string) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: FormData) => {
@@ -22,6 +23,15 @@ export const useLetterMutation = (mutationMethod: mutationMethodType, scheduleId
       if (scheduleId) {
         queryClient.invalidateQueries({
           queryKey: scheduleQueryKey.detail(scheduleId).queryKey,
+        });
+        queryClient.invalidateQueries({
+          queryKey: letterQueryKey.list().queryKey,
+        });
+      }
+
+      if (scheduleId && letterId) {
+        queryClient.removeQueries({
+          queryKey: letterQueryKey.detail(scheduleId, letterId).queryKey,
         });
       }
     },
