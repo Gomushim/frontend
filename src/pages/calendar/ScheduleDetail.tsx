@@ -5,10 +5,11 @@ import backIcon from "@/assets/icons/back.svg";
 import gearIcon from "@/assets/icons/gear.svg";
 import { LetterList, NoLetterMessage, WriteLetterBottomSheet } from "@/features/letter";
 import { useGetScheduleDetail } from "@/entities/schedule/query";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 export const CalendarScheduleDetail = () => {
   const { scheduleId } = useParams<{ scheduleId: string }>();
+  const navigate = useNavigate();
 
   const { data: scheduleData } = useGetScheduleDetail(scheduleId || "");
 
@@ -16,13 +17,18 @@ export const CalendarScheduleDetail = () => {
     return;
   }
 
+  const goBack = () => {
+    navigate(-1);
+    return goBack;
+  };
+
   const { letters, ...rest } = scheduleData.result;
 
   return (
     <>
       <div className="px-[22px]">
         <header className="mt-[70px] mb-4 flex items-center justify-between">
-          <Button variant="ghost" size="sIcon" className="">
+          <Button variant="ghost" size="sIcon" onClick={goBack}>
             <img src={backIcon} alt="뒤로가기" />
           </Button>
           <h1 className="">일정 세부사항</h1>
