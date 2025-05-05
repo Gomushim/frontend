@@ -31,7 +31,7 @@ export const FatigueBottomSheet = () => {
           피로도 선택하기
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="p-4">
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
             <DrawerTitle>해당 일정에 대한 피로도를 선택해 주세요.</DrawerTitle>

@@ -3,11 +3,11 @@ import { getCalendarSchedule, getScheduleDetail, getScheduleList, getWeekSchedul
 
 export const scheduleQueryKey = createQueryKeys("schedule", {
   calendar: (date: Date) => ({
-    queryKey: [date],
+    queryKey: [date.getMonth()],
     queryFn: () => getCalendarSchedule(date),
   }),
   list: (date: Date) => ({
-    queryKey: [date],
+    queryKey: [date.getDay()],
     queryFn: () => getScheduleList(date),
   }),
   detail: (scheduleId: string) => ({

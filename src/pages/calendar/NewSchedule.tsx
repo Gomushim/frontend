@@ -13,9 +13,10 @@ import { useNavigate } from "react-router";
 export const CalendarNewSchedule = () => {
   const navigate = useNavigate();
 
-  const { schedule } = useScheduleStore(
+  const { schedule, reset } = useScheduleStore(
     useShallow(state => ({
       schedule: state.schedule,
+      reset: state.reset,
     }))
   );
 
@@ -31,7 +32,11 @@ export const CalendarNewSchedule = () => {
 
   const handlePostSchedule = async () => {
     mutate(undefined, {
-      onSuccess: () => {},
+      onSuccess: () => {
+        alert("일정이 생성되었습니다.");
+        reset();
+        navigate("/calendar");
+      },
       onError: error => {
         console.log(error);
       },
