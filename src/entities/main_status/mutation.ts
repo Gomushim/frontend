@@ -1,24 +1,7 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getCoupleEmotion, getStatusMessage, updateEmotionAndStatusMessage } from "./service";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateEmotionAndStatusMessage } from "./service";
 import { UpdateEmotionAndStatusMessageRequest } from "./types";
 import { mutationMethodType } from "../types/mutationMethod.type";
-
-export const useEmotionStatusQueries = () => {
-  const getCoupleEmotionQuery = useQuery({
-    queryKey: ["coupleEmotion"],
-    queryFn: getCoupleEmotion,
-  });
-
-  const getStatusMessageQuery = useQuery({
-    queryKey: ["statusMessage"],
-    queryFn: getStatusMessage,
-  });
-
-  return {
-    getCoupleEmotion: getCoupleEmotionQuery,
-    getStatusMessage: getStatusMessageQuery,
-  };
-};
 
 export const useEmotionStatusMutation = (mutationMethod: mutationMethodType) => {
   const queryClient = useQueryClient();

@@ -1,5 +1,5 @@
 import React from "react";
-import { MyHeader } from "@/features/mypage/ui/MyHeader";
+import { MyHeader } from "@/features/mypage/ui/MyPageHeader";
 import { NotificationToggleList } from "@/features/mypage";
 import { useNavigate } from "react-router";
 

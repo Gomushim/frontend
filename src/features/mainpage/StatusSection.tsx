@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useEmotionStatusQueries } from "@/entities/emotion_status/mutation";
+import { useEmotionStatusQueries } from "@/entities/main_status/queries";
 import CharacterDefaultIcon from "@/assets/images/character_default.svg";
 import { EMOTION_IMAGES } from "@/entities/types/emotion";
 import { MainHeader } from "./ui/MainHeader";

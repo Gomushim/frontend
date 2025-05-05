@@ -1,7 +1,7 @@
 import HeartIcon from "@/assets/images/heart.svg";
 import BootsIcon from "@/assets/images/boots.svg";
 import HeelsIcon from "@/assets/images/heals.svg";
-import { anniversaryQueries } from "@/entities/anniversary/service";
+import { anniversaryQueries } from "@/entities/main_anniversary/service";
 import { useEffect, useState } from "react";
 
 interface SpecialDateSectionProps {

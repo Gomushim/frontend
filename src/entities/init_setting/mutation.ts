@@ -1,16 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
 import { RegisterAnniversaryRequest } from "./types.ts";
-import { maonboardingQueries } from "./service.ts";
+import { initSettingQueries } from "./service.ts";
 import { mutationMethodType } from "../types/mutationMethod.type.ts";
 
-export const useMaonboarding = (mutationMethod: mutationMethodType) => {
+export const useInitSettingMutation = (mutationMethod: mutationMethodType) => {
   return useMutation({
     mutationFn: async (data: RegisterAnniversaryRequest) => {
       switch (mutationMethod) {
         case "delete":
           return;
         case "post":
-          return await maonboardingQueries.registerAnniversary(data);
+          return await initSettingQueries.registerAnniversary(data);
         case "update":
           return;
         default:

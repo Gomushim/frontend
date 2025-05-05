@@ -10,7 +10,7 @@ import {
   DrawerFooter,
   DrawerTrigger,
 } from "@/shared/ui";
-import { coupleConnectQueries } from "@/entities/coupleconnect/service";
+import { coupleConnectQueries } from "@/entities/couple_connect/service";
 import checkcircle from "@/assets/images/checkcircle.svg";
 import CloseIcon from "@/assets/images/close.svg";
 import coupleConnectAnimation from "@/assets/json/coupleconnect.json";

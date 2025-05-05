@@ -3,8 +3,8 @@ import { useNavigate } from "react-router";
 import { Input, DatePickerDrawer, Button, ProgressHeader } from "@/shared/ui";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { formatDateKorean } from "@/shared/utils";
-import { useMaonboarding } from "@/entities/maonboarding/mutation";
-import { maonboardingQueries } from "@/entities/maonboarding/service";
+import { useInitSettingMutation } from "@/entities/init_setting/mutation";
+import { initSettingQueries } from "@/entities/init_setting/service";
 
 export const MilitaryDay: React.FC = () => {
   const { 
@@ -18,12 +18,12 @@ export const MilitaryDay: React.FC = () => {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const [coupleId, setCoupleId] = useState<number | null>(null);
-  const { mutate: registerAnniversary, isPending } = useMaonboarding("post");
+  const { mutate: registerAnniversary, isPending } = useInitSettingMutation("post");
 
   useEffect(() => {
     const fetchCoupleInfo = async () => {
       try {
-        const response = await maonboardingQueries.getCoupleInfo();
+        const response = await initSettingQueries.getCoupleInfo();
         setCoupleId(response.result.coupleId);
       } catch (error) {
         console.error("커플 정보 조회 실패:", error);

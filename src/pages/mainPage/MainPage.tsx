@@ -9,25 +9,21 @@ import {
 } from "@/features/mainpage";
 import { useEffect, useState } from "react";
 import { iscoupleQueries } from "@/entities/iscouple/service";
-import { maonboardingQueries } from "@/entities/maonboarding/service";
+import { useInitSettingQueries } from "@/entities/init_setting/queries";
 
 export const MainPage = () => {
   const [isConnected, setIsConnected] = useState(false);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const { getCoupleInfo } = useInitSettingQueries();
+  const isInitialized = getCoupleInfo.data?.result.isAnniversariesRegistered ?? false;
 
   useEffect(() => {
     const checkInitialStatus = async () => {
       try {
-        const [coupleResponse, coupleInfoResponse] = await Promise.all([
-          iscoupleQueries.checkCoupleConnect(),
-          maonboardingQueries.getCoupleInfo()
-        ]);
+        const coupleResponse = await iscoupleQueries.checkCoupleConnect();
         setIsConnected(coupleResponse.result);
-        setIsInitialized(coupleInfoResponse.result.isAnniversariesRegistered);
       } catch (error) {
         console.error("상태 조회 실패:", error);
         setIsConnected(false);
-        setIsInitialized(false);
       }
     };
 

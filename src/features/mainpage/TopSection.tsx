@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { useEffect, useState } from "react";
 import { coupleNicknameQueries } from "@/entities/couple_nickname/service";
-import { maonboardingQueries } from "@/entities/maonboarding/service";
+import { initSettingQueries } from "@/entities/init_setting/service";
 
 interface TopSectionProps {
   isConnected: boolean;
@@ -45,7 +45,7 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
 
     try {
       await fetchCoupleNicknames();
-      const coupleInfoResponse = await maonboardingQueries.getCoupleInfo();
+      const coupleInfoResponse = await initSettingQueries.getCoupleInfo();
       setMilitaryBranch(coupleInfoResponse.result.military);
     } catch (error) {
       console.error("초기설정 오류류발생:", error);

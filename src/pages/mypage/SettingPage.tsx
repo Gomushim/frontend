@@ -1,4 +1,4 @@
-import { MyHeader } from "@/features/mypage/ui/MyHeader";
+import { MyHeader } from "@/features/mypage/ui/MyPageHeader";
 import { LogoutModal } from "@/features/mypage/ui";
 import { useState } from "react";
 import NextArrow  from "@/assets/images/next_arrow.svg";

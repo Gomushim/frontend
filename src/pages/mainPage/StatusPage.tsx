@@ -4,7 +4,7 @@ import { Textinput } from "@/shared/ui";
 import { EmotionType } from "@/entities/types/emotion";
 import { Button } from "@/shared/ui";
 import { useNavigate } from "react-router";
-import { useEmotionStatusMutation } from "@/entities/emotion_status/mutation";
+import { useEmotionStatusMutation } from "@/entities/main_status/mutation";
 
 type ApiEmotionType = "MISS" | "HAPPY" | "COMMON" | "TIRED" | "SAD" | "WORRY" | "ANGRY";
 
