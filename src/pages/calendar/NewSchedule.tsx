@@ -45,7 +45,11 @@ export const CalendarNewSchedule = () => {
 
   const handlePostDday = async () => {
     ddayMutate(dday, {
-      onSuccess: () => {},
+      onSuccess: () => {
+        alert("디데이가 생성되었습니다.");
+        reset();
+        navigate(-1);
+      },
       onError: error => {
         console.log(error);
       },
