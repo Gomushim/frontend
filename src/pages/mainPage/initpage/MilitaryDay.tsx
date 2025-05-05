@@ -3,8 +3,7 @@ import { useNavigate } from "react-router";
 import { Input, DatePickerDrawer, Button, ProgressHeader } from "@/shared/ui";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { formatDateKorean } from "@/shared/utils";
-import { useInitSettingMutation } from "@/entities/init_setting/mutation";
-import { initSettingQueries } from "@/entities/init_setting/service";
+import { useInitSettingMutation, useInitSettingQueries } from "@/entities/init_setting";
 
 export const MilitaryDay: React.FC = () => {
   const { 
@@ -17,21 +16,16 @@ export const MilitaryDay: React.FC = () => {
   } = useOnboardingStore();
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
-  const [coupleId, setCoupleId] = useState<number | null>(null);
+  const { getCoupleInfo } = useInitSettingQueries();
+  const coupleId = getCoupleInfo.data?.result.coupleId ?? null;
   const { mutate: registerAnniversary, isPending } = useInitSettingMutation("post");
 
   useEffect(() => {
-    const fetchCoupleInfo = async () => {
-      try {
-        const response = await initSettingQueries.getCoupleInfo();
-        setCoupleId(response.result.coupleId);
-      } catch (error) {
-        console.error("커플 정보 조회 실패:", error);
-        setError("커플 정보를 가져오는데 실패했습니다.");
-      }
-    };
-    fetchCoupleInfo();
-  }, []);
+    if (getCoupleInfo.error) {
+      console.error("커플 정보 조회 실패:", getCoupleInfo.error);
+      setError("커플 정보를 가져오는데 실패했습니다.");
+    }
+  }, [getCoupleInfo.error]);
 
   const handleNext = async () => {
     if (!enlistmentDate || !dischargeDate || !firstMeetDate || !militaryBranch || !coupleId) {

@@ -1,5 +1,5 @@
 import { api } from "../axios/instance";
-import { MyEmotionResponse, MyStatusMessageResponse, MyInfoResponse } from "./type";
+import { MyEmotionResponse, MyStatusMessageResponse, MyInfoResponse } from "./types";
 
 export const getMyEmotion = async (): Promise<MyEmotionResponse> => {
   const { data } = await api.get<MyEmotionResponse>("/member/my-emotion");

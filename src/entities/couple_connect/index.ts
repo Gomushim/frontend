@@ -1,4 +1,4 @@
 export * from "./service";
-  export * from "./queries";
+  export * from "./mutation";
   export * from "./types";
 

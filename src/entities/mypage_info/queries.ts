@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getMyEmotion, getMyStatusMessage, getMyInfo } from "./service";
-import { MyEmotionResponse, MyStatusMessageResponse, MyInfoResponse } from "./type";
+import { MyEmotionResponse, MyStatusMessageResponse, MyInfoResponse } from "./types";
 
 export const useMyEmotion = () => {
   return useQuery<MyEmotionResponse>({

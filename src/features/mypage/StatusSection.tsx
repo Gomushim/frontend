@@ -1,7 +1,7 @@
 import nextArrow from "@/assets/images/next_arrow.svg";
 import { EMOTION_IMAGES,EMOTION_TO_ICON } from "@/entities/types/emotion";
 import CharacterDefaultIcon from "@/assets/images/character_default.svg";
-import { useMyEmotion, useMyStatusMessage } from "@/entities/mypage_info/queries";
+import { useMyEmotion, useMyStatusMessage } from "@/entities/mypage_info";
 import { useNavigate } from "react-router";
 
 export const StatusSection = () => {
@@ -10,7 +10,6 @@ export const StatusSection = () => {
   const { data: statusMessageData } = useMyStatusMessage();
   const isConnected = true;
   const isInitialized = true;
-
   const emotion = emotionData?.result.emotion;
   const statusMessage = statusMessageData?.result.statusMessage;
 

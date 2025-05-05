@@ -6,9 +6,9 @@ import AirBg from "@/assets/images/airbg.svg";
 import CoupleHeart from "@/assets/images/couple_heart.svg";
 import { useNavigate } from "react-router";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
-import { useEffect, useState } from "react";
-import { coupleNicknameQueries } from "@/entities/couple_nickname/service";
+import { useEffect } from "react";
 import { initSettingQueries } from "@/entities/init_setting/service";
+import { useCoupleNickname } from "@/entities/couple_nickname/queries";
 
 interface TopSectionProps {
   isConnected: boolean;
@@ -25,30 +25,17 @@ type MilitaryBranch = "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE";
 export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitialized }) => {
   const navigate = useNavigate();
   const { militaryBranch, setMilitaryBranch } = useOnboardingStore();
-  const [coupleInfo, setCoupleInfo] = useState<CoupleInfo>({ userNickname: "", coupleNickname: "" });
-
-  const fetchCoupleNicknames = async () => {
-    try {
-      const response = await coupleNicknameQueries.getNickName();
-      setCoupleInfo({
-        userNickname: response.result.userNickname,
-        coupleNickname: response.result.coupleNickname,
-      });
-    } catch (error) {
-      console.error("닉네임 조회 실패:", error);
-      setCoupleInfo({ userNickname: "", coupleNickname: "" });
-    }
-  };
+  const { getNickName } = useCoupleNickname();
+  const coupleInfo = getNickName.data?.result || { userNickname: "", coupleNickname: "" };
 
   const initializeData = async () => {
     if (!isConnected) return;
 
     try {
-      await fetchCoupleNicknames();
       const coupleInfoResponse = await initSettingQueries.getCoupleInfo();
       setMilitaryBranch(coupleInfoResponse.result.military);
     } catch (error) {
-      console.error("초기설정 오류류발생:", error);
+      console.error("초기설정 오류발생:", error);
     }
   };
 

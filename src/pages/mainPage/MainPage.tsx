@@ -7,28 +7,14 @@ import {
   SpecialDateSection,
   TopSection,
 } from "@/features/mainpage";
-import { useEffect, useState } from "react";
-import { iscoupleQueries } from "@/entities/iscouple/service";
-import { useInitSettingQueries } from "@/entities/init_setting/queries";
+import { useInitSettingQueries } from "@/entities/init_setting";
+import { useIscouple } from "@/entities/iscouple";
 
 export const MainPage = () => {
-  const [isConnected, setIsConnected] = useState(false);
+  const { checkCoupleConnect } = useIscouple();
   const { getCoupleInfo } = useInitSettingQueries();
+  const isConnected = checkCoupleConnect.data?.result ?? false;
   const isInitialized = getCoupleInfo.data?.result.isAnniversariesRegistered ?? false;
-
-  useEffect(() => {
-    const checkInitialStatus = async () => {
-      try {
-        const coupleResponse = await iscoupleQueries.checkCoupleConnect();
-        setIsConnected(coupleResponse.result);
-      } catch (error) {
-        console.error("상태 조회 실패:", error);
-        setIsConnected(false);
-      }
-    };
-
-    checkInitialStatus();
-  }, []);
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">

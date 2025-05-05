@@ -1,8 +1,7 @@
 import HeartIcon from "@/assets/images/heart.svg";
 import BootsIcon from "@/assets/images/boots.svg";
 import HeelsIcon from "@/assets/images/heals.svg";
-import { anniversaryQueries } from "@/entities/main_anniversary/service";
-import { useEffect, useState } from "react";
+import { useAnniversary } from "@/entities/main_anniversary";
 
 interface SpecialDateSectionProps {
   isConnected: boolean;
@@ -10,26 +9,8 @@ interface SpecialDateSectionProps {
 }
 
 export const SpecialDateSection = ({ isConnected, isInitialized }: SpecialDateSectionProps) => {
-  const [ddayInfo, setDdayInfo] = useState<{
-    sinceLove: number;
-    sinceMilitaryStart: number;
-    militaryEndLeft: number;
-  } | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (isConnected && isInitialized) {
-        try {
-          const ddayResponse = await anniversaryQueries.getDday();
-          setDdayInfo(ddayResponse.result);
-        } catch (error) {
-          console.error("데이터를 가져오는데 실패했습니다:", error);
-        }
-      }
-    };
-
-    fetchData();
-  }, [isConnected, isInitialized]);
+  const { getDday } = useAnniversary();
+  const ddayInfo = getDday.data?.result;
 
   return (
     <>
