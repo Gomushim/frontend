@@ -1,9 +1,11 @@
 import { useGetMainDdayList } from "@/entities/d-day";
 import { MainHeader } from "./utils/MainHeader";
 import { DdayCard } from "../d-day/widgets";
+import { useNavigate } from "react-router";
 
 export const DDaySection = () => {
   const { data: mainDdayList } = useGetMainDdayList();
+  const navigate = useNavigate();
 
   if (!mainDdayList) {
     return;
@@ -11,7 +13,7 @@ export const DDaySection = () => {
 
   return (
     <>
-      <MainHeader mainTitle="D-DAY" buttonText="더보기" onClick={() => console.log("D-DAY 더보기")} />
+      <MainHeader mainTitle="D-DAY" buttonText="더보기" onClick={() => navigate("/calendar/dday")} />
 
       <ul className="mb-5 flex flex-col gap-3">
         {mainDdayList.result.map(dday => (
