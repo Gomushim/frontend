@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { Button, Input, DatePickerDrawer} from "@/shared/ui";
-import { formatDateKorean } from "@/shared/utils";
+import { Button, Input, DatePickerDrawer } from "@/shared/ui";
+import { formatDateKorean, formatDateDot } from "@/shared/utils";
 import { EditHeader } from "@/features/mypage";
+import { useUpdateRelationshipStartDate } from "@/entities/edit_info/mutation";
 
 export const FirstMeetEditPage: React.FC = () => {
   const navigate = useNavigate();
   const [firstMeetDate, setFirstMeetDate] = useState<Date | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { mutate: updateRelationshipStartDate } = useUpdateRelationshipStartDate();
 
   const handleNext = () => {
     if (!firstMeetDate) {
@@ -24,15 +26,25 @@ export const FirstMeetEditPage: React.FC = () => {
     }
 
     setError(null);
-    navigate("/mypage/profileinfo");
+    
+    const formattedDate = formatDateDot(firstMeetDate).replace(/\. /g, "-").replace(".", "");
+
+    updateRelationshipStartDate(
+      { relationshipStartDate: formattedDate },
+      {
+        onSuccess: () => {
+          navigate("/mypage/profileinfo");
+        },
+      }
+    );
   };
 
   return (
     <div className="flex min-h-screen flex-col bg-white px-0">
       <EditHeader
-       title="연인과 처음 만난 날은 언제인가요?"
-       highlight="처음 만난 날"
-       subtitle="두 분의 첫 만남을 기록해주세요."
+        title="연인과 처음 만난 날은 언제인가요?"
+        highlight="처음 만난 날"
+        subtitle="두 분의 첫 만남을 기록해주세요."
         onBack={() => navigate("/mypage/profileinfo")}
       />
 
@@ -58,7 +70,7 @@ export const FirstMeetEditPage: React.FC = () => {
           disabled={!firstMeetDate} 
           onClick={handleNext}
         >
-          완료
+          저장
         </Button>
       </div>
     </div>
