@@ -3,7 +3,7 @@ import nextArrow from "@/assets/images/next_arrow.svg";
 import { useMyInfo } from "@/entities/mypage_info/queries";
 import { useNavigate } from "react-router";
 
-export const ProfileCard = () => {
+export const ProfileCardSection = () => {
   const { data: myInfoData } = useMyInfo();
   const nickname = myInfoData?.result.nickname;
   const navigate = useNavigate();

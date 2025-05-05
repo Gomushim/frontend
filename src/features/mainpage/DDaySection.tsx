@@ -1,5 +1,5 @@
 import CakeIcon from "@/assets/images/cake.svg";
-import { MainHeader } from "./utils/MainHeader";
+import { MainHeader } from "./ui/MainHeader";
 
 export const DDaySection = () => {
   return (

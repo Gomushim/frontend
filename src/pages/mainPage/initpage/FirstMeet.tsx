@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import { Button, Input, DatePickerDrawer, ProgressHeader } from "@/shared/ui";
-import { useOnboardingStore } from "@/stores/maonboardingStore";
+import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { formatDateKorean } from "@/shared/utils";
 
 export const FirstMeet: React.FC = () => {

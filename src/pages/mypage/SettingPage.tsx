@@ -1,5 +1,5 @@
-import { MyHeader } from "@/features/mypage/widgets/MyHeader";
-import { LogoutModal } from "@/features/mypage/widgets";
+import { MyHeader } from "@/features/mypage/ui/MyHeader";
+import { LogoutModal } from "@/features/mypage/ui";
 import { useState } from "react";
 import NextArrow  from "@/assets/images/next_arrow.svg";
 import { useNavigate } from "react-router";

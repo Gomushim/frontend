@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, ProgressHeader } from "@/shared/ui";
-import { useOnboardingStore, MilitaryBranch } from "@/stores/maonboardingStore";
+import { useOnboardingStore, MilitaryBranch } from "@/features/mainpage/model/InitSettingStore";
 import { useNavigate } from "react-router";
 
 export const Where: React.FC = () => {

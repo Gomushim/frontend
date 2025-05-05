@@ -3,7 +3,7 @@ import { MyHeader } from "@/features/mypage";
 import { Button } from "@/shared/ui/button";
 import ShoesImg from "@/assets/images/shoes.svg";
 import { useNavigate } from "react-router";
-import { DisconnectModal } from "@/features/mypage/widgets/DisconnectModal";
+import { DisconnectModal } from "@/features/mypage/ui/DisconnectModal";
 
 export const DisconnectPage: React.FC = () => {
   const navigate = useNavigate();

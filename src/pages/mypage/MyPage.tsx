@@ -1,4 +1,4 @@
-import { NotificationSetting,StatusSection,ProfileCard } from "@/features/mypage";
+import { NotificationSetting,StatusSection,ProfileCardSection } from "@/features/mypage";
 import mySettingIcon from "@/assets/images/my_setting.svg";
 import { NavBar } from "@/shared/ui";
 import { useNavigate } from "react-router";
@@ -17,7 +17,7 @@ export const MyPage = () => {
       </div>
       {/* 컨텐츠 영역 */}
       <div className="max-w-md mx-auto space-y-4">
-        <ProfileCard />
+        <ProfileCardSection />
         <StatusSection />
         <NotificationSetting />
       </div>

@@ -1,5 +1,4 @@
-export * from "../onboarding/FirstMeet";
-export * from "../onboarding/MilitaryDay";
-export * from "../couplematch/CoupleContact";
+export * from "./CoupleContactPage";
 export * from "./MainPage";
 export * from "./StatusPage";
+export * from "./initpage";

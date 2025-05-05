@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import { Button } from "@/shared/ui";
-import { useOnboardingAlarmStore } from "@/stores/onboardingStore";
+import { useOnboardingAlarmStore } from "@/features/onboarding/model/OnboardingStore";
 import { onboardingQueries } from "@/entities/onboarding/service";
 import axios from "axios";
 import { ProgressHeader } from "@/shared/ui/progressheader";

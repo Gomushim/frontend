@@ -5,7 +5,7 @@ import NavyBg from "@/assets/images/navybg.svg";
 import AirBg from "@/assets/images/airbg.svg";
 import CoupleHeart from "@/assets/images/couple_heart.svg";
 import { useNavigate } from "react-router";
-import { useOnboardingStore } from "@/stores/maonboardingStore";
+import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { useEffect, useState } from "react";
 import { coupleNicknameQueries } from "@/entities/couple_nickname/service";
 import { maonboardingQueries } from "@/entities/maonboarding/service";

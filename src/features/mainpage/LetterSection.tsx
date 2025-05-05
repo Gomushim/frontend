@@ -1,4 +1,4 @@
-import { MainHeader } from "./utils/MainHeader";
+import { MainHeader } from "./ui/MainHeader";
 import LetterIcon from "@/assets/images/letter.svg";
 import LetterGreenIcon from "@/assets/images/letter_green.svg";
 import { useGetLetterListMain } from "@/entities/my_letter/queries";

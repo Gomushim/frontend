@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import { Input, Button, ProgressHeader } from "@/shared/ui";
-import { useOnboardingAlarmStore } from "@/stores/onboardingStore";
+import { useOnboardingAlarmStore } from "@/features/onboarding/model/OnboardingStore";
 
 export const Nickname: React.FC = () => {
   const navigate = useNavigate();

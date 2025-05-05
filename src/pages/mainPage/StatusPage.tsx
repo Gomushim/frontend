@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { EmotionSelector } from "@/features/ma-section";
+import { EmotionSelector } from "@/features/mainpage";
 import { Textinput } from "@/shared/ui";
 import { EmotionType } from "@/entities/types/emotion";
 import { Button } from "@/shared/ui";

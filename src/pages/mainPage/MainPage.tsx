@@ -6,7 +6,7 @@ import {
   DDaySection,
   SpecialDateSection,
   TopSection,
-} from "@/features/ma-section";
+} from "@/features/mainpage";
 import { useEffect, useState } from "react";
 import { iscoupleQueries } from "@/entities/iscouple/service";
 import { maonboardingQueries } from "@/entities/maonboarding/service";

@@ -1,7 +1,4 @@
-export * from "./Onboarding";
 export * from "./Nickname";
 export * from "./Birthday";
 export * from "./Alarm";
-export * from "./FirstMeet";
-export * from "./MilitaryDay";
-export * from "./Where";
+

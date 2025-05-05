@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useEmotionStatusQueries } from "@/entities/emotion_status/mutation";
 import CharacterDefaultIcon from "@/assets/images/character_default.svg";
 import { EMOTION_IMAGES } from "@/entities/types/emotion";
-import { MainHeader } from "./utils/MainHeader";
+import { MainHeader } from "./ui/MainHeader";
 import { useNavigate } from "react-router";
 
 interface StatusSectionProps {

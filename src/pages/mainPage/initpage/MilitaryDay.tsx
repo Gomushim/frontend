@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Input, DatePickerDrawer, Button, ProgressHeader } from "@/shared/ui";
-import { useOnboardingStore } from "@/stores/maonboardingStore";
+import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { formatDateKorean } from "@/shared/utils";
 import { useMaonboarding } from "@/entities/maonboarding/mutation";
 import { maonboardingQueries } from "@/entities/maonboarding/service";
