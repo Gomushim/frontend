@@ -7,7 +7,6 @@ import { useUpdateMyNickname } from "@/entities/edit_info/mutation";
 export const NicknameEditPage: React.FC = () => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState<string>("");
-  const [error, setError] = useState<string | null>(null);
   const { mutate: updateNickname } = useUpdateMyNickname();
 
   const handleSubmit = () => {
@@ -39,9 +38,6 @@ export const NicknameEditPage: React.FC = () => {
             onClear={() => setNickname("")}
           />
         </div>
-        {error && (
-          <p className="text-red-500 text-center text-sm mt-2">{error}</p>
-        )}
       </div>
 
       <div className="p-4">
