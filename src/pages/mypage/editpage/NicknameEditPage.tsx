@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { Input, Button, ProgressHeader } from "@/shared/ui";
-import { useOnboardingAlarmStore } from "@/features/onboarding/model/OnboardingStore";
+import { Input, Button} from "@/shared/ui";
+import { EditHeader } from "@/features/mypage";
 
-export const Nickname: React.FC = () => {
+export const NicknameEditPage: React.FC = () => {
   const navigate = useNavigate();
-  const { nickname, setNickname, isLoading, error } = useOnboardingAlarmStore();
+  const [nickname, setNickname] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async () => {
     if (nickname.trim()) {
@@ -13,26 +14,25 @@ export const Nickname: React.FC = () => {
         if (nickname.length > 3) {
           throw new Error("닉네임은 3글자 이내로 입력해주세요.");
         }
-        navigate("/onboarding/birthday");
+        navigate("/mypage/profileinfo");
       } catch (error) {
         console.error("닉네임 처리 중 오류 발생:", error);
+        setError(error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.");
       }
     }
   };
 
   return (
     <div className="flex h-screen flex-col bg-white">
-      <ProgressHeader
+      <EditHeader
         title="사용할 닉네임을 입력해주세요"
-        highlight="닉네임임"
         subtitle="3글자 이내로 입력이 가능해요."
-        progress={1 / 3}
-        onBack={() => navigate(-1)}
-        onClose={() => navigate("/")}
+        highlight="닉네임"
+        onBack={() => navigate("/mypage/profileinfo")}
       />
 
       <div className="flex-1 px-4">
-        <div className="mt-4">
+        <div className="mt-10">
           <Input
             value={nickname}
             onChange={setNickname}
@@ -49,11 +49,9 @@ export const Nickname: React.FC = () => {
         <Button 
           variant={nickname.trim() ? "active" : "inactive"} 
           onClick={handleSubmit} 
-          disabled={!nickname.trim() || isLoading}
+          disabled={!nickname.trim() }
           size="onicon"
-        >
-          {isLoading ? "처리 중..." : "다음"}
-        </Button>
+         />
       </div>
     </div>
   );
