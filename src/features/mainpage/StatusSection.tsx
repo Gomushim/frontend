@@ -1,4 +1,4 @@
-import { useEmotionStatusQueries } from "@/entities/main_status";
+import { useEmotionStatusQueries } from "@/entities";
 import CharacterDefaultIcon from "@/assets/images/character_default.svg";
 import { EMOTION_IMAGES } from "@/entities/types/emotion";
 import { MainHeader } from "./ui/MainHeader";

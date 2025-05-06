@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Button, Input, DatePickerDrawer } from "@/shared/ui";
 import { formatDateKorean, formatDateDot } from "@/shared/utils";
 import { EditHeader } from "@/features/mypage";
-import { useUpdateRelationshipStartDate } from "@/entities/edit_info/mutation";
+import { useUpdateRelationshipStartDate } from "@/entities";
 
 export const FirstMeetEditPage: React.FC = () => {
   const navigate = useNavigate();

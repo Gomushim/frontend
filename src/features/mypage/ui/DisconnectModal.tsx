@@ -1,5 +1,5 @@
 import React from "react";
-import { useDeleteMyData } from "@/entities/delete_couple/mutation";
+import { useDeleteMyData } from "@/entities";
 import { useNavigate } from "react-router";
 
 interface DisconnectModalProps {

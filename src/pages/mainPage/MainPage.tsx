@@ -7,8 +7,7 @@ import {
   SpecialDateSection,
   TopSection,
 } from "@/features/mainpage";
-import { useInitSettingQueries } from "@/entities/init_setting";
-import { useIscouple } from "@/entities/iscouple";
+import { useInitSettingQueries, useIscouple } from "@/entities";
 
 export const MainPage = () => {
   const { checkCoupleConnect } = useIscouple();

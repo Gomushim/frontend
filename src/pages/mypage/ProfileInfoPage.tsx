@@ -1,7 +1,6 @@
 import {EditInfoCard,MyHeader} from "@/features/mypage";
 import { useNavigate } from "react-router";
-import { useCoupleBirthDay } from "@/entities/couple_birthday";
-import { useCoupleNickname } from "@/entities/couple_nickname";
+import { useCoupleNickname, useCoupleBirthDay } from "@/entities";
 
 export const ProfileInfoPage = () => {
   const navigate = useNavigate();

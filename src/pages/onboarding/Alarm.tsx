@@ -1,10 +1,10 @@
 import React from "react";
+import axios from "axios";
 import { useNavigate } from "react-router";
 import { Button } from "@/shared/ui";
 import { useOnboardingAlarmStore } from "@/features/onboarding/model/OnboardingStore";
-import { onboardingQueries } from "@/entities/onboarding/service";
-import axios from "axios";
-import { ProgressHeader } from "@/shared/ui/progressheader";
+import { onboardingQueries } from "@/entities";
+import { ProgressHeader } from "@/shared/ui";
 import pushalarmJson from "@/assets/json/pushalarm.json";
 import Lottie from "lottie-react";
 

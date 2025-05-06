@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { Input, Button } from "@/shared/ui";
 import { EditHeader } from "@/features/mypage";
-import { useUpdateMyNickname } from "@/entities/edit_info/mutation";
+import { useUpdateMyNickname } from "@/entities/edit_info";
 
 export const NicknameEditPage: React.FC = () => {
   const navigate = useNavigate();
