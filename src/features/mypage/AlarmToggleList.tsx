@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch } from "@/shared/ui/switch";
-import { useNotificationQuery } from "../../entities/push_alarm/mutation";
+import { useNotificationQuery } from "../../entities/push_alarm";
+import { useNotificationMutation } from "../../entities/push_alarm";
 
 const toggleItems = [
   { label: "앱 전체 알림", key: "app" },
@@ -9,7 +10,8 @@ const toggleItems = [
 ];
 
 export const NotificationToggleList: React.FC = () => {
-  const { query: { data: notificationData }, mutation: { mutate: updateNotification } } = useNotificationQuery("post");
+  const { data: notificationData } = useNotificationQuery();
+  const { mutate: updateNotification } = useNotificationMutation("post");
 
   const handleToggle = (key: string) => {
     if (!notificationData?.result) return;

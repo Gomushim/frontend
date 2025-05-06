@@ -1,21 +1,14 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getMyNotification, updateMyNotification } from "./service";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateMyNotification } from "./service";
 import type { UpdateNotificationRequest } from "./types";
 import { mutationMethodType } from "../types/mutationMethod.type";
 
-export const useNotificationQuery = (mutationMethod?: mutationMethodType) => {
+export const useNotificationMutation = (mutationMethod?: mutationMethodType) => {
   const queryClient = useQueryClient();
 
-  const query = useQuery({
-    queryKey: ["myNotification"],
-    queryFn: getMyNotification,
-  });
-
-  const mutation = useMutation({
+  return useMutation({
     mutationFn: async (data: UpdateNotificationRequest) => {
       switch (mutationMethod) {
-        case "get":
-          return await getMyNotification();
         case "post":
           return await updateMyNotification(data);
         case "delete":
@@ -30,6 +23,4 @@ export const useNotificationQuery = (mutationMethod?: mutationMethodType) => {
       queryClient.invalidateQueries({ queryKey: ["myNotification"] });
     },
   });
-
-  return { query, mutation };
 }; 

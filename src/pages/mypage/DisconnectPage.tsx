@@ -1,21 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { MyHeader } from "@/features/mypage";
 import { Button } from "@/shared/ui/button";
 import ShoesImg from "@/assets/images/shoes.svg";
 import { useNavigate } from "react-router";
 import { DisconnectModal } from "@/features/mypage/ui/DisconnectModal";
+import { useToggle } from "@/shared/hooks/useToggle";
 
 export const DisconnectPage: React.FC = () => {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-
-  const handleDisconnect = () => {
-    setOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpen(false);
-  };
+  const { isToggle: isModalOpen, onOpenToggle: openModal, onCloseToggle: closeModal } = useToggle();
 
   return (
     <div className="flex h-screen flex-col bg-white">
@@ -33,7 +26,7 @@ export const DisconnectPage: React.FC = () => {
       </div>
       <div className="p-4">
         <div className="flex gap-3">
-          <Button className="flex-1" variant="special" size="onicon" onClick={handleDisconnect}>
+          <Button className="flex-1" variant="special" size="onicon" onClick={openModal}>
             연결 끊기
           </Button>
           <Button onClick={() => navigate("/mypage/setting")}
@@ -42,7 +35,7 @@ export const DisconnectPage: React.FC = () => {
           </Button>
         </div>
       </div>
-      <DisconnectModal open={open} onClose={handleCloseModal} />
+      <DisconnectModal open={isModalOpen} onClose={closeModal} />
     </div>
   );
 };
