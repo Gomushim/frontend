@@ -1,1 +1,1 @@
-export type mutationMethodType = "post" | "delete" | "update";
+export type mutationMethodType = "get" | "post" | "delete" | "update";
