@@ -36,7 +36,7 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
 
   useEffect(() => {
     initializeData();
-  }, [isConnected, setMilitaryBranch]);
+  }, [isConnected, setMilitaryBranch, initializeData]);
 
   const handleInitialize = () => {
     navigate("/onboarding/firstmeet");

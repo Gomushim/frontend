@@ -1,6 +1,6 @@
 export interface CoupleBirthDayResponse {
   result: {
-    partnerBirthDay: string;
+    partnerBirthday: string;
     myBirthDay: string;
   };
 } 
