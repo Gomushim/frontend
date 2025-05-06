@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router";
 
 import HomeBlack from "@/assets/images/home_black.svg";
 import HomeGray from "@/assets/images/home_gray.svg";
@@ -13,6 +13,7 @@ type Tab = "home" | "calendar" | "my";
 export const NavBar = () => {
   const [activeTab, setActiveTab] = useState<Tab>("home");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const tabs = [
     {
@@ -37,6 +38,12 @@ export const NavBar = () => {
       path: "/mypage",
     },
   ] as const;
+
+  useEffect(() => {
+    const path = location.pathname;
+    const currentTab = tabs.find(tab => tab.path === path)?.key || "home";
+    setActiveTab(currentTab);
+  }, [location.pathname]);
 
   const handleTabClick = (key: Tab, path: string) => {
     setActiveTab(key);
