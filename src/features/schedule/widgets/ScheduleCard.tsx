@@ -42,7 +42,7 @@ export const ScheduleCard = (props: ScheduleCardProps) => {
   const navigate = useNavigate();
 
   const handleNavigateToDetail = () => {
-    navigate(`schedule/${props.id}`);
+    navigate(`/calendar/schedule/${props.id}`);
   };
 
   return (

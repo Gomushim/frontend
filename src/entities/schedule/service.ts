@@ -32,3 +32,8 @@ export const getScheduleDetail = async (scheduleId: string): Promise<ScheduleDet
   const response = await api.get<ScheduleDetailResponse>(`/schedules/detail/${scheduleId}`);
   return response.data;
 };
+
+export const getWeekSchedule = async (): Promise<ScheduleListResponse> => {
+  const response = await api.get<ScheduleListResponse>("/schedules/week");
+  return response.data;
+};

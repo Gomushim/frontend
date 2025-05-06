@@ -4,13 +4,16 @@ import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
 import crossDeleteIcon from "@/assets/icons/crossDelete.svg";
 import { useLetterMutation } from "@/entities/letter/mutation";
 import { useParams } from "react-router";
+import { useToggle } from "@/shared/hooks";
 
 export const WriteLetterBottomSheet = () => {
   const [images, setImages] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const { isToggle, onToggle } = useToggle();
+
   const { scheduleId } = useParams<{ scheduleId: string }>();
-  const { mutate } = useLetterMutation("post");
+  const { mutate } = useLetterMutation("post", scheduleId);
 
   // 이미지 선택 시 처리
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -60,6 +63,7 @@ export const WriteLetterBottomSheet = () => {
     mutate(finalFormData, {
       onSuccess: () => {
         alert("폼이 제출되었습니다.");
+        onToggle();
       },
       onError: error => {
         console.error(error);
@@ -72,7 +76,7 @@ export const WriteLetterBottomSheet = () => {
   };
 
   return (
-    <Drawer>
+    <Drawer open={isToggle} onOpenChange={onToggle}>
       <DrawerTrigger asChild>
         <Button variant="square" size="2xs">
           편지 작성하기

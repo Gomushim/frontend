@@ -4,14 +4,16 @@ import LetterGreenIcon from "@/assets/images/letter_green.svg";
 import { useGetLetterListMain } from "@/entities/main_letter/queries";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
 import { formatDateDot } from "@/shared/utils/date/formatdate";
+import { useNavigate } from "react-router";
 
 export const LetterSection = () => {
   const { data: letterList } = useGetLetterListMain();
+  const navigate = useNavigate();
 
   if (!letterList?.result || letterList.result.length === 0) {
     return (
       <>
-        <MainHeader mainTitle="도착한 편지" buttonText="더보기" onClick={() => console.log("도착한 편지 더보기")} />
+        <MainHeader mainTitle="도착한 편지" buttonText="더보기" onClick={() => navigate("/calendar/letter")} />
         <div className="mb-4 flex h-[140px] w-[190px] flex-col gap-2.5 rounded-2xl bg-white p-4">
           <div className="flex flex-col">
             <div className="flex items-center gap-1">
@@ -31,7 +33,7 @@ export const LetterSection = () => {
 
   return (
     <>
-      <MainHeader mainTitle="도착한 편지" buttonText="더보기" onClick={() => console.log("도착한 편지 더보기")} />
+      <MainHeader mainTitle="도착한 편지" buttonText="더보기" onClick={() => navigate("/calendar/letter")} />
       <div className="relative w-full overflow-x-auto">
         <Carousel
           opts={{
@@ -39,10 +41,10 @@ export const LetterSection = () => {
             loop: false,
             dragFree: true,
           }}
-          className="w-full px-4">
-          <CarouselContent className="-ml-4">
-            {letterList.result.map((letter) => (
-              <CarouselItem key={letter.letterId} className="pl-4 basis-[190px]">
+          className="w-full">
+          <CarouselContent className="-ml-4 gap-3">
+            {letterList.result.map(letter => (
+              <CarouselItem key={letter.letterId} className="basis-[190px] pl-4">
                 <div className="h-[140px] w-[190px] flex-col gap-2.5 rounded-2xl bg-white p-4">
                   <div className="flex h-full flex-col justify-between">
                     <div>
@@ -51,14 +53,14 @@ export const LetterSection = () => {
                         <span className="text-md font-semibold text-gray-900">
                           {letter.title.length > 9 ? `${letter.title.slice(0, 9)}...` : letter.title}
                         </span>
-                      </div>  
-                      <p className="mt-2 line-clamp-2 text-sm text-gray-500 font-medium">{letter.content}</p>
+                      </div>
+                      <p className="mt-2 line-clamp-2 text-sm font-medium text-gray-500">{letter.content}</p>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-xs font-regular text-gray-500">
+                      <span className="font-regular text-xs text-gray-500">
                         {formatDateDot(new Date(letter.title))}
                       </span>
-                      <span className="text-xs font-regular text-gray-500">
+                      <span className="font-regular text-xs text-gray-500">
                         {formatDateDot(new Date(letter.createdAt))}
                       </span>
                     </div>

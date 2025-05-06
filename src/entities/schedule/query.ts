@@ -12,3 +12,7 @@ export const useGetScheduleList = (date: Date) => {
 export const useGetScheduleDetail = (scheduleId: string) => {
   return useQuery(scheduleQueryKey.detail(scheduleId));
 };
+
+export const useGetWeekSchedule = () => {
+  return useSuspenseQuery(scheduleQueryKey.week());
+};

@@ -7,11 +7,16 @@ import { useScheduleStore } from "@/entities/schedule";
 import { useShallow } from "zustand/shallow";
 import { useScheduleMutation } from "@/entities/schedule/mutation";
 import { useDdayMutation, useDdayStore } from "@/entities/d-day";
+import backIcon from "@/assets/icons/back.svg";
+import { useNavigate } from "react-router";
 
 export const CalendarNewSchedule = () => {
-  const { schedule } = useScheduleStore(
+  const navigate = useNavigate();
+
+  const { schedule, reset } = useScheduleStore(
     useShallow(state => ({
       schedule: state.schedule,
+      reset: state.reset,
     }))
   );
 
@@ -27,7 +32,11 @@ export const CalendarNewSchedule = () => {
 
   const handlePostSchedule = async () => {
     mutate(undefined, {
-      onSuccess: () => {},
+      onSuccess: () => {
+        alert("일정이 생성되었습니다.");
+        reset();
+        navigate("/calendar");
+      },
       onError: error => {
         console.log(error);
       },
@@ -36,17 +45,31 @@ export const CalendarNewSchedule = () => {
 
   const handlePostDday = async () => {
     ddayMutate(dday, {
-      onSuccess: () => {},
+      onSuccess: () => {
+        alert("디데이가 생성되었습니다.");
+        reset();
+        navigate(-1);
+      },
       onError: error => {
         console.log(error);
       },
     });
   };
 
+  const goBack = () => {
+    navigate(-1);
+    return goBack;
+  };
+
   return (
     <>
       <header className="mt-[70px] mb-8 flex flex-col items-center gap-7">
-        <h1 className="text-xl font-semibold text-gray-900">생성하기</h1>
+        <div className="">
+          <h1 className="text-xl font-semibold text-gray-900">생성하기</h1>
+          <Button variant="ghost" size="sIcon" className="absolute top-17 left-5" onClick={goBack}>
+            <img src={backIcon} alt="뒤로가기" />
+          </Button>
+        </div>
         <Topbar isToggle={isToggle} onToggle={onToggle} />
       </header>
       <main className="flex flex-col gap-6 p-5">

@@ -5,21 +5,15 @@ interface MainHeaderProps {
   disabled?: boolean;
 }
 
-export const MainHeader = ({ 
-  mainTitle, 
-  buttonText, 
-  onClick, 
-  disabled = false
-}: MainHeaderProps) => {
+export const MainHeader = ({ mainTitle, buttonText, onClick, disabled = false }: MainHeaderProps) => {
   return (
-    <div className="flex justify-between items-center mt-5 ">
-      <h2 className="text-gray-900 text-xl font-bold">{mainTitle}</h2>
+    <div className="mt-5 flex items-center justify-between">
+      <h2 className="text-xl font-bold text-gray-900">{mainTitle}</h2>
       {buttonText && onClick && (
         <button
           onClick={onClick}
           disabled={disabled}
-          className="text-sm font-medium text-gray-700 flex items-center gap-1"
-        >
+          className="flex cursor-pointer items-center gap-1 text-sm font-medium text-gray-700">
           {buttonText}
           <span>{">"}</span>
         </button>

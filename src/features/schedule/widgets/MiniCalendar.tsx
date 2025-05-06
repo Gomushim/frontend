@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { getDateList, getShiftedWeekdays } from "../utils";
-import { ScheduleCard } from "./ScheduleCard";
-import { Fatigue } from "@/entities/schedule";
+import { useGetWeekSchedule } from "@/entities/schedule/query";
+import { useSelectedDateStore } from "@/entities/schedule";
+
+const normalizeDate = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
 const fatigueTagMap: Record<string, { bgColor: string; textColor: string }> = {
   VERY_TIRED: {
@@ -18,50 +20,32 @@ const fatigueTagMap: Record<string, { bgColor: string; textColor: string }> = {
   },
 };
 
-const schedultestData = [
-  {
-    id: 1,
-    title: "KCTC 훈련",
-    fatigue: Fatigue.GOOD,
-    startDate: "2025-04-30T16:10:30.567Z",
-    endDate: "2025-04-30T16:10:30.567Z",
-    isAllDay: false,
-  },
-  {
-    id: 1,
-    title: "근무 취짐",
-    fatigue: Fatigue.GOOD,
-    startDate: "2025-04-30T16:10:30.567Z",
-    endDate: "2025-04-30T16:10:30.567Z",
-    isAllDay: false,
-  },
-  {
-    id: 1,
-    title: "근무 취짐",
-    fatigue: Fatigue.GOOD,
-    startDate: "2025-04-30T16:10:30.567Z",
-    endDate: "2025-04-30T16:10:30.567Z",
-    isAllDay: false,
-  },
-];
-
 export const MiniCalendar = () => {
+  const { selectedDay, setSelectedDay } = useSelectedDateStore();
+  const { data: weekScheduleData } = useGetWeekSchedule();
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  const normalizedTags = useMemo(() => {
+    return (
+      weekScheduleData &&
+      weekScheduleData.result.schedules.map(tag => ({
+        ...tag,
+        startDate: normalizeDate(new Date(tag.startDate)),
+        endDate: normalizeDate(new Date(tag.endDate)),
+      }))
+    );
+  }, [weekScheduleData]);
   const shiftedDays = getShiftedWeekdays(today);
   const dateList = getDateList(today, 7, 1);
-
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const testFatigue = "TIRED";
-  const { bgColor, textColor } = fatigueTagMap[testFatigue];
 
   // 날짜 비교 함수
   const isSameDate = (d1: Date, d2: Date) =>
     d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
 
   return (
-    <div className="mx-auto max-w-md rounded-2xl bg-white p-4">
+    <>
       {/* 요일 헤더 */}
       <div className="grid grid-cols-7 px-1.5 text-center font-medium">
         {shiftedDays.map((day, idx) => (
@@ -72,35 +56,46 @@ export const MiniCalendar = () => {
       </div>
 
       {/* 날짜 셀 */}
-      <div className="grid grid-cols-7 px-1.5 py-3 text-center">
+      <div className="mb-7 grid grid-cols-7 px-1.5 py-3 text-center">
         {dateList.map((date, idx) => {
           const isToday = isSameDate(date, today);
-          const isSelected = selectedDate && isSameDate(date, selectedDate);
-          const showToday = isToday && !selectedDate;
+          const isSelected = selectedDay && isSameDate(date, selectedDay);
+          const showToday = isToday && !selectedDay;
+
+          const dayTags =
+            date != null
+              ? normalizedTags.filter(tag => {
+                  const d = normalizeDate(date);
+                  return d >= tag.startDate && d <= tag.endDate;
+                })
+              : [];
 
           return (
             <div
               key={idx}
-              className="flex cursor-pointer flex-col items-center justify-center gap-1"
-              onClick={() => setSelectedDate(date)}>
+              className="flex min-h-16 cursor-pointer flex-col items-center gap-1"
+              onClick={() => date && setSelectedDay(date)}>
               <p
                 className={`text-md mb-2 flex h-8 w-8 items-center justify-center rounded-[12px] pt-0.5 text-center font-normal transition ${
-                  isSelected || showToday ? "bg-gray-900 font-bold text-white" : ""
+                  showToday || isSelected ? "bg-gray-900 font-bold text-white" : ""
+                } ${!date ? "cursor-default text-gray-300" : ""} ${
+                  date && !isSelected && !showToday ? "hover:bg-gray-100" : ""
                 }`}>
-                {date.getDate()}
+                {date ? date.getDate() : ""}
               </p>
-              <div className={`${bgColor} flex h-3 w-10 items-center justify-center rounded-[8px]`}>
-                <p className={`${textColor} text-[10px]`}>test</p>
-              </div>
+              {dayTags.map(tag => {
+                const { bgColor, textColor } = fatigueTagMap[tag.fatigue || "VERY_TIRED"];
+
+                return (
+                  <div key={tag.id} className={`flex h-3 w-10 items-center justify-center rounded-[8px] ${bgColor}`}>
+                    <p className={`truncate text-[10px] ${textColor}`}>{tag.title}</p>
+                  </div>
+                );
+              })}
             </div>
           );
         })}
       </div>
-      <div className="mt-7 flex flex-col gap-3">
-        {schedultestData.map((schedul, index) => (
-          <ScheduleCard key={index} className="bg-gray-50" {...schedul} />
-        ))}
-      </div>
-    </div>
+    </>
   );
 };

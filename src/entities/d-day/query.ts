@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { ddayQueryKey } from "./queryKey";
 import { getDdayList } from "./service";
 
@@ -18,4 +18,8 @@ export const useGetDdayList = () => {
       return isLastPage ? undefined : after;
     },
   });
+};
+
+export const useGetMainDdayList = () => {
+  return useQuery({ ...ddayQueryKey.main() });
 };
