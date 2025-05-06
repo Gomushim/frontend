@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import { Button, ProgressHeader, Input, Checkbox, DatePickerDrawer } from "@/shared/ui";
-import { useOnboardingAlarmStore } from "@/stores/onboardingStore";
+import { useOnboardingAlarmStore } from "@/features/onboarding/model/OnboardingStore";
 import { formatDateKorean } from "@/shared/utils";
 
 export const Birthday: React.FC = () => {

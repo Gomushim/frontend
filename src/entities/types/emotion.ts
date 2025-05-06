@@ -91,3 +91,13 @@ export const EMOTION_IMAGES: EmotionImageType = {
     base: tired,
   },
 };
+
+export const EMOTION_TO_ICON: Record<string, EmotionType> = {
+  ANGRY: "angry",
+  WORRY: "worry",
+  COMMON: "common",
+  HAPPY: "happy",
+  MISS: "miss",
+  SAD: "sad",
+  TIRED: "tired"
+};

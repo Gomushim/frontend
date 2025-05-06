@@ -6,33 +6,15 @@ import {
   DDaySection,
   SpecialDateSection,
   TopSection,
-} from "@/features/ma-section";
-import { useEffect, useState } from "react";
-import { iscoupleQueries } from "@/entities/iscouple/service";
-import { maonboardingQueries } from "@/entities/maonboarding/service";
+} from "@/features/mainpage";
+import { useInitSettingQueries } from "@/entities/init_setting";
+import { useIscouple } from "@/entities/iscouple";
 
 export const MainPage = () => {
-  const [isConnected, setIsConnected] = useState(false);
-  const [isInitialized, setIsInitialized] = useState(false);
-
-  useEffect(() => {
-    const checkInitialStatus = async () => {
-      try {
-        const [coupleResponse, coupleInfoResponse] = await Promise.all([
-          iscoupleQueries.checkCoupleConnect(),
-          maonboardingQueries.getCoupleInfo()
-        ]);
-        setIsConnected(coupleResponse.result);
-        setIsInitialized(coupleInfoResponse.result.isAnniversariesRegistered);
-      } catch (error) {
-        console.error("상태 조회 실패:", error);
-        setIsConnected(false);
-        setIsInitialized(false);
-      }
-    };
-
-    checkInitialStatus();
-  }, []);
+  const { checkCoupleConnect } = useIscouple();
+  const { getCoupleInfo } = useInitSettingQueries();
+  const isConnected = checkCoupleConnect.data?.result ?? false;
+  const isInitialized = getCoupleInfo.data?.result.isAnniversariesRegistered ?? false;
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
