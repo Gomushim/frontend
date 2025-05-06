@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch } from "@/shared/ui/switch";
-import { useNotificationQuery } from "@/entities";
+import { useNotificationQuery } from "../../entities/push_alarm/mutation";
 
 const toggleItems = [
   { label: "앱 전체 알림", key: "app" },

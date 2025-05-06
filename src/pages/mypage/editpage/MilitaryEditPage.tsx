@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Input, DatePickerDrawer, Button } from "@/shared/ui";
 import { formatDateKorean, formatDateDot } from "@/shared/utils";
 import { EditHeader } from "@/features/mypage";
-import { useUpdateMilitaryDate } from "@/entities/edit_info";
+import { useUpdateMilitaryDate } from "@/entities/edit_info/mutation";
 
 export const MilitaryEditPage: React.FC = () => {
   const navigate = useNavigate();

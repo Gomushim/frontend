@@ -1,7 +1,7 @@
 import HeartIcon from "@/assets/images/heart.svg";
 import BootsIcon from "@/assets/images/boots.svg";
 import HeelsIcon from "@/assets/images/heals.svg";
-import { useAnniversary } from "@/entities";
+import { useAnniversary } from "@/entities/main_anniversary";
 
 interface SpecialDateSectionProps {
   isConnected: boolean;

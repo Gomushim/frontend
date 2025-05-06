@@ -1,13 +1,14 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
 import NotificationIcon from "@/assets/images/notification.svg";
 import InitBg from "@/assets/images/initbg.svg";
 import ArmyBg from "@/assets/images/armybg.svg";
 import NavyBg from "@/assets/images/navybg.svg";
 import AirBg from "@/assets/images/airbg.svg";
 import CoupleHeart from "@/assets/images/couple_heart.svg";
+import { useNavigate } from "react-router";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
-import { useInitSettingQueries, useCoupleNickname} from "@/entities";
+import { useEffect } from "react";
+import { initSettingQueries } from "@/entities/init_setting/service";
+import { useCoupleNickname } from "@/entities/couple_nickname/queries";
 
 interface TopSectionProps {
   isConnected: boolean;
@@ -20,25 +21,22 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
   const navigate = useNavigate();
   const { militaryBranch, setMilitaryBranch } = useOnboardingStore();
   const { getNickName } = useCoupleNickname();
-  const { getCoupleInfo } = useInitSettingQueries();
   const coupleInfo = getNickName.data?.result || { userNickname: "", coupleNickname: "" };
 
-  useEffect(() => {
+  const initializeData = async () => {
     if (!isConnected) return;
 
-    const fetchCoupleInfo = async () => {
-      try {
-        const coupleInfoResponse = await getCoupleInfo.refetch();
-        if (coupleInfoResponse.data?.result) {
-          setMilitaryBranch(coupleInfoResponse.data.result.military);
-        }
-      } catch (error) {
-        console.error("초기설정 오류발생:", error);
-      }
-    };
+    try {
+      const coupleInfoResponse = await initSettingQueries.getCoupleInfo();
+      setMilitaryBranch(coupleInfoResponse.result.military);
+    } catch (error) {
+      console.error("초기설정 오류발생:", error);
+    }
+  };
 
-    fetchCoupleInfo();
-  }, [isConnected, setMilitaryBranch, getCoupleInfo]);
+  useEffect(() => {
+    initializeData();
+  }, [isConnected, setMilitaryBranch, initializeData]);
 
   const handleInitialize = () => {
     navigate("/onboarding/firstmeet");

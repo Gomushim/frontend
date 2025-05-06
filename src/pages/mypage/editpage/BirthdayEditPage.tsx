@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Button, Input, DatePickerDrawer } from "@/shared/ui";
 import { formatDateKorean, formatDateDot } from "@/shared/utils";
 import { EditHeader } from "@/features/mypage";
-import { useUpdateMyBirthDate } from "@/entities";
+import { useUpdateMyBirthDate } from "@/entities/edit_info/mutation";
 
 export const BirthdayEditPage: React.FC = () => {
   const navigate = useNavigate();

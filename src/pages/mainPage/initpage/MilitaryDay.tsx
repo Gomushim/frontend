@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Input, DatePickerDrawer, Button, ProgressHeader } from "@/shared/ui";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { formatDateKorean } from "@/shared/utils";
-import { useInitSettingMutation, useInitSettingQueries } from "@/entities";
+import { useInitSettingMutation, useInitSettingQueries } from "@/entities/init_setting";
 
 export const MilitaryDay: React.FC = () => {
   const { 
