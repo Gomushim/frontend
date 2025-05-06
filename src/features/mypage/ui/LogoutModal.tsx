@@ -1,4 +1,6 @@
 import React from "react";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router";
 
 interface LogoutModalProps {
   open: boolean;
@@ -7,6 +9,14 @@ interface LogoutModalProps {
 }
 
 export const LogoutModal: React.FC<LogoutModalProps> = ({ open, onClose, onLogout }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    Cookies.remove("accessToken");
+    onLogout();
+    navigate("/login");
+  };
+
   if (!open) return null;
   return (
     <div className="fixed w-full inset-0 z-50 flex items-center justify-center bg-black/50">
@@ -22,7 +32,7 @@ export const LogoutModal: React.FC<LogoutModalProps> = ({ open, onClose, onLogou
           </button>
           <button
             className="flex-1 py-3 rounded-md bg-gray-900 text-gray-0 font-semibold font-medium "
-            onClick={onLogout}
+            onClick={handleLogout}
           >
             로그아웃
           </button>

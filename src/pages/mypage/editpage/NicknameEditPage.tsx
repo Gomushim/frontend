@@ -1,25 +1,23 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { Input, Button} from "@/shared/ui";
+import { Input, Button } from "@/shared/ui";
 import { EditHeader } from "@/features/mypage";
+import { useUpdateMyNickname } from "@/entities/edit_info/mutation";
 
 export const NicknameEditPage: React.FC = () => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState<string>("");
-  const [error, setError] = useState<string | null>(null);
+  const { mutate: updateNickname } = useUpdateMyNickname();
 
-  const handleSubmit = async () => {
-    if (nickname.trim()) {
-      try {
-        if (nickname.length > 3) {
-          throw new Error("닉네임은 3글자 이내로 입력해주세요.");
-        }
-        navigate("/mypage/profileinfo");
-      } catch (error) {
-        console.error("닉네임 처리 중 오류 발생:", error);
-        setError(error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.");
+  const handleSubmit = () => {
+    updateNickname(
+      { nickname },
+      {
+        onSuccess: () => {
+          navigate("/mypage/profileinfo");
+        },
       }
-    }
+    );
   };
 
   return (
@@ -36,13 +34,10 @@ export const NicknameEditPage: React.FC = () => {
           <Input
             value={nickname}
             onChange={setNickname}
-            placeholder="클릭하여 입력해주세요"
+            placeholder="닉네임을 입력하세요"
             onClear={() => setNickname("")}
           />
         </div>
-        {error && (
-          <p className="text-red-500 text-center text-sm mt-2">{error}</p>
-        )}
       </div>
 
       <div className="p-4">
@@ -51,7 +46,8 @@ export const NicknameEditPage: React.FC = () => {
           onClick={handleSubmit} 
           disabled={!nickname.trim() }
           size="onicon"
-         />
+        >저장
+        </Button>
       </div>
     </div>
   );

@@ -62,6 +62,7 @@ export const CoupleContact: React.FC = () => {
       await coupleConnectQueries.connectCouple({ coupleCode: inputCode });
       navigate("/");
     } catch (error) {
+      console.error("커플 연결 에러:", error);
       setError("커플 연결에 실패했습니다. 다시 시도해주세요.");
     } finally {
       setIsLoading(false);

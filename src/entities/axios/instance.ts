@@ -1,5 +1,5 @@
 import axios from "axios";
-import { handleAPIError, handleCheckAndSetToken } from "./interceptor";
+import { handleAPIError } from "./interceptor";
 
 // Axios 인스턴스 생성
 export const api = axios.create({
@@ -11,6 +11,7 @@ export const api = axios.create({
   },
 });
 
+// Request 인터셉터 설정
 api.interceptors.request.use((config) => {
   console.log("🚀 [Axios 요청] URL:", config.url);
   console.log("📌 [Axios 요청] Method:", config.method?.toUpperCase());
@@ -18,6 +19,9 @@ api.interceptors.request.use((config) => {
   console.log("📤 [Axios 요청] Data:", config.data);
   return config;
 });
+
+// Response 인터셉터 설정
+api.interceptors.response.use((res) => res, handleAPIError);
 
 export function get<T>(...args: Parameters<typeof api.get>) {
   return api.get<T>(...args).then((res) => res.data);
@@ -39,6 +43,3 @@ export function del<T>(...args: Parameters<typeof api.delete>) {
   return api.delete<T>(...args).then((res) => res.data);
 }
 
-// 인터셉터 설정
-api.interceptors.request.use(handleCheckAndSetToken);
-api.interceptors.response.use((res) => res, handleAPIError);

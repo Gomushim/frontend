@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { Input, DatePickerDrawer, Button } from "@/shared/ui";
-import { formatDateKorean } from "@/shared/utils";
+import { formatDateKorean, formatDateDot } from "@/shared/utils";
 import { EditHeader } from "@/features/mypage";
+import { useUpdateMilitaryDate } from "@/entities/edit_info/mutation";
 
-export const MilitaryDayEditPage: React.FC = () => {
+export const MilitaryEditPage: React.FC = () => {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const [enlistmentDate, setEnlistmentDate] = useState<Date | null>(null);
   const [dischargeDate, setDischargeDate] = useState<Date | null>(null);
+  const { mutate: updateMilitaryDate } = useUpdateMilitaryDate();
+
+  const formatDate = (date: Date) => {
+    return formatDateDot(date).replace(/\. /g, "-").replace(".", "");
+  };
 
   const handleNext = () => {
     if (!enlistmentDate || !dischargeDate) {
@@ -31,7 +37,17 @@ export const MilitaryDayEditPage: React.FC = () => {
     }
 
     setError(null);
-    navigate("/mypage/profileinfo");
+    updateMilitaryDate(
+      { 
+        militaryStartDate: formatDate(enlistmentDate),
+        militaryEndDate: formatDate(dischargeDate)
+      },
+      {
+        onSuccess: () => {
+          navigate("/mypage/profileinfo");
+        },
+      }
+    );
   };
 
   return (
@@ -82,7 +98,7 @@ export const MilitaryDayEditPage: React.FC = () => {
           disabled={!enlistmentDate || !dischargeDate}
           onClick={handleNext}
           size="onicon">
-          완료
+          저장
         </Button>
       </div>
     </div>
