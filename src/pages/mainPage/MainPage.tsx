@@ -22,9 +22,11 @@ export const MainPage = () => {
       <TopSection isConnected={isConnected} isInitialized={isInitialized} />
 
       {/* 상단 디데이 */}
-      <SpecialDateSection isConnected={isConnected} isInitialized={isInitialized} />
+      <div className="mt-6">
+        <SpecialDateSection isConnected={isConnected} isInitialized={isInitialized} />
+      </div>
       {/* 메인 컨텐츠 */}
-      <div className="relative z-10 -mt-12 flex-grow rounded-t-[20px] bg-gray-50">
+      <div className="relative z-10 -mt-13 flex-grow rounded-t-[20px] bg-gray-50">
         <main className="container mx-auto max-w-screen-lg px-4 pt-15 pb-[95px]">
           <div className="grid w-full gap-4">
             <StatusSection isConnected={isConnected} isInitialized={isInitialized} />
