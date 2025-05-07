@@ -6,7 +6,7 @@ import AirBg from "@/assets/images/airbg.svg";
 import CoupleHeart from "@/assets/images/couple_heart.svg";
 import { useNavigate } from "react-router";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { initSettingQueries } from "@/entities/init_setting/service";
 import { useCoupleNickname } from "@/entities/couple_nickname/queries";
 
@@ -23,7 +23,7 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
   const { getNickName } = useCoupleNickname();
   const coupleInfo = getNickName.data?.result || { userNickname: "", coupleNickname: "" };
 
-  const initializeData = async () => {
+  const initializeData = useCallback(async () => {
     if (!isConnected) return;
 
     try {
@@ -32,11 +32,11 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
     } catch (error) {
       console.error("초기설정 오류발생:", error);
     }
-  };
+  }, [isConnected, setMilitaryBranch]);
 
   useEffect(() => {
     initializeData();
-  }, [isConnected, setMilitaryBranch, initializeData]);
+  }, [initializeData]);
 
   const handleInitialize = () => {
     navigate("/onboarding/firstmeet");
