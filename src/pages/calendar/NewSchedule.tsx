@@ -1,14 +1,27 @@
-import { Topbar, Divider, Button } from "@/shared/ui";
-import { useToggle } from "@/shared/hooks";
-import { AllDayToggleButton, DateBottomSheet, FatigueBottomSheet, TimeBottomSheet } from "@/features/schedule/ui";
-import { TitleInput } from "@/features/schedule/ui/TitleInput";
-import { useScheduleStore, useSelectedDateStore } from "@/entities/schedule";
-import { useShallow } from "zustand/shallow";
-import { useCreateScheduleMutation } from "@/entities/schedule/mutation";
-import { useDdayMutation, useDdayStore } from "@/entities/d-day";
-import backIcon from "@/assets/icons/back.svg";
+// 외부 라이브러리
 import { useNavigate } from "react-router";
+import { useShallow } from "zustand/shallow";
+
+// 공통 훅 및 UI
+import { useToggle } from "@/shared/hooks";
+import { Button, Divider, Topbar } from "@/shared/ui";
+
+// 아이콘
+import backIcon from "@/assets/icons/back.svg";
+
+// 도메인: schedule
+import {
+  AllDayToggleButton,
+  DateBottomSheet,
+  FatigueBottomSheet,
+  TimeBottomSheet,
+  TitleInput,
+} from "@/features/schedule/ui";
+import { useScheduleStore, useSelectedDateStore, useCreateScheduleMutation } from "@/entities/schedule";
+
+// 도메인: d-day
 import { DdayDateBottomSheet, EmojiSelector } from "@/features/d-day/ui";
+import { useDdayMutation, useDdayStore } from "@/entities/d-day";
 
 export const CalendarNewSchedule = () => {
   const navigate = useNavigate();
