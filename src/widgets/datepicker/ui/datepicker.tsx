@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Picker from "react-mobile-picker";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from "./drawer";
-import { Button } from "./button";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from "../../../shared/ui/drawer";
+import { Button } from "../../../shared/ui/button";
 
 interface DatePickerDrawerProps {
   onConfirm: (date: Date) => void;
@@ -33,7 +33,7 @@ export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({ onConfirm, c
       <DrawerTrigger asChild>
         <div className="w-full">{children}</div>
       </DrawerTrigger>
-      <DrawerContent className="w-full max-w-[375px] mx-auto">
+      <DrawerContent className="mx-auto w-full max-w-[375px]">
         <div className="w-full">
           <div className="relative flex h-[200px] w-full items-center justify-center">
             <div className="absolute inset-x-0 top-1/2 h-11 -translate-y-1/2 rounded-[10px] bg-gray-100" />

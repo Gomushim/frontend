@@ -2,7 +2,7 @@ import { useSelectedDateStore } from "@/entities/schedule";
 import { useGetScheduleList } from "@/entities/schedule/query";
 import { ScheduleCard } from "./ScheduleCard";
 import { formatDateKoreanWithWeekday } from "@/shared/utils";
-import { DdayCard } from "@/features/d-day/widgets";
+import { DdayCard } from "@/features/d-day/ui";
 
 export const ScheduleCardList = () => {
   const { selectedDay } = useSelectedDateStore();

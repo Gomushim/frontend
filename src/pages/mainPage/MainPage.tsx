@@ -1,4 +1,3 @@
-import { NavBar } from "@/shared/ui";
 import {
   StatusSection,
   ScheduleSection,
@@ -9,6 +8,7 @@ import {
 } from "@/features/mainpage";
 import { useInitSettingQueries } from "@/entities/init_setting";
 import { useIscouple } from "@/entities/iscouple";
+import { NavBar } from "@/widgets/navbar/ui";
 
 export const MainPage = () => {
   const { checkCoupleConnect } = useIscouple();
@@ -28,14 +28,14 @@ export const MainPage = () => {
         <main className="container mx-auto max-w-screen-lg px-4 pt-15 pb-[95px]">
           <div className="grid w-full gap-4">
             <StatusSection isConnected={isConnected} isInitialized={isInitialized} />
-            <ScheduleSection  />
-            <LetterSection  />
+            <ScheduleSection />
+            <LetterSection />
             <DDaySection />
           </div>
         </main>
       </div>
       {/* 네비게이션 바 */}
-      <div className="z-10 fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] bg-white">
+      <div className="fixed bottom-0 left-1/2 z-10 w-[375px] -translate-x-1/2 bg-white">
         <NavBar />
       </div>
     </div>

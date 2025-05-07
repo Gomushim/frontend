@@ -24,7 +24,7 @@ import {
   AlarmSettingPage,
   SettingPage,
   DisconnectPage,
-  } from "@/pages";
+} from "@/pages";
 import { createBrowserRouter } from "react-router";
 
 const router = createBrowserRouter([
@@ -41,7 +41,6 @@ const router = createBrowserRouter([
       { path: "calendar/letter", element: <LetterListPage /> }, //편지 리스트 페이지
       { path: "calendar/letter/:letter", element: <LetterListPage /> }, //편지 상세 보기 페이지
       { path: "mypage", element: <MyPage /> }, // 마이페이지
-      { path: "mainpage", element: <MainPage /> }, // 메인페이지
       { path: "status", element: <StatusPage /> }, // 상태페이지
       {
         path: "/mypage",
@@ -55,8 +54,8 @@ const router = createBrowserRouter([
           { path: "firstmeetedit", element: <FirstMeetEditPage /> },
           { path: "setting", element: <SettingPage /> },
           { path: "disconnect", element: <DisconnectPage /> },
-          ],
-        },
+        ],
+      },
       {
         path: "/onboarding",
         children: [

@@ -1,6 +1,7 @@
 import { useScheduleStore } from "@/entities/schedule";
-import { TimePickerDrawer, TimeSelector } from "@/shared/ui";
+import { TimeSelector } from "@/shared/ui";
 import { toLocalISOString } from "@/shared/utils/time/format";
+import { TimePickerDrawer } from "@/widgets/timepicker/ui";
 import { useShallow } from "zustand/shallow";
 
 interface TimeBottomSheetProps {

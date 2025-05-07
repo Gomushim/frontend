@@ -1,5 +1,6 @@
 import { useDdayStore } from "@/entities/d-day";
-import { DatePickerDrawer, DateSelector } from "@/shared/ui";
+import { DateSelector } from "@/shared/ui";
+import { DatePickerDrawer } from "@/widgets/datepicker/ui";
 import { useShallow } from "zustand/shallow";
 
 export const DdayDateBottomSheet = () => {

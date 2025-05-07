@@ -1,4 +1,4 @@
-import { DdayCard, NoDdayMessage } from "@/features/d-day/widgets";
+import { DdayCard, NoDdayMessage } from "@/features/d-day/ui";
 import { Button } from "@/shared/ui";
 import backIcon from "@/assets/icons/back.svg";
 import useIntersect from "@/shared/hooks/useIntersect";

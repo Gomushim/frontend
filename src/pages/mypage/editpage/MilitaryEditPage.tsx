@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { Input, DatePickerDrawer, Button } from "@/shared/ui";
+import { Input, Button } from "@/shared/ui";
 import { formatDateKorean, formatDateDot } from "@/shared/utils";
 import { EditHeader } from "@/features/mypage";
 import { useUpdateMilitaryDate } from "@/entities/edit_info/mutation";
+import { DatePickerDrawer } from "@/widgets/datepicker/ui";
 
 export const MilitaryEditPage: React.FC = () => {
   const navigate = useNavigate();
@@ -38,9 +39,9 @@ export const MilitaryEditPage: React.FC = () => {
 
     setError(null);
     updateMilitaryDate(
-      { 
+      {
         militaryStartDate: formatDate(enlistmentDate),
-        militaryEndDate: formatDate(dischargeDate)
+        militaryEndDate: formatDate(dischargeDate),
       },
       {
         onSuccess: () => {
@@ -87,9 +88,7 @@ export const MilitaryEditPage: React.FC = () => {
             </DatePickerDrawer>
           </div>
         </div>
-        {error && (
-          <p className="mt-4 text-center text-sm text-red-500">{error}</p>
-        )}
+        {error && <p className="mt-4 text-center text-sm text-red-500">{error}</p>}
       </div>
 
       <div className="p-4">

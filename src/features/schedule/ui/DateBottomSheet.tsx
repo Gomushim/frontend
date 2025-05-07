@@ -1,5 +1,6 @@
 import { useScheduleStore } from "@/entities/schedule";
-import { DatePickerDrawer, DateSelector } from "@/shared/ui";
+import { DateSelector } from "@/shared/ui";
+import { DatePickerDrawer } from "@/widgets/datepicker/ui";
 import { useShallow } from "zustand/shallow";
 
 interface DateBottomSheetProps {

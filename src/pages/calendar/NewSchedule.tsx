@@ -1,8 +1,8 @@
 import { Topbar, Divider, Button } from "@/shared/ui";
 import { useToggle } from "@/shared/hooks";
-import { DdayDateBottomSheet, EmojiSelector } from "@/features/d-day/widgets";
-import { AllDayToggleButton, DateBottomSheet, FatigueBottomSheet, TimeBottomSheet } from "@/features/schedule/widgets";
-import { TitleInput } from "@/features/schedule/widgets/TitleInput";
+import { DdayDateBottomSheet, EmojiSelector } from "@/features/d-day/ui";
+import { AllDayToggleButton, DateBottomSheet, FatigueBottomSheet, TimeBottomSheet } from "@/features/schedule/ui";
+import { TitleInput } from "@/features/schedule/ui/TitleInput";
 import { useScheduleStore } from "@/entities/schedule";
 import { useShallow } from "zustand/shallow";
 import { useScheduleMutation } from "@/entities/schedule/mutation";

@@ -1,6 +1,7 @@
-import { Calendar } from "@/features/schedule/widgets";
-import { ScheduleCardList } from "@/features/schedule/widgets/ScheduleCardList";
-import { NavBar } from "@/shared/ui";
+import { Calendar } from "@/features/schedule/ui";
+import { ScheduleCardList } from "@/features/schedule/ui/ScheduleCardList";
+import { NavBar } from "@/widgets/navbar/ui";
+
 import { Suspense } from "react";
 
 export const CalendarRoot = () => {

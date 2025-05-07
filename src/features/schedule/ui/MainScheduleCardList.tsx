@@ -1,7 +1,7 @@
 import { useSelectedDateStore } from "@/entities/schedule";
 import { useGetScheduleList } from "@/entities/schedule/query";
 import { ScheduleCard } from "./ScheduleCard";
-import { DdayCard } from "@/features/d-day/widgets";
+import { DdayCard } from "@/features/d-day/ui";
 
 export const MainScheduleCardList = () => {
   const { selectedDay } = useSelectedDateStore();
