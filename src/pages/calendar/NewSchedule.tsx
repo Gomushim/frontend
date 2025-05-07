@@ -1,14 +1,14 @@
 import { Topbar, Divider, Button } from "@/shared/ui";
 import { useToggle } from "@/shared/hooks";
-import { DdayDateBottomSheet, EmojiSelector } from "@/features/d-day/ui";
 import { AllDayToggleButton, DateBottomSheet, FatigueBottomSheet, TimeBottomSheet } from "@/features/schedule/ui";
 import { TitleInput } from "@/features/schedule/ui/TitleInput";
-import { useScheduleStore } from "@/entities/schedule";
+import { useScheduleStore, useSelectedDateStore } from "@/entities/schedule";
 import { useShallow } from "zustand/shallow";
-import { useScheduleMutation } from "@/entities/schedule/mutation";
+import { useCreateScheduleMutation } from "@/entities/schedule/mutation";
 import { useDdayMutation, useDdayStore } from "@/entities/d-day";
 import backIcon from "@/assets/icons/back.svg";
 import { useNavigate } from "react-router";
+import { DdayDateBottomSheet, EmojiSelector } from "@/features/d-day/ui";
 
 export const CalendarNewSchedule = () => {
   const navigate = useNavigate();
@@ -26,15 +26,16 @@ export const CalendarNewSchedule = () => {
     }))
   );
 
+  const { selectedMonth, selectedDay } = useSelectedDateStore();
+
   const { isToggle, onToggle } = useToggle();
-  const { mutate } = useScheduleMutation(schedule, "post");
+  const { mutate } = useCreateScheduleMutation(schedule, reset, selectedMonth, selectedDay);
   const { mutate: ddayMutate } = useDdayMutation("post");
 
   const handlePostSchedule = async () => {
     mutate(undefined, {
       onSuccess: () => {
         alert("일정이 생성되었습니다.");
-        reset();
         navigate("/calendar");
       },
       onError: error => {

@@ -1,27 +1,19 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createSchedule } from "./service";
 import { ScheduleRequst } from "./type";
-import { mutationMethodType } from "../types/mutationMethod.type";
 import { scheduleQueryKey } from "./queryKey";
-import { useSelectedDateStore } from "./store";
 
-export const useScheduleMutation = (data: ScheduleRequst, mutationMethod: mutationMethodType) => {
+// 일정 생성 훅
+export const useCreateScheduleMutation = (
+  data: ScheduleRequst,
+  reset: () => void,
+  selectedMonth: Date,
+  selectedDay: Date
+) => {
   const queryClient = useQueryClient();
-  const { selectedMonth, selectedDay } = useSelectedDateStore();
 
   return useMutation({
-    mutationFn: async () => {
-      switch (mutationMethod) {
-        case "delete":
-          return await createSchedule(data);
-        case "post":
-          return await createSchedule(data);
-        case "update":
-          return await createSchedule(data);
-        default:
-          throw new Error("Invalid mutation method");
-      }
-    },
+    mutationFn: () => createSchedule(data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: scheduleQueryKey.calendar(selectedMonth).queryKey,
@@ -29,9 +21,30 @@ export const useScheduleMutation = (data: ScheduleRequst, mutationMethod: mutati
       queryClient.invalidateQueries({
         queryKey: scheduleQueryKey.list(selectedDay).queryKey,
       });
+      reset();
     },
     onError: error => {
-      console.error("Error:", error);
+      console.error("Error creating schedule:", error);
     },
   });
 };
+
+// export const useUpdateScheduleMutation = (data: ScheduleRequst) => {
+//   const queryClient = useQueryClient();
+//   const { selectedMonth, selectedDay } = useSelectedDateStore();
+
+//   return useMutation({
+//     mutationFn: () => updateSchedule(data),
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({
+//         queryKey: scheduleQueryKey.calendar(selectedMonth).queryKey,
+//       });
+//       queryClient.invalidateQueries({
+//         queryKey: scheduleQueryKey.list(selectedDay).queryKey,
+//       });
+//     },
+//     onError: error => {
+//       console.error("Error updating schedule:", error);
+//     },
+//   });
+// };
