@@ -12,7 +12,7 @@ export const DisconnectPage: React.FC = () => {
 
   return (
     <div className="flex h-screen flex-col bg-white">
-      <MyHeader title="커플 연결 끊기" />
+      <MyHeader title="커플 연결 끊기" onBack={() => navigate("/mypage")} />
       <div className="flex-1 flex flex-col items-center">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-1">

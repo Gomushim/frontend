@@ -16,7 +16,7 @@ export const SettingPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <MyHeader title="설정" />
+      <MyHeader title="설정" onBack={() => navigate("/mypage")} />
       <div className="px-4 pt-2 space-y-4">
         <button
           className="w-full text-left bg-gray-50 rounded-2xl mb-3 px-4 py-5 text-gray-900 text-base font-medium"
