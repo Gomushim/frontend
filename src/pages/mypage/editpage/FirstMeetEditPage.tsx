@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { Button, Input, DatePickerDrawer } from "@/shared/ui";
-import { formatDateKorean, formatDateDot } from "@/shared/utils";
+import { formatDateKorean, formatSimpleDate } from "@/shared/utils";
 import { EditHeader } from "@/features/mypage";
 import { useUpdateRelationshipStartDate } from "@/entities/edit_info/mutation";
 
@@ -27,7 +27,7 @@ export const FirstMeetEditPage: React.FC = () => {
 
     setError(null);
     
-    const formattedDate = formatDateDot(firstMeetDate).replace(/\. /g, "-").replace(".", "");
+    const formattedDate = formatSimpleDate(firstMeetDate);
 
     updateRelationshipStartDate(
       { relationshipStartDate: formattedDate },

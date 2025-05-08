@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { Button, Input, DatePickerDrawer } from "@/shared/ui";
-import { formatDateKorean, formatDateDot } from "@/shared/utils";
+import { formatDateKorean, formatSimpleDate } from "@/shared/utils";
 import { EditHeader } from "@/features/mypage";
 import { useUpdateMyBirthDate } from "@/entities/edit_info/mutation";
 
@@ -13,7 +13,7 @@ export const BirthdayEditPage: React.FC = () => {
   const handleSubmit = () => {
     if (!selectedDate) return;
     
-    const formattedDate = formatDateDot(selectedDate).replace(/\. /g, "-").replace(".", "");
+    const formattedDate = formatSimpleDate(selectedDate);
     
     updateBirthDate(
       { birthDate: formattedDate },
