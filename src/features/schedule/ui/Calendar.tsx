@@ -80,7 +80,7 @@ export const Calendar = () => {
           <Link to="/calendar/dday" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
             <img src="src/assets/icons/hambuk.svg" alt="D-day 보러가기" />
           </Link>
-          <Link to="/calendar/schedule" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
+          <Link to="/calendar/schedule/new" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
             <img src="src/assets/icons/plus.svg" alt="일정 추가" />
           </Link>
         </div>

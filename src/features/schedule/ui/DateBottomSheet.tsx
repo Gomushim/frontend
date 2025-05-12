@@ -1,25 +1,14 @@
-import { useScheduleStore } from "@/entities/schedule";
 import { DateSelector } from "@/shared/ui";
 import { DatePickerDrawer } from "@/widgets/datepicker/ui";
-import { useShallow } from "zustand/shallow";
 
 interface DateBottomSheetProps {
-  type: "start" | "end";
+  selectedDate: string;
+  onDateChange: (date: string) => void;
 }
 
-export const DateBottomSheet = ({ type }: DateBottomSheetProps) => {
-  const { startDate, endDate, setStartDate, setEndDate } = useScheduleStore(
-    useShallow(state => ({
-      isAllDay: state.schedule.isAllDay,
-      startDate: state.schedule.startDate,
-      endDate: state.schedule.endDate,
-      setStartDate: state.setStartDate,
-      setEndDate: state.setEndDate,
-    }))
-  );
-
+export const DateBottomSheet = ({ selectedDate, onDateChange }: DateBottomSheetProps) => {
   const handleDateConfirm = (selectedDate: Date) => {
-    const current = type === "start" ? new Date(startDate) : new Date(endDate);
+    const current = new Date(selectedDate);
     const isValidCurrent = !isNaN(current.getTime());
 
     // 시간 추출
@@ -30,17 +19,13 @@ export const DateBottomSheet = ({ type }: DateBottomSheetProps) => {
     const newDate = new Date(
       Date.UTC(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), hours, minutes)
     );
-    console.log(newDate.toISOString());
-    if (type === "start") {
-      setStartDate(newDate.toISOString());
-    } else {
-      setEndDate(newDate.toISOString());
-    }
+
+    onDateChange(newDate.toISOString());
   };
 
   return (
     <DatePickerDrawer onConfirm={handleDateConfirm}>
-      <DateSelector date={type === "start" ? startDate : endDate} />
+      <DateSelector date={selectedDate} />
     </DatePickerDrawer>
   );
 };

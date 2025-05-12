@@ -4,24 +4,21 @@ import { ScheduleRequst } from "./type";
 import { scheduleQueryKey } from "./queryKey";
 
 // 일정 생성 훅
-export const useCreateScheduleMutation = (
-  data: ScheduleRequst,
-  reset: () => void,
-  selectedMonth: Date,
-  selectedDay: Date
-) => {
+export const useCreateScheduleMutation = (data: ScheduleRequst) => {
   const queryClient = useQueryClient();
+
+  const startDate = new Date(data.startDate);
+  const endDate = new Date(data.endDate);
 
   return useMutation({
     mutationFn: () => createSchedule(data),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: scheduleQueryKey.calendar(selectedMonth).queryKey,
+        queryKey: scheduleQueryKey.calendar(startDate).queryKey,
       });
       queryClient.invalidateQueries({
-        queryKey: scheduleQueryKey.list(selectedDay).queryKey,
+        queryKey: scheduleQueryKey.list(endDate).queryKey,
       });
-      reset();
     },
     onError: error => {
       console.error("Error creating schedule:", error);
