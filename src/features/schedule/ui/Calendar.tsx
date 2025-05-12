@@ -1,4 +1,4 @@
-import { useSelectedDateStore } from "@/entities/schedule";
+import { useSelectedDate } from "@/features/schedule/context/SelectedDateContext";
 import { useMemo } from "react";
 import { Link } from "react-router";
 import { CalendarBottomSheet } from "./CalendarBottomSheet";
@@ -23,7 +23,7 @@ const fatigueTagMap: Record<string, { bgColor: string; textColor: string }> = {
 };
 
 export const Calendar = () => {
-  const { selectedMonth, selectedDay, setSelectedMonth, setSelectedDay } = useSelectedDateStore();
+  const { selectedMonth, selectedDay, setSelectedMonth, setSelectedDay } = useSelectedDate();
 
   const { data: scheduleData } = useGetCalendarSchedule(selectedMonth);
 
