@@ -9,7 +9,6 @@ import {
 } from "@/features/mainpage";
 import { useInitSettingQueries } from "@/entities/init_setting";
 import { useIscouple } from "@/entities/iscouple";
-import { useCoupleNickname } from "@/entities/couple_nickname";
 
 const NotConnectedPage = () => {
   return (
