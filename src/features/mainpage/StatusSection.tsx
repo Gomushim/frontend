@@ -21,7 +21,9 @@ const EMOTION_TO_ICON: Record<string, keyof typeof EMOTION_IMAGES> = {
 
 export const StatusSection = ({ isConnected, isInitialized }: StatusSectionProps) => {
   const navigate = useNavigate();
-  const { getCoupleEmotion, getStatusMessage } = useEmotionStatusQueries();
+  const { getCoupleEmotion, getStatusMessage } = useEmotionStatusQueries({
+    enabled: isConnected && isInitialized
+  });
   const emotion = getCoupleEmotion.data?.data?.result?.emotion ?? "";
   const statusMessage = getStatusMessage.data?.data?.result?.statusMessage ?? "";
 

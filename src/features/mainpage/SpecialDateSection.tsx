@@ -6,11 +6,32 @@ import { useAnniversary } from "@/entities/main_anniversary";
 interface SpecialDateSectionProps {
   isConnected: boolean;
   isInitialized: boolean;
+  isLoading?: boolean;
 }
 
-export const SpecialDateSection = ({ isConnected, isInitialized }: SpecialDateSectionProps) => {
-  const { getDday } = useAnniversary();
+export const SpecialDateSection = ({ isConnected, isInitialized, isLoading = false }: SpecialDateSectionProps) => {
+  const { getDday } = useAnniversary({
+    enabled: isConnected && isInitialized
+  });
   const ddayInfo = getDday.data?.result;
+  const isDdayLoading = getDday.isLoading;
+
+  if (isLoading || (isConnected && isInitialized && isDdayLoading)) {
+    return (
+      <div className="relative z-20 -mt-22 px-6">
+        <section className="grid grid-cols-3 gap-5">
+          {[1, 2, 3].map((index) => (
+            <div key={index} className="flex flex-col items-center">
+              <div className="flex w-full max-w-[300px] flex-col items-center justify-center rounded-2xl bg-white p-4">
+                <div className="h-12 w-12 animate-pulse rounded-full bg-gray-200" />
+                <div className="mt-2 h-4 w-16 animate-pulse rounded bg-gray-200" />
+              </div>
+            </div>
+          ))}
+        </section>
+      </div>
+    );
+  }
 
   return (
     <>
