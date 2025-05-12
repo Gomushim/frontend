@@ -20,7 +20,7 @@ export const CalendarDdayList = () => {
   }
 
   const goCreateDdayPage = () => {
-    navigate("/calendar/schedule");
+    navigate("/calendar/dday/new");
   };
 
   const goBack = () => {
