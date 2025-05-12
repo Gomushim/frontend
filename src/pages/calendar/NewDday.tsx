@@ -1,5 +1,5 @@
 // 외부 라이브러리
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router";
 
 // UI 컴포넌트
@@ -37,6 +37,11 @@ export const NewDday = () => {
     date: "",
   };
   const [newDdayState, setNewDdayState] = useState<InitialDday>(initialState);
+
+  // 유효성 검사
+  const isFormValid = useMemo(() => {
+    return newDdayState.title.trim() !== "" && newDdayState.date !== "";
+  }, [newDdayState.title, newDdayState.date]);
 
   // 이벤트 핸들러
   const handleTitleChange = (title: string) => {
@@ -105,7 +110,7 @@ export const NewDday = () => {
           </div>
         </section>
         <section className="fixed bottom-6 left-1/2 w-[375px] -translate-x-1/2 transform px-4">
-          <Button className="w-full" variant="submit" size="xl" onClick={handlePostDday}>
+          <Button className="w-full" variant="submit" size="xl" onClick={handlePostDday} disabled={!isFormValid}>
             확인
           </Button>
         </section>
