@@ -10,7 +10,7 @@ export const CalendarRoot = () => {
       <Suspense fallback={<div>로딩중...</div>}>
         <Calendar />
       </Suspense>
-      <div className="mt-7 flex min-h-[500px] w-full flex-col gap-3 bg-gray-50 p-5">
+      <div className="mt-7 flex min-h-[500px] w-full flex-col gap-3 bg-gray-50 p-5 pb-30">
         <Suspense fallback={<div>로딩중...</div>}>
           <ScheduleCardList />
         </Suspense>
