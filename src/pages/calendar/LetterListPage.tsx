@@ -34,7 +34,7 @@ export const LetterListPage = () => {
           <p className="text-md font-semibold text-gray-500">2</p>
         </section>
         {letterListData.pages.map(page => (
-          <MonthlyLettersView {...page} />
+          <MonthlyLettersView key={page.after} {...page} />
         ))}
         {letterListData.pages.length === 0 && <NoLetterMessage />}
         <div ref={ref} style={{ width: "1px", height: "1px", marginTop: "10px" }} />
