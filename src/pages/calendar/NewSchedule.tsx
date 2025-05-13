@@ -26,7 +26,7 @@ interface InitialSchedule {
   startDate: string;
   endDate: string;
   isAllDay: boolean;
-  fatigue: Fatigue;
+  fatigue: Fatigue | string;
 }
 
 export const CalendarNewSchedule = () => {
@@ -40,7 +40,7 @@ export const CalendarNewSchedule = () => {
     startDate: "",
     endDate: "",
     isAllDay: false,
-    fatigue: Fatigue.GOOD,
+    fatigue: "",
   };
   const [newScheduleState, setNewScheduleState] = useState<InitialSchedule>(initialState);
 
