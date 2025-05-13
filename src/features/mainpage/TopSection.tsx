@@ -99,9 +99,9 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
   const renderContent = () => {
     if (isLoading || isNicknameLoading || (isConnected && isInitializing)) {
       return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-50">
-        <div className="text-lg text-gray-600">로딩 중...</div>
-      </div>
+        <div className="text-lg text-gray-50">
+          로딩 중...
+        </div>
       );
     }
     if (!isConnected) return renderNotConnectedContent();
