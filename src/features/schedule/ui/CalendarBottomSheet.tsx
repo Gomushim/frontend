@@ -1,4 +1,4 @@
-import { DatePickerDrawer } from "@/shared/ui";
+import { DatePickerDrawer } from "@/widgets/datepicker/ui";
 
 interface CalendarBottomSheetProps {
   year: number;

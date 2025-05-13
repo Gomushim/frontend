@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { Button, Input, DatePickerDrawer, ProgressHeader } from "@/shared/ui";
+import { Button, Input, ProgressHeader } from "@/shared/ui";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { formatDateKorean } from "@/shared/utils";
+import { DatePickerDrawer } from "@/widgets/datepicker/ui";
 
 export const FirstMeet: React.FC = () => {
   const navigate = useNavigate();
@@ -44,7 +45,11 @@ export const FirstMeet: React.FC = () => {
       </div>
 
       <div className="p-4">
-        <Button variant={firstMeetDate ? "active" : "inactive"} size="onicon" disabled={!firstMeetDate} onClick={handleNext}>
+        <Button
+          variant={firstMeetDate ? "active" : "inactive"}
+          size="onicon"
+          disabled={!firstMeetDate}
+          onClick={handleNext}>
           다음
         </Button>
       </div>

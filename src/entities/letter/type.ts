@@ -6,7 +6,7 @@ export interface Letter {
   scheduleTitle?: string;
   title: string;
   content: string;
-  imageUrl: string;
+  pictureUrl: string;
   createdAt: string;
   comments: Comment[];
 }

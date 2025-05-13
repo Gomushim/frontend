@@ -1,4 +1,3 @@
-import { DdayCard, NoDdayMessage } from "@/features/d-day/widgets";
 import { Button } from "@/shared/ui";
 import backIcon from "@/assets/icons/back.svg";
 import useIntersect from "@/shared/hooks/useIntersect";
@@ -6,6 +5,7 @@ import { useGetDdayList } from "@/entities/d-day";
 import calendar from "@/assets/icons/calendar.svg";
 import blackHeart from "@/assets/icons/blackHeart.svg";
 import { useNavigate } from "react-router";
+import { DdayCard, NoDdayMessage } from "@/features/d-day/ui";
 
 export const CalendarDdayList = () => {
   const { data: ddayListData, fetchNextPage, isFetched } = useGetDdayList();
@@ -20,7 +20,7 @@ export const CalendarDdayList = () => {
   }
 
   const goCreateDdayPage = () => {
-    navigate("/calendar/schedule");
+    navigate("/calendar/dday/new");
   };
 
   const goBack = () => {

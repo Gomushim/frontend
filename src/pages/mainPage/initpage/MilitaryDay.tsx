@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { Input, DatePickerDrawer, Button, ProgressHeader } from "@/shared/ui";
+import { Input, Button, ProgressHeader } from "@/shared/ui";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { formatDateKorean } from "@/shared/utils";
 import { useInitSettingMutation, useInitSettingQueries } from "@/entities/init_setting";
+import { DatePickerDrawer } from "@/widgets/datepicker/ui";
 
 export const MilitaryDay: React.FC = () => {
-  const { 
-    militaryBranch,
-    firstMeetDate,
-    enlistmentDate, 
-    dischargeDate, 
-    setEnlistmentDate, 
-    setDischargeDate 
-  } = useOnboardingStore();
+  const { militaryBranch, firstMeetDate, enlistmentDate, dischargeDate, setEnlistmentDate, setDischargeDate } =
+    useOnboardingStore();
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const { getCoupleInfo } = useInitSettingQueries();
@@ -54,21 +49,24 @@ export const MilitaryDay: React.FC = () => {
 
     setError(null);
 
-    registerAnniversary({
-      coupleId,
-      relationshipStartDate: firstMeetDate.toISOString().split("T")[0],
-      militaryStartDate: enlistmentDate.toISOString().split("T")[0],
-      militaryEndDate: dischargeDate.toISOString().split("T")[0],
-      military: militaryBranch as "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE",
-    }, {
-      onSuccess: () => {
-        navigate("/mainpage", { replace: true });
+    registerAnniversary(
+      {
+        coupleId,
+        relationshipStartDate: firstMeetDate.toISOString().split("T")[0],
+        militaryStartDate: enlistmentDate.toISOString().split("T")[0],
+        militaryEndDate: dischargeDate.toISOString().split("T")[0],
+        military: militaryBranch as "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE",
       },
-      onError: (error) => {
-        console.error("온보딩 완료 중 오류 발생:", error);
-        setError(error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.");
+      {
+        onSuccess: () => {
+          navigate("/mainpage", { replace: true });
+        },
+        onError: error => {
+          console.error("온보딩 완료 중 오류 발생:", error);
+          setError(error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.");
+        },
       }
-    });
+    );
   };
 
   return (
@@ -113,9 +111,7 @@ export const MilitaryDay: React.FC = () => {
       </div>
 
       <div className="p-4">
-        {error && (
-          <p className="mb-2 text-center text-sm text-red-500">{error}</p>
-        )}
+        {error && <p className="mb-2 text-center text-sm text-red-500">{error}</p>}
         <Button
           variant={enlistmentDate && dischargeDate ? "active" : "inactive"}
           disabled={!enlistmentDate || !dischargeDate || isPending}

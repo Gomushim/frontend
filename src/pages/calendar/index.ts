@@ -3,3 +3,4 @@ export * from "./DdayListPage";
 export * from "./NewSchedule";
 export * from "./ScheduleDetail";
 export * from "./LetterListPage";
+export * from "./NewDday";

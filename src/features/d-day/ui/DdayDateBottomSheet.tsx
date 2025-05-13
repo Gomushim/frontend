@@ -1,15 +1,12 @@
-import { useDdayStore } from "@/entities/d-day";
-import { DatePickerDrawer, DateSelector } from "@/shared/ui";
-import { useShallow } from "zustand/shallow";
+import { DateSelector } from "@/shared/ui";
+import { DatePickerDrawer } from "@/widgets/datepicker/ui";
 
-export const DdayDateBottomSheet = () => {
-  const { date, setDate } = useDdayStore(
-    useShallow(state => ({
-      date: state.dday.date,
-      setDate: state.setDate,
-    }))
-  );
+interface DdayDateBottomSheetProps {
+  selectedDate: string;
+  onDateChange: (date: string) => void;
+}
 
+export const DdayDateBottomSheet = ({ selectedDate, onDateChange }: DdayDateBottomSheetProps) => {
   const handleDateConfirm = (selectedDate: Date) => {
     const current = new Date(selectedDate);
     const isValidCurrent = !isNaN(current.getTime());
@@ -21,17 +18,18 @@ export const DdayDateBottomSheet = () => {
       isValidCurrent ? current.getHours() : 0,
       isValidCurrent ? current.getMinutes() : 0
     );
+
     const yyyy = newDate.getFullYear();
     const mm = String(newDate.getMonth() + 1).padStart(2, "0");
     const dd = String(newDate.getDate()).padStart(2, "0");
 
     const formatted = `${yyyy}-${mm}-${dd}`;
-    setDate(formatted);
+    onDateChange(formatted);
   };
 
   return (
     <DatePickerDrawer onConfirm={handleDateConfirm}>
-      <DateSelector date={date} />
+      <DateSelector date={selectedDate} />
     </DatePickerDrawer>
   );
 };

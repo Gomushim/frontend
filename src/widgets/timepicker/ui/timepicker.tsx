@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Picker from "react-mobile-picker";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from "./drawer";
-import { Button } from "./button";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from "../../../shared/ui/drawer";
+import { Button } from "../../../shared/ui/button";
 
 interface TimePickerDrawerProps {
   onConfirm: (date: { ampm: string; hour: string; minute: string }) => void;

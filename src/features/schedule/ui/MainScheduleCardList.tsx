@@ -1,10 +1,10 @@
-import { useSelectedDateStore } from "@/entities/schedule";
+import { useSelectedDate } from "@/features/schedule/context/SelectedDateContext";
 import { useGetScheduleList } from "@/entities/schedule/query";
 import { ScheduleCard } from "./ScheduleCard";
-import { DdayCard } from "@/features/d-day/widgets";
+import { DdayCard } from "@/features/d-day/ui";
 
 export const MainScheduleCardList = () => {
-  const { selectedDay } = useSelectedDateStore();
+  const { selectedDay } = useSelectedDate();
   const { data: scheduleListData } = useGetScheduleList(selectedDay);
   return (
     <div className="flex flex-col gap-3 px-4">

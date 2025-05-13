@@ -4,6 +4,7 @@ import {
   CalendarNewSchedule,
   CalendarRoot,
   CalendarScheduleDetail,
+  NewDday,
   Login,
   MyPage,
   Birthday,
@@ -24,7 +25,7 @@ import {
   AlarmSettingPage,
   SettingPage,
   DisconnectPage,
-  } from "@/pages";
+} from "@/pages";
 import { createBrowserRouter } from "react-router";
 
 const router = createBrowserRouter([
@@ -35,13 +36,13 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <MainPage /> }, // 메인 홈 화면
       { path: "calendar", element: <CalendarRoot /> }, // 캘린더 메인 화면
-      { path: "calendar/schedule", element: <CalendarNewSchedule /> }, // 일정 생성 페이지
+      { path: "calendar/schedule/new", element: <CalendarNewSchedule /> }, // 일정 생성 페이지
+      { path: "calendar/dday/new", element: <NewDday /> }, // 디데이 생성 페이지
       { path: "calendar/schedule/:scheduleId", element: <CalendarScheduleDetail /> }, // 특정 일정 상세 페이지 (동적 라우팅)
       { path: "calendar/dday", element: <CalendarDdayList /> }, //D-Day 일정 리스트 페이지
       { path: "calendar/letter", element: <LetterListPage /> }, //편지 리스트 페이지
       { path: "calendar/letter/:letter", element: <LetterListPage /> }, //편지 상세 보기 페이지
       { path: "mypage", element: <MyPage /> }, // 마이페이지
-      { path: "mainpage", element: <MainPage /> }, // 메인페이지
       { path: "status", element: <StatusPage /> }, // 상태페이지
       {
         path: "/mypage",
@@ -55,8 +56,8 @@ const router = createBrowserRouter([
           { path: "firstmeetedit", element: <FirstMeetEditPage /> },
           { path: "setting", element: <SettingPage /> },
           { path: "disconnect", element: <DisconnectPage /> },
-          ],
-        },
+        ],
+      },
       {
         path: "/onboarding",
         children: [

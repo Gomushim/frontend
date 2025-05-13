@@ -1,4 +1,4 @@
-import { HTTP_STATUS_CODE } from "../../shared/contant/api";
+import { HTTP_STATUS_CODE } from "../../shared/constants/api";
 
 /** HTTP 통신 시 발생하는 API Error를 별도의 객체로 나타내기 위한 에러 객체입니다. */
 export class HTTPError extends Error {
