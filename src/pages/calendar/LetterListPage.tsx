@@ -26,7 +26,7 @@ export const LetterListPage = () => {
         <Button variant="ghost" size="sIcon" className="absolute top-[70px] left-0">
           <img src={backIcon} alt="뒤로가기" />
         </Button>
-        <h1 className="pt-[70px]">편지</h1>
+        <h1 className="pt-[70px] text-xl font-semibold text-gray-900">편지</h1>
       </header>
       <main className="mt-4.5">
         {letterListData.pages[0].data.length > 0 && (

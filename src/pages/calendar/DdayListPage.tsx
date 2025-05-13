@@ -38,24 +38,27 @@ export const CalendarDdayList = () => {
         <Button variant="ghost" size="sIcon" className="absolute top-[60px] left-0" onClick={goBack}>
           <img src={backIcon} alt="뒤로가기" />
         </Button>
-        <h1 className="pt-[70px] pb-2.5">디데이</h1>
+        <h1 className="pt-[60px] text-xl font-semibold text-gray-900">디데이</h1>
       </header>
-      <main>
-        <div className="mt-4.5 flex items-center justify-between">
-          <div className="items-cente flex gap-2">
-            <img className="h-4.5 w-4.5 pt-1" src={calendar} alt="캘린더 아이콘" />
-            <h2 className="text-xl font-semibold text-gray-900">{coupleNickname?.result.userNickname}</h2>
-            <img src={blackHeart} alt="캘린더 아이콘" />
-            <h2 className="text-xl font-semibold text-gray-900">{coupleNickname?.result.coupleNickname}</h2>
-            <h2 className="text-xl font-semibold text-gray-900">님의 디데이</h2>
-            <p className="text-md font-semibold text-gray-500">
-              {ddayListData.pages.reduce((total, page) => total + page.data.length, 0)}
-            </p>
+      <main className="mt-5">
+        {ddayListData.pages[0].data.length > 0 && (
+          <div className="mt-4.5 flex items-center justify-between">
+            <div className="items-cente flex gap-2">
+              <img className="h-4.5 w-4.5 pt-1" src={calendar} alt="캘린더 아이콘" />
+              <h2 className="text-xl font-semibold text-gray-900">{coupleNickname?.result.userNickname}</h2>
+              <img src={blackHeart} alt="캘린더 아이콘" />
+              <h2 className="text-xl font-semibold text-gray-900">{coupleNickname?.result.coupleNickname}</h2>
+              <h2 className="text-xl font-semibold text-gray-900">님의 디데이</h2>
+              <p className="text-md font-semibold text-gray-500">
+                {ddayListData.pages.reduce((total, page) => total + page.data.length, 0)}
+              </p>
+            </div>
+            <Button variant="square" size="2xs" onClick={goCreateDdayPage}>
+              디데이 추가
+            </Button>
           </div>
-          <Button variant="square" size="2xs" onClick={goCreateDdayPage}>
-            디데이 추가
-          </Button>
-        </div>
+        )}
+
         {ddayListData.pages.map(page =>
           page.data.map(dday => (
             <ul className="mt-6 flex flex-col gap-3">
@@ -63,7 +66,7 @@ export const CalendarDdayList = () => {
             </ul>
           ))
         )}
-        {ddayListData.pages.length === 0 && <NoDdayMessage />}
+        {ddayListData.pages[0].data.length === 0 && <NoDdayMessage />}
         <div ref={ref} style={{ width: "1px", height: "1px", marginTop: "10px" }} />
       </main>
     </div>
