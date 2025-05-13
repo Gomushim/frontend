@@ -13,7 +13,7 @@ interface DetailLetterBottomSheetProps {
   title: string;
   content: string;
   createdAt: string;
-  imageUrl?: string;
+  pictureUrl?: string;
   onEdit?: () => void;
   onDelete?: () => void;
 }
@@ -78,7 +78,7 @@ export const DetailLetterBottomSheet = (props: DetailLetterBottomSheetProps) => 
             {letterDetailData?.result.letter.title}
           </p>
           <p className="rounded-xl bg-gray-50 p-3 text-base font-normal break-words text-gray-900">
-            {letterDetailData?.result.letter.content}sdfkjsndf;klnsdlfnsldfnsdl;fnasldfnlasdnflas;dnfl;asdnflsanflsadnl
+            {letterDetailData?.result.letter.content}
           </p>
           {letterDetailData?.result.pictures.length > 0 && (
             <Carousel opts={{ align: "start" }} className="w-full max-w-sm">
