@@ -123,26 +123,29 @@ export const LetterDetailPage = () => {
         <div className="my-6 h-[1px] bg-[#F6F6F7]" />
 
         {/* 댓글 영역 */}
-        <div className="flex min-h-[350px] flex-col gap-6">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col">
+          <div className="mb-6 flex items-center gap-2">
             <h4 className="text-md font-semibold text-gray-900">댓글</h4>
             <h4 className="text-md font-semibold text-gray-500">{letterDetailData.result.comments.length}</h4>
           </div>
+
           {/* 댓글 리스트 */}
-          {letterDetailData.result.comments.map(comment => (
-            <div key={comment.id} className="flex flex-col gap-1">
-              <div className="flex items-center gap-2">
-                <h5 className="text-xs font-semibold text-gray-900">{comment.author}</h5>
-                <p className="text-xs font-medium text-gray-500">{formatDateFull(comment.createdAt)}</p>
+          <div className="mb-[150px] flex max-h-[450px] flex-col gap-6 overflow-y-auto">
+            {letterDetailData.result.comments.map(comment => (
+              <div key={comment.id} className="flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <h5 className="text-xs font-semibold text-gray-900">{comment.author}</h5>
+                  <p className="text-xs font-medium text-gray-500">{formatDateFull(comment.createdAt)}</p>
+                </div>
+                <p className="text-sm font-medium break-words whitespace-pre-wrap text-gray-900">{comment.content}</p>
               </div>
-              <p className="text-sm font-medium text-gray-900">{comment.content}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* 댓글 입력 폼 */}
         <form
-          className="absolute bottom-0 left-1/2 mx-auto mb-8 max-h-25 w-[375px] -translate-x-1/2 bg-white px-5 shadow-[0px_3px_12px_4px_rgba(218,218,218,0.15)]"
+          className="fixed bottom-0 left-1/2 mx-auto mb-8 max-h-25 w-[375px] -translate-x-1/2 bg-white px-5 shadow-[0px_3px_12px_4px_rgba(218,218,218,0.15)]"
           onSubmit={handleCommentSubmit}>
           <div className="relative flex items-center">
             <Textarea
