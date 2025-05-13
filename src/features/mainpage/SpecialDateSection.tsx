@@ -18,7 +18,7 @@ export const SpecialDateSection = ({ isConnected, isInitialized, isLoading = fal
 
   if (isLoading || (isConnected && isInitialized && isDdayLoading)) {
     return (
-      <div className="flex min-h-[259px] items-center justify-center bg-gray-50">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
         <div className="text-lg text-gray-600">로딩 중...</div>
       </div>
     );
