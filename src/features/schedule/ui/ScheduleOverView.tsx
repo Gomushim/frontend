@@ -6,18 +6,18 @@ import { formatDateFull } from "@/shared/utils";
 
 const statusMap: Record<Fatigue, { bgColor: string; textColor: string; text: string }> = {
   VERY_TIRED: {
-    bgColor: "bg-red-100",
+    bgColor: "bg-[rgba(255,196,231,0.6)]",
     textColor: "text-red-0",
     text: "매우 피곤해요",
   },
   TIRED: {
-    bgColor: "bg-green-500",
-    textColor: "text-green-100",
+    bgColor: "bg-[rgba(191,230,218,0.6)]",
+    textColor: "text-green-500",
     text: "피곤해요",
   },
   GOOD: {
-    bgColor: "bg-green-100",
-    textColor: "text-green-500",
+    bgColor: "bg-[rgba(49,175,137,0.6)]",
+    textColor: "text-green-800",
     text: "괜찮아요",
   },
 };
@@ -26,7 +26,7 @@ export const ScheduleOverView = (props: ScheduleOverViewProps) => {
   const { bgColor, textColor, text } = statusMap[props.fatigue as Fatigue];
 
   const changedStartDate = formatDateFull(props.startDate);
-  const changedEndDate = formatDateFull(props.startDate);
+  const changedEndDate = formatDateFull(props.endDate);
 
   return (
     <div className="overflow-hidden rounded-2xl bg-white">

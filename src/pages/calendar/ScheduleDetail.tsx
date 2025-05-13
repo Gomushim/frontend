@@ -51,7 +51,7 @@ export const CalendarScheduleDetail = () => {
         <ScheduleOverView {...rest} />
       </div>
       <main>
-        <section className="mt-6 bg-gray-50 px-[22px] py-6">
+        <section className="mt-6 min-h-[calc(100vh-200px)] bg-gray-50 px-[22px] py-6">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-2">
               <img className="pb-1" src={letterIcon} alt="편지" />
