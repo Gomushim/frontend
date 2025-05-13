@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 
 // UI
 import { Button, Textarea } from "@/shared/ui";
-import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui";
 
 // 유틸
 import { formatDateFull, formatDateKoreanWithWeekday } from "@/shared/utils";

@@ -14,3 +14,4 @@ export * from "./timeSelectBox";
 export * from "./dateSelectBox";
 export * from "./shadcnInput";
 export * from "./textarea";
+export * from "./carousel";

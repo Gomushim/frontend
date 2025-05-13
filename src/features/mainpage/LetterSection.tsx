@@ -2,7 +2,7 @@ import { MainHeader } from "./ui/MainHeader";
 import LetterIcon from "@/assets/images/letter.svg";
 import LetterGreenIcon from "@/assets/images/letter_green.svg";
 import { useGetLetterListMain } from "@/entities/main_letter/queries";
-import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui";
 import { formatDateDot } from "@/shared/utils/date/formatdate";
 import { useNavigate } from "react-router";
 

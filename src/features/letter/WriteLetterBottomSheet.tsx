@@ -1,6 +1,6 @@
 import { useState, useRef, ChangeEvent, FormEvent } from "react";
 import { Button, Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger, SInput, Textarea } from "@/shared/ui";
-import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui";
 import crossDeleteIcon from "@/assets/icons/crossDelete.svg";
 import { useLetterMutation } from "@/entities/letter/mutation";
 import { useParams } from "react-router";
