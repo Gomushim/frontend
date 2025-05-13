@@ -31,8 +31,10 @@ export const formatDateKorean = (date: Date): string => {
   return `${year}년 ${month}월 ${day}일`;
 };
 
-export const formatDateKoreanWithWeekday = (date: Date): string => {
+export const formatDateKoreanWithWeekday = (newDate: Date | string): string => {
   // 2025년 06월 05일 금요일
+  const date = new Date(newDate);
+
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
