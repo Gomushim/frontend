@@ -5,6 +5,7 @@ import crossDeleteIcon from "@/assets/icons/crossDelete.svg";
 import { useLetterMutation } from "@/entities/letter/mutation";
 import { useParams } from "react-router";
 import { useToggle } from "@/shared/hooks";
+import { formatDateKoreanWithWeekday } from "@/shared/utils";
 
 export const WriteLetterBottomSheet = () => {
   const [images, setImages] = useState<File[]>([]);
@@ -42,12 +43,24 @@ export const WriteLetterBottomSheet = () => {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
+    const title = formData.get("title") as string;
+    const content = formData.get("content") as string;
+
+    if (!title.trim()) {
+      alert("제목을 입력해주세요.");
+      return;
+    }
+
+    if (!content.trim()) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
 
     const upsertLetterRequest = {
       letterId: null,
       scheduleId: scheduleId || "",
-      title: formData.get("title"),
-      content: formData.get("content"),
+      title,
+      content,
     };
     const finalFormData = new FormData();
 
@@ -88,10 +101,11 @@ export const WriteLetterBottomSheet = () => {
             <Button
               type="button"
               variant="ghost"
-              className="hover:bg-gray-0 p-0 text-sm font-semibold text-green-600 hover:text-green-700">
+              className="hover:bg-gray-0 p-0 text-sm font-semibold text-green-600 hover:text-green-700"
+              onClick={onToggle}>
               취소
             </Button>
-            <DrawerTitle>2025년 6월 5일 목요일</DrawerTitle>
+            <DrawerTitle>{formatDateKoreanWithWeekday(new Date())}</DrawerTitle>
             <Button
               type="submit"
               variant="ghost"
