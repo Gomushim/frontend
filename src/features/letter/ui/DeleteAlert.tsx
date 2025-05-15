@@ -20,12 +20,7 @@ export const DeleteAlert = (props: DeleteAlertProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <InfoCard.Option
-          onClick={e => {
-            e.stopPropagation();
-          }}>
-          삭제
-        </InfoCard.Option>
+        <InfoCard.Option>삭제</InfoCard.Option>
       </AlertDialogTrigger>
       <AlertDialogContent className="w-70">
         <AlertDialogHeader>

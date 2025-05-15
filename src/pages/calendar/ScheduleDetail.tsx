@@ -58,7 +58,11 @@ export const CalendarScheduleDetail = () => {
               <h2 className="text-xl font-semibold text-gray-900">작성된 편지</h2>
               <p className="text-md font-semibold text-gray-500">{letters.length}</p>
             </div>
-            <WriteLetterBottomSheet />
+            <WriteLetterBottomSheet>
+              <Button variant="square" size="2xs">
+                편지 작성하기
+              </Button>
+            </WriteLetterBottomSheet>
           </div>
           {letters.length === 0 && <NoLetterMessage />}
           <LetterList letters={letters} />

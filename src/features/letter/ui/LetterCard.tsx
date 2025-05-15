@@ -13,6 +13,7 @@ import { formatDateFull } from "@/shared/utils";
 
 // 타입
 import { MouseEvent } from "react";
+import { WriteLetterBottomSheet } from "../WriteLetterBottomSheet";
 
 interface LetterCardProps {
   letterId: string;
@@ -33,7 +34,9 @@ export const LetterCard = (props: LetterCardProps) => {
   const { mutate } = useDeleteLetterMutation(scheduleId || "", props.letterId);
 
   // 이벤트 핸들러
-  const handleClick = () => {
+  const handleClick = (event: MouseEvent) => {
+    const tagName = (event.target as HTMLElement).tagName.toLowerCase();
+    if (["button", "input", "textarea", "svg", "path"].includes(tagName)) return;
     navigate(`/calendar/schedule/${scheduleId}/letter/${props.letterId}`);
   };
 
@@ -54,22 +57,18 @@ export const LetterCard = (props: LetterCardProps) => {
       <InfoCard.Content className="flex-col">
         <div className="flex items-center gap-4">
           {props.pictureUrl && <InfoCard.Image imageUrl={props.pictureUrl} />}
-
           <div className="flex flex-col items-start gap-2">
             <InfoCard.Title>{props.title}</InfoCard.Title>
-
             <InfoCard.Text>{props.content}</InfoCard.Text>
           </div>
         </div>
-
         <div className="mt-3 flex justify-between">
           <InfoCard.Text>{formatDateFull(props.createdAt)}</InfoCard.Text>
-
           <InfoCard.Options className="items-center">
-            <InfoCard.Option>편집</InfoCard.Option>
-
+            <WriteLetterBottomSheet title={props.title} content={props.content} letterId={props.letterId}>
+              <InfoCard.Option>편집</InfoCard.Option>
+            </WriteLetterBottomSheet>
             <span className="align-middl inline-block h-3 w-[1.5px] bg-gray-300" />
-
             <DeleteAlert onDelete={handleDelete} />
           </InfoCard.Options>
         </div>

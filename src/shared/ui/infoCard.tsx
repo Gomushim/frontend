@@ -7,7 +7,7 @@ interface InfoCardProps {
   circleColor?: string;
   className?: string;
   selected?: string;
-  onClick?: () => void;
+  onClick?: MouseEventHandler;
 }
 
 interface InfoCardContentProps {
