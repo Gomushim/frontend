@@ -2,7 +2,7 @@ import { useState, useRef, ChangeEvent, FormEvent } from "react";
 import { Button, Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger, SInput, Textarea } from "@/shared/ui";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui";
 import crossDeleteIcon from "@/assets/icons/crossDelete.svg";
-import { useLetterMutation } from "@/entities/letter/mutation";
+import { useCreateLetterMutation } from "@/entities/letter/mutation";
 import { useParams } from "react-router";
 import { useToggle } from "@/shared/hooks";
 import { formatDateKoreanWithWeekday } from "@/shared/utils";
@@ -14,7 +14,7 @@ export const WriteLetterBottomSheet = () => {
   const { isToggle, onToggle } = useToggle();
 
   const { scheduleId } = useParams<{ scheduleId: string }>();
-  const { mutate } = useLetterMutation("post", scheduleId);
+  const { mutate } = useCreateLetterMutation(scheduleId || "");
 
   // 이미지 선택 시 처리
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
