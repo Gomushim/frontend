@@ -48,7 +48,7 @@ interface OptionButtonsProps {
 }
 
 interface OptionProps {
-  onClick?: () => void;
+  onClick?: MouseEventHandler;
   className?: string;
   children: ReactNode;
 }

@@ -15,3 +15,4 @@ export * from "./dateSelectBox";
 export * from "./shadcnInput";
 export * from "./textarea";
 export * from "./carousel";
+export * from "./alert-dialog";

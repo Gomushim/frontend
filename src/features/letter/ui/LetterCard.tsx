@@ -1,15 +1,14 @@
 import { InfoCard } from "@/shared/ui";
 import { formatDateFull } from "@/shared/utils";
 import { useNavigate, useParams } from "react-router";
-
+import { DeleteAlert } from "./DeleteAlert";
+import { MouseEvent } from "react";
 interface LetterCardProps {
   letterId: string;
   title: string;
   content: string;
   createdAt: string;
   pictureUrl?: string;
-  onEdit?: () => void;
-  onDelete?: () => void;
 }
 
 export const LetterCard = (props: LetterCardProps) => {
@@ -18,6 +17,11 @@ export const LetterCard = (props: LetterCardProps) => {
 
   const handleClick = () => {
     navigate(`/calendar/schedule/${scheduleId}/letter/${props.letterId}`);
+  };
+
+  const handleDelete = (e: MouseEvent) => {
+    e.stopPropagation();
+    console.log("delete");
   };
 
   return (
@@ -32,7 +36,11 @@ export const LetterCard = (props: LetterCardProps) => {
         </div>
         <div className="mt-3 flex justify-between">
           <InfoCard.Text>{formatDateFull(props.createdAt)}</InfoCard.Text>
-          <InfoCard.Option />
+          <InfoCard.Options className="items-center">
+            <InfoCard.Option>편집</InfoCard.Option>
+            <span className="align-middl inline-block h-3 w-[1.5px] bg-gray-300" />
+            <DeleteAlert onDelete={handleDelete} />
+          </InfoCard.Options>
         </div>
       </InfoCard.Content>
     </InfoCard>
