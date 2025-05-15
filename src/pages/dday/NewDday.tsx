@@ -24,9 +24,6 @@ export const NewDday = () => {
   // 라우터 훅
   const navigate = useNavigate();
 
-  // API 훅
-  const { mutate: ddayMutate } = useDdayMutation("post");
-
   // 상태
   const initialState: InitialDday = {
     id: null,
@@ -34,6 +31,9 @@ export const NewDday = () => {
     date: "",
   };
   const [newDdayState, setNewDdayState] = useState<InitialDday>(initialState);
+
+  // API 훅
+  const { mutate: ddayMutate } = useDdayMutation(newDdayState);
 
   // 유효성 검사
   const isFormValid = useMemo(() => {
@@ -56,7 +56,7 @@ export const NewDday = () => {
   };
 
   const handlePostDday = async () => {
-    ddayMutate(newDdayState, {
+    ddayMutate(undefined, {
       onSuccess: () => {
         alert("디데이가 생성되었습니다.");
         navigate(-1);
