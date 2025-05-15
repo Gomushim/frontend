@@ -1,5 +1,5 @@
 import { api } from "../axios/instance";
-import { LetterDetailResponse, LetterListResponse, WriteLetterResponse } from "./type";
+import { LetterDetailResponse, LetterListResponse, UpdateLetterRequest, WriteLetterResponse } from "./type";
 
 export const createLetter = async (data: FormData): Promise<WriteLetterResponse> => {
   const response = await api.post<WriteLetterResponse>("/schedules/letters", data, {
@@ -24,5 +24,10 @@ export const getLetterList = async ({ page, size }: { page: number; size: number
 
 export const deleteLetter = async (scheduleId: string, letterId: string) => {
   const response = await api.delete(`/schedules/${scheduleId}/letters/${letterId}`);
+  return response.data;
+};
+
+export const updateLetter = async (scheduleId: string, letterId: string, data: UpdateLetterRequest) => {
+  const response = await api.put("/schedules/letters", data);
   return response.data;
 };
