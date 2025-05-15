@@ -21,3 +21,8 @@ export const getLetterList = async ({ page, size }: { page: number; size: number
   });
   return response.data;
 };
+
+export const deleteLetter = async (scheduleId: string, letterId: string) => {
+  const response = await api.delete(`/schedules/${scheduleId}/letters/${letterId}`);
+  return response.data;
+};

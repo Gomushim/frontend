@@ -3,6 +3,7 @@ import { formatDateFull } from "@/shared/utils";
 import { useNavigate, useParams } from "react-router";
 import { DeleteAlert } from "./DeleteAlert";
 import { MouseEvent } from "react";
+import { useDeleteLetterMutation } from "@/entities/letter/mutation";
 interface LetterCardProps {
   letterId: string;
   title: string;
@@ -15,13 +16,23 @@ export const LetterCard = (props: LetterCardProps) => {
   const { scheduleId } = useParams<{ scheduleId: string }>();
   const navigate = useNavigate();
 
+  const { mutate } = useDeleteLetterMutation(scheduleId || "", props.letterId);
+
   const handleClick = () => {
     navigate(`/calendar/schedule/${scheduleId}/letter/${props.letterId}`);
   };
 
   const handleDelete = (e: MouseEvent) => {
     e.stopPropagation();
-    console.log("delete");
+
+    mutate(undefined, {
+      onSuccess: () => {
+        alert("편지가 삭제되었습니다.");
+      },
+      onError: error => {
+        console.error(error);
+      },
+    });
   };
 
   return (
