@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 
 // UI 컴포넌트
 import { Button, Divider, Topbar } from "@/shared/ui";
-import { DdayDateBottomSheet, EmojiSelector } from "@/features/d-day/ui";
+import { DdayDateBottomSheet } from "@/features/d-day/ui";
 import { TitleInput } from "@/features/schedule";
 
 // 아이콘
@@ -12,13 +12,11 @@ import backIcon from "@/assets/icons/back.svg";
 
 // 타입 및 API
 import { useDdayMutation } from "@/entities/d-day";
-import { Emoji } from "@/entities/d-day/model/types";
 
 // 타입 정의
 interface InitialDday {
   id: number | null;
   title: string;
-  emoji: Emoji;
   date: string;
 }
 
@@ -33,7 +31,6 @@ export const NewDday = () => {
   const initialState: InitialDday = {
     id: null,
     title: "",
-    emoji: Emoji.HEART,
     date: "",
   };
   const [newDdayState, setNewDdayState] = useState<InitialDday>(initialState);
@@ -48,13 +45,6 @@ export const NewDday = () => {
     setNewDdayState(prev => ({
       ...prev,
       title,
-    }));
-  };
-
-  const handleEmojiChange = (emoji: Emoji) => {
-    setNewDdayState(prev => ({
-      ...prev,
-      emoji,
     }));
   };
 
@@ -100,10 +90,6 @@ export const NewDday = () => {
         </section>
         <Divider thickness="h-px" color="bg-gray-100" />
         <section className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <h3 className="text-xl font-semibold text-gray-900">이모티콘</h3>
-            <EmojiSelector selectedEmoji={newDdayState.emoji} onEmojiChange={handleEmojiChange} />
-          </div>
           <div className="flex flex-col gap-2">
             <h3 className="text-xl font-semibold text-gray-900">날짜</h3>
             <DdayDateBottomSheet selectedDate={newDdayState.date} onDateChange={handleDateChange} />
