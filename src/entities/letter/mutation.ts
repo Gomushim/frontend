@@ -41,11 +41,11 @@ export const useDeleteLetterMutation = (scheduleId: string, letterId: string) =>
   });
 };
 
-export const useUpdateLetterMutation = (scheduleId: string, letterId: string) => {
+export const useUpdateLetterMutation = (scheduleId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: UpdateLetterRequest) => await updateLetter(scheduleId, letterId, data),
+    mutationFn: async (data: UpdateLetterRequest) => await updateLetter(data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: letterQueryKey.list().queryKey,

@@ -27,7 +27,7 @@ export const deleteLetter = async (scheduleId: string, letterId: string) => {
   return response.data;
 };
 
-export const updateLetter = async (scheduleId: string, letterId: string, data: UpdateLetterRequest) => {
+export const updateLetter = async (data: UpdateLetterRequest) => {
   const response = await api.put("/schedules/letters", data);
   return response.data;
 };

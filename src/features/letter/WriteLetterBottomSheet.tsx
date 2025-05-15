@@ -36,7 +36,7 @@ export const WriteLetterBottomSheet = ({
   const { isToggle, onToggle } = useToggle();
   const { scheduleId } = useParams<{ scheduleId: string }>();
   const { mutate } = useCreateLetterMutation(scheduleId || "");
-  const { mutate: updateMutate } = useUpdateLetterMutation(scheduleId || "", letterId || "");
+  const { mutate: updateMutate } = useUpdateLetterMutation(scheduleId || "");
 
   // 이미지 선택 시 처리
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
