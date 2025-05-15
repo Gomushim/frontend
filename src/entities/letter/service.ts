@@ -15,16 +15,9 @@ export const getLetterDetail = async (scheduleId: string, letterId: string): Pro
   return response.data;
 };
 
-export const getLetterList = async ({
-  orderCreatedAt,
-  take,
-}: {
-  key: number;
-  orderCreatedAt: "asc" | "desc";
-  take: number;
-}): Promise<LetterListResponse> => {
+export const getLetterList = async ({ page, size }: { page: number; size: number }): Promise<LetterListResponse> => {
   const response = await api.get<LetterListResponse>("/schedules/letters", {
-    params: { orderCreatedAt: orderCreatedAt, take: take },
+    params: { page: page, size: size },
   });
   return response.data;
 };

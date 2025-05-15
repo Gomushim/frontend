@@ -4,7 +4,7 @@ import { Fatigue } from "@/entities/schedule/type";
 import { useToggle } from "@/shared/hooks";
 
 interface FatigueBottomSheetProps {
-  selectedFatigue: Fatigue;
+  selectedFatigue: Fatigue | string;
   onFatigueChange: (fatigue: Fatigue) => void;
 }
 
@@ -22,7 +22,7 @@ export const FatigueBottomSheet = ({ selectedFatigue, onFatigueChange }: Fatigue
   return (
     <Drawer open={isToggle} onOpenChange={onToggle}>
       <DrawerTrigger asChild>
-        <Button variant="square" size="2xs">
+        <Button variant="square" size="2xs" className={`${selectedFatigue !== "" ? "bg-green-500" : ""}`}>
           피로도 선택하기
         </Button>
       </DrawerTrigger>

@@ -11,9 +11,8 @@ export const useGetLetterList = () => {
     ...letterQueryKey.list(),
     queryFn: async ({ pageParam = 1 }) => {
       return getLetterList({
-        key: pageParam,
-        orderCreatedAt: "desc",
-        take: 10,
+        page: pageParam,
+        size: 10,
       });
     },
     initialPageParam: 1,
