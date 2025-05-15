@@ -1,5 +1,5 @@
 import { DateText } from "@/shared/ui";
-import { ScheduleOverViewProps } from "../type";
+import { ScheduleOverViewProps } from "../model";
 import tripleArrow from "@/assets/icons/tripleArrow.svg";
 import { Fatigue } from "@/entities/schedule";
 import { formatDateFull } from "@/shared/utils";
