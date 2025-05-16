@@ -8,37 +8,39 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  InfoCard,
 } from "@/shared/ui";
 import { MouseEvent } from "react";
 
 interface DeleteAlertProps {
+  children: React.ReactNode;
   onDelete: (e: MouseEvent) => void;
+  title: string;
+  description: string;
+  buttonText: string;
+  cancelText: string;
 }
 
 export const DeleteAlert = (props: DeleteAlertProps) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <InfoCard.Option>삭제</InfoCard.Option>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>{props.children}</AlertDialogTrigger>
       <AlertDialogContent className="w-70">
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-center text-lg font-semibold">편지 삭제</AlertDialogTitle>
+          <AlertDialogTitle className="text-center text-lg font-semibold">{props.title}</AlertDialogTitle>
           <AlertDialogDescription className="text-center text-sm font-normal text-gray-400">
-            정말 편지를 삭제하시겠어요?
+            {props.description}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="flex-row !justify-center">
           <AlertDialogCancel
             className="w-[50%] bg-gray-200 pt-3 text-base font-semibold text-white hover:bg-gray-300 hover:text-white"
             onClick={e => e.stopPropagation()}>
-            취소
+            {props.cancelText}
           </AlertDialogCancel>
           <AlertDialogAction
             className="hover:bg-gray-1000 w-[50%] bg-gray-900 pt-3 text-base font-semibold text-white hover:text-white"
             onClick={props.onDelete}>
-            삭제
+            {props.buttonText}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

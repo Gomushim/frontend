@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router";
 import { useDeleteLetterMutation } from "@/entities/letter/mutation";
 
 // UI
-import { DeleteAlert } from "./DeleteAlert";
+import { DeleteAlert } from "../../../shared/ui/deleteAlert";
 import { InfoCard } from "@/shared/ui";
 
 // 유틸
@@ -69,7 +69,14 @@ export const LetterCard = (props: LetterCardProps) => {
               <InfoCard.Option>편집</InfoCard.Option>
             </WriteLetterBottomSheet>
             <span className="align-middl inline-block h-3 w-[1.5px] bg-gray-300" />
-            <DeleteAlert onDelete={handleDelete} />
+            <DeleteAlert
+              onDelete={handleDelete}
+              title="편지 삭제"
+              description="정말 편지를 삭제하시겠어요?"
+              buttonText="삭제"
+              cancelText="취소">
+              <InfoCard.Option>삭제</InfoCard.Option>
+            </DeleteAlert>
           </InfoCard.Options>
         </div>
       </InfoCard.Content>
