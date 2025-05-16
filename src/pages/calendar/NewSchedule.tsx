@@ -15,7 +15,7 @@ import {
   TimeBottomSheet,
   TitleInput,
 } from "@/features/schedule/ui";
-import { useCreateScheduleMutation, useDeleteScheduleMutation } from "@/entities/schedule";
+import { useCreateScheduleMutation, useDeleteScheduleMutation, useUpdateScheduleMutation } from "@/entities/schedule";
 import { useScheduleForm, useInitializeScheduleFormFromCache } from "@/features/schedule/hooks";
 
 export const CalendarNewSchedule = () => {
@@ -32,17 +32,27 @@ export const CalendarNewSchedule = () => {
   // API 훅
   const { mutate } = useCreateScheduleMutation(form);
   const { mutate: deleteMutate } = useDeleteScheduleMutation(scheduleId!, form);
+  const { mutate: updateMutate } = useUpdateScheduleMutation(form);
 
   const handlePostSchedule = async () => {
-    mutate(undefined, {
-      onSuccess: () => {
-        alert("일정이 생성되었습니다.");
-        navigate("/calendar");
-      },
-      onError: error => {
-        console.log(error);
-      },
-    });
+    if (isEditMode) {
+      updateMutate(undefined, {
+        onSuccess: () => {
+          alert("일정이 변경되었습니다.");
+          navigate("/calendar");
+        },
+        onError: error => {
+          console.log(error);
+        },
+      });
+    } else {
+      mutate(undefined, {
+        onSuccess: () => {
+          alert("일정이 생성되었습니다.");
+          navigate("/calendar");
+        },
+      });
+    }
   };
 
   const handleDelete = () => {
@@ -125,7 +135,7 @@ export const CalendarNewSchedule = () => {
             size="xl"
             onClick={handlePostSchedule}
             disabled={!isValid}>
-            확인
+            완료
           </Button>
         </section>
       </main>

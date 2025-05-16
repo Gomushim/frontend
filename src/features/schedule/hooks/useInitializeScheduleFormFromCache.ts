@@ -12,8 +12,9 @@ export const useInitializeScheduleFormFromCache = (
     const cachedData = queryClient.getQueryData<{ result: InitialSchedule }>(["schedule", "detail", id]);
 
     if (cachedData && "result" in cachedData) {
-      const { title, fatigue, startDate, endDate, isAllDay } = (cachedData as any).result;
+      const { id, title, fatigue, startDate, endDate, isAllDay } = (cachedData as any).result;
 
+      updateField("id", id);
       updateField("title", title);
       updateField("fatigue", fatigue);
       updateField("startDate", startDate);
