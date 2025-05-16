@@ -37,3 +37,8 @@ export const getWeekSchedule = async (): Promise<ScheduleListResponse> => {
   const response = await api.get<ScheduleListResponse>("/schedules/week");
   return response.data;
 };
+
+export const deleteSchedule = async (scheduleId: string): Promise<void> => {
+  const response = await api.delete<void>(`/schedules/${scheduleId}`);
+  return response.data;
+};

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createSchedule } from "./service";
+import { createSchedule, deleteSchedule } from "./service";
 import { ScheduleRequst } from "./type";
 import { scheduleQueryKey } from "./queryKey";
 
@@ -15,6 +15,34 @@ export const useCreateScheduleMutation = (data: ScheduleRequst) => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: scheduleQueryKey.calendar(startDate).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.list(startDate).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.list(endDate).queryKey,
+      });
+    },
+    onError: error => {
+      console.error("Error creating schedule:", error);
+    },
+  });
+};
+
+export const useDeleteScheduleMutation = (scheduleId: string, data: ScheduleRequst) => {
+  const queryClient = useQueryClient();
+
+  const startDate = new Date(data.startDate);
+  const endDate = new Date(data.endDate);
+
+  return useMutation({
+    mutationFn: () => deleteSchedule(scheduleId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.calendar(startDate).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.list(startDate).queryKey,
       });
       queryClient.invalidateQueries({
         queryKey: scheduleQueryKey.list(endDate).queryKey,

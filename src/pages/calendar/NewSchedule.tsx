@@ -2,7 +2,7 @@
 import { useNavigate, useParams } from "react-router";
 
 // UI
-import { Button, Divider, Topbar } from "@/shared/ui";
+import { Button, DeleteAlert, Divider, Topbar } from "@/shared/ui";
 
 // 아이콘
 import backIcon from "@/assets/icons/back.svg";
@@ -15,7 +15,7 @@ import {
   TimeBottomSheet,
   TitleInput,
 } from "@/features/schedule/ui";
-import { useCreateScheduleMutation } from "@/entities/schedule";
+import { useCreateScheduleMutation, useDeleteScheduleMutation } from "@/entities/schedule";
 import { useScheduleForm, useInitializeScheduleFormFromCache } from "@/features/schedule/hooks";
 
 export const CalendarNewSchedule = () => {
@@ -26,12 +26,12 @@ export const CalendarNewSchedule = () => {
 
   // 스케쥴 폼 훅
   const { form, updateField, isValid } = useScheduleForm();
-  console.log(form);
 
   useInitializeScheduleFormFromCache(scheduleId!, updateField);
 
   // API 훅
   const { mutate } = useCreateScheduleMutation(form);
+  const { mutate: deleteMutate } = useDeleteScheduleMutation(scheduleId!, form);
 
   const handlePostSchedule = async () => {
     mutate(undefined, {
@@ -41,6 +41,15 @@ export const CalendarNewSchedule = () => {
       },
       onError: error => {
         console.log(error);
+      },
+    });
+  };
+
+  const handleDelete = () => {
+    deleteMutate(undefined, {
+      onSuccess: () => {
+        alert("일정이 삭제되었습니다.");
+        navigate("/calendar");
       },
     });
   };
@@ -96,8 +105,26 @@ export const CalendarNewSchedule = () => {
           <h3 className="text-xl font-semibold text-gray-900">피로도 선택</h3>
           <FatigueBottomSheet selectedFatigue={form.fatigue} onFatigueChange={value => updateField("fatigue", value)} />
         </section>
-        <section className="fixed bottom-6 left-1/2 w-[375px] -translate-x-1/2 transform px-4">
-          <Button className="w-full" variant="submit" size="xl" onClick={handlePostSchedule} disabled={!isValid}>
+        <section
+          className={`fixed bottom-6 left-1/2 w-[375px] -translate-x-1/2 transform px-4 ${isEditMode && "flex justify-center gap-3"}`}>
+          {isEditMode && (
+            <DeleteAlert
+              onDelete={handleDelete}
+              title="편지 삭제"
+              description="정말 편지를 삭제하시겠어요?"
+              buttonText="삭제"
+              cancelText="취소">
+              <Button className="w-[50%]" variant="delete" size="xl" disabled={!isValid}>
+                삭제
+              </Button>
+            </DeleteAlert>
+          )}
+          <Button
+            className={`w-full ${isEditMode && "w-[50%]"}`}
+            variant="submit"
+            size="xl"
+            onClick={handlePostSchedule}
+            disabled={!isValid}>
             확인
           </Button>
         </section>

@@ -1,5 +1,5 @@
 import { api } from "../axios/instance";
-import { DDayListResponse, DdayRequst, MainDdayListResponse, NewDdayResponse } from "./type";
+import { DDayListResponse, DdayRequst, MainDdayListResponse, NewDdayResponse } from "./model";
 
 export const createDday = async (data: DdayRequst): Promise<NewDdayResponse> => {
   const response = await api.post<NewDdayResponse>("/couple/new-anniversary", data);

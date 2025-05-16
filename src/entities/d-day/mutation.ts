@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createDday } from "./service";
-import { DdayRequst } from "./type";
+import { DdayRequst } from "./model";
 import { ddayQueryKey } from "./queryKey";
 import { scheduleQueryKey } from "../schedule/queryKey";
 
