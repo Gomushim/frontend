@@ -47,3 +47,13 @@ export interface LetterListResponse {
   count: number;
   isLastPage: boolean;
 }
+
+export interface UpdateLetterRequest {
+  upsertLetterRequest: {
+    letterId: string | null;
+    scheduleId: string;
+    title: string;
+    content: string;
+  };
+  pictures?: string[];
+}

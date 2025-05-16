@@ -12,31 +12,30 @@ import backIcon from "@/assets/icons/back.svg";
 
 // 타입 및 API
 import { useDdayMutation } from "@/entities/d-day";
-import { Emoji } from "@/entities/d-day/model/types";
-
+import { Emoji } from "@/entities/d-day";
 // 타입 정의
 interface InitialDday {
   id: number | null;
   title: string;
-  emoji: Emoji;
   date: string;
+  emoji: Emoji;
 }
 
 export const NewDday = () => {
   // 라우터 훅
   const navigate = useNavigate();
 
-  // API 훅
-  const { mutate: ddayMutate } = useDdayMutation("post");
-
   // 상태
   const initialState: InitialDday = {
     id: null,
     title: "",
-    emoji: Emoji.HEART,
     date: "",
+    emoji: Emoji.HEART,
   };
   const [newDdayState, setNewDdayState] = useState<InitialDday>(initialState);
+
+  // API 훅
+  const { mutate: ddayMutate } = useDdayMutation(newDdayState);
 
   // 유효성 검사
   const isFormValid = useMemo(() => {
@@ -51,13 +50,6 @@ export const NewDday = () => {
     }));
   };
 
-  const handleEmojiChange = (emoji: Emoji) => {
-    setNewDdayState(prev => ({
-      ...prev,
-      emoji,
-    }));
-  };
-
   const handleDateChange = (date: string) => {
     setNewDdayState(prev => ({
       ...prev,
@@ -65,8 +57,15 @@ export const NewDday = () => {
     }));
   };
 
+  const handleEmojiChange = (emoji: Emoji) => {
+    setNewDdayState(prev => ({
+      ...prev,
+      emoji,
+    }));
+  };
+
   const handlePostDday = async () => {
-    ddayMutate(newDdayState, {
+    ddayMutate(undefined, {
       onSuccess: () => {
         alert("디데이가 생성되었습니다.");
         navigate(-1);

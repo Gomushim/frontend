@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createSchedule } from "./service";
+import { createSchedule, deleteSchedule, updateSchedule } from "./service";
 import { ScheduleRequst } from "./type";
 import { scheduleQueryKey } from "./queryKey";
 
@@ -17,6 +17,9 @@ export const useCreateScheduleMutation = (data: ScheduleRequst) => {
         queryKey: scheduleQueryKey.calendar(startDate).queryKey,
       });
       queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.list(startDate).queryKey,
+      });
+      queryClient.invalidateQueries({
         queryKey: scheduleQueryKey.list(endDate).queryKey,
       });
     },
@@ -26,22 +29,52 @@ export const useCreateScheduleMutation = (data: ScheduleRequst) => {
   });
 };
 
-// export const useUpdateScheduleMutation = (data: ScheduleRequst) => {
-//   const queryClient = useQueryClient();
-//   const { selectedMonth, selectedDay } = useSelectedDateStore();
+export const useDeleteScheduleMutation = (scheduleId: string, data: ScheduleRequst) => {
+  const queryClient = useQueryClient();
 
-//   return useMutation({
-//     mutationFn: () => updateSchedule(data),
-//     onSuccess: () => {
-//       queryClient.invalidateQueries({
-//         queryKey: scheduleQueryKey.calendar(selectedMonth).queryKey,
-//       });
-//       queryClient.invalidateQueries({
-//         queryKey: scheduleQueryKey.list(selectedDay).queryKey,
-//       });
-//     },
-//     onError: error => {
-//       console.error("Error updating schedule:", error);
-//     },
-//   });
-// };
+  const startDate = new Date(data.startDate);
+  const endDate = new Date(data.endDate);
+
+  return useMutation({
+    mutationFn: () => deleteSchedule(scheduleId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.calendar(startDate).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.list(startDate).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.list(endDate).queryKey,
+      });
+    },
+    onError: error => {
+      console.error("Error creating schedule:", error);
+    },
+  });
+};
+
+export const useUpdateScheduleMutation = (data: ScheduleRequst) => {
+  const queryClient = useQueryClient();
+
+  const startDate = new Date(data.startDate);
+  const endDate = new Date(data.endDate);
+
+  return useMutation({
+    mutationFn: () => updateSchedule(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.calendar(startDate).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.list(startDate).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.list(endDate).queryKey,
+      });
+    },
+    onError: error => {
+      console.error("Error updating schedule:", error);
+    },
+  });
+};

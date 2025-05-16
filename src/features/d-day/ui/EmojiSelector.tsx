@@ -1,9 +1,9 @@
-import { Emoji } from "@/entities/d-day/model/types";
 import heart from "@/assets/icons/heart.svg";
 import calendar from "@/assets/icons/calendar.svg";
 import cake from "@/assets/icons/cake.svg";
 import taravel from "@/assets/icons/travel.svg";
 import { Button } from "@/shared/ui";
+import { Emoji } from "@/entities/d-day";
 
 interface EmojiSelectorProps {
   selectedEmoji: Emoji;

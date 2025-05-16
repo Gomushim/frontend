@@ -2,99 +2,118 @@ import { useState, useRef, ChangeEvent, FormEvent } from "react";
 import { Button, Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger, SInput, Textarea } from "@/shared/ui";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui";
 import crossDeleteIcon from "@/assets/icons/crossDelete.svg";
-import { useLetterMutation } from "@/entities/letter/mutation";
+import { useCreateLetterMutation, useUpdateLetterMutation } from "@/entities/letter/mutation";
 import { useParams } from "react-router";
 import { useToggle } from "@/shared/hooks";
 import { formatDateKoreanWithWeekday } from "@/shared/utils";
 
-export const WriteLetterBottomSheet = () => {
+interface WriteLetterBottomSheetProps {
+  letterId?: string;
+  title?: string;
+  content?: string;
+  imagesUrl?: string[];
+  children?: React.ReactNode;
+}
+
+export const WriteLetterBottomSheet = ({
+  letterId,
+  title = "",
+  content = "",
+  // imagesUrl = [],
+  children,
+}: WriteLetterBottomSheetProps) => {
+  // 생성/수정 분기
+  const isEdit = !!letterId;
+
+  // 상태: 수정 모드면 기존 값, 생성 모드면 빈 값
+  const [editTitle, setEditTitle] = useState(title);
+  const [editContent, setEditContent] = useState(content);
+  // const [editImagesUrl, setEditImagesUrl] = useState<string[]>(imagesUrl);
+
   const [images, setImages] = useState<File[]>([]);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
-
   const { isToggle, onToggle } = useToggle();
-
   const { scheduleId } = useParams<{ scheduleId: string }>();
-  const { mutate } = useLetterMutation("post", scheduleId);
+  const { mutate } = useCreateLetterMutation(scheduleId || "");
+  const { mutate: updateMutate } = useUpdateLetterMutation(scheduleId || "");
 
   // 이미지 선택 시 처리
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      // 여러 파일 선택 가능하다고 가정
       const selectedFiles = Array.from(event.target.files);
-
-      // 기존 이미지에 추가 (중복 허용 여부에 따라 다르게 처리 가능)
       setImages(prev => [...prev, ...selectedFiles]);
     }
   };
 
-  // 이미지 삭제 (예: 첫 번째 이미지 삭제)
+  // 이미지 삭제
   const handleRemoveImage = (index: number) => {
     setImages(prev => prev.filter((_, i) => i !== index));
   };
 
-  // 파일 선택창 열기 함수
+  // 파일 선택창 열기
   const openFileDialog = () => {
     fileInputRef.current?.click();
   };
 
-  // 폼 제출 핸들러
+  // 폼 제출 핸들러 (생성/수정 분기)
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const title = formData.get("title") as string;
-    const content = formData.get("content") as string;
-
-    if (!title.trim()) {
+    if (!editTitle.trim()) {
       alert("제목을 입력해주세요.");
       return;
     }
-
-    if (!content.trim()) {
+    if (!editContent.trim()) {
       alert("내용을 입력해주세요.");
       return;
     }
 
     const upsertLetterRequest = {
-      letterId: null,
+      letterId: isEdit ? letterId : null,
       scheduleId: scheduleId || "",
-      title,
-      content,
+      title: editTitle,
+      content: editContent,
     };
     const finalFormData = new FormData();
-
     finalFormData.append(
       "upsertLetterRequest",
       new Blob([JSON.stringify(upsertLetterRequest)], { type: "application/json" })
     );
-
     images.forEach(file => {
       finalFormData.append("pictures", file);
     });
 
-    mutate(finalFormData, {
-      onSuccess: () => {
-        alert("폼이 제출되었습니다.");
-        onToggle();
-      },
-      onError: error => {
-        console.error(error);
-      },
-    });
-
-    for (const pair of finalFormData.entries()) {
-      console.log(pair[0], pair[1]);
+    // 분기: 생성/수정
+    if (isEdit) {
+      updateMutate(
+        { upsertLetterRequest },
+        {
+          onSuccess: () => {
+            alert("편지가 수정되었습니다.");
+            onToggle();
+          },
+          onError: error => {
+            console.error(error);
+          },
+        }
+      );
+    } else {
+      mutate(finalFormData, {
+        onSuccess: () => {
+          alert("편지가 등록되었습니다.");
+          onToggle();
+        },
+        onError: error => {
+          console.error(error);
+        },
+      });
     }
   };
 
   return (
     <Drawer open={isToggle} onOpenChange={onToggle}>
-      <DrawerTrigger asChild>
-        <Button variant="square" size="2xs">
-          편지 작성하기
-        </Button>
-      </DrawerTrigger>
+      <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent className="py10 px-5">
         <form className="mx-auto w-full max-w-sm" onSubmit={handleSubmit}>
           <DrawerHeader className="flex-row justify-between px-0">
@@ -125,6 +144,8 @@ export const WriteLetterBottomSheet = () => {
                 type="text"
                 placeholder="제목을 입력해 주세요"
                 maxLength={20}
+                value={editTitle}
+                onChange={e => setEditTitle(e.target.value)}
               />
             </div>
 
@@ -137,6 +158,8 @@ export const WriteLetterBottomSheet = () => {
                 id="content"
                 name="content"
                 placeholder="내용을 입력해 주세요"
+                value={editContent}
+                onChange={e => setEditContent(e.target.value)}
               />
             </div>
 
@@ -171,7 +194,7 @@ export const WriteLetterBottomSheet = () => {
                               src={objectUrl}
                               alt={`preview-${index}`}
                               className="h-50 w-50 rounded-md object-cover"
-                              onLoad={() => URL.revokeObjectURL(objectUrl)} // 메모리 해제
+                              onLoad={() => URL.revokeObjectURL(objectUrl)}
                             />
                             <Button
                               variant="ghost"

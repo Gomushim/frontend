@@ -7,7 +7,7 @@ interface InfoCardProps {
   circleColor?: string;
   className?: string;
   selected?: string;
-  onClick?: () => void;
+  onClick?: MouseEventHandler;
 }
 
 interface InfoCardContentProps {
@@ -43,9 +43,14 @@ interface InfoCardImageProps {
 }
 
 interface OptionButtonsProps {
-  onEdit?: () => void;
-  onDelete?: () => void;
+  children: ReactNode;
   className?: string;
+}
+
+interface OptionProps {
+  onClick?: MouseEventHandler;
+  className?: string;
+  children: ReactNode;
 }
 
 interface InfoCardArrowButtonProps {
@@ -140,23 +145,22 @@ const ArrowButton = ({ direction = "right", onClick, className }: InfoCardArrowB
   );
 };
 
-const OptionButtons = ({ onEdit, onDelete, className }: OptionButtonsProps) => {
+const OptionButtons = ({ children, className }: OptionButtonsProps) => {
   return (
     <div className={cn("flex items-end gap-1 text-sm leading-[150%] font-medium text-gray-400", className)}>
-      <button
-        type="button"
-        onClick={onEdit}
-        className="m-0 cursor-pointer bg-transparent p-0 hover:text-gray-600 focus:outline-none">
-        편집
-      </button>
-      <span aria-hidden="true">|</span>
-      <button
-        type="button"
-        onClick={onDelete}
-        className="m-0 cursor-pointer bg-transparent p-0 hover:text-gray-600 focus:outline-none">
-        삭제
-      </button>
+      {children}
     </div>
+  );
+};
+
+const Option = ({ onClick, className, children }: OptionProps) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`m-0 cursor-pointer bg-transparent p-0 hover:text-gray-600 focus:outline-none ${className}`}>
+      {children}
+    </button>
   );
 };
 
@@ -169,4 +173,5 @@ InfoCard.IconTitle = IconTitle;
 InfoCard.Time = Time;
 InfoCard.Label = Label;
 InfoCard.ArrowButton = ArrowButton;
-InfoCard.Option = OptionButtons;
+InfoCard.Options = OptionButtons;
+InfoCard.Option = Option;
