@@ -36,6 +36,10 @@ export const CalendarScheduleDetail = () => {
 
   const { letters, ...rest } = scheduleData.result;
 
+  const handleEditSchedule = () => {
+    navigate(`/calendar/schedule/${scheduleId}/edit`);
+  };
+
   return (
     <>
       <div className="px-[22px]">
@@ -44,7 +48,7 @@ export const CalendarScheduleDetail = () => {
             <img src={backIcon} alt="뒤로가기" />
           </Button>
           <h1 className="text-xl font-semibold text-gray-900">일정 세부사항</h1>
-          <Button variant="ghost" size="sIcon" className="">
+          <Button variant="ghost" size="sIcon" className="" onClick={handleEditSchedule}>
             <img src={gearIcon} alt="일정 세부사항 설정" />
           </Button>
         </header>

@@ -1,6 +1,5 @@
-import { useState, useMemo } from "react";
+import { useCallback, useState, useMemo } from "react";
 import { InitialSchedule } from "../model";
-
 export const useScheduleForm = (initialState?: Partial<InitialSchedule>) => {
   const [form, setForm] = useState<InitialSchedule>({
     id: null,
@@ -9,7 +8,7 @@ export const useScheduleForm = (initialState?: Partial<InitialSchedule>) => {
     endDate: "",
     isAllDay: false,
     fatigue: "",
-    ...initialState, // 수정 시 기본값 주입
+    ...initialState,
   });
 
   const isValid = useMemo(
@@ -17,9 +16,9 @@ export const useScheduleForm = (initialState?: Partial<InitialSchedule>) => {
     [form.title, form.startDate, form.endDate]
   );
 
-  const updateField = <K extends keyof InitialSchedule>(key: K, value: InitialSchedule[K]) => {
+  const updateField = useCallback(<K extends keyof InitialSchedule>(key: K, value: InitialSchedule[K]) => {
     setForm(prev => ({ ...prev, [key]: value }));
-  };
+  }, []);
 
   return { form, setForm, updateField, isValid };
 };

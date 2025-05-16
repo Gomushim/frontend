@@ -1,5 +1,5 @@
 // 외부 라이브러리
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 // UI
 import { Button, Divider, Topbar } from "@/shared/ui";
@@ -16,14 +16,19 @@ import {
   TitleInput,
 } from "@/features/schedule/ui";
 import { useCreateScheduleMutation } from "@/entities/schedule";
-import { useScheduleForm } from "@/features/schedule/hooks";
+import { useScheduleForm, useInitializeScheduleFormFromCache } from "@/features/schedule/hooks";
 
 export const CalendarNewSchedule = () => {
   // 라우터 훅
   const navigate = useNavigate();
+  const { scheduleId } = useParams<{ scheduleId?: string }>();
+  const isEditMode = !!scheduleId;
 
   // 스케쥴 폼 훅
   const { form, updateField, isValid } = useScheduleForm();
+  console.log(form);
+
+  useInitializeScheduleFormFromCache(scheduleId!, updateField);
 
   // API 훅
   const { mutate } = useCreateScheduleMutation(form);
