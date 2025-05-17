@@ -1,12 +1,15 @@
 import React from "react";
 import BackIcon from "@/assets/images/back.svg";
-
+import { useNavigate } from "react-router";
+import { cn } from "@/shared/utils/lib/utils";
 interface MyHeaderProps {
   title: string;
   onBack?: () => void;
+  className?: string;
 }
 
-export const MyHeader: React.FC<MyHeaderProps> = ({ title, onBack }) => {
+export const MyHeader: React.FC<MyHeaderProps> = ({ title, onBack, className }) => {
+  const navigate = useNavigate();
 
   const handleBack = () => {
     if (onBack) {
@@ -15,9 +18,9 @@ export const MyHeader: React.FC<MyHeaderProps> = ({ title, onBack }) => {
   };
 
   return (
-    <div className="bg-white px-4 pt-6 pb-4">
+    <div className={cn("bg-white px-4 pt-6 pb-4", className)}>
       {/* 상단 버튼 */}
-      <div className="mb-7 flex items-center relative">
+      <div className="relative mb-7 flex items-center">
         <button onClick={handleBack} className="absolute left-0">
           <img src={BackIcon} alt="뒤로가기" className="h-6 w-6" />
         </button>
@@ -26,4 +29,3 @@ export const MyHeader: React.FC<MyHeaderProps> = ({ title, onBack }) => {
     </div>
   );
 };
-

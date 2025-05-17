@@ -1,7 +1,8 @@
 import { useGetMainDdayList } from "@/entities/d-day";
-import { DdayCard } from "../d-day/widgets";
+
 import { useNavigate } from "react-router";
 import { MainHeader } from "./ui/MainHeader";
+import { DdayCard } from "../d-day/ui";
 
 export const DDaySection = () => {
   const { data: mainDdayList } = useGetMainDdayList();

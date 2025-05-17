@@ -6,7 +6,7 @@ export interface Letter {
   scheduleTitle?: string;
   title: string;
   content: string;
-  imageUrl: string;
+  pictureUrl: string;
   createdAt: string;
   comments: Comment[];
 }
@@ -46,4 +46,14 @@ export interface LetterListResponse {
   after: number;
   count: number;
   isLastPage: boolean;
+}
+
+export interface UpdateLetterRequest {
+  upsertLetterRequest: {
+    letterId: string | null;
+    scheduleId: string;
+    title: string;
+    content: string;
+  };
+  pictures?: string[];
 }

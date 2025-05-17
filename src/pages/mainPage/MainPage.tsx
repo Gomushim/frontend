@@ -1,4 +1,3 @@
-import { NavBar } from "@/shared/ui";
 import {
   StatusSection,
   ScheduleSection,
@@ -9,6 +8,7 @@ import {
 } from "@/features/mainpage";
 import { useInitSettingQueries } from "@/entities/init_setting";
 import { useIscouple } from "@/entities/iscouple";
+import { NavBar } from "@/widgets/navbar/ui";
 
 const NotConnectedPage = () => {
   return (

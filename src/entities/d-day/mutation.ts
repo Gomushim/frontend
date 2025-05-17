@@ -1,42 +1,25 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createDday } from "./service";
-import { DdayRequst } from "./type";
-import { mutationMethodType } from "../types/mutationMethod.type";
+import { DdayRequst } from "./model";
 import { ddayQueryKey } from "./queryKey";
 import { scheduleQueryKey } from "../schedule/queryKey";
-import { useDdayStore } from "./store";
 
-export const useDdayMutation = (mutationMethod: mutationMethodType) => {
-  const { dday } = useDdayStore();
+export const useDdayMutation = (data: DdayRequst) => {
   const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async (data: DdayRequst) => {
-      switch (mutationMethod) {
-        case "delete":
-          return;
-        case "post":
-          return await createDday(data);
-        case "update":
-          return;
-        default:
-          throw new Error("Invalid mutation method");
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ddayQueryKey.list().queryKey,
-      });
-      queryClient.invalidateQueries({
-        queryKey: ddayQueryKey.main().queryKey,
-      });
-      queryClient.invalidateQueries({
-        queryKey: scheduleQueryKey.week().queryKey,
-      });
 
-      const date = new Date(dday.date);
-      queryClient.invalidateQueries({
-        queryKey: scheduleQueryKey.list(date).queryKey,
-      });
+  if (!data) {
+    throw new Error("디데이 생성에 필요한 데이터가 없습니다.");
+  }
+
+  const date = new Date(data.date);
+
+  return useMutation({
+    mutationFn: () => createDday(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ddayQueryKey.list().queryKey });
+      queryClient.invalidateQueries({ queryKey: ddayQueryKey.main().queryKey });
+      queryClient.invalidateQueries({ queryKey: scheduleQueryKey.week().queryKey });
+      queryClient.invalidateQueries({ queryKey: scheduleQueryKey.list(date).queryKey });
     },
     onError: error => {
       console.error("Error:", error);

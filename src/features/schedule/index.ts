@@ -1,2 +1,2 @@
-export * from "./widgets";
-export * from "./type";
+export * from "./ui";
+export * from "./model";
