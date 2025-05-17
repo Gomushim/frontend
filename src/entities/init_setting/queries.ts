@@ -6,9 +6,10 @@ export const useInitSettingQueries = () => {
   const getCoupleInfo = useQuery<GetCoupleInfoResponse>({
     queryKey: ["getCoupleInfo"],
     queryFn: () => initSettingQueries.getCoupleInfo(),
+    retry: 2,
   });
 
   return {
     getCoupleInfo,
   };
-}; 
+};

@@ -12,7 +12,8 @@ interface LetterSectionProps {
 }
 
 export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps) => {
-  const { data: letterList } = useGetLetterListMain();
+  const enabled = isConnected || isInitialized;
+  const { data: letterList } = useGetLetterListMain(enabled);
   const navigate = useNavigate();
 
   if (!isConnected || !isInitialized) {
