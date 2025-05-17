@@ -45,3 +45,8 @@ export const formatDateKoreanWithWeekday = (newDate: Date | string): string => {
 
 // 2025년 06월
 export const formatYearMonth = (year: number, month: number) => `${year}년 ${month}월`;
+
+//0000-00-00
+export const formatSimpleDate = (date: Date): string => {
+  return formatDateDot(date).replace(/\. /g, "-").replace(".", "");
+};

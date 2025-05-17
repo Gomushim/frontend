@@ -6,9 +6,18 @@ import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui";
 import { formatDateDot } from "@/shared/utils/date/formatdate";
 import { useNavigate } from "react-router";
 
-export const LetterSection = () => {
+interface LetterSectionProps {
+  isConnected: boolean;
+  isInitialized: boolean;
+}
+
+export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps) => {
   const { data: letterList } = useGetLetterListMain();
   const navigate = useNavigate();
+
+  if (!isConnected || !isInitialized) {
+    return null;
+  }
 
   if (!letterList?.result || letterList.result.length === 0) {
     return (

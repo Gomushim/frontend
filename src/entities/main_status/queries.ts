@@ -1,15 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCoupleEmotion, getStatusMessage } from "./service";
 
-export const useEmotionStatusQueries = () => {
+interface UseEmotionStatusQueriesOptions {
+  enabled?: boolean;
+}
+
+export const useEmotionStatusQueries = (options?: UseEmotionStatusQueriesOptions) => {
   const getCoupleEmotionQuery = useQuery({
     queryKey: ["coupleEmotion"],
     queryFn: getCoupleEmotion,
+    enabled: options?.enabled,
   });
 
   const getStatusMessageQuery = useQuery({
     queryKey: ["statusMessage"],
     queryFn: getStatusMessage,
+    enabled: options?.enabled,
   });
 
   return {

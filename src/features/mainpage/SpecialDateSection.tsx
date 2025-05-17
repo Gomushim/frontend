@@ -6,11 +6,23 @@ import { useAnniversary } from "@/entities/main_anniversary";
 interface SpecialDateSectionProps {
   isConnected: boolean;
   isInitialized: boolean;
+  isLoading?: boolean;
 }
 
-export const SpecialDateSection = ({ isConnected, isInitialized }: SpecialDateSectionProps) => {
-  const { getDday } = useAnniversary();
+export const SpecialDateSection = ({ isConnected, isInitialized, isLoading = false }: SpecialDateSectionProps) => {
+  const { getDday } = useAnniversary({
+    enabled: isConnected && isInitialized
+  });
   const ddayInfo = getDday.data?.result;
+  const isDdayLoading = getDday.isLoading;
+
+  if (isLoading || (isConnected && isInitialized && isDdayLoading)) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+        <div className="text-lg text-gray-600">로딩 중...</div>
+      </div>
+    );
+  }
 
   return (
     <>

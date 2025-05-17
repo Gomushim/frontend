@@ -21,7 +21,9 @@ const EMOTION_TO_ICON: Record<string, keyof typeof EMOTION_IMAGES> = {
 
 export const StatusSection = ({ isConnected, isInitialized }: StatusSectionProps) => {
   const navigate = useNavigate();
-  const { getCoupleEmotion, getStatusMessage } = useEmotionStatusQueries();
+  const { getCoupleEmotion, getStatusMessage } = useEmotionStatusQueries({
+    enabled: isConnected && isInitialized
+  });
   const emotion = getCoupleEmotion.data?.data?.result?.emotion ?? "";
   const statusMessage = getStatusMessage.data?.data?.result?.statusMessage ?? "";
 
@@ -48,9 +50,9 @@ export const StatusSection = ({ isConnected, isInitialized }: StatusSectionProps
           {EmotionIcon ? (
             <EmotionIcon className="mr-3 h-5 w-5" />
           ) : (
-            <img src={CharacterDefaultIcon} alt="캐릭터" className="mr-3 h-5 w-5" />
+            <img src={CharacterDefaultIcon} alt="캐릭터" className="mr-3 h-6 w-6" />
           )}
-          <span className={`${statusMessage ? "text-gray-900" : "text-gray-500"}`}>
+          <span className={`font-semibold text-md ${statusMessage ? "text-gray-900" : "text-gray-500"}`}>
             {!isConnected
               ? "커플 연결을 해주세요."
               : !isInitialized

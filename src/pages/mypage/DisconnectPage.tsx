@@ -12,8 +12,8 @@ export const DisconnectPage: React.FC = () => {
 
   return (
     <div className="flex h-screen flex-col bg-white">
-      <MyHeader title="커플 연결 끊기" className="pb-10" />
-      <div className="flex flex-1 flex-col items-center">
+      <MyHeader title="커플 연결 끊기" onBack={() => navigate("/mypage")} />
+      <div className="flex-1 flex flex-col items-center">
         <div className="text-center">
           <h2 className="mb-1 text-3xl font-bold text-gray-900">그동안의 데이터는 모두 사라집니다</h2>
           <p className="text-md font-regular text-gray-500">정말 커플 연결을 끊으시겠어요?</p>

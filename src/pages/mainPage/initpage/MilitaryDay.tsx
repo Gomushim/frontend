@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Input, Button, ProgressHeader } from "@/shared/ui";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
-import { formatDateKorean } from "@/shared/utils";
+import { formatDateKorean, formatSimpleDate } from "@/shared/utils";
 import { useInitSettingMutation, useInitSettingQueries } from "@/entities/init_setting";
 import { DatePickerDrawer } from "@/widgets/datepicker/ui";
 
@@ -49,13 +49,15 @@ export const MilitaryDay: React.FC = () => {
 
     setError(null);
 
-    registerAnniversary(
-      {
-        coupleId,
-        relationshipStartDate: firstMeetDate.toISOString().split("T")[0],
-        militaryStartDate: enlistmentDate.toISOString().split("T")[0],
-        militaryEndDate: dischargeDate.toISOString().split("T")[0],
-        military: militaryBranch as "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE",
+    registerAnniversary({
+      coupleId,
+      relationshipStartDate: formatSimpleDate(firstMeetDate),
+      militaryStartDate: formatSimpleDate(enlistmentDate),
+      militaryEndDate: formatSimpleDate(dischargeDate),
+      military: militaryBranch as "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE",
+    }, {
+      onSuccess: () => {
+        navigate("/mainpage", { replace: true });
       },
       {
         onSuccess: () => {

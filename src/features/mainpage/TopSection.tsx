@@ -6,37 +6,43 @@ import AirBg from "@/assets/images/airbg.svg";
 import CoupleHeart from "@/assets/images/couple_heart.svg";
 import { useNavigate } from "react-router";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
-import { useEffect } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { initSettingQueries } from "@/entities/init_setting/service";
 import { useCoupleNickname } from "@/entities/couple_nickname/queries";
 
 interface TopSectionProps {
   isConnected: boolean;
   isInitialized: boolean;
+  isLoading?: boolean;
 }
 
 type MilitaryBranch = "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE";
 
-export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitialized }) => {
+export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitialized, isLoading = false }) => {
   const navigate = useNavigate();
   const { militaryBranch, setMilitaryBranch } = useOnboardingStore();
   const { getNickName } = useCoupleNickname();
   const coupleInfo = getNickName.data?.result || { userNickname: "", coupleNickname: "" };
+  const isNicknameLoading = getNickName.isLoading;
+  const [isInitializing, setIsInitializing] = useState(false);
 
-  const initializeData = async () => {
+  const initializeData = useCallback(async () => {
     if (!isConnected) return;
 
     try {
+      setIsInitializing(true);
       const coupleInfoResponse = await initSettingQueries.getCoupleInfo();
       setMilitaryBranch(coupleInfoResponse.result.military);
     } catch (error) {
       console.error("초기설정 오류발생:", error);
+    } finally {
+      setIsInitializing(false);
     }
-  };
+  }, [isConnected, setMilitaryBranch]);
 
   useEffect(() => {
     initializeData();
-  }, [isConnected, setMilitaryBranch, initializeData]);
+  }, [initializeData]);
 
   const handleInitialize = () => {
     navigate("/onboarding/firstmeet");
@@ -91,6 +97,13 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
   );
 
   const renderContent = () => {
+    if (isLoading || isNicknameLoading || (isConnected && isInitializing)) {
+      return (
+        <div className="text-lg text-gray-50">
+          로딩 중...
+        </div>
+      );
+    }
     if (!isConnected) return renderNotConnectedContent();
     if (!isInitialized) return renderNotInitializedContent();
     return renderInitializedContent();
@@ -98,7 +111,9 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
 
   return (
     <div className="relative h-[259px] overflow-hidden">
-      <img src={getBackgroundImage()} alt="배경" className="h-full w-full object-cover" />
+      {!isLoading && !isNicknameLoading && !(isConnected && isInitializing) && (
+        <img src={getBackgroundImage()} alt="배경" className="h-full w-full object-cover" />
+      )}
       <button className="absolute top-16 right-4">
         <img src={NotificationIcon} alt="알림" className="h-6 w-6" />
       </button>
