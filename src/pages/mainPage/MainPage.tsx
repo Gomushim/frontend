@@ -88,7 +88,7 @@ export const MainPage = () => {
   
   const isLoading = checkCoupleConnect.isLoading || getCoupleInfo.isLoading;
   const isConnected = checkCoupleConnect.data?.result ?? false;
-  const isInitialized = getCoupleInfo.data?.result.isAnniversariesRegistered ?? false;
+  const isInitialized = getCoupleInfo.data?.result?.isAnniversariesRegistered ?? false;
 
   if (isLoading) {
     return (
