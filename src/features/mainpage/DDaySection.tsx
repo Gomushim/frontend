@@ -30,7 +30,7 @@ export const DDaySection = ({ isConnected }: DDaySectionProps) => {
 
       <ul className="mb-5 flex flex-col gap-3">
         {mainDdayList.result.map(dday => (
-          <DdayCard {...dday} className="bg-white" />
+          <DdayCard key={dday.id} {...dday} className="bg-white" />
         ))}
       </ul>
     </>

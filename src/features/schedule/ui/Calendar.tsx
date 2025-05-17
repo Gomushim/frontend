@@ -3,24 +3,9 @@ import { useMemo } from "react";
 import { Link } from "react-router";
 import { CalendarBottomSheet } from "./CalendarBottomSheet";
 import { useGetCalendarSchedule } from "@/entities/schedule/query";
-
+import { FATIGUE_TAG } from "../model";
 // 날짜 비교를 위한 정규화 함수 (시, 분, 초 제거)
 const normalizeDate = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
-
-const fatigueTagMap: Record<string, { bgColor: string; textColor: string }> = {
-  VERY_TIRED: {
-    bgColor: "bg-red-100",
-    textColor: "text-red-0",
-  },
-  TIRED: {
-    bgColor: "bg-green-100",
-    textColor: "text-green-500",
-  },
-  GOOD: {
-    bgColor: "bg-green-500",
-    textColor: "text-white",
-  },
-};
 
 export const Calendar = () => {
   const { selectedMonth, selectedDay, setSelectedMonth, setSelectedDay } = useSelectedDate();
@@ -191,7 +176,7 @@ export const Calendar = () => {
                               gridTemplateRows: `repeat(${currentDayMaxRow}, 20px)`,
                             }}>
                             {continuousTags.map(tag => {
-                              const { bgColor, textColor } = fatigueTagMap[tag.fatigue || "VERY_TIRED"];
+                              const { bgColor, textColor } = FATIGUE_TAG[tag.fatigue || "VERY_TIRED"];
                               const currentDate = normalizeDate(date!);
                               const isFirstDay = currentDate.getTime() === tag.startDate.getTime();
                               const isLastDay = currentDate.getTime() === tag.endDate.getTime();
@@ -203,9 +188,9 @@ export const Calendar = () => {
                               if (isFirstDay) {
                                 containerStyle += " w-[calc(100%)] -mr-4 rounded-l-[4px] relative z-10";
                               } else if (isLastDay) {
-                                containerStyle += " w-[calc(100%+8px)] -ml-2 rounded-r-[4px]";
+                                containerStyle += " w-[calc(100%+4px)] -ml-1 rounded-r-[4px]";
                               } else if (isMiddleDay) {
-                                containerStyle += " w-[calc(100%+16px)] -mx-4";
+                                containerStyle += " w-[calc(100%+4px)] -mx-1";
                               }
 
                               return (
@@ -223,7 +208,7 @@ export const Calendar = () => {
                         {/* 단일 일정 스택 */}
                         <div className="flex w-full flex-col gap-2">
                           {singleDayTags.map(tag => {
-                            const { bgColor, textColor } = fatigueTagMap[tag.fatigue || "VERY_TIRED"];
+                            const { bgColor, textColor } = FATIGUE_TAG[tag.fatigue || "VERY_TIRED"];
                             return (
                               <div key={tag.id} className={`flex h-4 w-full items-center rounded-[4px] ${bgColor}`}>
                                 <p className={`w-full truncate text-[10px] ${textColor}`}>{tag.title}</p>

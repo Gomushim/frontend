@@ -21,27 +21,31 @@ export const handleAPIError = async (error: AxiosError) => {
   const { response, config } = error;
   const { status } = response;
 
+  // 무한루프 방지: 재발급 시도 여부 플래그
+  if ((config as any)?._retry) {
+    window.location.href = "/login";
+    return Promise.reject(error);
+  }
+
   if (status === HTTP_STATUS_CODE.UNAUTHORIZED) {
     try {
       // 토큰 재발급 요청
       const reissueRes = await api.post("/auth/reissue");
-      console.log("reissue response:", reissueRes);
-      if (reissueRes && typeof reissueRes === "object" && (reissueRes as any).result === true) {
-        // 재발급 성공: 원래 요청 재시도
+      // result가 true이거나, 서버에서 200 OK로 응답하면 성공으로 간주
+      if (reissueRes && (reissueRes.status === 200 || (reissueRes.data && reissueRes.data.result === true))) {
         if (config) {
-          console.log("retrying original request with config:", config);
+          (config as any)._retry = true; // 재발급 시도 플래그
           return api.request(config as any);
         } else {
           return Promise.reject(error);
         }
       } else {
-        // 재발급 실패: 로그인 페이지로 이동
-
+        window.location.href = "/login";
         return Promise.reject(error);
       }
     } catch (e) {
-      // 재발급 요청 자체가 실패
       console.log("reissue error:", e);
+      window.location.href = "/login";
       return Promise.reject(error);
     }
   }

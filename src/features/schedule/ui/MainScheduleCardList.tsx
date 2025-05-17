@@ -6,6 +6,7 @@ import { DdayCard } from "@/features/d-day/ui";
 export const MainScheduleCardList = () => {
   const { selectedDay } = useSelectedDate();
   const { data: scheduleListData } = useGetScheduleList(selectedDay);
+
   return (
     <div className="flex flex-col gap-3 px-4">
       {scheduleListData?.result.anniversaries.map(dday => <DdayCard key={dday.id} {...dday} className="bg-gray-50" />)}
