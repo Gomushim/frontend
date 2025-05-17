@@ -27,7 +27,7 @@ export const handleAPIError = async (error: AxiosError) => {
     return Promise.reject(error);
   }
 
-  if (status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+  if (status === HTTP_STATUS_CODE.UNAUTHORIZED || status === HTTP_STATUS_CODE.FORBIDDEN) {
     try {
       // 토큰 재발급 요청
       const reissueRes = await api.post("/auth/reissue");

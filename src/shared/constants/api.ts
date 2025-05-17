@@ -6,6 +6,7 @@ export const HTTP_STATUS_CODE = {
   NOT_FOUND: 404,
   CONFLICT: 409,
   INTERNAL_SERVER_ERROR: 500,
+  FORBIDDEN: 403,
 };
 
 export const USER_ID_KEY = "access_token";
