@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { getDateList, getShiftedWeekdays } from "../utils";
 import { useGetWeekSchedule } from "@/entities/schedule/query";
-import { useSelectedDateStore } from "@/entities/schedule";
+import { useSelectedDate } from "../context/SelectedDateContext";
 
 const normalizeDate = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
@@ -21,7 +21,7 @@ const fatigueTagMap: Record<string, { bgColor: string; textColor: string }> = {
 };
 
 export const MiniCalendar = () => {
-  const { selectedDay, setSelectedDay } = useSelectedDateStore();
+  const { selectedDay, setSelectedDay } = useSelectedDate();
   const { data: weekScheduleData } = useGetWeekSchedule();
 
   const today = new Date();
