@@ -1,6 +1,5 @@
 import React from "react";
 import BackIcon from "@/assets/images/back.svg";
-import { useNavigate } from "react-router";
 import { cn } from "@/shared/utils/lib/utils";
 interface MyHeaderProps {
   title: string;
@@ -9,12 +8,10 @@ interface MyHeaderProps {
 }
 
 export const MyHeader: React.FC<MyHeaderProps> = ({ title, onBack, className }) => {
-  const navigate = useNavigate();
-
   const handleBack = () => {
     if (onBack) {
       onBack();
-    } 
+    }
   };
 
   return (
