@@ -49,15 +49,13 @@ export const MilitaryDay: React.FC = () => {
 
     setError(null);
 
-    registerAnniversary({
-      coupleId,
-      relationshipStartDate: formatSimpleDate(firstMeetDate),
-      militaryStartDate: formatSimpleDate(enlistmentDate),
-      militaryEndDate: formatSimpleDate(dischargeDate),
-      military: militaryBranch as "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE",
-    }, {
-      onSuccess: () => {
-        navigate("/mainpage", { replace: true });
+    registerAnniversary(
+      {
+        coupleId,
+        relationshipStartDate: formatSimpleDate(firstMeetDate),
+        militaryStartDate: formatSimpleDate(enlistmentDate),
+        militaryEndDate: formatSimpleDate(dischargeDate),
+        military: militaryBranch as "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE",
       },
       {
         onSuccess: () => {
