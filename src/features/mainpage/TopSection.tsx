@@ -20,8 +20,9 @@ type MilitaryBranch = "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE";
 
 export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitialized, isLoading = false }) => {
   const navigate = useNavigate();
+  const enabled = isConnected || isInitialized;
   const { militaryBranch, setMilitaryBranch } = useOnboardingStore();
-  const { getNickName } = useCoupleNickname();
+  const { getNickName } = useCoupleNickname(enabled);
   const coupleInfo = getNickName.data?.result || { userNickname: "", coupleNickname: "" };
   const isNicknameLoading = getNickName.isLoading;
   const [isInitializing, setIsInitializing] = useState(false);
@@ -64,7 +65,8 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
   const renderNotConnectedContent = () => (
     <>
       <h1 className="text-2xl font-bold text-gray-50">
-        커플 연결이<br />
+        커플 연결이
+        <br />
         필요해요
       </h1>
       <button
@@ -81,9 +83,7 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
         {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
         {coupleInfo.coupleNickname}
       </h1>
-      <button
-        onClick={handleInitialize}
-        className="mt-2 flex items-center text-sm font-medium text-gray-700">
+      <button onClick={handleInitialize} className="mt-2 flex items-center text-sm font-medium text-gray-700">
         초기 설정하기 <span className="ml-1">&gt;</span>
       </button>
     </>
@@ -98,11 +98,7 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
 
   const renderContent = () => {
     if (isLoading || isNicknameLoading || (isConnected && isInitializing)) {
-      return (
-        <div className="text-lg text-gray-50">
-          로딩 중...
-        </div>
-      );
+      return <div className="text-lg text-gray-50">로딩 중...</div>;
     }
     if (!isConnected) return renderNotConnectedContent();
     if (!isInitialized) return renderNotInitializedContent();
@@ -118,9 +114,7 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
         <img src={NotificationIcon} alt="알림" className="h-6 w-6" />
       </button>
 
-      <div className="absolute top-16 left-4">
-        {renderContent()}
-      </div>
+      <div className="absolute top-16 left-4">{renderContent()}</div>
     </div>
   );
 };

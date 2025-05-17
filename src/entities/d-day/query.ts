@@ -20,6 +20,6 @@ export const useGetDdayList = () => {
   });
 };
 
-export const useGetMainDdayList = () => {
-  return useQuery({ ...ddayQueryKey.main() });
+export const useGetMainDdayList = (enabled: boolean) => {
+  return useQuery({ ...ddayQueryKey.main(), enabled: enabled });
 };

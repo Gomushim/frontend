@@ -7,14 +7,10 @@ export const letterKeys = {
   main: () => [...letterKeys.lists(), "main"] as const,
 };
 
-interface UseGetLetterListMainOptions {
-  enabled?: boolean;
-}
-
-export const useGetLetterListMain = (options?: UseGetLetterListMainOptions) => {
+export const useGetLetterListMain = (enabled: boolean) => {
   return useQuery({
     queryKey: letterKeys.main(),
     queryFn: getLetterListMain,
-    enabled: options?.enabled,
+    enabled: enabled,
   });
-}; 
+};

@@ -5,10 +5,10 @@ export const useIscouple = () => {
   const checkCoupleConnect = useQuery({
     queryKey: ["checkCoupleConnect"],
     queryFn: () => iscoupleQueries.checkCoupleConnect(),
-
+    retry: 2,
   });
 
   return {
     checkCoupleConnect,
   };
-}; 
+};

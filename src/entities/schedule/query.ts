@@ -14,5 +14,5 @@ export const useGetScheduleDetail = (scheduleId: string) => {
 };
 
 export const useGetWeekSchedule = () => {
-  return useSuspenseQuery(scheduleQueryKey.week());
+  return useSuspenseQuery({ ...scheduleQueryKey.week() });
 };

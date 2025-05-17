@@ -23,11 +23,11 @@ const NotConnectedPage = () => {
             <StatusSection isConnected={false} isInitialized={false} />
             <ScheduleSection />
             <LetterSection isConnected={false} isInitialized={false} />
-            <DDaySection />
+            <DDaySection isConnected={false} />
           </div>
         </main>
       </div>
-      <div className="z-10 fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] bg-white">
+      <div className="fixed bottom-0 left-1/2 z-10 w-[375px] -translate-x-1/2 bg-white">
         <NavBar />
       </div>
     </div>
@@ -47,11 +47,11 @@ const NotInitializedPage = ({ isLoading }: { isLoading: boolean }) => {
             <StatusSection isConnected={true} isInitialized={false} />
             <ScheduleSection />
             <LetterSection isConnected={true} isInitialized={false} />
-            <DDaySection />
+            <DDaySection isConnected={false} />
           </div>
         </main>
       </div>
-      <div className="z-10 fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] bg-white">
+      <div className="fixed bottom-0 left-1/2 z-10 w-[375px] -translate-x-1/2 bg-white">
         <NavBar />
       </div>
     </div>
@@ -71,11 +71,11 @@ const InitializedPage = ({ isLoading }: { isLoading: boolean }) => {
             <StatusSection isConnected={true} isInitialized={true} />
             <ScheduleSection />
             <LetterSection isConnected={true} isInitialized={true} />
-            <DDaySection />
+            <DDaySection isConnected={true} />
           </div>
         </main>
       </div>
-      <div className="z-10 fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] bg-white">
+      <div className="fixed bottom-0 left-1/2 z-10 w-[375px] -translate-x-1/2 bg-white">
         <NavBar />
       </div>
     </div>
@@ -85,7 +85,7 @@ const InitializedPage = ({ isLoading }: { isLoading: boolean }) => {
 export const MainPage = () => {
   const { checkCoupleConnect } = useIscouple();
   const { getCoupleInfo } = useInitSettingQueries();
-  
+
   const isLoading = checkCoupleConnect.isLoading || getCoupleInfo.isLoading;
   const isConnected = checkCoupleConnect.data?.result ?? false;
   const isInitialized = getCoupleInfo.data?.result?.isAnniversariesRegistered ?? false;
