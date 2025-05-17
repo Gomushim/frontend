@@ -23,3 +23,9 @@ dev-dist
 *.njsproj
 *.sln
 *.sw?
+
+.env
+
+_wildcard.sarang-backend.o-r.kr+2-key.pem
+_wildcard.sarang-backend.o-r.kr+2.pem
+mkcert.exe
