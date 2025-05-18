@@ -29,13 +29,13 @@ export const MyPage = () => {
         </button>
       </div>
       {/* 컨텐츠 영역 */}
-      <div className="mx-auto max-w-md space-y-4">
+      <div className="mx-auto space-y-4">
         <ProfileCardSection />
         <StatusSection />
         <NotificationSetting />
       </div>
       {/* 네비게이션 바 */}
-      <div className="fixed bottom-0 left-1/2 z-10 w-[375px] -translate-x-1/2 bg-white">
+      <div className="fixed bottom-0 left-1/2 z-10 w-full -translate-x-1/2 bg-white">
         <NavBar />
       </div>
     </div>
