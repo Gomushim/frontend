@@ -5,6 +5,7 @@ import { EmotionType } from "@/entities/types/emotion";
 import { Button } from "@/shared/ui";
 import { useNavigate } from "react-router";
 import { useEmotionStatusMutation } from "@/entities/main_status/mutation";
+import { useQueryClient } from "@tanstack/react-query";
 
 type ApiEmotionType = "MISS" | "HAPPY" | "COMMON" | "TIRED" | "SAD" | "WORRY" | "ANGRY";
 
@@ -22,6 +23,7 @@ export const StatusPage = () => {
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionType | undefined>();
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { updateMyEmotionAndStatusMessage } = useEmotionStatusMutation("post");
 
   const handleSubmit = async () => {
@@ -39,7 +41,11 @@ export const StatusPage = () => {
         emotion: EMOTION_TO_API[selectedEmotion],
         statusMessage: message,
       });
-      navigate("/");
+      await queryClient.invalidateQueries({ queryKey: ["myEmotion"] });
+      await queryClient.invalidateQueries({ queryKey: ["myStatusMessage"] });
+      await queryClient.invalidateQueries({ queryKey: ["coupleEmotion"] });
+      await queryClient.invalidateQueries({ queryKey: ["statusMessage"] });
+      navigate("/mypage");
     } catch (error) {
       console.error("상태 메시지 업데이트 실패:", error);
       alert("상태 메시지 업데이트에 실패했습니다. 다시 시도해주세요.");
