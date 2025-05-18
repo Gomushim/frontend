@@ -145,6 +145,39 @@ export default defineConfig({
             purpose: "maskable",
           },
         ],
+        // Splash Screens (PWA 설치 시)
+        screenshots: [
+          {
+            src: "splash/ios/iPhone_16_Pro_Max_portrait.png",
+            sizes: "1290x2796",
+            type: "image/png",
+            label: "iOS Splash",
+          },
+          {
+            src: "splash/ios/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_landscape.png",
+            sizes: "1284x2778",
+            type: "image/png",
+            label: "iOS Splash",
+          },
+          {
+            src: "splash/ios/12.9__iPad_Pro_portrait.png",
+            sizes: "2048x2732",
+            type: "image/png",
+            label: "iOS Splash",
+          },
+          {
+            src: "splash/ios/4__iPhone_SE__iPod_touch_5th_generation_and_later_portrait.png",
+            sizes: "640x1136",
+            type: "image/png",
+            label: "iOS Splash",
+          },
+          {
+            src: "splash/ios/icon.png",
+            sizes: "1024x1024",
+            type: "image/png",
+            label: "iOS Splash",
+          },
+        ],
       },
 
       injectManifest: {

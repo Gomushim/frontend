@@ -11,9 +11,10 @@ export interface InputProps {
   status?: InputStatus;
   onClear?: () => void;
   className?: string;
+  readOnly?: boolean;
 }
 
-export const Input = ({ value = "", onChange, placeholder = "Input", status, onClear, className = "" }: InputProps) => {
+export const Input = ({ value = "", onChange, placeholder = "Input", status, onClear, className = "", readOnly }: InputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [hasBlurred, setHasBlurred] = useState(false);
 
@@ -65,6 +66,7 @@ export const Input = ({ value = "", onChange, placeholder = "Input", status, onC
         onChange={e => onChange?.(e.target.value)}
         onBlur={handleBlur}
         onFocus={handleFocus}
+        readOnly={readOnly}
       />
       <button onClick={handleClear} type="button" aria-label="Clear input">
         <img src={DeleteIcon} alt="삭제" className="h-5 w-5 object-contain" />

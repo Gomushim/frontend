@@ -4,6 +4,8 @@ import { Link } from "react-router";
 import { CalendarBottomSheet } from "./CalendarBottomSheet";
 import { useGetCalendarSchedule } from "@/entities/schedule/query";
 import { FATIGUE_TAG } from "../model";
+import HambukIcon from "@/assets/icons/hambuk.svg";
+import PlusIcon from "@/assets/icons/plus.svg";
 // 날짜 비교를 위한 정규화 함수 (시, 분, 초 제거)
 const normalizeDate = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
@@ -62,11 +64,11 @@ export const Calendar = () => {
           <CalendarBottomSheet year={year} month={month} setCurrentDate={setSelectedMonth} />
         </div>
         <div className="flex items-center justify-center gap-2">
-          <Link to="/calendar/dday" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
-            <img src="src/assets/icons/hambuk.svg" alt="D-day 보러가기" />
+          <Link to="/calendar/d-day" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
+            <img src={HambukIcon} alt="D-day 보러가기" />
           </Link>
           <Link to="/calendar/schedule/new" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
-            <img src="src/assets/icons/plus.svg" alt="일정 추가" />
+            <img src={PlusIcon} alt="일정 추가" />
           </Link>
         </div>
       </div>

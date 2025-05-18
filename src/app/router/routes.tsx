@@ -40,6 +40,7 @@ const router = createBrowserRouter([
       { path: "calendar/schedule/new", element: <CalendarNewSchedule /> }, // 일정 생성 페이지
       { path: "calendar/schedule/:scheduleId/edit", element: <CalendarNewSchedule /> }, // 일정 수정 페이지
       { path: "calendar/dday/new", element: <NewDday /> }, // 디데이 생성 페이지
+      { path: "calendar/dday/:ddayId/edit", element: <NewDday /> }, // 디데이 수정 페이지
       { path: "calendar/schedule/:scheduleId", element: <CalendarScheduleDetail /> }, // 특정 일정 상세 페이지 (동적 라우팅)
       { path: "calendar/dday", element: <CalendarDdayList /> }, //D-Day 일정 리스트 페이지
       { path: "calendar/letters", element: <LetterListPage /> }, //편지 리스트 페이지

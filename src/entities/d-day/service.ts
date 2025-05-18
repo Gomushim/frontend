@@ -6,21 +6,20 @@ export const createDday = async (data: DdayRequst): Promise<NewDdayResponse> => 
   return response.data;
 };
 
-export const getDdayList = async ({
-  orderCreatedAt,
-  take,
-}: {
-  key: number;
-  orderCreatedAt: "asc" | "desc";
-  take: number;
-}): Promise<DDayListResponse> => {
+export const getDdayList = async ({ page, size }: { page: number; size: number }): Promise<DDayListResponse> => {
   const response = await api.get<DDayListResponse>("/anniversaries", {
-    params: { orderCreatedAt: orderCreatedAt, take: take },
+    params: { page: page, size: size },
   });
   return response.data;
 };
 
 export const getMainDdayList = async (): Promise<MainDdayListResponse> => {
   const response = await api.get<MainDdayListResponse>("anniversary/main");
+  return response.data;
+};
+
+export const updateDday = async (data: DdayRequst): Promise<NewDdayResponse> => {
+  console.log("data", data);
+  const response = await api.put<NewDdayResponse>("/couple/new-anniversary", data);
   return response.data;
 };

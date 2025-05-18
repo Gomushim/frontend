@@ -38,7 +38,7 @@ export const FirstMeet: React.FC = () => {
             status={firstMeetDate ? "active" : "inactive"}
             onClear={() => {
               setFirstMeetDate(null);
-            }}
+            }} readOnly
             className="w-full rounded-lg border border-gray-200 px-4 py-3 text-left text-base text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:outline-none"
           />
         </DatePickerDrawer>

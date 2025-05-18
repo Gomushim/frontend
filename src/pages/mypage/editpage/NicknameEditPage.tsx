@@ -7,9 +7,15 @@ import { useUpdateMyNickname } from "@/entities/edit_info/mutation";
 export const NicknameEditPage: React.FC = () => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const { mutate: updateNickname } = useUpdateMyNickname();
 
   const handleSubmit = () => {
+    if (nickname.length > 3) {
+      setError("닉네임은 3글자 이내로 입력해주세요.");
+      return;
+    }
+    setError("");
     updateNickname(
       { nickname },
       {
@@ -18,6 +24,15 @@ export const NicknameEditPage: React.FC = () => {
         },
       }
     );
+  };
+
+  const handleNicknameChange = (value: string) => {
+    setNickname(value);
+    if (value.length > 3) {
+      setError("닉네임은 3글자 이내로 입력해주세요.");
+    } else {
+      setError("");
+    }
   };
 
   return (
@@ -30,13 +45,20 @@ export const NicknameEditPage: React.FC = () => {
       />
 
       <div className="flex-1 px-4">
-        <div className="mt-10">
+        <div className="mt-10 relative">
           <Input
             value={nickname}
-            onChange={setNickname}
+            onChange={handleNicknameChange}
             placeholder="닉네임을 입력하세요"
-            onClear={() => setNickname("")}
+            onClear={() => {
+              setNickname("");
+              setError("");
+            }}
+            status={error ? "error" : undefined}
           />
+          {error && (
+            <p className="absolute left-2 -bottom-6 text-red-0 text-sm">{error}</p>
+          )}
         </div>
       </div>
 

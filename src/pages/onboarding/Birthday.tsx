@@ -37,13 +37,13 @@ export const Birthday: React.FC = () => {
         subtitle="생일에 상대방에게 알림을 줄게요!"
         progress={2 / 3}
         onBack={() => navigate(-1)}
-        onClose={() => navigate("/")}
+        onClose={() => navigate("/onboarding/nickname")}
       />
 
       <div className="flex-1 px-4">
         <div className="mt-4">
           <DatePickerDrawer onConfirm={handleDateConfirm}>
-            <Input value={birthday} placeholder="날짜를 선택해주세요." onChange={() => {}} />
+            <Input value={birthday} placeholder="날짜를 선택해주세요." onChange={() => {}} readOnly />
           </DatePickerDrawer>
         </div>
 
@@ -66,8 +66,7 @@ export const Birthday: React.FC = () => {
           onClick={handleSubmit}
           disabled={!birthday || !(isAgeVisible && isGenderVisible) || isLoading}
           size="onicon">
-          {isLoading ? "처리 중..." : "다음"}
-        </Button>
+다음        </Button>
       </div>
     </div>
   );

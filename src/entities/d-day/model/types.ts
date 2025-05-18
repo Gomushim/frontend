@@ -14,6 +14,7 @@ export interface Dday {
 
 // API 함수에 필요한 타입
 export interface DdayRequst {
+  id: string | null;
   title: string;
   date: string;
 }
@@ -31,12 +32,4 @@ export interface DDayListResponse {
 
 export interface MainDdayListResponse {
   result: Dday[];
-}
-
-//전역상태 타입
-export interface InitialDday {
-  id: number | null;
-  title: string;
-  emoji: Emoji;
-  date: string;
 }

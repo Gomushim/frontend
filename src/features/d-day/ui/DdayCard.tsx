@@ -5,6 +5,7 @@ import cake from "@/assets/icons/cake.svg";
 import travel from "@/assets/icons/travel.svg";
 import { calculateDday } from "@/shared/utils";
 import type { Dday } from "@/entities/d-day";
+import { useNavigate } from "react-router";
 
 interface DdayCardProps extends Dday {
   className?: string;
@@ -20,8 +21,14 @@ const emojiIconMap: Record<string, string> = {
 
 export const DdayCard = (props: DdayCardProps) => {
   const iconSrc = emojiIconMap[props.emoji];
+  const navigate = useNavigate();
+
+  const goEditDdayPage = () => {
+    navigate(`/calendar/dday/${props.id}/edit`);
+  };
+
   return (
-    <InfoCard className={`justify-between bg-gray-50 ${props.className}`}>
+    <InfoCard className={`justify-between bg-gray-50 ${props.className}`} onClick={goEditDdayPage}>
       <InfoCard.Content>
         <InfoCard.IconTitle iconSrc={iconSrc}>{props.title}</InfoCard.IconTitle>
         <div className="flex flex-col gap-1 text-end">

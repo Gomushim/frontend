@@ -1,4 +1,5 @@
 import { DatePickerDrawer } from "@/widgets/datepicker/ui";
+import BottomArrowIcon from "@/assets/icons/bottomArrow.svg";
 
 interface CalendarBottomSheetProps {
   year: number;
@@ -18,7 +19,7 @@ export const CalendarBottomSheet = ({ year, month, setCurrentDate }: CalendarBot
           {year}년 {month + 1}월
         </h2>
         <button className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
-          <img src="src/assets/icons/bottomArrow.svg" alt="날짜 선택" />
+          <img src={BottomArrowIcon} alt="날짜 선택" />
         </button>
       </div>
     </DatePickerDrawer>
