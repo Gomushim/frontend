@@ -3,8 +3,8 @@ import loginImage from "@/assets/images/login.svg";
 
 export const Login = () => {
   return (
-    <div className="flex h-screen justify-center bg-gray-500">
-      <div className="scrollbar-hide relative h-full w-full max-w-[375px] overflow-y-auto bg-white p-5">
+    <div className="pc:flex h-screen justify-center bg-gray-500">
+      <div className="scrollbar-hide pc:max-w-[375px] relative h-full w-full overflow-y-auto bg-white">
         <h1 className="mt-30 mb-25 text-3xl font-bold text-gray-900">
           곰신 커플을 위한 공유 캘린더,
           <br />
