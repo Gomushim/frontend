@@ -79,13 +79,9 @@ export const CalendarDdayList = () => {
         )}
 
         {/* 디데이 리스트 */}
-        {ddayListData.pages.map(page =>
-          page.data.map(dday => (
-            <ul className="mt-6 flex flex-col gap-3">
-              <DdayCard {...dday} />
-            </ul>
-          ))
-        )}
+        <ul className="mt-6 flex flex-col gap-3">
+          {ddayListData.pages.map(page => page.data.map(dday => <DdayCard key={dday.id} {...dday} />))}
+        </ul>
 
         {/* 빈 상태 메시지 */}
         {ddayListData.pages[0].data.length === 0 && <NoDdayMessage />}

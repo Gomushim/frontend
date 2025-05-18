@@ -27,7 +27,7 @@ const NotConnectedPage = () => {
           </div>
         </main>
       </div>
-      <div className="fixed bottom-0 left-1/2 z-10 w-[375px] -translate-x-1/2 bg-white">
+      <div className="pc:w-[375px] fixed bottom-0 left-1/2 z-10 w-full -translate-x-1/2 bg-white">
         <NavBar />
       </div>
     </div>
@@ -51,7 +51,7 @@ const NotInitializedPage = ({ isLoading }: { isLoading: boolean }) => {
           </div>
         </main>
       </div>
-      <div className="fixed bottom-0 left-1/2 z-10 w-[375px] -translate-x-1/2 bg-white">
+      <div className="pc:w-[375px] fixed bottom-0 left-1/2 z-10 w-full -translate-x-1/2 bg-white">
         <NavBar />
       </div>
     </div>
@@ -75,7 +75,7 @@ const InitializedPage = ({ isLoading }: { isLoading: boolean }) => {
           </div>
         </main>
       </div>
-      <div className="fixed bottom-0 left-1/2 z-10 w-[375px] -translate-x-1/2 bg-white">
+      <div className="pc:w-[375px] fixed bottom-0 left-1/2 z-10 w-full -translate-x-1/2 bg-white">
         <NavBar />
       </div>
     </div>

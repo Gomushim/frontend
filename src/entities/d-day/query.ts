@@ -7,15 +7,14 @@ export const useGetDdayList = () => {
     ...ddayQueryKey.list(),
     queryFn: async ({ pageParam = 1 }) => {
       return getDdayList({
-        key: pageParam,
-        orderCreatedAt: "desc",
-        take: 10,
+        page: pageParam,
+        size: 10,
       });
     },
     initialPageParam: 1,
-    getNextPageParam: lastPage => {
-      const { isLastPage, after } = lastPage;
-      return isLastPage ? undefined : after;
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.isLastPage) return undefined;
+      return allPages.length + 1;
     },
   });
 };
