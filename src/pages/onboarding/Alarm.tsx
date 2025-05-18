@@ -31,7 +31,7 @@ export const Alarm: React.FC = () => {
       
       if (response) {
         setAlarmEnabled(isNotification);
-        navigate("/mainpage");
+        navigate("/");
       }
     } catch (error) {
       console.error("온보딩 API 호출 실패:", error);

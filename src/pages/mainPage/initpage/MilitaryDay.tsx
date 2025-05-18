@@ -59,7 +59,7 @@ export const MilitaryDay: React.FC = () => {
       },
       {
         onSuccess: () => {
-          navigate("/mainpage", { replace: true });
+          navigate("/", { replace: true });
         },
         onError: error => {
           console.error("온보딩 완료 중 오류 발생:", error);

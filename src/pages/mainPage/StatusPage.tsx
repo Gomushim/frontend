@@ -39,7 +39,7 @@ export const StatusPage = () => {
         emotion: EMOTION_TO_API[selectedEmotion],
         statusMessage: message,
       });
-      navigate("/mainpage");
+      navigate("/");
     } catch (error) {
       console.error("상태 메시지 업데이트 실패:", error);
       alert("상태 메시지 업데이트에 실패했습니다. 다시 시도해주세요.");
