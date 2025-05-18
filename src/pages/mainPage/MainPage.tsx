@@ -14,7 +14,7 @@ const NotConnectedPage = () => {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
       <TopSection isConnected={false} isInitialized={false} />
-      <div className="mt-6">
+      <div>
         <SpecialDateSection isConnected={false} isInitialized={false} />
       </div>
       <div className="relative z-10 -mt-13 flex-grow rounded-t-[20px] bg-gray-50">
@@ -38,7 +38,7 @@ const NotInitializedPage = ({ isLoading }: { isLoading: boolean }) => {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
       <TopSection isConnected={true} isInitialized={false} isLoading={isLoading} />
-      <div className="mt-6">
+      <div>
         <SpecialDateSection isConnected={true} isInitialized={false} isLoading={isLoading} />
       </div>
       <div className="relative z-10 -mt-13 flex-grow rounded-t-[20px] bg-gray-50">
@@ -62,7 +62,7 @@ const InitializedPage = ({ isLoading }: { isLoading: boolean }) => {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
       <TopSection isConnected={true} isInitialized={true} isLoading={isLoading} />
-      <div className="mt-6">
+      <div >
         <SpecialDateSection isConnected={true} isInitialized={true} isLoading={isLoading} />
       </div>
       <div className="relative z-10 -mt-13 flex-grow rounded-t-[20px] bg-gray-50">

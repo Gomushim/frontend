@@ -7,8 +7,8 @@
 <circle cx="72" cy="72" r="28" fill="#FDD057"/>
 </mask>
 <g mask="url(#mask0_1671_5019)">
-<path d="M61.5 101.167H56.8333V60.3333H61.5V101.167Z" fill="#D3D7DB"/>
-<path d="M87.4712 101.166H82.8042V60.3333H87.4712V101.166Z" fill="#D3D7DB"/>
+<path d="M61.5 101.167H56.8333V60.3335H61.5V101.167Z" fill="#D3D7DB"/>
+<path d="M87.4712 101.167H82.8042V60.3335H87.4712V101.167Z" fill="#D3D7DB"/>
 </g>
 <path d="M57.0668 55.9999L64.433 59.8738L55.0002 60.8848" stroke="#D3D7DB" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M87.2228 55.9999L79.8566 59.8738L89.2894 60.8848" stroke="#D3D7DB" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
