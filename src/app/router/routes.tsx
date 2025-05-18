@@ -26,11 +26,13 @@ import {
   AlarmSettingPage,
   SettingPage,
   DisconnectPage,
+  OAuthCallback,
 } from "@/pages";
 import { createBrowserRouter } from "react-router";
 
 const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
+  { path: "/oauth/callback", element: <OAuthCallback /> },
   {
     path: "/",
     element: <App />, // 공통 레이아웃
