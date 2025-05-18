@@ -106,9 +106,13 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
   };
 
   return (
-    <div className="relative h-[259px] overflow-hidden">
+    <div className="relative h-[259px] w-full ">
       {!isLoading && !isNicknameLoading && !(isConnected && isInitializing) && (
-        <img src={getBackgroundImage()} alt="배경" className="h-full w-full object-cover" />
+        <img 
+          src={getBackgroundImage()} 
+          alt="배경" 
+          className="absolute w-full h-full object-cover" 
+        />
       )}
       <button className="absolute top-16 right-4">
         <img src={NotificationIcon} alt="알림" className="h-6 w-6" />

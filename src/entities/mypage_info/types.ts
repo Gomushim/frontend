@@ -17,6 +17,6 @@ export interface MyInfoResponse {
   result: {
     nickname: string;
     isCouple: boolean;
-    role: "MEMBER";
+    role: "MEMBER" | "GUEST";
   };
 } 
