@@ -32,11 +32,3 @@ export interface DDayListResponse {
 export interface MainDdayListResponse {
   result: Dday[];
 }
-
-//전역상태 타입
-export interface InitialDday {
-  id: number | null;
-  title: string;
-  emoji: Emoji;
-  date: string;
-}
