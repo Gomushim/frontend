@@ -38,15 +38,19 @@ export const Where: React.FC = () => {
       <div className="flex-1 px-4">
         <div className="mt-4 space-y-2">
           {locations.map(location => (
-            <button
-              key={location.id}
-              className={`text-medium text-regular w-full rounded-xl border bg-gray-50 p-4 text-left ${
-                militaryBranch === location.id ? "border-green-500" : "border-gray-50"
-              }`}
-              onClick={() => handleLocationSelect(location.id as MilitaryBranch)}>
-              {location.label}
-            </button>
+            <div key={location.id}>
+              <button
+                className={`text-medium text-regular w-full rounded-xl border bg-gray-50 p-4 text-left ${
+                  militaryBranch === location.id ? "border-green-500" : "border-gray-50"
+                }`}
+                onClick={() => handleLocationSelect(location.id as MilitaryBranch)}>
+                {location.label}
+              </button>
+            </div>
           ))}
+          <p className="text-sm font-medium text-gray-500 text-center mt-3" >
+            부사관 및 장교 포함
+          </p>
         </div>
       </div>
 
