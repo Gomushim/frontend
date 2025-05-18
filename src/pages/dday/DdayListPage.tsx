@@ -82,7 +82,7 @@ export const CalendarDdayList = () => {
         {ddayListData.pages.map(page =>
           page.data.map(dday => (
             <ul className="mt-6 flex flex-col gap-3">
-              <DdayCard {...dday} />
+              <DdayCard key={dday.id} {...dday} />
             </ul>
           ))
         )}

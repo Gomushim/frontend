@@ -6,16 +6,9 @@ export const createDday = async (data: DdayRequst): Promise<NewDdayResponse> => 
   return response.data;
 };
 
-export const getDdayList = async ({
-  orderCreatedAt,
-  take,
-}: {
-  key: number;
-  orderCreatedAt: "asc" | "desc";
-  take: number;
-}): Promise<DDayListResponse> => {
+export const getDdayList = async ({ page, size }: { page: number; size: number }): Promise<DDayListResponse> => {
   const response = await api.get<DDayListResponse>("/anniversaries", {
-    params: { orderCreatedAt: orderCreatedAt, take: take },
+    params: { page: page, size: size },
   });
   return response.data;
 };
