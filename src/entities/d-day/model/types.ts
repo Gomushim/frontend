@@ -14,6 +14,7 @@ export interface Dday {
 
 // API 함수에 필요한 타입
 export interface DdayRequst {
+  id: string | null;
   title: string;
   date: string;
 }

@@ -10,7 +10,7 @@ import { TitleInput } from "@/features/schedule";
 import backIcon from "@/assets/icons/back.svg";
 
 // API 및 훅
-import { useDdayMutation } from "@/entities/d-day";
+import { useCreateDdayMutation, useUpdateDdayMutation } from "@/entities/d-day";
 import { useInitializeDdayFormFromCache, useNewDdayForm } from "@/features/d-day";
 
 export const NewDday = () => {
@@ -24,21 +24,31 @@ export const NewDday = () => {
   const { newDdayState, handleChange, isFormValid } = useNewDdayForm();
 
   // API 훅
-  const { mutate: ddayMutate } = useDdayMutation(newDdayState);
+  const { mutate: ddayMutate } = useCreateDdayMutation(newDdayState);
+  const { mutate: ddayUpdateMutate } = useUpdateDdayMutation(newDdayState);
 
   useInitializeDdayFormFromCache(ddayId!, handleChange);
 
   // 이벤트 핸들러
   const handlePostDday = async () => {
-    ddayMutate(undefined, {
-      onSuccess: () => {
-        alert("디데이가 생성되었습니다.");
-        navigate(-1);
-      },
-      onError: error => {
-        console.log(error);
-      },
-    });
+    if (isEditMode) {
+      ddayUpdateMutate(undefined, {
+        onSuccess: () => {
+          alert("디데이가 수정되었습니다.");
+          navigate(-1);
+        },
+      });
+    } else {
+      ddayMutate(undefined, {
+        onSuccess: () => {
+          alert("디데이가 생성되었습니다.");
+          navigate(-1);
+        },
+        onError: error => {
+          console.log(error);
+        },
+      });
+    }
   };
 
   const goBack = () => {

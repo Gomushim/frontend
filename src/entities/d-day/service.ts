@@ -17,3 +17,9 @@ export const getMainDdayList = async (): Promise<MainDdayListResponse> => {
   const response = await api.get<MainDdayListResponse>("anniversary/main");
   return response.data;
 };
+
+export const updateDday = async (data: DdayRequst): Promise<NewDdayResponse> => {
+  console.log("data", data);
+  const response = await api.put<NewDdayResponse>("/couple/new-anniversary", data);
+  return response.data;
+};
