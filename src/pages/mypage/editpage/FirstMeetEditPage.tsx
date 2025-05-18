@@ -56,7 +56,7 @@ export const FirstMeetEditPage: React.FC = () => {
             status={firstMeetDate ? "active" : "inactive"}
             onClear={() => setFirstMeetDate(null)}
             className="w-full rounded-lg border border-gray-200 px-4 py-3 text-left text-base text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:outline-none"
-          />
+            readOnly/>
         </DatePickerDrawer>
         {error && <p className="mt-2 text-center text-sm text-red-500">{error}</p>}
       </div>

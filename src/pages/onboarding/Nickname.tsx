@@ -5,14 +5,25 @@ import { useOnboardingAlarmStore } from "@/features/onboarding/model/OnboardingS
 
 export const Nickname: React.FC = () => {
   const navigate = useNavigate();
-  const { nickname, setNickname, isLoading, error } = useOnboardingAlarmStore();
+  const { nickname, setNickname, isLoading, error, setError } = useOnboardingAlarmStore();
+
+  const handleNicknameChange = (value: string) => {
+    setNickname(value);
+    if (value.length > 3) {
+      setError("닉네임은 3글자 이내로 입력해주세요.");
+    } else {
+      setError("");
+    }
+  };
 
   const handleSubmit = async () => {
     if (nickname.trim()) {
       try {
         if (nickname.length > 3) {
-          throw new Error("닉네임은 3글자 이내로 입력해주세요.");
+          setError("닉네임은 3글자 이내로 입력해주세요.");
+          return;
         }
+        setError("");
         navigate("/onboarding/birthday");
       } catch (error) {
         console.error("닉네임 처리 중 오류 발생:", error);
@@ -32,17 +43,21 @@ export const Nickname: React.FC = () => {
       />
 
       <div className="flex-1 px-4">
-        <div className="mt-4">
+        <div className="mt-4 relative">
           <Input
             value={nickname}
-            onChange={setNickname}
+            onChange={handleNicknameChange}
             placeholder="클릭하여 입력해주세요"
-            onClear={() => setNickname("")}
+            onClear={() => {
+              setNickname("");
+              setError("");
+            }}
+            status={error ? "error" : undefined}
           />
+          {error && (
+            <p className="absolute left-2 -bottom-6 text-red-0 text-sm">{error}</p>
+          )}
         </div>
-        {error && (
-          <p className="text-red-500 text-center text-sm mt-2">{error}</p>
-        )}
       </div>
 
       <div className="p-4">

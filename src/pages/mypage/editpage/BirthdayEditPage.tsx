@@ -44,7 +44,7 @@ export const BirthdayEditPage: React.FC = () => {
             <Input
               value={selectedDate ? formatDateKorean(selectedDate) : ""}
               placeholder="날짜를 선택해주세요."
-              onChange={() => {}}
+              onChange={() => {}} readOnly
             />
           </DatePickerDrawer>
         </div>

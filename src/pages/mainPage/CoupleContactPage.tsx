@@ -44,10 +44,15 @@ export const CoupleContact: React.FC = () => {
     handleGenerateCode();
   }, []);
 
-  const handleCopyClick = () => {
+  const handleCopyClick = async () => {
     if (coupleCode) {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      try {
+        await navigator.clipboard.writeText(coupleCode);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+      } catch (err) {
+        setError("복사에 실패했습니다.");
+      }
     }
   };
 
@@ -88,12 +93,12 @@ export const CoupleContact: React.FC = () => {
 
       <div className="flex-1 ">
         <div className=" flex flex-col items-center justify-center">
-          <div className="flex h-75 w-75 items-center justify-center overflow-hidden">
+          <div className="flex h-60 w-85 items-center justify-center overflow-hidden">
             <Lottie animationData={coupleConnectAnimation} loop={true}  />
           </div>
 
           <div className="w-full">
-            <p className="flex flex-col items-center text-sm font-medium text-gray-500">초대 코드 복사하기</p>
+            <p className="mt-3 flex flex-col items-center text-sm font-medium text-gray-500">초대 코드 복사하기</p>
             <div
               className="w-full cursor-pointer p-2 text-center text-2xl font-medium underline decoration-solid underline-offset-3"
               onClick={handleCopyClick}>
@@ -112,7 +117,7 @@ export const CoupleContact: React.FC = () => {
       </div>
 
       <div className="p-4">
-        <p className="items-center pb-6 text-center text-sm font-medium text-gray-900">
+        <p className="items-center pb-3 text-center text-sm font-medium text-gray-900">
           상대방에게서 전달받은 코드가 있나요?
         </p>
         <Drawer>

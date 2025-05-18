@@ -39,7 +39,7 @@ export const StatusPage = () => {
         emotion: EMOTION_TO_API[selectedEmotion],
         statusMessage: message,
       });
-      navigate("/mainpage");
+      navigate("/");
     } catch (error) {
       console.error("상태 메시지 업데이트 실패:", error);
       alert("상태 메시지 업데이트에 실패했습니다. 다시 시도해주세요.");
@@ -47,11 +47,13 @@ export const StatusPage = () => {
   };
 
   return (
-    <div className="h-full flex-1 flex-col bg-white">
-      <EmotionSelector selectedEmotion={selectedEmotion} onSelect={setSelectedEmotion} />
-      <div className="p-4">
-        <p className="pb-2 text-xl font-semibold text-gray-900">상태 메시지</p>
-        <Textinput value={message} onChange={setMessage} placeholder="나의 상태를 연인에게 알려주세요" maxLength={15} />
+    <div className="flex h-screen flex-col bg-white">
+      <div className="flex-1">
+        <EmotionSelector selectedEmotion={selectedEmotion} onSelect={setSelectedEmotion} />
+        <div className="p-4">
+          <p className="pb-2 text-xl font-semibold text-gray-900">상태 메시지</p>
+          <Textinput value={message} onChange={setMessage} placeholder="나의 상태를 연인에게 알려주세요" maxLength={15} />
+        </div>
       </div>
       <div className="p-4">
         <Button
@@ -59,7 +61,8 @@ export const StatusPage = () => {
           variant="active"
           size="onicon"
           disabled={updateMyEmotionAndStatusMessage.isPending}
-        >확인 </Button>
+          className="w-full"
+        >확인</Button>
       </div>
     </div>
   );
