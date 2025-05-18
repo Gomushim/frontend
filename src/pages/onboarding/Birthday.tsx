@@ -43,7 +43,7 @@ export const Birthday: React.FC = () => {
       <div className="flex-1 px-4">
         <div className="mt-4">
           <DatePickerDrawer onConfirm={handleDateConfirm}>
-            <Input value={birthday} placeholder="날짜를 선택해주세요." onChange={() => {}} />
+            <Input value={birthday} placeholder="날짜를 선택해주세요." onChange={() => {}} readOnly />
           </DatePickerDrawer>
         </div>
 

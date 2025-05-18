@@ -90,7 +90,7 @@ export const MilitaryDay: React.FC = () => {
                 onChange={() => {}}
                 placeholder="입대일을 선택해주세요."
                 status={enlistmentDate ? "active" : "inactive"}
-                onClear={() => setEnlistmentDate(null)}
+                onClear={() => setEnlistmentDate(null)} readOnly
               />
             </DatePickerDrawer>
           </div>
@@ -103,7 +103,7 @@ export const MilitaryDay: React.FC = () => {
                 onChange={() => {}}
                 placeholder="전역일을 선택해주세요."
                 status={dischargeDate ? "active" : "inactive"}
-                onClear={() => setDischargeDate(null)}
+                onClear={() => setDischargeDate(null)} readOnly
               />
             </DatePickerDrawer>
           </div>

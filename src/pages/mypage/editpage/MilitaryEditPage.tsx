@@ -79,7 +79,7 @@ export const MilitaryEditPage: React.FC = () => {
                 onChange={() => {}}
                 placeholder="전역일을 선택해주세요."
                 status={dischargeDate ? "active" : "inactive"}
-                onClear={() => setDischargeDate(null)}
+                onClear={() => setDischargeDate(null)} readOnly
               />
             </DatePickerDrawer>
           </div>
