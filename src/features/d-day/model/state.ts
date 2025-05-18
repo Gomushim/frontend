@@ -1,7 +1,7 @@
 import { Emoji } from "@/entities/d-day";
 
 export interface InitialDday {
-  id: number | null;
+  id: string | null;
   title: string;
   date: string;
   emoji: Emoji;

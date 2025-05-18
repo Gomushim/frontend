@@ -9,14 +9,18 @@ export const useInitializeDdayFormFromCache = (
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    const cachedData = queryClient.getQueryData<{ result: InitialDday }>(["d-day", "detail", id]);
+    const cachedData = queryClient.getQueryData<{ pages: any[] }>(["dday", "list", "all"]);
+    if (!cachedData) return;
 
-    if (cachedData && "result" in cachedData) {
-      const { id, title, date, emoji } = (cachedData as any).result;
-      updateField("id", id);
-      updateField("title", title);
-      updateField("date", date);
-      updateField("emoji", emoji);
+    // 모든 페이지를 flat하게 합치고, id가 일치하는 첫 D-day만 찾음
+    const allDdays = cachedData.pages.flatMap((page: any) => page.data);
+    const dday = allDdays.find((d: any) => String(d.id) === String(id));
+
+    if (dday) {
+      updateField("id", dday.id);
+      updateField("title", dday.title);
+      updateField("date", dday.anniversaryDate);
+      updateField("emoji", dday.emoji);
     }
   }, [id, queryClient, updateField]);
 };

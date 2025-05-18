@@ -1,5 +1,5 @@
 // 외부 라이브러리
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 // UI 컴포넌트
 import { Button, Divider, Topbar } from "@/shared/ui";
@@ -11,17 +11,22 @@ import backIcon from "@/assets/icons/back.svg";
 
 // API 및 훅
 import { useDdayMutation } from "@/entities/d-day";
-import { useNewDdayForm } from "@/features/d-day";
+import { useInitializeDdayFormFromCache, useNewDdayForm } from "@/features/d-day";
 
 export const NewDday = () => {
   // 라우터 훅
   const navigate = useNavigate();
+  const { ddayId } = useParams<{ ddayId?: string }>();
+
+  const isEditMode = !!ddayId;
 
   // 상태 및 폼 관련 커스텀 훅
   const { newDdayState, handleChange, isFormValid } = useNewDdayForm();
 
   // API 훅
   const { mutate: ddayMutate } = useDdayMutation(newDdayState);
+
+  useInitializeDdayFormFromCache(ddayId!, handleChange);
 
   // 이벤트 핸들러
   const handlePostDday = async () => {
@@ -67,9 +72,20 @@ export const NewDday = () => {
             <DdayDateBottomSheet selectedDate={newDdayState.date} onDateChange={value => handleChange("date", value)} />
           </div>
         </section>
-        <section className="fixed bottom-6 left-1/2 w-[375px] -translate-x-1/2 transform px-4">
-          <Button className="w-full" variant="submit" size="xl" onClick={handlePostDday} disabled={!isFormValid}>
-            확인
+        <section
+          className={`fixed bottom-6 left-1/2 w-[375px] -translate-x-1/2 transform px-4 ${isEditMode && "flex justify-center gap-3"}`}>
+          {isEditMode && (
+            <Button className="w-[50%]" variant="delete" size="xl" disabled={!isFormValid}>
+              삭제
+            </Button>
+          )}
+          <Button
+            className={`w-full ${isEditMode && "w-[50%]"}`}
+            variant="submit"
+            size="xl"
+            onClick={handlePostDday}
+            disabled={!isFormValid}>
+            완료
           </Button>
         </section>
       </main>
