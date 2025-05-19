@@ -29,7 +29,7 @@ export const MyPage = () => {
         </button>
       </div>
       {/* 컨텐츠 영역 */}
-      <div className="mx-auto max-w-md space-y-4">
+      <div className="mx-auto w-full space-y-4">
         <ProfileCardSection />
         <StatusSection />
         <NotificationSetting />

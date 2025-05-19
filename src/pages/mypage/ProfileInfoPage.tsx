@@ -12,7 +12,7 @@ export const ProfileInfoPage = () => {
   return (
     <div>
       <MyHeader title="프로필 정보" onBack={() => navigate("/mypage")} />
-      <div className="max-w-md mx-auto">
+      <div className="w-full ">
         <EditInfoCard 
           title={nicknameData?.result.userNickname || "-"} 
           onEdit={() => navigate("/mypage/nicknameedit")} 
