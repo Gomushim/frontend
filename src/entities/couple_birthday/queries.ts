@@ -5,5 +5,8 @@ export const useCoupleBirthDay = () => {
   return useQuery({
     queryKey: ["coupleBirthDay"],
     queryFn: getCoupleBirthDay,
+    refetchInterval: 1000 * 60,
+    staleTime: 0,
+    gcTime: 0,
   });
 }; 

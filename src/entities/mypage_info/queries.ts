@@ -20,5 +20,6 @@ export const useMyInfo = () => {
   return useQuery<MyInfoResponse>({
     queryKey: ["myInfo"],
     queryFn: getMyInfo,
+    refetchInterval: 10,
   });
 }; 

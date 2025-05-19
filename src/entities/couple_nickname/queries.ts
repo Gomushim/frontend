@@ -6,6 +6,9 @@ export const useCoupleNickname = (enabled?: boolean) => {
     queryKey: ["coupleNickname"],
     queryFn: () => coupleNicknameQueries.getNickName(),
     enabled: enabled,
+    refetchInterval: 1000 * 60,
+    staleTime: 0,
+    gcTime: 0,
   });
 
   return {
