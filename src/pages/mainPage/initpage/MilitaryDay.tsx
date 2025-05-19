@@ -15,32 +15,43 @@ export const MilitaryDay: React.FC = () => {
   const coupleId = getCoupleInfo.data?.result.coupleId ?? null;
   const { mutate: registerAnniversary, isPending } = useInitSettingMutation("post");
 
+  // 상대방의 초기 설정 완료 상태 확인인
+  useEffect(() => {
+    if (!coupleId) return;
+
+    const checkPartnerStatus = async () => {
+      try {
+        const response = await getCoupleInfo.refetch();
+        const isPartnerCompleted = response.data?.result.isAnniversariesRegistered;
+        
+        if (isPartnerCompleted) {
+          navigate("/", { replace: true });
+        }
+      } catch (error) {
+        console.error("상대방 상태 확인 중 오류 발생:", error);
+      }
+    };
+
+    const intervalId = setInterval(checkPartnerStatus, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [coupleId, getCoupleInfo, navigate]);
+//--------------------------------------------------------------------------------------
   useEffect(() => {
     if (getCoupleInfo.error) {
       console.error("커플 정보 조회 실패:", getCoupleInfo.error);
       setError("커플 정보를 가져오는데 실패했습니다.");
     }
   }, [getCoupleInfo.error]);
+//--------------------------------------------------------------------------------------
 
   const handleNext = async () => {
     if (!enlistmentDate || !dischargeDate || !firstMeetDate || !militaryBranch || !coupleId) {
       setError("입력되지 않은 정보가 있어요");
       return;
     }
-
-    // 날짜 유효성 검사
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
-    if (firstMeetDate > today) {
-      setError("만난 날짜는 오늘보다 이전이어야 합니다");
-      return;
-    }
-
-    if (enlistmentDate > today) {
-      setError("입대일은 오늘보다 이전이어야 합니다");
-      return;
-    }
 
     if (dischargeDate <= enlistmentDate) {
       setError("전역일은 입대일보다 이후여야 합니다");
@@ -68,6 +79,7 @@ export const MilitaryDay: React.FC = () => {
       }
     );
   };
+//--------------------------------------------------------------------------------------
 
   return (
     <div className="flex h-screen flex-col bg-white">
@@ -111,13 +123,13 @@ export const MilitaryDay: React.FC = () => {
       </div>
 
       <div className="p-4">
-        {error && <p className="mb-2 text-center text-sm text-red-500">{error}</p>}
+        {error && <p className="mb-2 text-center text-sm text-red-0">{error}</p>}
         <Button
           variant={enlistmentDate && dischargeDate ? "active" : "inactive"}
           disabled={!enlistmentDate || !dischargeDate || isPending}
           onClick={handleNext}
           size="onicon">
-          {isPending ? "처리중..." : "다음"}
+           다음
         </Button>
       </div>
     </div>

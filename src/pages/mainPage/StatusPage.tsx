@@ -60,7 +60,7 @@ export const StatusPage = () => {
           onClick={handleSubmit}
           variant="active"
           size="onicon"
-          disabled={updateMyEmotionAndStatusMessage.isPending}
+          disabled={!selectedEmotion || !message || updateMyEmotionAndStatusMessage.isPending}
           className="w-full"
         >확인</Button>
       </div>
