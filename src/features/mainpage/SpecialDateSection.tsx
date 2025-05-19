@@ -48,7 +48,7 @@ export const SpecialDateSection = ({ isConnected, isInitialized, isLoading = fal
               <div className="flex w-full max-w-[300px] flex-col items-center justify-center rounded-2xl bg-white">
                 <img src={HeelsIcon} alt="힐" className="h-12 w-12" />
                 <span className="text-md font-medium text-gray-900 mb-2">
-                  {isConnected && isInitialized ? `D-${ddayInfo?.militaryEndLeft ?? "-"}` : "-"}
+                  {isConnected && isInitialized ? `D${ddayInfo?.militaryEndLeft ?? "-"}` : "-"}
                 </span>
               </div>
             </div>
