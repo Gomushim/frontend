@@ -8,7 +8,7 @@ export const LoginButton = () => {
 
     if (isMobile) {
       // 모바일: 앱 스킴으로 이동
-      window.location.href = "kakaotalk://login"; // 실제 앱 스킴으로 수정 필요
+      // window.location.href = "kakaotalk://login"; // 실제 앱 스킴으로 수정 필요
 
       // 앱이 설치되어 있지 않은 경우 fallback 처리
       setTimeout(() => {
