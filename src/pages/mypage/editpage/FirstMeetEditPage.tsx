@@ -4,7 +4,7 @@ import { Button, Input } from "@/shared/ui";
 import { formatDateKorean, formatSimpleDate } from "@/shared/utils";
 import { EditHeader } from "@/features/mypage";
 import { useUpdateRelationshipStartDate } from "@/entities/edit_info/mutation";
-import { DatePickerDrawer } from "@/widgets/datepicker/ui";
+import { DatePickerSheet } from "@/widgets/datepicker/ui";
 
 export const FirstMeetEditPage: React.FC = () => {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ export const FirstMeetEditPage: React.FC = () => {
       />
 
       <div className="mt-6 flex-1 px-4">
-        <DatePickerDrawer onConfirm={setFirstMeetDate}>
+        <DatePickerSheet onConfirm={setFirstMeetDate}>
           <Input
             value={firstMeetDate ? formatDateKorean(firstMeetDate) : ""}
             placeholder="날짜를 선택해주세요."
@@ -57,7 +57,7 @@ export const FirstMeetEditPage: React.FC = () => {
             onClear={() => setFirstMeetDate(null)}
             className="w-full rounded-lg border border-gray-200 px-4 py-3 text-left text-base text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:outline-none"
             readOnly/>
-        </DatePickerDrawer>
+        </DatePickerSheet>
         {error && <p className="mt-2 text-center text-sm text-red-500">{error}</p>}
       </div>
 

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Button, ProgressHeader, Input, Checkbox } from "@/shared/ui";
 import { useOnboardingAlarmStore } from "@/features/onboarding/model/OnboardingStore";
 import { formatDateKorean } from "@/shared/utils";
-import { DatePickerDrawer } from "@/widgets/datepicker/ui/datepicker";
+import { DatePickerSheet } from "@/widgets/datepicker/ui/datepicker";
 
 export const Birthday: React.FC = () => {
   const navigate = useNavigate();
@@ -42,9 +42,9 @@ export const Birthday: React.FC = () => {
 
       <div className="flex-1 px-4">
         <div className="mt-4">
-          <DatePickerDrawer onConfirm={handleDateConfirm}>
+          <DatePickerSheet onConfirm={handleDateConfirm}>
             <Input value={birthday} placeholder="날짜를 선택해주세요." onChange={() => {}} readOnly />
-          </DatePickerDrawer>
+          </DatePickerSheet>
         </div>
 
         <div className="mt-17 ml-2 space-y-4">

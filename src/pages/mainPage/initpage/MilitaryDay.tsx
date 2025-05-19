@@ -4,7 +4,7 @@ import { Input, Button, ProgressHeader } from "@/shared/ui";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { formatDateKorean, formatSimpleDate } from "@/shared/utils";
 import { useInitSettingMutation, useInitSettingQueries } from "@/entities/init_setting";
-import { DatePickerDrawer } from "@/widgets/datepicker/ui";
+import { DatePickerSheet } from "@/widgets/datepicker/ui";
 
 export const MilitaryDay: React.FC = () => {
   const { militaryBranch, firstMeetDate, enlistmentDate, dischargeDate, setEnlistmentDate, setDischargeDate } =
@@ -84,7 +84,7 @@ export const MilitaryDay: React.FC = () => {
         <div className="mt-4 space-y-6">
           <div>
             <label className="text-gray-1000 text-md mb-2 block font-medium">입대일</label>
-            <DatePickerDrawer onConfirm={setEnlistmentDate}>
+            <DatePickerSheet onConfirm={setEnlistmentDate}>
               <Input
                 value={enlistmentDate ? formatDateKorean(enlistmentDate) : ""}
                 onChange={() => {}}
@@ -92,12 +92,12 @@ export const MilitaryDay: React.FC = () => {
                 status={enlistmentDate ? "active" : "inactive"}
                 onClear={() => setEnlistmentDate(null)} readOnly
               />
-            </DatePickerDrawer>
+            </DatePickerSheet>
           </div>
 
           <div>
             <label className="text-gray-1000 text-md mb-2 block font-medium">전역일</label>
-            <DatePickerDrawer onConfirm={setDischargeDate}>
+            <DatePickerSheet onConfirm={setDischargeDate}>
               <Input
                 value={dischargeDate ? formatDateKorean(dischargeDate) : ""}
                 onChange={() => {}}
@@ -105,7 +105,7 @@ export const MilitaryDay: React.FC = () => {
                 status={dischargeDate ? "active" : "inactive"}
                 onClear={() => setDischargeDate(null)} readOnly
               />
-            </DatePickerDrawer>
+            </DatePickerSheet>
           </div>
         </div>
       </div>

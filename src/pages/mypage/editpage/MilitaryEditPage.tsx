@@ -4,7 +4,7 @@ import { Input, Button } from "@/shared/ui";
 import { formatDateKorean, formatSimpleDate } from "@/shared/utils";
 import { EditHeader } from "@/features/mypage";
 import { useUpdateMilitaryDate } from "@/entities/edit_info/mutation";
-import { DatePickerDrawer } from "@/widgets/datepicker/ui";
+import { DatePickerSheet } from "@/widgets/datepicker/ui";
 
 export const MilitaryEditPage: React.FC = () => {
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ export const MilitaryEditPage: React.FC = () => {
         <div className="mt-4 space-y-6">
           <div>
             <label className="text-gray-1000 text-md mb-2 block font-medium">입대일</label>
-            <DatePickerDrawer onConfirm={setEnlistmentDate}>
+            <DatePickerSheet onConfirm={setEnlistmentDate}>
               <Input
                 value={enlistmentDate ? formatDateKorean(enlistmentDate) : ""}
                 onChange={() => {}}
@@ -68,12 +68,12 @@ export const MilitaryEditPage: React.FC = () => {
                 status={enlistmentDate ? "active" : "inactive"}
                 onClear={() => setEnlistmentDate(null)}
               />
-            </DatePickerDrawer>
+            </DatePickerSheet>
           </div>
 
           <div>
             <label className="text-gray-1000 text-md mb-2 block font-medium">전역일</label>
-            <DatePickerDrawer onConfirm={setDischargeDate}>
+            <DatePickerSheet onConfirm={setDischargeDate}>
               <Input
                 value={dischargeDate ? formatDateKorean(dischargeDate) : ""}
                 onChange={() => {}}
@@ -81,7 +81,7 @@ export const MilitaryEditPage: React.FC = () => {
                 status={dischargeDate ? "active" : "inactive"}
                 onClear={() => setDischargeDate(null)} readOnly
               />
-            </DatePickerDrawer>
+            </DatePickerSheet>
           </div>
         </div>
         {error && <p className="mt-4 text-center text-sm text-red-500">{error}</p>}

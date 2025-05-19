@@ -1,5 +1,5 @@
 import { DateSelector } from "@/shared/ui";
-import { DatePickerDrawer } from "@/widgets/datepicker/ui";
+import { DatePickerSheet } from "@/widgets/datepicker/ui";
 
 interface DdayDateBottomSheetProps {
   selectedDate: string;
@@ -28,8 +28,8 @@ export const DdayDateBottomSheet = ({ selectedDate, onDateChange }: DdayDateBott
   };
 
   return (
-    <DatePickerDrawer onConfirm={handleDateConfirm}>
+    <DatePickerSheet onConfirm={handleDateConfirm}>
       <DateSelector date={selectedDate} />
-    </DatePickerDrawer>
+    </DatePickerSheet>
   );
 };
