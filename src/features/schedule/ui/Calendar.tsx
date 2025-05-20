@@ -61,7 +61,12 @@ export const Calendar = () => {
       {/* 헤더 */}
       <div className="relative mb-3 flex justify-between">
         <div className="flex items-center justify-center gap-2.5">
-          <CalendarBottomSheet year={year} month={month} setCurrentDate={setSelectedMonth} />
+          <CalendarBottomSheet
+            year={year}
+            month={month}
+            setCurrentDate={setSelectedMonth}
+            setSelectedDay={setSelectedDay}
+          />
         </div>
         <div className="flex items-center justify-center gap-2">
           <Link to="/calendar/d-day" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
