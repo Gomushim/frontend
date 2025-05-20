@@ -29,7 +29,6 @@ export const useCreateDdayMutation = (data: DdayRequst) => {
 
 export const useUpdateDdayMutation = (data: DdayRequst) => {
   const queryClient = useQueryClient();
-  console.log("data", data);
 
   if (!data) {
     throw new Error("디데이 수정에 필요한 데이터가 없습니다.");
