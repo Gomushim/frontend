@@ -14,7 +14,7 @@ import { useGetLetterList } from "@/entities/letter/query";
 import { useCoupleNickname } from "@/entities/couple_nickname";
 
 // 훅
-import useIntersect from "@/shared/hooks/useIntersect";
+import { useIntersect } from "@/shared/hooks";
 
 export const LetterListPage = () => {
   // API 훅
