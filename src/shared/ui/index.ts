@@ -17,3 +17,4 @@ export * from "./textarea";
 export * from "./carousel";
 export * from "./alert-dialog";
 export * from "./deleteAlert";
+export * from "./countInput";
