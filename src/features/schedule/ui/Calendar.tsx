@@ -80,10 +80,16 @@ export const Calendar = () => {
           />
         </div>
         <div className="flex items-center justify-center gap-2">
-          <Link to="/calendar/dday" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
+          <Link
+            to="/calendar/dday"
+            state={{ from: "/calendar" }}
+            className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
             <img src={HambukIcon} alt="D-day 보러가기" />
           </Link>
-          <Link to="/calendar/schedule/new" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
+          <Link
+            to="/calendar/schedule/new"
+            state={{ from: "/calendar" }}
+            className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
             <img src={PlusIcon} alt="일정 추가" />
           </Link>
         </div>

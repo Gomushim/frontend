@@ -20,6 +20,7 @@ export const useCreateDdayMutation = (data: DdayRequst) => {
       queryClient.invalidateQueries({ queryKey: ddayQueryKey.main().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.week().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.list(date).queryKey });
+      queryClient.invalidateQueries({ queryKey: scheduleQueryKey.calendar(date).queryKey });
     },
     onError: error => {
       console.error("Error:", error);
@@ -43,6 +44,7 @@ export const useUpdateDdayMutation = (data: DdayRequst) => {
       queryClient.invalidateQueries({ queryKey: ddayQueryKey.main().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.week().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.list(date).queryKey });
+      queryClient.invalidateQueries({ queryKey: scheduleQueryKey.calendar(date).queryKey });
     },
     onError: error => {
       console.error("Error:", error);

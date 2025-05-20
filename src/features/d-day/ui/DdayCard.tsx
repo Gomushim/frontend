@@ -24,7 +24,7 @@ export const DdayCard = (props: DdayCardProps) => {
   const navigate = useNavigate();
 
   const goEditDdayPage = () => {
-    navigate(`/calendar/dday/${props.id}/edit`);
+    navigate(`/calendar/dday/${props.id}/edit`, { state: { from: "/calendar/dday" } });
   };
 
   return (
