@@ -6,6 +6,7 @@ import { useGetCalendarSchedule } from "@/entities/schedule/query";
 import { FATIGUE_TAG } from "../model";
 import HambukIcon from "@/assets/icons/hambuk.svg";
 import PlusIcon from "@/assets/icons/plus.svg";
+
 // 날짜 비교를 위한 정규화 함수 (시, 분, 초 제거)
 const normalizeDate = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
@@ -21,6 +22,16 @@ export const Calendar = () => {
         ...tag,
         startDate: normalizeDate(new Date(tag.startDate)),
         endDate: normalizeDate(new Date(tag.endDate)),
+      }))
+    );
+  }, [scheduleData]);
+
+  const normalizedAnniversaries = useMemo(() => {
+    return (
+      scheduleData &&
+      scheduleData.result.anniversaries.map(anniversary => ({
+        ...anniversary,
+        date: normalizeDate(new Date(anniversary.anniversaryDate)),
       }))
     );
   }, [scheduleData]);
@@ -151,6 +162,14 @@ export const Calendar = () => {
                         })
                       : [];
 
+                  const dayAnniversaries =
+                    date != null
+                      ? normalizedAnniversaries.filter(anniversary => {
+                          const d = normalizeDate(date);
+                          return d.getTime() === anniversary.date.getTime();
+                        })
+                      : [];
+
                   // 연속 일정과 단일 일정 분리
                   const continuousTags = dayTags.filter(tag => tag.startDate.getTime() !== tag.endDate.getTime());
                   const singleDayTags = dayTags.filter(tag => tag.startDate.getTime() === tag.endDate.getTime());
@@ -213,7 +232,16 @@ export const Calendar = () => {
                         )}
 
                         {/* 단일 일정 스택 */}
-                        <div className="flex w-full flex-col gap-2">
+                        <div className="flex w-full flex-col gap-1">
+                          {/* 기념일 표시 */}
+                          {dayAnniversaries.map((anniversary, index) => (
+                            <div
+                              key={`${anniversary.title}-${index}`}
+                              className="flex h-4 w-full items-center rounded-[4px] bg-[rgb(255,232,117,0.6)]">
+                              <p className="w-full truncate px-1 text-[10px] text-[#7B6901]">{anniversary.title}</p>
+                            </div>
+                          ))}
+                          {/* 일반 일정 */}
                           {singleDayTags.map(tag => {
                             const { bgColor, textColor } = FATIGUE_TAG[tag.fatigue || "VERY_TIRED"];
                             return (
