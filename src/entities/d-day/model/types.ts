@@ -6,7 +6,7 @@ export enum Emoji {
 }
 
 export interface Dday {
-  id: number;
+  id: string;
   emoji: Emoji;
   title: string;
   anniversaryDate: string;

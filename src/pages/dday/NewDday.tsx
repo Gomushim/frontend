@@ -33,7 +33,7 @@ export const NewDday = () => {
   const { mutate: ddayMutate } = useCreateDdayMutation(newDdayState);
   const { mutate: ddayUpdateMutate } = useUpdateDdayMutation(newDdayState);
 
-  useInitializeDdayFormFromCache(ddayId!, handleChange);
+  useInitializeDdayFormFromCache(ddayId!, handleChange, from);
 
   // 이벤트 핸들러
   const handlePostDday = async () => {
