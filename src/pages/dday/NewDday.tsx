@@ -1,5 +1,5 @@
 // 외부 라이브러리
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 
 // UI 컴포넌트
 import { Button, Divider, Topbar } from "@/shared/ui";
@@ -12,14 +12,20 @@ import backIcon from "@/assets/icons/back.svg";
 // API 및 훅
 import { useCreateDdayMutation, useUpdateDdayMutation } from "@/entities/d-day";
 import { useInitializeDdayFormFromCache, useNewDdayForm } from "@/features/d-day";
-
 export const NewDday = () => {
   // 라우터 훅
-  const navigate = useNavigate();
   const { ddayId } = useParams<{ ddayId?: string }>();
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  const from = (location.state as { from: string } | undefined)?.from || "/calendar";
+
+  const handleDone = () => {
+    navigate(from); // 원래 있던 곳으로 이동
+  };
+
+  // 상태
   const isEditMode = !!ddayId;
-
   // 상태 및 폼 관련 커스텀 훅
   const { newDdayState, handleChange, isFormValid } = useNewDdayForm();
 
@@ -27,7 +33,7 @@ export const NewDday = () => {
   const { mutate: ddayMutate } = useCreateDdayMutation(newDdayState);
   const { mutate: ddayUpdateMutate } = useUpdateDdayMutation(newDdayState);
 
-  useInitializeDdayFormFromCache(ddayId!, handleChange);
+  useInitializeDdayFormFromCache(ddayId!, handleChange, from);
 
   // 이벤트 핸들러
   const handlePostDday = async () => {
@@ -35,14 +41,14 @@ export const NewDday = () => {
       ddayUpdateMutate(undefined, {
         onSuccess: () => {
           alert("디데이가 수정되었습니다.");
-          navigate(-1);
+          handleDone();
         },
       });
     } else {
       ddayMutate(undefined, {
         onSuccess: () => {
           alert("디데이가 생성되었습니다.");
-          navigate(-1);
+          handleDone();
         },
         onError: error => {
           console.log(error);
@@ -51,17 +57,12 @@ export const NewDday = () => {
     }
   };
 
-  const goBack = () => {
-    navigate(-1);
-    return goBack;
-  };
-
   return (
     <>
       <header className="mt-[70px] mb-8 flex flex-col items-center gap-7">
         <div className="">
           <h1 className="text-xl font-semibold text-gray-900">생성하기</h1>
-          <Button variant="ghost" size="sIcon" className="absolute top-17 left-5" onClick={goBack}>
+          <Button variant="ghost" size="sIcon" className="absolute top-17 left-5" onClick={handleDone}>
             <img src={backIcon} alt="뒤로가기" />
           </Button>
         </div>

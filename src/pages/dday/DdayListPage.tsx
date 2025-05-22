@@ -1,5 +1,5 @@
 // 외부 라이브러리
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 // UI
 import { Button } from "@/shared/ui";
@@ -17,7 +17,7 @@ import { DdayCard, NoDdayMessage } from "@/features/d-day/ui";
 import { useCoupleNickname } from "@/entities/couple_nickname";
 
 // 훅
-import useIntersect from "@/shared/hooks/useIntersect";
+import { useIntersect } from "@/shared/hooks";
 
 export const CalendarDdayList = () => {
   // API 훅
@@ -31,7 +31,10 @@ export const CalendarDdayList = () => {
   }, isFetched);
 
   // 라우터 훅
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const from = (location.state as { from: string } | null)?.from || "/";
 
   if (!ddayListData) {
     return;
@@ -39,12 +42,11 @@ export const CalendarDdayList = () => {
 
   // 이벤트 핸들러
   const goCreateDdayPage = () => {
-    navigate("/calendar/dday/new");
+    navigate("/calendar/dday/new", { state: { from: "/calendar/dday" } });
   };
 
   const goBack = () => {
-    navigate(-1);
-    return goBack;
+    navigate(from);
   };
 
   return (

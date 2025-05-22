@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 
 type Intersect = (entry: IntersectionObserverEntry, observer: IntersectionObserver) => void;
 
-export default function useIntersect<T extends HTMLElement>(onIntersect: Intersect, loading: boolean) {
+export const useIntersect = <T extends HTMLElement>(onIntersect: Intersect, loading: boolean) => {
   const ref = useRef<T>(null);
 
   const callback = useCallback(
@@ -23,4 +23,4 @@ export default function useIntersect<T extends HTMLElement>(onIntersect: Interse
   }, [callback]);
 
   return ref;
-}
+};

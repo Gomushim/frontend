@@ -20,6 +20,7 @@ export const useCreateDdayMutation = (data: DdayRequst) => {
       queryClient.invalidateQueries({ queryKey: ddayQueryKey.main().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.week().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.list(date).queryKey });
+      queryClient.invalidateQueries({ queryKey: scheduleQueryKey.calendar(date).queryKey });
     },
     onError: error => {
       console.error("Error:", error);
@@ -29,7 +30,6 @@ export const useCreateDdayMutation = (data: DdayRequst) => {
 
 export const useUpdateDdayMutation = (data: DdayRequst) => {
   const queryClient = useQueryClient();
-  console.log("data", data);
 
   if (!data) {
     throw new Error("디데이 수정에 필요한 데이터가 없습니다.");
@@ -44,6 +44,7 @@ export const useUpdateDdayMutation = (data: DdayRequst) => {
       queryClient.invalidateQueries({ queryKey: ddayQueryKey.main().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.week().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.list(date).queryKey });
+      queryClient.invalidateQueries({ queryKey: scheduleQueryKey.calendar(date).queryKey });
     },
     onError: error => {
       console.error("Error:", error);
