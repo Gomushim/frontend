@@ -1,4 +1,4 @@
-import { SInput } from "@/shared/ui";
+import { CountInput } from "@/shared/ui";
 import { memo } from "react";
 
 interface TitleInputProps {
@@ -12,12 +12,13 @@ export const TitleInput = memo(({ value, onTitleChange }: TitleInputProps) => {
       <label htmlFor="title" className="text-gary-900 text-xl font-semibold">
         제목
       </label>
-      <SInput
+      <CountInput
         id="title"
         className="h-12 w-full border"
         type="text"
         value={value}
         onChange={e => onTitleChange(e.target.value)}
+        maxLength={10}
       />
     </>
   );

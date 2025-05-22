@@ -6,6 +6,7 @@ import { useGetCalendarSchedule } from "@/entities/schedule/query";
 import { FATIGUE_TAG } from "../model";
 import HambukIcon from "@/assets/icons/hambuk.svg";
 import PlusIcon from "@/assets/icons/plus.svg";
+
 // 날짜 비교를 위한 정규화 함수 (시, 분, 초 제거)
 const normalizeDate = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
@@ -21,6 +22,16 @@ export const Calendar = () => {
         ...tag,
         startDate: normalizeDate(new Date(tag.startDate)),
         endDate: normalizeDate(new Date(tag.endDate)),
+      }))
+    );
+  }, [scheduleData]);
+
+  const normalizedAnniversaries = useMemo(() => {
+    return (
+      scheduleData &&
+      scheduleData.result.anniversaries.map(anniversary => ({
+        ...anniversary,
+        date: normalizeDate(new Date(anniversary.anniversaryDate)),
       }))
     );
   }, [scheduleData]);
@@ -61,13 +72,24 @@ export const Calendar = () => {
       {/* 헤더 */}
       <div className="relative mb-3 flex justify-between">
         <div className="flex items-center justify-center gap-2.5">
-          <CalendarBottomSheet year={year} month={month} setCurrentDate={setSelectedMonth} />
+          <CalendarBottomSheet
+            year={year}
+            month={month}
+            setCurrentDate={setSelectedMonth}
+            setSelectedDay={setSelectedDay}
+          />
         </div>
         <div className="flex items-center justify-center gap-2">
-          <Link to="/calendar/d-day" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
+          <Link
+            to="/calendar/dday"
+            state={{ from: "/calendar" }}
+            className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
             <img src={HambukIcon} alt="D-day 보러가기" />
           </Link>
-          <Link to="/calendar/schedule/new" className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
+          <Link
+            to="/calendar/schedule/new"
+            state={{ from: "/calendar" }}
+            className="flex h-6 w-6 cursor-pointer items-center justify-center pb-1">
             <img src={PlusIcon} alt="일정 추가" />
           </Link>
         </div>
@@ -146,6 +168,14 @@ export const Calendar = () => {
                         })
                       : [];
 
+                  const dayAnniversaries =
+                    date != null
+                      ? normalizedAnniversaries.filter(anniversary => {
+                          const d = normalizeDate(date);
+                          return d.getTime() === anniversary.date.getTime();
+                        })
+                      : [];
+
                   // 연속 일정과 단일 일정 분리
                   const continuousTags = dayTags.filter(tag => tag.startDate.getTime() !== tag.endDate.getTime());
                   const singleDayTags = dayTags.filter(tag => tag.startDate.getTime() === tag.endDate.getTime());
@@ -208,7 +238,16 @@ export const Calendar = () => {
                         )}
 
                         {/* 단일 일정 스택 */}
-                        <div className="flex w-full flex-col gap-2">
+                        <div className="flex w-full flex-col gap-1">
+                          {/* 기념일 표시 */}
+                          {dayAnniversaries.map((anniversary, index) => (
+                            <div
+                              key={`${anniversary.title}-${index}`}
+                              className="flex h-4 w-full items-center rounded-[4px] bg-[rgb(255,232,117,0.6)]">
+                              <p className="w-full truncate px-1 text-[10px] text-[#7B6901]">{anniversary.title}</p>
+                            </div>
+                          ))}
+                          {/* 일반 일정 */}
                           {singleDayTags.map(tag => {
                             const { bgColor, textColor } = FATIGUE_TAG[tag.fatigue || "VERY_TIRED"];
                             return (

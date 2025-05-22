@@ -5,11 +5,13 @@ interface CalendarBottomSheetProps {
   year: number;
   month: number;
   setCurrentDate: (date: Date) => void;
+  setSelectedDay: (day: Date) => void;
 }
 
-export const CalendarBottomSheet = ({ year, month, setCurrentDate }: CalendarBottomSheetProps) => {
+export const CalendarBottomSheet = ({ year, month, setCurrentDate, setSelectedDay }: CalendarBottomSheetProps) => {
   const handleDateConfirm = (selectedDate: Date) => {
     setCurrentDate(selectedDate);
+    setSelectedDay(selectedDate);
   };
 
   return (

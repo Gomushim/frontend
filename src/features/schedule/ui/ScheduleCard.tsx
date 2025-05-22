@@ -14,7 +14,7 @@ interface ScheduleCardProps {
   onClick?: () => void;
 }
 
-const statusTagMap: Record<string, { barColor: string; textColor: string; tagColor: string; tagName: string }> = {
+const statusTagMap = {
   VERY_TIRED: {
     barColor: "bg-red-0",
     textColor: "text-red-0",

@@ -34,7 +34,7 @@ export interface ScheduleRequst {
 export interface ScheduleListResponse {
   result: {
     schedules: Omit<Schedule, "letter">[];
-    anniversaries: Dday[];
+    anniversaries: Omit<Dday[], "emoji">;
   };
 }
 

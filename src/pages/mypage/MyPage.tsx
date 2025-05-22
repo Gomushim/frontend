@@ -30,6 +30,7 @@ export const MyPage = () => {
       </div>
       {/* 컨텐츠 영역 */}
       <div className=" w-full space-y-4">
+
         <ProfileCardSection />
         <StatusSection />
         <NotificationSetting />

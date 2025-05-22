@@ -5,7 +5,7 @@ import cake from "@/assets/icons/cake.svg";
 import travel from "@/assets/icons/travel.svg";
 import { calculateDday } from "@/shared/utils";
 import type { Dday } from "@/entities/d-day";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 interface DdayCardProps extends Dday {
   className?: string;
@@ -20,11 +20,14 @@ const emojiIconMap: Record<string, string> = {
 };
 
 export const DdayCard = (props: DdayCardProps) => {
+  const location = useLocation();
   const iconSrc = emojiIconMap[props.emoji];
   const navigate = useNavigate();
 
   const goEditDdayPage = () => {
-    navigate(`/calendar/dday/${props.id}/edit`);
+    navigate(`/calendar/dday/${props.id}/edit`, {
+      state: { from: location.pathname },
+    });
   };
 
   return (

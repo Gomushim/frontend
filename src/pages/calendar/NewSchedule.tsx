@@ -120,8 +120,8 @@ export const CalendarNewSchedule = () => {
           {isEditMode && (
             <DeleteAlert
               onDelete={handleDelete}
-              title="편지 삭제"
-              description="정말 편지를 삭제하시겠어요?"
+              title="일정 삭제"
+              description="정말 일정을 삭제하시겠어요?"
               buttonText="삭제"
               cancelText="취소">
               <Button className="w-[50%]" variant="delete" size="xl" disabled={!isValid}>
