@@ -32,7 +32,7 @@ export const StatusSection = () => {
       </div>
       {/* 줄선 아래 */}
       <div >
-        <section className="mb-4 rounded-2xl px-4 py-4">
+        <section className="mb-4 bg-white rounded-2xl px-4 py-4">
           <div className="flex items-center text-sm font-semibold">
             {EmotionIcon ? (
               <EmotionIcon className="mr-3 h-6 w-6" />
