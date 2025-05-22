@@ -15,35 +15,12 @@ export const MilitaryDay: React.FC = () => {
   const coupleId = getCoupleInfo.data?.result.coupleId ?? null;
   const { mutate: registerAnniversary, isPending } = useInitSettingMutation("post");
 
-  // 상대방의 초기 설정 완료 상태 확인인
-  useEffect(() => {
-    if (!coupleId) return;
-
-    const checkPartnerStatus = async () => {
-      try {
-        const response = await getCoupleInfo.refetch();
-        const isPartnerCompleted = response.data?.result.isAnniversariesRegistered;
-        
-        if (isPartnerCompleted) {
-          navigate("/", { replace: true });
-        }
-      } catch (error) {
-        console.error("상대방 상태 확인 중 오류 발생:", error);
-      }
-    };
-
-    const intervalId = setInterval(checkPartnerStatus, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [coupleId, getCoupleInfo, navigate]);
-//--------------------------------------------------------------------------------------
   useEffect(() => {
     if (getCoupleInfo.error) {
       console.error("커플 정보 조회 실패:", getCoupleInfo.error);
       setError("커플 정보를 가져오는데 실패했습니다.");
     }
   }, [getCoupleInfo.error]);
-//--------------------------------------------------------------------------------------
 
   const handleNext = async () => {
     if (!enlistmentDate || !dischargeDate || !firstMeetDate || !militaryBranch || !coupleId) {
@@ -79,7 +56,6 @@ export const MilitaryDay: React.FC = () => {
       }
     );
   };
-//--------------------------------------------------------------------------------------
 
   return (
     <div className="flex h-screen flex-col bg-white">
