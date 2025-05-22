@@ -12,7 +12,6 @@ export const StatusSection = () => {
   const { data: statusMessageData } = useMyStatusMessage();
   const { getCoupleInfo } = useInitSettingQueries();
   const { checkCoupleConnect } = useIscouple();
-  
   const isConnected = checkCoupleConnect.data?.result ?? false;
   const isInitialized = getCoupleInfo.data?.result.isAnniversariesRegistered ?? false;
   const emotion = emotionData?.result.emotion;
@@ -26,19 +25,19 @@ export const StatusSection = () => {
     <div className="bg-gray-50 rounded-xl p-4 ">
       {/* 줄선 위 헤더 */}
       <div 
-      className={`text-md font-medium text-gray-900 mb-5 flex items-center justify-between border-b border-gray-200 pb-2 ${(!isConnected || !isInitialized) ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+      className={`text-md font-medium text-gray-900 mb-5 flex items-center justify-between border-b border-gray-200 pb-2 ${(!isConnected || !isInitialized) ? " cursor-not-allowed" : "cursor-pointer"}`}
       onClick={() => isConnected && isInitialized && navigate("/status")}
       > 나의 상태 표기
         <img src={nextArrow} alt="다음" className="w-4 h-4" />
       </div>
       {/* 줄선 아래 */}
       <div >
-        <section className="mb-4 rounded-2xl bg-white px-4 py-4">
+        <section className="mb-4 rounded-2xl px-4 py-4">
           <div className="flex items-center text-sm font-semibold">
             {EmotionIcon ? (
               <EmotionIcon className="mr-3 h-6 w-6" />
             ) : (
-              <img src={CharacterDefaultIcon} alt="캐릭터" />
+              <img src={CharacterDefaultIcon} alt="캐릭터"  className="mr-3 h-6 w-6" />
             )}
             <span className={`font-semibold text-md ${statusMessage ? "text-gray-900" : "text-gray-500"}`}>
               {!isConnected

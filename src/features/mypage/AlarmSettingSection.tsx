@@ -14,7 +14,7 @@ export const NotificationSetting = () => {
   return (
     <div 
     onClick={() => isConnected && isInitialized && navigate("/mypage/alarmsetting")}
-    className={`bg-gray-50 rounded-lg p-4 font-medium text-md text-gray-900 flex items-center justify-between ${(!isConnected || !isInitialized) ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}>
+    className={`bg-gray-50 rounded-lg p-4 font-medium text-md text-gray-900 flex items-center justify-between ${(!isConnected || !isInitialized) ? "cursor-not-allowed" : "cursor-pointer"}`}>
       <span>알림 설정</span>
       <img src={nextArrow} alt="다음" className="w-4 h-4" />
     </div>
