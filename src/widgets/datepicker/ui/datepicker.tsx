@@ -33,11 +33,14 @@ export const DatePickerSheet: React.FC<DatePickerSheetProps> = ({ onConfirm, chi
       <SheetTrigger asChild>
         <div className="w-full">{children}</div>
       </SheetTrigger>
-      <SheetContent side="bottom" className="mx-auto w-full max-w-[375px]">
+      <SheetContent 
+        side="bottom" 
+        className="w-full pc:w-[375px] rounded-t-[20px] mx-auto"
+      >
         <div className="w-full">
           <div className="relative flex h-[200px] w-full items-center justify-center">
             <div className="absolute inset-x-0 top-1/2 h-11 -translate-y-1/2 rounded-[10px] bg-gray-100" />
-            <div className="relative w-full">
+            <div className="relative w-full rounded-[10px]">
               <Picker
                 value={pickerValue}
                 onChange={setPickerValue}
