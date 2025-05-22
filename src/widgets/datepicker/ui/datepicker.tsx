@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Picker from "react-mobile-picker";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from "../../../shared/ui/drawer";
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "../../../shared/ui/sheet";
 import { Button } from "../../../shared/ui/button";
 
-interface DatePickerDrawerProps {
+interface DatePickerSheetProps {
   onConfirm: (date: Date) => void;
   children?: React.ReactNode;
 }
 
-export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({ onConfirm, children }) => {
+export const DatePickerSheet: React.FC<DatePickerSheetProps> = ({ onConfirm, children }) => {
   const [open, setOpen] = useState(false);
   const today = new Date();
   const years = Array.from({ length: 100 + 3 }, (_, i) => String(today.getFullYear() + 2 - i));
@@ -29,23 +29,18 @@ export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({ onConfirm, c
   };
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
         <div className="w-full">{children}</div>
-      </DrawerTrigger>
-      <DrawerContent className="pc:max-w-[375px] mx-auto w-full"> 
+      </SheetTrigger>
+      <SheetContent 
+        side="bottom" 
+        className="w-full pc:w-[375px] rounded-t-[20px] mx-auto"
+      >
         <div className="w-full">
           <div className="relative flex h-[200px] w-full items-center justify-center">
             <div className="absolute inset-x-0 top-1/2 h-11 -translate-y-1/2 rounded-[10px] bg-gray-100" />
-            <div 
-              className="relative w-full touch-action-pan-y"
-              onTouchMove={(e) => {
-                e.stopPropagation();
-              }}
-              onTouchStart={(e) => {
-                e.stopPropagation();
-              }}
-            >
+            <div className="relative w-full rounded-[10px]">
               <Picker
                 value={pickerValue}
                 onChange={setPickerValue}
@@ -76,13 +71,13 @@ export const DatePickerDrawer: React.FC<DatePickerDrawerProps> = ({ onConfirm, c
               </Picker>
             </div>
           </div>
-          <DrawerHeader>
+          <SheetHeader>
             <Button variant="active" size="onicon" onClick={handleConfirm} className="w-full">
               확인
             </Button>
-          </DrawerHeader>
+          </SheetHeader>
         </div>
-      </DrawerContent>
-    </Drawer>
+      </SheetContent>
+    </Sheet>
   );
 };

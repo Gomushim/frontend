@@ -62,7 +62,7 @@ export const LetterCard = (props: LetterCardProps) => {
             <InfoCard.Text>{props.content}</InfoCard.Text>
           </div>
         </div>
-        <div className="mt-3 flex justify-between">
+        <div className=" mt-3 flex justify-between">
           <InfoCard.Text>{formatDateFull(props.createdAt)}</InfoCard.Text>
           <InfoCard.Options className="items-center">
             <WriteLetterBottomSheet title={props.title} content={props.content} letterId={props.letterId}>

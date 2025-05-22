@@ -12,5 +12,8 @@ export const useGetLetterListMain = (enabled: boolean) => {
     queryKey: letterKeys.main(),
     queryFn: getLetterListMain,
     enabled: enabled,
+    refetchInterval: 1000 * 60,
+    staleTime: 0,
+    gcTime: 0,
   });
 };

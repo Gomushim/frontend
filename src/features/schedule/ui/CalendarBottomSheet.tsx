@@ -1,4 +1,4 @@
-import { DatePickerDrawer } from "@/widgets/datepicker/ui";
+import { DatePickerSheet } from "@/widgets/datepicker/ui";
 import BottomArrowIcon from "@/assets/icons/bottomArrow.svg";
 
 interface CalendarBottomSheetProps {
@@ -15,7 +15,7 @@ export const CalendarBottomSheet = ({ year, month, setCurrentDate, setSelectedDa
   };
 
   return (
-    <DatePickerDrawer onConfirm={handleDateConfirm}>
+    <DatePickerSheet onConfirm={handleDateConfirm}>
       <div className="flex cursor-pointer items-center justify-center gap-2.5">
         <h2 className="text-xl font-semibold text-gray-900">
           {year}년 {month + 1}월
@@ -24,6 +24,6 @@ export const CalendarBottomSheet = ({ year, month, setCurrentDate, setSelectedDa
           <img src={BottomArrowIcon} alt="날짜 선택" />
         </button>
       </div>
-    </DatePickerDrawer>
+    </DatePickerSheet>
   );
 };

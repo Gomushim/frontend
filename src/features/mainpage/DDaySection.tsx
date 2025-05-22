@@ -16,8 +16,9 @@ export const DDaySection = ({ isConnected }: DDaySectionProps) => {
     return (
       <>
         <MainHeader mainTitle="D-DAY" buttonText="더보기" onClick={() => alert("초기 설정을 완료해주세요!")} />
-        <div className="text-md flex items-center rounded-2xl bg-white px-4 py-8 font-semibold text-gray-500">
-          <img src={CakeIcon} alt="하트" className="mr-2 h-5 w-5 opacity-50" />
+        <div className="mb-5 flex items-center rounded-2xl bg-white px-4 py-8 text-md font-semibold text-gray-500">
+          <img src={CakeIcon} alt="하트" className="mr-2 h-7 w-7 opacity-50" />
+
           <span>상대방과의 소중한 디데이를 등록하세요</span>
         </div>
       </>

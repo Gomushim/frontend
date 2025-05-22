@@ -14,7 +14,7 @@ export const MyPage = () => {
   const isInitialized = getCoupleInfo.data?.result.isAnniversariesRegistered ?? false;
 
   return (
-    <div className="min-h-screen bg-white px-6 py-6">
+    <div className="min-h-screen  px-6 py-6">
       {/* 상단 바 */}
       <div className="-mx-5 -mt-6 mb-6 flex items-center justify-between bg-gray-50 p-4">
         <span className="text-2xl font-semibold">마이</span>
@@ -29,7 +29,8 @@ export const MyPage = () => {
         </button>
       </div>
       {/* 컨텐츠 영역 */}
-      <div className="mx-auto space-y-4">
+      <div className=" w-full space-y-4">
+
         <ProfileCardSection />
         <StatusSection />
         <NotificationSetting />

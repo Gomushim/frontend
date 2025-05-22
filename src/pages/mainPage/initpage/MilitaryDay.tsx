@@ -4,7 +4,7 @@ import { Input, Button, ProgressHeader } from "@/shared/ui";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { formatDateKorean, formatSimpleDate } from "@/shared/utils";
 import { useInitSettingMutation, useInitSettingQueries } from "@/entities/init_setting";
-import { DatePickerDrawer } from "@/widgets/datepicker/ui";
+import { DatePickerSheet } from "@/widgets/datepicker/ui";
 
 export const MilitaryDay: React.FC = () => {
   const { militaryBranch, firstMeetDate, enlistmentDate, dischargeDate, setEnlistmentDate, setDischargeDate } =
@@ -27,20 +27,8 @@ export const MilitaryDay: React.FC = () => {
       setError("입력되지 않은 정보가 있어요");
       return;
     }
-
-    // 날짜 유효성 검사
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
-    if (firstMeetDate > today) {
-      setError("만난 날짜는 오늘보다 이전이어야 합니다");
-      return;
-    }
-
-    if (enlistmentDate > today) {
-      setError("입대일은 오늘보다 이전이어야 합니다");
-      return;
-    }
 
     if (dischargeDate <= enlistmentDate) {
       setError("전역일은 입대일보다 이후여야 합니다");
@@ -84,7 +72,7 @@ export const MilitaryDay: React.FC = () => {
         <div className="mt-4 space-y-6">
           <div>
             <label className="text-gray-1000 text-md mb-2 block font-medium">입대일</label>
-            <DatePickerDrawer onConfirm={setEnlistmentDate}>
+            <DatePickerSheet onConfirm={setEnlistmentDate}>
               <Input
                 value={enlistmentDate ? formatDateKorean(enlistmentDate) : ""}
                 onChange={() => {}}
@@ -92,12 +80,12 @@ export const MilitaryDay: React.FC = () => {
                 status={enlistmentDate ? "active" : "inactive"}
                 onClear={() => setEnlistmentDate(null)} readOnly
               />
-            </DatePickerDrawer>
+            </DatePickerSheet>
           </div>
 
           <div>
             <label className="text-gray-1000 text-md mb-2 block font-medium">전역일</label>
-            <DatePickerDrawer onConfirm={setDischargeDate}>
+            <DatePickerSheet onConfirm={setDischargeDate}>
               <Input
                 value={dischargeDate ? formatDateKorean(dischargeDate) : ""}
                 onChange={() => {}}
@@ -105,19 +93,19 @@ export const MilitaryDay: React.FC = () => {
                 status={dischargeDate ? "active" : "inactive"}
                 onClear={() => setDischargeDate(null)} readOnly
               />
-            </DatePickerDrawer>
+            </DatePickerSheet>
           </div>
         </div>
       </div>
 
       <div className="p-4">
-        {error && <p className="mb-2 text-center text-sm text-red-500">{error}</p>}
+        {error && <p className="mb-2 text-center text-sm text-red-0">{error}</p>}
         <Button
           variant={enlistmentDate && dischargeDate ? "active" : "inactive"}
           disabled={!enlistmentDate || !dischargeDate || isPending}
           onClick={handleNext}
           size="onicon">
-          {isPending ? "처리중..." : "다음"}
+           다음
         </Button>
       </div>
     </div>

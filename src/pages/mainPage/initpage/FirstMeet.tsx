@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Button, Input, ProgressHeader } from "@/shared/ui";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { formatDateKorean } from "@/shared/utils";
-import { DatePickerDrawer } from "@/widgets/datepicker/ui";
+import { DatePickerSheet } from "@/widgets/datepicker/ui";
 
 export const FirstMeet: React.FC = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export const FirstMeet: React.FC = () => {
       />
 
       <div className="mt-6 flex-1 px-4">
-        <DatePickerDrawer onConfirm={handleDateConfirm}>
+        <DatePickerSheet onConfirm={handleDateConfirm}>
           <Input
             value={firstMeetDate ? formatDateKorean(firstMeetDate) : ""}
             placeholder="날짜를 선택해주세요."
@@ -41,7 +41,7 @@ export const FirstMeet: React.FC = () => {
             }} readOnly
             className="w-full rounded-lg border border-gray-200 px-4 py-3 text-left text-base text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:outline-none"
           />
-        </DatePickerDrawer>
+        </DatePickerSheet>
       </div>
 
       <div className="p-4">

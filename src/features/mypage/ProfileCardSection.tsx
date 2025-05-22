@@ -17,13 +17,13 @@ export const ProfileCardSection = () => {
 
   return (
     <div
-      className={`bg-gray-50 rounded-lg p-4 flex items-center justify-between ${(!isConnected || !isInitialized) ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+      className={`bg-gray-50 rounded-lg p-4 flex items-center justify-between ${(!isConnected || !isInitialized) ? " cursor-not-allowed" : "cursor-pointer"}`}
       onClick={() => isConnected && isInitialized && navigate("/mypage/profileinfo")}
     >
       <div className="w-8 h-8 font-medium text-md text-gray-900 mr-3 ">
         <img src={profileImage} alt="프로필" className="w-8 h-8 object-cover" />
       </div>
-      <div className="flex-1 text-base font-medium">{nickname || "사용자"}</div>
+      <div className="flex-1 text-base font-medium text-gray-900">{nickname || "사용자"}</div>
       <img src={nextArrow} alt="다음" className="w-4 h-4" />
     </div>
   );

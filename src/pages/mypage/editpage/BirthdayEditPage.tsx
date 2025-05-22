@@ -4,7 +4,7 @@ import { Button, Input } from "@/shared/ui";
 import { formatDateKorean, formatSimpleDate } from "@/shared/utils";
 import { EditHeader } from "@/features/mypage";
 import { useUpdateMyBirthDate } from "@/entities/edit_info/mutation";
-import { DatePickerDrawer } from "@/widgets/datepicker/ui";
+import { DatePickerSheet } from "@/widgets/datepicker/ui";
 
 export const BirthdayEditPage: React.FC = () => {
   const navigate = useNavigate();
@@ -40,13 +40,13 @@ export const BirthdayEditPage: React.FC = () => {
 
       <div className="flex-1 px-4">
         <div className="mt-8">
-          <DatePickerDrawer onConfirm={handleDateConfirm}>
+          <DatePickerSheet onConfirm={handleDateConfirm}>
             <Input
               value={selectedDate ? formatDateKorean(selectedDate) : ""}
               placeholder="날짜를 선택해주세요."
               onChange={() => {}} readOnly
             />
-          </DatePickerDrawer>
+          </DatePickerSheet>
         </div>
       </div>
 
