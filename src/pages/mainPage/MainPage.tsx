@@ -95,7 +95,7 @@ export const MainPage = () => {
       try {
         const response = await getMyInfo();
         if (response.result.role === "GUEST") {
-          navigate("/onboarding", { replace: true });
+          navigate("/onboarding/nickname", { replace: true });
         }
       } catch (error) {
         console.error("사용자 정보 확인 중 오류 발생:", error);
