@@ -15,22 +15,30 @@ export const NotificationToggleList: React.FC = () => {
 
   const handleToggle = (key: string) => {
     if (!notificationData?.result) return;
-
-    const newData = {
-      dday: key === "app" 
-        ? !notificationData.result.dday && !notificationData.result.partnerStatus
-        : key === "dday" 
-          ? !notificationData.result.dday 
-          : notificationData.result.dday,
-      partnerStatus: key === "app"
-        ? !notificationData.result.dday && !notificationData.result.partnerStatus
-        : key === "partnerStatus"
-          ? !notificationData.result.partnerStatus
-          : notificationData.result.partnerStatus,
-    };
-
-    updateNotification(newData);
+  
+    const current = notificationData.result;
+  
+    if (key === "app") {
+      const isAllEnabled = current.dday && current.partnerStatus;
+  
+      updateNotification({
+        dday: !isAllEnabled,
+        partnerStatus: !isAllEnabled,
+      });
+    } else if (key === "dday") {
+      updateNotification({
+        ...current,
+        dday: !current.dday,
+      });
+    } else if (key === "partnerStatus") {
+      updateNotification({
+        ...current,
+        partnerStatus: !current.partnerStatus,
+      });
+    }
   };
+  
+  
 
   if (!notificationData?.result) return null;
 
