@@ -12,11 +12,11 @@ export const LoginButton = () => {
 
       // 앱이 설치되어 있지 않은 경우 fallback 처리
       setTimeout(() => {
-        window.location.href = "https://sarang-backend.o-r.kr/oauth2/authorization/kakao";
+        window.location.href = import.meta.env.VITE_KAKAO_LOGIN_URL;
       }, 2000);
     } else {
       // PC: 웹 로그인 URL로 이동
-      window.location.href = "https://sarang-backend.o-r.kr/oauth2/authorization/kakao";
+      window.location.href = import.meta.env.VITE_KAKAO_LOGIN_URL;
     }
   };
 
