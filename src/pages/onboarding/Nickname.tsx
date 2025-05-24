@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Input, Button, ProgressHeader } from "@/shared/ui";
 import { useOnboardingAlarmStore } from "@/features/onboarding/model/OnboardingStore";
+import { getMyInfo } from "@/entities/mypage_info/service";
 
 export const Nickname: React.FC = () => {
   const navigate = useNavigate();
   const { nickname, setNickname, isLoading, error, setError } = useOnboardingAlarmStore();
+
+  // ✅ GUEST 체크 및 리디렉션 로직
+  useEffect(() => {
+    const checkUserRole = async () => {
+      try {
+        const response = await getMyInfo();
+        if (response.result.role !== "GUEST") {
+          navigate("/", { replace: true }); // 이미 온보딩이 된 사용자면 메인으로 보냄
+        }
+      } catch (error) {
+        console.error("사용자 정보 확인 중 오류 발생:", error);
+      }
+    };
+
+    checkUserRole();
+  }, [navigate]);
 
   const handleNicknameChange = (value: string) => {
     setNickname(value);
