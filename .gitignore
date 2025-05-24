@@ -23,3 +23,9 @@ dev-dist
 *.njsproj
 *.sln
 *.sw?
+
+.env
+
+_wildcard.sarangkkun.site+2-key.pem
+_wildcard.sarangkkun.site+2.pem
+mkcert.exe
