@@ -9,9 +9,6 @@ import {
 import { useInitSettingQueries } from "@/entities/init_setting";
 import { useIscouple } from "@/entities/iscouple";
 import { NavBar } from "@/widgets/navbar/ui";
-import { useNavigate } from "react-router";
-import { useEffect } from "react";
-
 const NotConnectedPage = () => {
   return (
     <div className="flex flex-col bg-gray-50">
@@ -85,20 +82,9 @@ const InitializedPage = ({ isLoading }: { isLoading: boolean }) => {
 };
 
 export const MainPage = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { checkCoupleConnect } = useIscouple();
   const { getCoupleInfo } = useInitSettingQueries();
-  useEffect(() => {
-    const coupleError = checkCoupleConnect.error as any;
-    const infoError = getCoupleInfo.error as any;
-
-    const coupleStatus = coupleError?.response?.status;
-    const infoStatus = infoError?.response?.status;
-
-    if (coupleStatus === 400 || infoStatus === 400) {
-      navigate("/login", { replace: true });
-    }
-  }, [checkCoupleConnect.error, getCoupleInfo.error, navigate]);
 
   // useEffect(() => {
   //   const checkUserRole = async () => {
