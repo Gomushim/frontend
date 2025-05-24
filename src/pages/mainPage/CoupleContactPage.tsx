@@ -14,6 +14,7 @@ import { coupleConnectQueries } from "@/entities/couple_connect/service";
 import checkcircle from "@/assets/images/checkcircle.svg";
 import CloseIcon from "@/assets/images/close.svg";
 import coupleConnectAnimation from "@/assets/json/coupleconnect.json";
+import { useIscouple } from "@/entities/iscouple";
 
 export const CoupleContact: React.FC = () => {
   const [coupleCode, setCoupleCode] = useState<string>("");
@@ -22,6 +23,21 @@ export const CoupleContact: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
+  const { checkCoupleConnect } = useIscouple();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      checkCoupleConnect.refetch();
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [checkCoupleConnect]);
+
+  useEffect(() => {
+    if (checkCoupleConnect.data?.result) {
+      navigate("/");
+    }
+  }, [checkCoupleConnect.data, navigate]);
 
   const handleGenerateCode = async () => {
     try {

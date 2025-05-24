@@ -7,7 +7,6 @@ export const useMyEmotion = () => {
     queryKey: ["myEmotion"],
     queryFn: getMyEmotion,
     retry: false,
-    staleTime: Infinity,
     gcTime: Infinity,
   });
 };
@@ -17,7 +16,6 @@ export const useMyStatusMessage = () => {
     queryKey: ["myStatusMessage"],
     queryFn: getMyStatusMessage,
     retry: false,
-    staleTime: Infinity,
     gcTime: Infinity,
   });
 };
@@ -27,7 +25,6 @@ export const useMyInfo = () => {
     queryKey: ["myInfo"],
     queryFn: getMyInfo,
     retry: false,
-    staleTime: Infinity,
     gcTime: Infinity,
   });
 }; 

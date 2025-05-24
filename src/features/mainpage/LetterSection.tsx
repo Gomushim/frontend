@@ -21,7 +21,7 @@ export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps
   if (!isConnected || !isInitialized||!letterList?.result || letterList.result.length === 0) {
     return (
       <>
-        <MainHeader mainTitle="도착한 편지" buttonText="더보기" onClick={() => navigate("/calendar/letters")} />
+        <MainHeader mainTitle="도착한 편지" buttonText="더보기" onClick={() => {}} />
         <div className="flex h-[140px] w-[190px] flex-col gap-2.5 rounded-2xl bg-white p-4">
           <div className="flex flex-col">
             <div className="flex items-center gap-1">

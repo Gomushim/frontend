@@ -58,7 +58,7 @@ export const Alarm: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-white w-full max-w-[375px] mx-auto">
+    <div className="flex min-h-screen flex-col bg-white w-full ">
       <ProgressHeader
         title="멀리 있어도, 마음은 늘 가까이"
         highlight="마음은 늘 가까이"
@@ -70,7 +70,7 @@ export const Alarm: React.FC = () => {
       <div className="flex-1 flex items-center justify-center -mt-40">
         <Lottie animationData={pushalarmJson} />
       </div>
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[375px] bg-white p-4 space-y-3 z-10">
+      <div className="p-4">
         <div
           className="w-full text-center text-gray-700 text-base font-medium text-sm pb-2 cursor-pointer underline underline-offset-3"
           onClick={() => !isLoading && handleOnboarding(false)}
