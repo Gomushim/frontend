@@ -9,10 +9,6 @@ import {
 import { useInitSettingQueries } from "@/entities/init_setting";
 import { useIscouple } from "@/entities/iscouple";
 import { NavBar } from "@/widgets/navbar/ui";
-import { useNavigate } from "react-router";
-import { getMyInfo } from "@/entities/mypage_info/service";
-import { useEffect } from "react";
-
 const NotConnectedPage = () => {
   return (
     <div className="flex flex-col bg-gray-50">
