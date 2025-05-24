@@ -2,7 +2,7 @@
 import { useLocation, useNavigate, useParams } from "react-router";
 
 // UI 컴포넌트
-import { Button, Divider, Topbar } from "@/shared/ui";
+import { Button, DeleteAlert, Divider, Topbar } from "@/shared/ui";
 import { DdayDateBottomSheet, EmojiSelector } from "@/features/d-day";
 import { TitleInput } from "@/features/schedule";
 
@@ -10,8 +10,9 @@ import { TitleInput } from "@/features/schedule";
 import backIcon from "@/assets/icons/back.svg";
 
 // API 및 훅
-import { useCreateDdayMutation, useUpdateDdayMutation } from "@/entities/d-day";
+import { useCreateDdayMutation, useDeleteDdayMutation, useUpdateDdayMutation } from "@/entities/d-day";
 import { useInitializeDdayFormFromCache, useNewDdayForm } from "@/features/d-day";
+
 export const NewDday = () => {
   // 라우터 훅
   const { ddayId } = useParams<{ ddayId?: string }>();
@@ -32,6 +33,7 @@ export const NewDday = () => {
   // API 훅
   const { mutate: ddayMutate } = useCreateDdayMutation(newDdayState);
   const { mutate: ddayUpdateMutate } = useUpdateDdayMutation(newDdayState);
+  const { mutate: ddayDeleteMutate } = useDeleteDdayMutation(ddayId!, newDdayState.date);
 
   useInitializeDdayFormFromCache(ddayId!, handleChange, from);
 
@@ -55,6 +57,15 @@ export const NewDday = () => {
         },
       });
     }
+  };
+
+  const handleDeleteDday = () => {
+    ddayDeleteMutate(undefined, {
+      onSuccess: () => {
+        alert("디데이가 삭제되었습니다.");
+        handleDone();
+      },
+    });
   };
 
   return (
@@ -86,9 +97,16 @@ export const NewDday = () => {
         <section
           className={`fixed bottom-6 left-1/2 w-[375px] -translate-x-1/2 transform px-4 ${isEditMode && "flex justify-center gap-3"}`}>
           {isEditMode && (
-            <Button className="w-[50%]" variant="delete" size="xl" disabled={!isFormValid}>
-              삭제
-            </Button>
+            <DeleteAlert
+              onDelete={handleDeleteDday}
+              title="디데이 삭제"
+              description="정말 디데이를 삭제하시겠어요?"
+              buttonText="삭제"
+              cancelText="취소">
+              <Button className="w-[50%]" variant="delete" size="xl" disabled={!isFormValid}>
+                삭제
+              </Button>
+            </DeleteAlert>
           )}
           <Button
             className={`w-full ${isEditMode && "w-[50%]"}`}
