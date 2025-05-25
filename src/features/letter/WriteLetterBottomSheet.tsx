@@ -114,7 +114,7 @@ export const WriteLetterBottomSheet = ({
   return (
     <Drawer open={isToggle} onOpenChange={onToggle}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="py10 px-5">
+      <DrawerContent className="px-5 pt-2 pb-15">
         <form className="mx-auto w-full max-w-sm" onSubmit={handleSubmit}>
           <DrawerHeader className="flex-row justify-between px-0">
             <Button
