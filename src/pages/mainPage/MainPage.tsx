@@ -110,7 +110,7 @@ export const MainPage = () => {
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50">
-        <LoadingSpinner size={48} colorClass="border-gray-600" />
+        <LoadingSpinner  text="메인페이지으로 이동 중..."/>
       </div>
     );
   }

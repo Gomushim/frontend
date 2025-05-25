@@ -7,6 +7,15 @@ module.exports = {
   safelist: ["text-body-sm"],
   theme: {
     extend: {
+      keyframes: {
+        "bounce-high": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-1.5rem)" }, // 기본보다 더 높이
+        },
+      },
+      animation: {
+        "bounce-high": "bounce-high 1s infinite",
+      },
       screens: {
         mb: { max: "850px" },
         // tbc: { min: "768px", max: "1023px" },

@@ -115,8 +115,8 @@ export const TopSection: React.FC<TopSectionProps> = ({
   const renderContent = () => {
     if (isAnyLoading) {
       return (
-        <div className="flex items-center justify-center h-24">
-          <LoadingSpinner size={32} colorClass="border-white" />
+        <div className="flex min-h-screen items-center justify-center bg-gray-50">
+        <LoadingSpinner  />
         </div>
       );
     }

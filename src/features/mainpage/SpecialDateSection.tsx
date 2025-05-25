@@ -25,7 +25,7 @@ export const SpecialDateSection = ({
   if (isLoading || (isConnected && isInitialized && isDdayLoading)) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50">
-        <LoadingSpinner size={60} colorClass="border-gray-700" />
+      <LoadingSpinner  />
       </div>
     );
   }

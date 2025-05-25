@@ -7,7 +7,6 @@ export const useInitSettingQueries = () => {
     queryKey: ["getCoupleInfo"],
     queryFn: () => initSettingQueries.getCoupleInfo(),
     retry: 2,
-    refetchInterval: 1000 * 60,
     staleTime: 0,
     gcTime: 0,
   });

@@ -1,21 +1,45 @@
 import React from "react";
 
 interface LoadingSpinnerProps {
-  size?: number; // px 단위
-  colorClass?: string; // tailwind 색상 클래스
+  dotSize?: number;
+  dotColorClass?: string;
+  text?: string;
+  textClassName?: string;
+  direction?: "vertical" | "horizontal";
 }
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
-  size = 40,
-  colorClass = "border-gray-900",
+  dotSize = 6,
+  dotColorClass = "bg-gray-900",
+  text = "",
+  textClassName = "text-xl text-gray-900 mt-5",
+  direction = "vertical",
 }) => {
+  const Dots = (
+    <div className="flex space-x-4">
+      {[0, 1, 2].map((i) => (
+        <div
+        key={i}
+        className={`rounded-full ${dotColorClass} animate-bounce-high`}
+        style={{
+          width: dotSize,
+          height: dotSize,
+          animationDelay: `${i * 0.2}s`,
+        }}
+      />
+      
+      ))}
+    </div>
+  );
+
   return (
     <div
-      className={`animate-spin rounded-full border-4 border-t-transparent ${colorClass}`}
-      style={{ width: size, height: size }}
-      role="status"
+      className={`flex items-center justify-center ${
+        direction === "vertical" ? "flex-col" : "flex-row space-x-4"
+      }`}
     >
-      <span className="sr-only">Loading...</span>
+      {Dots}
+      {text && <span className={textClassName}>{text}</span>}
     </div>
   );
 };
