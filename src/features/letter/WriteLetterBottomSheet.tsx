@@ -31,6 +31,7 @@ export const WriteLetterBottomSheet = ({
   // const [editImagesUrl, setEditImagesUrl] = useState<string[]>(imagesUrl);
 
   const [images, setImages] = useState<File[]>([]);
+  const MAX_IMAGES = 3;
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { isToggle, onToggle } = useToggle();
@@ -38,16 +39,18 @@ export const WriteLetterBottomSheet = ({
   const { mutate } = useCreateLetterMutation(scheduleId || "");
   const { mutate: updateMutate } = useUpdateLetterMutation(scheduleId || "");
 
-  // 이미지 선택 시 처리
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const selectedFiles = Array.from(event.target.files);
-      setImages(prev => [...prev, ...selectedFiles]);
+  const handleImageUpload = (files: FileList) => {
+    const remainingSlots = MAX_IMAGES - images.length;
+    if (remainingSlots <= 0) {
+      alert("이미지는 최대 3개까지만 등록할 수 있습니다.");
+      return;
     }
+
+    const newImages = Array.from(files).slice(0, remainingSlots);
+    setImages(prev => [...prev, ...newImages]);
   };
 
-  // 이미지 삭제
-  const handleRemoveImage = (index: number) => {
+  const handleImageDelete = (index: number) => {
     setImages(prev => prev.filter((_, i) => i !== index));
   };
 
@@ -178,7 +181,11 @@ export const WriteLetterBottomSheet = ({
                   multiple
                   accept="image/*"
                   ref={fileInputRef}
-                  onChange={handleImageChange}
+                  onChange={e => {
+                    if (e.target.files) {
+                      handleImageUpload(e.target.files);
+                    }
+                  }}
                 />
               </div>
 
@@ -201,7 +208,7 @@ export const WriteLetterBottomSheet = ({
                               size="2xsIcon"
                               type="button"
                               className="absolute top-3 right-3"
-                              onClick={() => handleRemoveImage(index)}
+                              onClick={() => handleImageDelete(index)}
                               aria-label="이미지 삭제">
                               <img src={crossDeleteIcon} alt="이미지 삭제" />
                             </Button>
