@@ -1,7 +1,6 @@
 import { useSelectedDate } from "@/features/schedule/context/SelectedDateContext";
 import { useGetScheduleList } from "@/entities/schedule/query";
 import { ScheduleCard } from "./ScheduleCard";
-import { DdayCard } from "@/features/d-day/ui";
 import { CalendrDdayCard } from "./CalendrDdayCard";
 
 export const MainScheduleCardList = () => {

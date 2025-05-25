@@ -22,6 +22,7 @@ interface LetterCardProps {
   content: string;
   createdAt: string;
   pictureUrl?: string;
+  isWrittenByMe: boolean;
 }
 
 export const LetterCard = (props: LetterCardProps) => {
@@ -69,20 +70,22 @@ export const LetterCard = (props: LetterCardProps) => {
         </div>
         <div className="mt-3 flex justify-between">
           <InfoCard.Text>{formatDateFull(props.createdAt)}</InfoCard.Text>
-          <InfoCard.Options className="items-center">
-            <WriteLetterBottomSheet title={props.title} content={props.content} letterId={props.letterId}>
-              <InfoCard.Option>편집</InfoCard.Option>
-            </WriteLetterBottomSheet>
-            <span className="align-middl inline-block h-3 w-[1.5px] bg-gray-300" />
-            <DeleteAlert
-              onDelete={handleDelete}
-              title="편지 삭제"
-              description="정말 편지를 삭제하시겠어요?"
-              buttonText="삭제"
-              cancelText="취소">
-              <InfoCard.Option>삭제</InfoCard.Option>
-            </DeleteAlert>
-          </InfoCard.Options>
+          {props.isWrittenByMe && (
+            <InfoCard.Options className="items-center">
+              <WriteLetterBottomSheet title={props.title} content={props.content} letterId={props.letterId}>
+                <InfoCard.Option>편집</InfoCard.Option>
+              </WriteLetterBottomSheet>
+              <span className="align-middl inline-block h-3 w-[1.5px] bg-gray-300" />
+              <DeleteAlert
+                onDelete={handleDelete}
+                title="편지 삭제"
+                description="정말 편지를 삭제하시겠어요?"
+                buttonText="삭제"
+                cancelText="취소">
+                <InfoCard.Option>삭제</InfoCard.Option>
+              </DeleteAlert>
+            </InfoCard.Options>
+          )}
         </div>
       </InfoCard.Content>
     </InfoCard>
