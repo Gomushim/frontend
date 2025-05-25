@@ -53,10 +53,10 @@ export const CalendarDdayList = () => {
     <div className="px-[22px]">
       {/* 헤더 영역 */}
       <header className="relative flex items-center justify-center">
-        <Button variant="ghost" size="sIcon" className="absolute top-[60px] left-0" onClick={goBack}>
+        <Button variant="ghost" size="sIcon" className="absolute top-5 left-0" onClick={goBack}>
           <img src={backIcon} alt="뒤로가기" />
         </Button>
-        <h1 className="pt-[60px] text-xl font-semibold text-gray-900">디데이</h1>
+        <h1 className="pt-[20px] text-xl font-semibold text-gray-900">디데이</h1>
       </header>
 
       {/* 메인 콘텐츠 영역 */}

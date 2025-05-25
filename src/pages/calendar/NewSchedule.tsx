@@ -71,10 +71,10 @@ export const CalendarNewSchedule = () => {
 
   return (
     <>
-      <header className="mt-[70px] mb-8 flex flex-col items-center gap-7">
+      <header className="mt-[20px] mb-8 flex flex-col items-center gap-7">
         <div className="">
           <h1 className="text-xl font-semibold text-gray-900">생성하기</h1>
-          <Button variant="ghost" size="sIcon" className="absolute top-17 left-5" onClick={goBack}>
+          <Button variant="ghost" size="sIcon" className="absolute top-5 left-5" onClick={goBack}>
             <img src={backIcon} alt="뒤로가기" />
           </Button>
         </div>

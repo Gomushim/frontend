@@ -49,10 +49,10 @@ export const LetterListPage = () => {
     <div className="px-[22px]">
       {/* 헤더 영역 */}
       <header className="relative flex items-center justify-center">
-        <Button variant="ghost" size="sIcon" className="absolute top-[70px] left-0" onClick={handleBack}>
+        <Button variant="ghost" size="sIcon" className="absolute top-5 left-0" onClick={handleBack}>
           <img src={backIcon} alt="뒤로가기" />
         </Button>
-        <h1 className="pt-[70px] text-xl font-semibold text-gray-900">편지</h1>
+        <h1 className="pt-5 text-xl font-semibold text-gray-900">편지</h1>
       </header>
 
       {/* 메인 콘텐츠 영역 */}
