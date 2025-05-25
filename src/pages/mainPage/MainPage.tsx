@@ -9,6 +9,8 @@ import {
 import { useInitSettingQueries } from "@/entities/init_setting";
 import { useIscouple } from "@/entities/iscouple";
 import { NavBar } from "@/widgets/navbar/ui";
+import LoadingSpinner from "@/shared/ui/loading";
+
 const NotConnectedPage = () => {
   return (
     <div className="flex flex-col bg-gray-50">
@@ -108,10 +110,11 @@ export const MainPage = () => {
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50">
-        <div className="text-lg text-gray-600">로딩 중...</div>
+        <LoadingSpinner size={48} colorClass="border-gray-600" />
       </div>
     );
   }
+  
 
   if (!isConnected) {
     return <NotConnectedPage />;

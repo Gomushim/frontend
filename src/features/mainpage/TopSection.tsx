@@ -9,6 +9,7 @@ import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { useEffect, useCallback, useState } from "react";
 import { initSettingQueries } from "@/entities/init_setting/service";
 import { useCoupleNickname } from "@/entities/couple_nickname/queries";
+import LoadingSpinner from "@/shared/ui/loading";
 
 interface TopSectionProps {
   isConnected: boolean;
@@ -18,12 +19,19 @@ interface TopSectionProps {
 
 type MilitaryBranch = "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE";
 
-export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitialized, isLoading = false }) => {
+export const TopSection: React.FC<TopSectionProps> = ({
+  isConnected,
+  isInitialized,
+  isLoading = false,
+}) => {
   const navigate = useNavigate();
   const enabled = isConnected || isInitialized;
   const { militaryBranch, setMilitaryBranch } = useOnboardingStore();
   const { getNickName } = useCoupleNickname(enabled);
-  const coupleInfo = getNickName.data?.result || { userNickname: "", coupleNickname: "" };
+  const coupleInfo = getNickName.data?.result || {
+    userNickname: "",
+    coupleNickname: "",
+  };
   const isNicknameLoading = getNickName.isLoading;
   const [isInitializing, setIsInitializing] = useState(false);
 
@@ -71,7 +79,8 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
       </h1>
       <button
         onClick={() => navigate("/onboarding/couple-contact")}
-        className="mt-2 flex items-center text-sm font-medium text-gray-700">
+        className="mt-2 flex items-center text-sm font-medium text-gray-700"
+      >
         연결하기 <span className="ml-1">&gt;</span>
       </button>
     </>
@@ -80,10 +89,14 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
   const renderNotInitializedContent = () => (
     <>
       <h1 className="flex items-center text-2xl font-bold text-gray-50">
-        {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
+        {coupleInfo.userNickname}{" "}
+        <img src={CoupleHeart} alt="하트" className="mx-2" />
         {coupleInfo.coupleNickname}
       </h1>
-      <button onClick={handleInitialize} className="mt-2 flex items-center text-sm font-medium text-gray-700">
+      <button
+        onClick={handleInitialize}
+        className="mt-2 flex items-center text-sm font-medium text-gray-700"
+      >
         초기 설정하기 <span className="ml-1">&gt;</span>
       </button>
     </>
@@ -91,14 +104,21 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
 
   const renderInitializedContent = () => (
     <h1 className="flex items-center text-2xl font-bold text-gray-50">
-      {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
+      {coupleInfo.userNickname}{" "}
+      <img src={CoupleHeart} alt="하트" className="mx-2" />
       {coupleInfo.coupleNickname}
     </h1>
   );
 
+  const isAnyLoading = isLoading || isNicknameLoading || (isConnected && isInitializing);
+
   const renderContent = () => {
-    if (isLoading || isNicknameLoading || (isConnected && isInitializing)) {
-      return <div className="text-lg text-gray-50">로딩 중...</div>;
+    if (isAnyLoading) {
+      return (
+        <div className="flex items-center justify-center h-24">
+          <LoadingSpinner size={32} colorClass="border-white" />
+        </div>
+      );
     }
     if (!isConnected) return renderNotConnectedContent();
     if (!isInitialized) return renderNotInitializedContent();
@@ -106,14 +126,15 @@ export const TopSection: React.FC<TopSectionProps> = ({ isConnected, isInitializ
   };
 
   return (
-    <div className="relative h-[259px] w-full ">
-      {!isLoading && !isNicknameLoading && !(isConnected && isInitializing) && (
-        <img 
-          src={getBackgroundImage()} 
-          alt="배경" 
-          className="absolute w-full h-full object-cover" 
+    <div className="relative h-[259px] w-full">
+      {!isAnyLoading && (
+        <img
+          src={getBackgroundImage()}
+          alt="배경"
+          className="absolute w-full h-full object-cover"
         />
       )}
+
       <button className="absolute top-16 right-4">
         <img src={NotificationIcon} alt="알림" className="h-6 w-6" />
       </button>
