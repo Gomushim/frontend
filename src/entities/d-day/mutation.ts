@@ -55,10 +55,6 @@ export const useUpdateDdayMutation = (data: DdayRequst) => {
 export const useDeleteDdayMutation = (ddayId: string, date: string) => {
   const queryClient = useQueryClient();
 
-  if (!ddayId) {
-    throw new Error("디데이 삭제에 필요한 ID가 없습니다.");
-  }
-
   const newDate = new Date(date);
 
   return useMutation({

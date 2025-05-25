@@ -27,15 +27,16 @@ export const NewDday = () => {
 
   // 상태
   const isEditMode = !!ddayId;
+  console.log(isEditMode);
   // 상태 및 폼 관련 커스텀 훅
   const { newDdayState, handleChange, isFormValid } = useNewDdayForm();
 
+  useInitializeDdayFormFromCache(ddayId!, handleChange, from);
+
   // API 훅
   const { mutate: ddayMutate } = useCreateDdayMutation(newDdayState);
-  const { mutate: ddayUpdateMutate } = useUpdateDdayMutation(newDdayState);
   const { mutate: ddayDeleteMutate } = useDeleteDdayMutation(ddayId!, newDdayState.date);
-
-  useInitializeDdayFormFromCache(ddayId!, handleChange, from);
+  const { mutate: ddayUpdateMutate } = useUpdateDdayMutation(newDdayState);
 
   // 이벤트 핸들러
   const handlePostDday = async () => {
@@ -64,6 +65,9 @@ export const NewDday = () => {
       onSuccess: () => {
         alert("디데이가 삭제되었습니다.");
         handleDone();
+      },
+      onError: error => {
+        console.log(error);
       },
     });
   };
