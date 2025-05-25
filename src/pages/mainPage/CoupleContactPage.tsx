@@ -94,7 +94,7 @@ export const CoupleContact: React.FC = () => {
     <div className="flex min-h-screen flex-col bg-white">
       <div className="bg-white px-4 pt-6 pb-4">
         <div className="mb-3 flex items-center justify-end">
-          <button onClick={() => navigate("/mainpage")}>
+          <button onClick={() => navigate("/")}>
             <img src={CloseIcon} alt="닫기" className="h-6 w-6" />
           </button>
         </div>
