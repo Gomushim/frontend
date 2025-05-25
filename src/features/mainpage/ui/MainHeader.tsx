@@ -31,7 +31,7 @@ export const MainHeader = ({
         </button>
       )}
       {!isConnected && <CopleCheckAlert />}
-      {!isInitialized && <InitializedCheckAlert />}
+      {isConnected && !isInitialized && <InitializedCheckAlert />}
     </div>
   );
 };
