@@ -17,6 +17,7 @@ import { WriteLetterBottomSheet } from "../WriteLetterBottomSheet";
 
 interface LetterCardProps {
   letterId: string;
+  scheduleId: string;
   title: string;
   content: string;
   createdAt: string;
@@ -32,13 +33,14 @@ export const LetterCard = (props: LetterCardProps) => {
   const location = useLocation();
 
   // API 훅
-  const { mutate } = useDeleteLetterMutation(scheduleId || "", props.letterId);
+  const { mutate } = useDeleteLetterMutation(scheduleId || props.letterId, props.letterId);
 
   // 이벤트 핸들러
   const handleClick = (event: MouseEvent) => {
+    const defaultScheduleId = scheduleId || props.scheduleId;
     const tagName = (event.target as HTMLElement).tagName.toLowerCase();
     if (["button", "input", "textarea", "svg", "path"].includes(tagName)) return;
-    navigate(`/calendar/schedule/${scheduleId}/letter/${props.letterId}`);
+    navigate(`/calendar/schedule/${defaultScheduleId}/letter/${props.letterId}`);
   };
 
   const handleDelete = (e: MouseEvent) => {

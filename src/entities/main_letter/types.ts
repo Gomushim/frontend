@@ -1,5 +1,6 @@
 export interface Letter {
-  letterId: number;
+  letterId: string;
+  scheduleId: string;
   title: string;
   content: string;
   pictureUrl: string;
@@ -14,4 +15,4 @@ export interface LetterListResponse {
 export interface GetLetterListToMeParams {
   key?: number;
   take?: number;
-} 
+}
