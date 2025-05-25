@@ -65,7 +65,9 @@ export const LetterListPage = () => {
             <img src={blackHeart} alt="캘린더 아이콘" />
             <h2 className="text-xl font-semibold text-gray-900">{coupleNickname?.result.coupleNickname}</h2>
             <h2 className="text-xl font-semibold text-gray-900">님의 편지</h2>
-            <p className="text-md font-semibold text-gray-500">2</p>
+            <p className="text-md font-semibold text-gray-500">
+              {letterListData.pages.reduce((total, page) => total + page.data.length, 0)}
+            </p>
           </section>
         )}
 
