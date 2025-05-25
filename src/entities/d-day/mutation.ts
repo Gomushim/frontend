@@ -16,7 +16,7 @@ export const useCreateDdayMutation = (data: DdayRequst) => {
   return useMutation({
     mutationFn: () => createDday(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ddayQueryKey.list().queryKey });
+      queryClient.removeQueries({ queryKey: ddayQueryKey.list().queryKey });
       queryClient.invalidateQueries({ queryKey: ddayQueryKey.main().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.week().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.list(date).queryKey });
@@ -40,7 +40,7 @@ export const useUpdateDdayMutation = (data: DdayRequst) => {
   return useMutation({
     mutationFn: () => updateDday(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ddayQueryKey.list().queryKey });
+      queryClient.removeQueries({ queryKey: ddayQueryKey.list().queryKey });
       queryClient.invalidateQueries({ queryKey: ddayQueryKey.main().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.week().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.list(date).queryKey });
@@ -60,7 +60,7 @@ export const useDeleteDdayMutation = (ddayId: string, date: string) => {
   return useMutation({
     mutationFn: () => deleteDday(ddayId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ddayQueryKey.list().queryKey });
+      queryClient.removeQueries({ queryKey: ddayQueryKey.list().queryKey });
       queryClient.invalidateQueries({ queryKey: ddayQueryKey.main().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.week().queryKey });
       queryClient.invalidateQueries({ queryKey: scheduleQueryKey.list(newDate).queryKey });
