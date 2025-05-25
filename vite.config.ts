@@ -22,7 +22,7 @@ export default defineConfig({
           key: fs.readFileSync(path.resolve(__dirname, "_wildcard.sarangkkun.site+2-key.pem")),
           cert: fs.readFileSync(path.resolve(__dirname, "_wildcard.sarangkkun.site+2.pem")),
         },
-        host:"vite.sarangkkun.site",
+        host: "vite.sarangkkun.site",
         port: 5173,
       }
     : {},
