@@ -7,28 +7,31 @@ import axios from "axios";
 import { ProgressHeader } from "@/shared/ui/progressheader";
 import pushalarmJson from "@/assets/json/pushalarm.json";
 import Lottie from "lottie-react";
+import { requestNotificationPermission } from "@/shared/firebase/setupFCM";
 
 export const Alarm: React.FC = () => {
   const navigate = useNavigate();
-  const { 
-    nickname, birthday, isAgeVisible, isGenderVisible, isLoading, error,
-    setLoading, setError, setAlarmEnabled
-  } = useOnboardingAlarmStore();
+  const { nickname, birthday, isAgeVisible, isGenderVisible, isLoading, error, setLoading, setError, setAlarmEnabled } =
+    useOnboardingAlarmStore();
 
   const handleOnboarding = async (isNotification: boolean) => {
     setLoading(true);
     setError(null);
+
     try {
       if (!nickname || !birthday || !isAgeVisible || !isGenderVisible) {
         throw new Error("입력되지 않은 정보가 있어요");
       }
+
+      const fcmToken = await requestNotificationPermission();
+
       const response = await onboardingQueries.postOnboarding({
         nickname,
         birthDate: birthday,
-        fcmToken: "string",
-        isNotification
+        fcmToken: fcmToken || "",
+        isNotification,
       });
-      
+
       if (response) {
         setAlarmEnabled(isNotification);
         navigate("/");
@@ -39,7 +42,7 @@ export const Alarm: React.FC = () => {
         console.log("에러 응답:", error.response);
         console.log("에러 상태:", error.response?.status);
         console.log("에러 데이터:", error.response?.data);
-        
+
         if (error.response?.status === 401) {
           // 3초 후에 리다이렉트
           setTimeout(() => {
@@ -58,7 +61,7 @@ export const Alarm: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-white w-full ">
+    <div className="flex min-h-screen w-full flex-col bg-white">
       <ProgressHeader
         title="멀리 있어도, 마음은 늘 가까이"
         highlight="마음은 늘 가까이"
@@ -67,28 +70,24 @@ export const Alarm: React.FC = () => {
         onBack={() => navigate(-1)}
         onClose={() => navigate("/onboarding/nickname")}
       />
-      <div className="flex-1 flex items-center justify-center -mt-40">
+      <div className="-mt-40 flex flex-1 items-center justify-center">
         <Lottie animationData={pushalarmJson} />
       </div>
       <div className="p-4">
         <div
-          className="w-full text-center text-gray-700 text-base font-medium text-sm pb-2 cursor-pointer underline underline-offset-3"
-          onClick={() => !isLoading && handleOnboarding(false)}
-        >
+          className="w-full cursor-pointer pb-2 text-center text-base text-sm font-medium text-gray-700 underline underline-offset-3"
+          onClick={() => !isLoading && handleOnboarding(false)}>
           건너뛰기
         </div>
-        <Button 
-          variant="active" 
-          size="onicon" 
+        <Button
+          variant="active"
+          size="onicon"
           onClick={() => handleOnboarding(true)}
           disabled={isLoading}
-          className="w-full"
-        >
+          className="w-full">
           {isLoading ? "처리중..." : "알림을 받을게요"}
         </Button>
-        {error && (
-          <p className="mt-2 text-center text-red-500">{error}</p>
-        )}
+        {error && <p className="mt-2 text-center text-red-500">{error}</p>}
       </div>
     </div>
   );
