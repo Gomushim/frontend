@@ -68,10 +68,10 @@ export const LetterDetailPage = () => {
     <>
       {/* 헤더 영역 */}
       <header className="relative mb-8 flex items-center justify-center">
-        <Button variant="ghost" size="sIcon" className="absolute top-[70px] left-5" onClick={goBack}>
+        <Button variant="ghost" size="sIcon" className="absolute top-5 left-5" onClick={goBack}>
           <img src={backIcon} alt="뒤로가기" />
         </Button>
-        <h1 className="pt-[70px] text-xl font-semibold text-gray-900">
+        <h1 className="pt-5 text-xl font-semibold text-gray-900">
           {formatDateKoreanWithWeekday(letterDetailData.result.letter.createdAt)}
         </h1>
       </header>
