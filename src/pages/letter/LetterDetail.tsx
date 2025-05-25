@@ -145,7 +145,7 @@ export const LetterDetailPage = () => {
 
         {/* 댓글 입력 폼 */}
         <form
-          className="fixed bottom-0 left-1/2 mx-auto mb-8 max-h-25 w-[375px] -translate-x-1/2 bg-white px-5 shadow-[0px_3px_12px_4px_rgba(218,218,218,0.15)]"
+          className="fixed -bottom-8 left-1/2 mx-auto mb-8 max-h-25 w-[375px] -translate-x-1/2 bg-white px-5 shadow-[0px_3px_12px_4px_rgba(218,218,218,0.15)]"
           onSubmit={handleCommentSubmit}>
           <div className="relative flex items-center">
             <Textarea
@@ -153,7 +153,7 @@ export const LetterDetailPage = () => {
               placeholder="댓글을 작성해 주세요."
               name="content"
               id="content"
-              maxLength={150}
+              maxLength={80}
             />
             <Button type="submit" variant="active" className="absolute right-2 z-10">
               입력
