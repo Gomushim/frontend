@@ -28,6 +28,17 @@ export const MiniCalendar = ({ isConnected, isInitialized }: MiniCalendarProps) 
       }))
     );
   }, [weekScheduleData]);
+
+  const normalizedAnniversaries = useMemo(() => {
+    return (
+      weekScheduleData &&
+      weekScheduleData.result.anniversaries.map(anniversary => ({
+        ...anniversary,
+        date: normalizeDate(new Date(anniversary.anniversaryDate)),
+      }))
+    );
+  }, [weekScheduleData]);
+
   const shiftedDays = getShiftedWeekdays(today);
   const dateList = getDateList(today, 7, 1);
 
@@ -100,6 +111,14 @@ export const MiniCalendar = ({ isConnected, isInitialized }: MiniCalendarProps) 
                 })
               : [];
 
+          const dayAnniversaries =
+            date != null && normalizedAnniversaries
+              ? normalizedAnniversaries.filter(anniversary => {
+                  const d = normalizeDate(date);
+                  return d.getTime() === anniversary.date.getTime();
+                })
+              : [];
+
           // 연속 일정과 단일 일정 분리
           const continuousTags = dayTags.filter(tag => tag.startDate.getTime() !== tag.endDate.getTime());
           const singleDayTags = dayTags.filter(tag => tag.startDate.getTime() === tag.endDate.getTime());
@@ -166,6 +185,14 @@ export const MiniCalendar = ({ isConnected, isInitialized }: MiniCalendarProps) 
               {/* 단일 일정 스택 */}
               {isConnected && isInitialized && (
                 <div className="flex w-full flex-col gap-1">
+                  {/* 기념일 표시 */}
+                  {dayAnniversaries.map((anniversary, index) => (
+                    <div
+                      key={`${anniversary.title}-${index}`}
+                      className="flex h-4 w-full items-center rounded-[4px] bg-[rgb(255,232,117,0.6)]">
+                      <p className="w-full truncate px-1 text-[10px] text-[#7B6901]">{anniversary.title}</p>
+                    </div>
+                  ))}
                   {singleDayTags.map(tag => {
                     const { bgColor, textColor } = FATIGUE_TAG[tag.fatigue || "VERY_TIRED"];
                     return (
