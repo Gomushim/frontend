@@ -7,7 +7,7 @@ import { DatePickerSheet } from "@/widgets/datepicker/ui";
 
 export const FirstMeet: React.FC = () => {
   const navigate = useNavigate();
-  const { firstMeetDate, setFirstMeetDate } = useOnboardingStore();
+  const { firstMeetDate, setFirstMeetDate,resetOnboarding } = useOnboardingStore();
 
   const handleNext = () => {
     if (firstMeetDate) {
@@ -27,7 +27,9 @@ export const FirstMeet: React.FC = () => {
         subtitle="두 분의 첫 만남을 기록해주세요."
         progress={1 / 3}
         onBack={() => navigate(-1)}
-        onClose={() => navigate("/")}
+        onClose={() => { resetOnboarding(); 
+          navigate("/");}
+        }
       />
 
       <div className="mt-6 flex-1 px-4">

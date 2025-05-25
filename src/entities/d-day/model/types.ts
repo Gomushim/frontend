@@ -23,6 +23,10 @@ export interface NewDdayResponse {
   result: boolean;
 }
 
+export interface DeleteDdayResponse {
+  result: boolean;
+}
+
 export interface DDayListResponse {
   data: Dday[];
   after: number;

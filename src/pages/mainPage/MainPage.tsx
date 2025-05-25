@@ -9,10 +9,6 @@ import {
 import { useInitSettingQueries } from "@/entities/init_setting";
 import { useIscouple } from "@/entities/iscouple";
 import { NavBar } from "@/widgets/navbar/ui";
-import { useNavigate } from "react-router";
-import { getMyInfo } from "@/entities/mypage_info/service";
-import { useEffect } from "react";
-
 const NotConnectedPage = () => {
   return (
     <div className="flex flex-col bg-gray-50">
@@ -86,8 +82,24 @@ const InitializedPage = ({ isLoading }: { isLoading: boolean }) => {
 };
 
 export const MainPage = () => {
+  // const navigate = useNavigate();
   const { checkCoupleConnect } = useIscouple();
   const { getCoupleInfo } = useInitSettingQueries();
+
+  // useEffect(() => {
+  //   const checkUserRole = async () => {
+  //     try {
+  //       const response = await getMyInfo();
+  //       if (response.result.role === "GUEST") {
+  //         navigate("/onboarding/nickname", { replace: true });
+  //       }
+  //     } catch (error) {
+  //       console.error("사용자 정보 확인 중 오류 발생:", error);
+  //     }
+  //   };
+
+  //   checkUserRole();
+  // }, [navigate]);
 
   const isLoading = checkCoupleConnect.isLoading || getCoupleInfo.isLoading;
   const isConnected = checkCoupleConnect.data?.result ?? false;

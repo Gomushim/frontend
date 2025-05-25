@@ -19,10 +19,10 @@ export default defineConfig({
   server: isDev
     ? {
         https: {
-          key: fs.readFileSync(path.resolve(__dirname, "_wildcard.sarang-backend.o-r.kr+2-key.pem")),
-          cert: fs.readFileSync(path.resolve(__dirname, "_wildcard.sarang-backend.o-r.kr+2.pem")),
+          key: fs.readFileSync(path.resolve(__dirname, "_wildcard.sarangkkun.site+2-key.pem")),
+          cert: fs.readFileSync(path.resolve(__dirname, "_wildcard.sarangkkun.site+2.pem")),
         },
-        host: "vite.sarang-backend.o-r.kr",
+        host: "vite.sarangkkun.site",
         port: 5173,
       }
     : {},

@@ -7,7 +7,7 @@ import { useInitSettingMutation, useInitSettingQueries } from "@/entities/init_s
 import { DatePickerSheet } from "@/widgets/datepicker/ui";
 
 export const MilitaryDay: React.FC = () => {
-  const { militaryBranch, firstMeetDate, enlistmentDate, dischargeDate, setEnlistmentDate, setDischargeDate } =
+  const { militaryBranch, firstMeetDate, enlistmentDate, dischargeDate, setEnlistmentDate, setDischargeDate, resetOnboarding } =
     useOnboardingStore();
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
@@ -65,7 +65,9 @@ export const MilitaryDay: React.FC = () => {
         subtitle="입대일과 전역일을 정확히 입력해주세요."
         progress={3 / 3}
         onBack={() => navigate(-1)}
-        onClose={() => navigate("/")}
+        onClose={() => {
+          resetOnboarding(); 
+          navigate("/");}}
       />
 
       <div className="flex-1 px-4">
