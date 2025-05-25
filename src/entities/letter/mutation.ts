@@ -12,7 +12,7 @@ export const useCreateLetterMutation = (scheduleId: string) => {
       queryClient.invalidateQueries({
         queryKey: scheduleQueryKey.detail(scheduleId).queryKey,
       });
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         queryKey: letterQueryKey.list().queryKey,
       });
     },
@@ -28,7 +28,7 @@ export const useDeleteLetterMutation = (scheduleId: string, letterId: string) =>
   return useMutation({
     mutationFn: async () => await deleteLetter(scheduleId, letterId),
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         queryKey: letterQueryKey.list().queryKey,
       });
       queryClient.invalidateQueries({
@@ -47,7 +47,7 @@ export const useUpdateLetterMutation = (scheduleId: string) => {
   return useMutation({
     mutationFn: async (data: UpdateLetterRequest) => await updateLetter(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         queryKey: letterQueryKey.list().queryKey,
       });
       queryClient.invalidateQueries({

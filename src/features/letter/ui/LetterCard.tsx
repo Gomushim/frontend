@@ -33,7 +33,7 @@ export const LetterCard = (props: LetterCardProps) => {
   const location = useLocation();
 
   // API 훅
-  const { mutate } = useDeleteLetterMutation(scheduleId || props.letterId, props.letterId);
+  const { mutate } = useDeleteLetterMutation(scheduleId || props.scheduleId, props.letterId);
 
   // 이벤트 핸들러
   const handleClick = (event: MouseEvent) => {
