@@ -1,5 +1,5 @@
 // 외부 라이브러리 import
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 
 // 훅
 import { useDeleteLetterMutation } from "@/entities/letter/mutation";
@@ -29,6 +29,7 @@ export const LetterCard = (props: LetterCardProps) => {
 
   // 라우터 훅
   const navigate = useNavigate();
+  const location = useLocation();
 
   // API 훅
   const { mutate } = useDeleteLetterMutation(scheduleId || "", props.letterId);
@@ -52,8 +53,10 @@ export const LetterCard = (props: LetterCardProps) => {
     });
   };
 
+  const letterListPath = location.pathname === "/calendar/letters" ? true : false;
+
   return (
-    <InfoCard onClick={handleClick}>
+    <InfoCard onClick={handleClick} className={letterListPath ? "bg-gray-50" : ""}>
       <InfoCard.Content className="flex-col">
         <div className="flex items-center gap-4">
           {props.pictureUrl && <InfoCard.Image imageUrl={props.pictureUrl} />}
@@ -62,7 +65,7 @@ export const LetterCard = (props: LetterCardProps) => {
             <InfoCard.Text>{props.content}</InfoCard.Text>
           </div>
         </div>
-        <div className=" mt-3 flex justify-between">
+        <div className="mt-3 flex justify-between">
           <InfoCard.Text>{formatDateFull(props.createdAt)}</InfoCard.Text>
           <InfoCard.Options className="items-center">
             <WriteLetterBottomSheet title={props.title} content={props.content} letterId={props.letterId}>

@@ -14,14 +14,27 @@ interface LetterSectionProps {
 export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps) => {
   const enabled = isConnected || isInitialized;
   const { data: letterList } = useGetLetterListMain(enabled);
+
   const navigate = useNavigate();
 
- 
+  const handleLetterListRedirect = () => {
+    if (isConnected) {
+      navigate("/calendar/letters", {
+        state: { previousPath: window.location.pathname },
+      });
+    }
+  };
 
-  if (!isConnected || !isInitialized||!letterList?.result || letterList.result.length === 0) {
+  if (!isConnected || !isInitialized || !letterList?.result || letterList.result.length === 0) {
     return (
       <>
-        <MainHeader mainTitle="도착한 편지" buttonText="더보기" onClick={() => {}} />
+        <MainHeader
+          mainTitle="도착한 편지"
+          buttonText="더보기"
+          onClick={handleLetterListRedirect}
+          isConnected={isConnected}
+          isInitialized={isInitialized}
+        />
         <div className="flex h-[140px] w-[190px] flex-col gap-2.5 rounded-2xl bg-white p-4">
           <div className="flex flex-col">
             <div className="flex items-center gap-1">
@@ -41,7 +54,13 @@ export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps
 
   return (
     <>
-      <MainHeader mainTitle="도착한 편지" buttonText="더보기" onClick={() => navigate("/calendar/letters")} />
+      <MainHeader
+        mainTitle="도착한 편지"
+        buttonText="더보기"
+        onClick={handleLetterListRedirect}
+        isConnected={isConnected}
+        isInitialized={isInitialized}
+      />
       <div className="relative w-full overflow-x-auto">
         <Carousel
           opts={{

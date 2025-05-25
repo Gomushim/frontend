@@ -4,9 +4,14 @@ import { useGetWeekSchedule } from "@/entities/schedule/query";
 import { useSelectedDate } from "../context/SelectedDateContext";
 import { FATIGUE_TAG } from "../model";
 
+interface MiniCalendarProps {
+  isConnected: boolean;
+  isInitialized: boolean;
+}
+
 const normalizeDate = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
-export const MiniCalendar = () => {
+export const MiniCalendar = ({ isConnected, isInitialized }: MiniCalendarProps) => {
   const { selectedDay, setSelectedDay } = useSelectedDate();
   const { data: weekScheduleData } = useGetWeekSchedule();
 
@@ -72,7 +77,7 @@ export const MiniCalendar = () => {
   return (
     <>
       {/* 요일 헤더 */}
-      <div className="grid grid-cols-7 px-1.5 text-center font-medium">
+      <div className="grid grid-cols-7 text-center font-medium">
         {shiftedDays.map((day, idx) => (
           <div key={idx} className={day === "일" ? "text-red-0" : ""}>
             {day}
@@ -81,7 +86,7 @@ export const MiniCalendar = () => {
       </div>
 
       {/* 날짜 셀 */}
-      <div className="mb-7 grid grid-cols-7 gap-x-1 px-1.5 py-3 text-center">
+      <div className="mb-7 grid grid-cols-7 gap-x-1 py-3 text-center">
         {dateList.map((date, idx) => {
           const isToday = isSameDate(date, today);
           const isSelected = selectedDay && isSameDate(date, selectedDay);
@@ -119,7 +124,7 @@ export const MiniCalendar = () => {
                 {date ? date.getDate() : ""}
               </p>
               {/* 연속 일정 그리드 */}
-              {currentDayMaxRow > 0 && (
+              {currentDayMaxRow > 0 && isConnected && isInitialized && (
                 <div
                   className="mb-1 grid w-full gap-1.5"
                   style={{ gridTemplateRows: `repeat(${currentDayMaxRow}, 14px)` }}>
@@ -159,16 +164,18 @@ export const MiniCalendar = () => {
                 </div>
               )}
               {/* 단일 일정 스택 */}
-              <div className="flex w-full flex-col gap-1">
-                {singleDayTags.map(tag => {
-                  const { bgColor, textColor } = FATIGUE_TAG[tag.fatigue || "VERY_TIRED"];
-                  return (
-                    <div key={tag.id} className={`flex h-4 w-full items-center rounded-[4px] ${bgColor}`}>
-                      <p className={`w-full truncate text-[10px] ${textColor}`}>{tag.title}</p>
-                    </div>
-                  );
-                })}
-              </div>
+              {isConnected && isInitialized && (
+                <div className="flex w-full flex-col gap-1">
+                  {singleDayTags.map(tag => {
+                    const { bgColor, textColor } = FATIGUE_TAG[tag.fatigue || "VERY_TIRED"];
+                    return (
+                      <div key={tag.id} className={`flex h-4 w-full items-center rounded-[4px] ${bgColor}`}>
+                        <p className={`w-full truncate text-[10px] ${textColor}`}>{tag.title}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           );
         })}

@@ -8,7 +8,7 @@ export const MainScheduleCardList = () => {
   const { data: scheduleListData } = useGetScheduleList(selectedDay);
 
   return (
-    <div className="flex flex-col gap-3 px-4">
+    <div className="flex flex-col gap-3">
       {scheduleListData?.result.anniversaries.map(dday => <DdayCard key={dday.id} {...dday} className="bg-gray-50" />)}
       {scheduleListData?.result.schedules.map(schedule => (
         <ScheduleCard key={schedule.id} {...schedule} className="bg-gray-50" />
