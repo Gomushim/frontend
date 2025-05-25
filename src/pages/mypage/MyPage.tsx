@@ -1,17 +1,10 @@
 import { NotificationSetting, StatusSection, ProfileCardSection } from "@/features/mypage";
 import mySettingIcon from "@/assets/images/my_setting.svg";
 import { useNavigate } from "react-router";
-import { useInitSettingQueries } from "@/entities/init_setting";
-import { useIscouple } from "@/entities/iscouple";
 import { NavBar } from "@/widgets/navbar/ui";
 
 export const MyPage = () => {
   const navigate = useNavigate();
-  const { getCoupleInfo } = useInitSettingQueries();
-  const { checkCoupleConnect } = useIscouple();
-  
-  const isConnected = checkCoupleConnect.data?.result ?? false;
-  const isInitialized = getCoupleInfo.data?.result.isAnniversariesRegistered ?? false;
 
   return (
     <div className="min-h-screen  px-6 py-6">
@@ -21,8 +14,8 @@ export const MyPage = () => {
         <button 
           type="button" 
           aria-label="설정" 
-          className={`p-2 ${(!isConnected || !isInitialized) ? "opacity-50 cursor-not-allowed" : ""}`}
-          onClick={() => isConnected && isInitialized && navigate("/mypage/setting")}
+          className={"p-2"}
+          onClick={() => navigate("/mypage/setting")}
         >
           <img src={mySettingIcon} alt="설정" className="w-6 h-6" />
 

@@ -4,7 +4,7 @@ import { useOnboardingStore, MilitaryBranch } from "@/features/mainpage/model/In
 import { useNavigate } from "react-router";
 
 export const Where: React.FC = () => {
-  const { militaryBranch, setMilitaryBranch } = useOnboardingStore();
+  const { militaryBranch, setMilitaryBranch, resetOnboarding } = useOnboardingStore();
   const navigate = useNavigate();
 
   const locations = [
@@ -32,7 +32,9 @@ export const Where: React.FC = () => {
         subtitle="나 또는 상대의 소속을 선택해주세요."
         progress={2/3}
         onBack={() => navigate(-1)}
-        onClose={() => navigate("/")}
+        onClose={() => {
+          resetOnboarding(); 
+          navigate("/");}}
       />
 
       <div className="flex-1 px-4">
