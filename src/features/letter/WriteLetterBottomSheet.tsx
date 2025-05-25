@@ -1,4 +1,4 @@
-import { useState, useRef, ChangeEvent, FormEvent } from "react";
+import { useState, useRef, FormEvent } from "react";
 import { Button, Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger, SInput, Textarea } from "@/shared/ui";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui";
 import crossDeleteIcon from "@/assets/icons/crossDelete.svg";
@@ -28,7 +28,7 @@ export const WriteLetterBottomSheet = ({
   // 상태: 수정 모드면 기존 값, 생성 모드면 빈 값
   const [editTitle, setEditTitle] = useState(title);
   const [editContent, setEditContent] = useState(content);
-  // const [editImagesUrl, setEditImagesUrl] = useState<string[]>(imagesUrl);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [images, setImages] = useState<File[]>([]);
   const MAX_IMAGES = 3;
@@ -60,8 +60,10 @@ export const WriteLetterBottomSheet = ({
   };
 
   // 폼 제출 핸들러 (생성/수정 분기)
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (isSubmitting) return;
 
     if (!editTitle.trim()) {
       alert("제목을 입력해주세요.");
@@ -71,6 +73,8 @@ export const WriteLetterBottomSheet = ({
       alert("내용을 입력해주세요.");
       return;
     }
+
+    setIsSubmitting(true);
 
     const upsertLetterRequest = {
       letterId: isEdit ? letterId : null,
@@ -94,10 +98,16 @@ export const WriteLetterBottomSheet = ({
         {
           onSuccess: () => {
             alert("편지가 수정되었습니다.");
+            setEditTitle("");
+            setEditContent("");
+            setImages([]);
             onToggle();
           },
           onError: error => {
             console.error(error);
+          },
+          onSettled: () => {
+            setIsSubmitting(false);
           },
         }
       );
@@ -105,10 +115,16 @@ export const WriteLetterBottomSheet = ({
       mutate(finalFormData, {
         onSuccess: () => {
           alert("편지가 등록되었습니다.");
+          setEditTitle("");
+          setEditContent("");
+          setImages([]);
           onToggle();
         },
         onError: error => {
           console.error(error);
+        },
+        onSettled: () => {
+          setIsSubmitting(false);
         },
       });
     }
@@ -131,7 +147,8 @@ export const WriteLetterBottomSheet = ({
             <Button
               type="submit"
               variant="ghost"
-              className="hover:bg-gray-0 p-0 text-sm font-semibold text-green-600 hover:text-green-700">
+              disabled={isSubmitting}
+              className="hover:bg-gray-0 p-0 text-sm font-semibold text-green-600 hover:text-green-700 disabled:text-green-300">
               완료
             </Button>
           </DrawerHeader>
