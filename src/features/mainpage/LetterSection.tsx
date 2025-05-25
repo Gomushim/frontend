@@ -18,7 +18,7 @@ export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps
 
  
 
-  if (!isConnected || !isInitialized||!letterList?.result || letterList.result.length === 0) {
+  if (!isConnected || !isInitialized) {
     return (
       <>
         <MainHeader mainTitle="도착한 편지" buttonText="더보기" onClick={() => {}} />
@@ -51,7 +51,7 @@ export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps
           }}
           className="w-full">
           <CarouselContent className="-ml-4 gap-3">
-            {letterList.result.map(letter => (
+            {letterList?.result?.map(letter => (
               <CarouselItem key={letter.letterId} className="basis-[190px] pl-4">
                 <div className="h-[140px] w-[190px] flex-col gap-2.5 rounded-2xl bg-white p-4">
                   <div className="flex h-full flex-col justify-between">
