@@ -8,7 +8,6 @@ import { useNavigate } from "react-router";
 import { useOnboardingStore } from "@/features/mainpage/model/InitSettingStore";
 import { useEffect, useCallback } from "react";
 import { initSettingQueries } from "@/entities/init_setting/service";
-import { useCoupleNickname } from "@/entities/couple_nickname/queries";
 
 interface TopSectionProps {
   isConnected: boolean;
