@@ -35,7 +35,7 @@ export const CoupleContact: React.FC = () => {
 
   useEffect(() => {
     if (checkCoupleConnect.data?.result) {
-      navigate("/");
+      window.location.href = "/";
     }
   }, [checkCoupleConnect.data, navigate]);
 
@@ -81,7 +81,7 @@ export const CoupleContact: React.FC = () => {
     try {
       setIsLoading(true);
       await coupleConnectQueries.connectCouple({ coupleCode: inputCode });
-      navigate("/");
+      window.location.href = "/";
     } catch (error) {
       console.error("커플 연결 에러:", error);
       setError("커플 연결에 실패했습니다. 다시 시도해주세요.");
