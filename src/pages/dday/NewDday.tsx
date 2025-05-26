@@ -27,15 +27,16 @@ export const NewDday = () => {
 
   // 상태
   const isEditMode = !!ddayId;
+
   // 상태 및 폼 관련 커스텀 훅
   const { newDdayState, handleChange, isFormValid } = useNewDdayForm();
 
+  useInitializeDdayFormFromCache(ddayId!, handleChange, from);
+
   // API 훅
   const { mutate: ddayMutate } = useCreateDdayMutation(newDdayState);
-  const { mutate: ddayUpdateMutate } = useUpdateDdayMutation(newDdayState);
   const { mutate: ddayDeleteMutate } = useDeleteDdayMutation(ddayId!, newDdayState.date);
-
-  useInitializeDdayFormFromCache(ddayId!, handleChange, from);
+  const { mutate: ddayUpdateMutate } = useUpdateDdayMutation(newDdayState);
 
   // 이벤트 핸들러
   const handlePostDday = async () => {
@@ -65,15 +66,18 @@ export const NewDday = () => {
         alert("디데이가 삭제되었습니다.");
         handleDone();
       },
+      onError: error => {
+        console.log(error);
+      },
     });
   };
 
   return (
     <>
-      <header className="mt-[70px] mb-8 flex flex-col items-center gap-7">
+      <header className="mt-5 mb-8 flex flex-col items-center gap-7">
         <div className="">
           <h1 className="text-xl font-semibold text-gray-900">생성하기</h1>
-          <Button variant="ghost" size="sIcon" className="absolute top-17 left-5" onClick={handleDone}>
+          <Button variant="ghost" size="sIcon" className="absolute top-5 left-5" onClick={handleDone}>
             <img src={backIcon} alt="뒤로가기" />
           </Button>
         </div>

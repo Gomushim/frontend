@@ -43,7 +43,7 @@ export const CalendarScheduleDetail = () => {
   return (
     <>
       <div className="px-[22px]">
-        <header className="mt-[70px] mb-4 flex items-center justify-between">
+        <header className="mt-[20px] mb-4 flex items-center justify-between">
           <Button variant="ghost" size="sIcon" onClick={goBack}>
             <img src={backIcon} alt="뒤로가기" />
           </Button>

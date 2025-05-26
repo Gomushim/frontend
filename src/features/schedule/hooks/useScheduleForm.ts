@@ -12,8 +12,8 @@ export const useScheduleForm = (initialState?: Partial<InitialSchedule>) => {
   });
 
   const isValid = useMemo(
-    () => form.title.trim() !== "" && form.startDate !== "" && form.endDate !== "",
-    [form.title, form.startDate, form.endDate]
+    () => form.title.trim() !== "" && form.startDate !== "" && form.endDate !== "" && form.fatigue !== "",
+    [form.title, form.startDate, form.endDate, form.fatigue]
   );
 
   const updateField = useCallback(<K extends keyof InitialSchedule>(key: K, value: InitialSchedule[K]) => {

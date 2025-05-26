@@ -1,4 +1,4 @@
-import { useState, useRef, ChangeEvent, FormEvent } from "react";
+import { useState, useRef, FormEvent } from "react";
 import { Button, Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger, SInput, Textarea } from "@/shared/ui";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui";
 import crossDeleteIcon from "@/assets/icons/crossDelete.svg";
@@ -28,9 +28,10 @@ export const WriteLetterBottomSheet = ({
   // 상태: 수정 모드면 기존 값, 생성 모드면 빈 값
   const [editTitle, setEditTitle] = useState(title);
   const [editContent, setEditContent] = useState(content);
-  // const [editImagesUrl, setEditImagesUrl] = useState<string[]>(imagesUrl);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [images, setImages] = useState<File[]>([]);
+  const MAX_IMAGES = 3;
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { isToggle, onToggle } = useToggle();
@@ -38,16 +39,18 @@ export const WriteLetterBottomSheet = ({
   const { mutate } = useCreateLetterMutation(scheduleId || "");
   const { mutate: updateMutate } = useUpdateLetterMutation(scheduleId || "");
 
-  // 이미지 선택 시 처리
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const selectedFiles = Array.from(event.target.files);
-      setImages(prev => [...prev, ...selectedFiles]);
+  const handleImageUpload = (files: FileList) => {
+    const remainingSlots = MAX_IMAGES - images.length;
+    if (remainingSlots <= 0) {
+      alert("이미지는 최대 3개까지만 등록할 수 있습니다.");
+      return;
     }
+
+    const newImages = Array.from(files).slice(0, remainingSlots);
+    setImages(prev => [...prev, ...newImages]);
   };
 
-  // 이미지 삭제
-  const handleRemoveImage = (index: number) => {
+  const handleImageDelete = (index: number) => {
     setImages(prev => prev.filter((_, i) => i !== index));
   };
 
@@ -57,8 +60,10 @@ export const WriteLetterBottomSheet = ({
   };
 
   // 폼 제출 핸들러 (생성/수정 분기)
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (isSubmitting) return;
 
     if (!editTitle.trim()) {
       alert("제목을 입력해주세요.");
@@ -68,6 +73,8 @@ export const WriteLetterBottomSheet = ({
       alert("내용을 입력해주세요.");
       return;
     }
+
+    setIsSubmitting(true);
 
     const upsertLetterRequest = {
       letterId: isEdit ? letterId : null,
@@ -91,10 +98,16 @@ export const WriteLetterBottomSheet = ({
         {
           onSuccess: () => {
             alert("편지가 수정되었습니다.");
+            setEditTitle("");
+            setEditContent("");
+            setImages([]);
             onToggle();
           },
           onError: error => {
             console.error(error);
+          },
+          onSettled: () => {
+            setIsSubmitting(false);
           },
         }
       );
@@ -102,10 +115,16 @@ export const WriteLetterBottomSheet = ({
       mutate(finalFormData, {
         onSuccess: () => {
           alert("편지가 등록되었습니다.");
+          setEditTitle("");
+          setEditContent("");
+          setImages([]);
           onToggle();
         },
         onError: error => {
           console.error(error);
+        },
+        onSettled: () => {
+          setIsSubmitting(false);
         },
       });
     }
@@ -114,7 +133,7 @@ export const WriteLetterBottomSheet = ({
   return (
     <Drawer open={isToggle} onOpenChange={onToggle}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="py10 px-5">
+      <DrawerContent className="px-5 pt-2 pb-15">
         <form className="mx-auto w-full max-w-sm" onSubmit={handleSubmit}>
           <DrawerHeader className="flex-row justify-between px-0">
             <Button
@@ -128,7 +147,8 @@ export const WriteLetterBottomSheet = ({
             <Button
               type="submit"
               variant="ghost"
-              className="hover:bg-gray-0 p-0 text-sm font-semibold text-green-600 hover:text-green-700">
+              disabled={isSubmitting}
+              className="hover:bg-gray-0 p-0 text-sm font-semibold text-green-600 hover:text-green-700 disabled:text-green-300">
               완료
             </Button>
           </DrawerHeader>
@@ -178,7 +198,11 @@ export const WriteLetterBottomSheet = ({
                   multiple
                   accept="image/*"
                   ref={fileInputRef}
-                  onChange={handleImageChange}
+                  onChange={e => {
+                    if (e.target.files) {
+                      handleImageUpload(e.target.files);
+                    }
+                  }}
                 />
               </div>
 
@@ -188,7 +212,7 @@ export const WriteLetterBottomSheet = ({
                     {images.map((image, index) => {
                       const objectUrl = URL.createObjectURL(image);
                       return (
-                        <CarouselItem key={index} className="relative md:basis-1/2 lg:basis-1/2">
+                        <CarouselItem key={index} className="relative max-w-50 md:basis-1/2 lg:basis-1/2">
                           <div className="p-1">
                             <img
                               src={objectUrl}
@@ -201,7 +225,7 @@ export const WriteLetterBottomSheet = ({
                               size="2xsIcon"
                               type="button"
                               className="absolute top-3 right-3"
-                              onClick={() => handleRemoveImage(index)}
+                              onClick={() => handleImageDelete(index)}
                               aria-label="이미지 삭제">
                               <img src={crossDeleteIcon} alt="이미지 삭제" />
                             </Button>

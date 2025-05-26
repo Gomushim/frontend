@@ -18,11 +18,11 @@ const NotConnectedPage = () => {
       </div>
       <div className="relative z-10 -mt-13 flex-grow rounded-t-[20px] bg-gray-50">
         <main className="container mx-auto max-w-[1920px] px-4 pt-15 pb-[95px]">
-          <div className="grid w-full gap-4 ">
+          <div className="grid w-full gap-4">
             <StatusSection isConnected={false} isInitialized={false} />
-            <ScheduleSection />
+            <ScheduleSection isConnected={false} isInitialized={false} />
             <LetterSection isConnected={false} isInitialized={false} />
-            <DDaySection isConnected={false} />
+            <DDaySection isConnected={false} isInitialized={false} />
           </div>
         </main>
       </div>
@@ -44,9 +44,9 @@ const NotInitializedPage = ({ isLoading }: { isLoading: boolean }) => {
         <main className="container mx-auto max-w-full px-4 pt-15 pb-[95px]">
           <div className="grid w-full gap-4">
             <StatusSection isConnected={true} isInitialized={false} />
-            <ScheduleSection />
+            <ScheduleSection isConnected={true} isInitialized={false} />
             <LetterSection isConnected={true} isInitialized={false} />
-            <DDaySection isConnected={false} />
+            <DDaySection isConnected={true} isInitialized={false} />
           </div>
         </main>
       </div>
@@ -61,16 +61,16 @@ const InitializedPage = ({ isLoading }: { isLoading: boolean }) => {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
       <TopSection isConnected={true} isInitialized={true} isLoading={isLoading} />
-      <div >
+      <div>
         <SpecialDateSection isConnected={true} isInitialized={true} isLoading={isLoading} />
       </div>
       <div className="relative z-10 -mt-13 flex-grow rounded-t-[20px] bg-gray-50">
         <main className="container mx-auto max-w-[1920px] px-4 pt-15 pb-[95px]">
           <div className="grid w-full gap-4">
             <StatusSection isConnected={true} isInitialized={true} />
-            <ScheduleSection />
+            <ScheduleSection isConnected={true} isInitialized={true} />
             <LetterSection isConnected={true} isInitialized={true} />
-            <DDaySection isConnected={true} />
+            <DDaySection isConnected={true} isInitialized={true} />
           </div>
         </main>
       </div>

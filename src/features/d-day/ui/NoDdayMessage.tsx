@@ -1,7 +1,14 @@
 import noDday from "@/assets/images/noDday.svg";
 import { Button } from "@/shared/ui";
+import { useNavigate } from "react-router";
 
 export const NoDdayMessage = () => {
+  const navigate = useNavigate();
+
+  const goCreateDdayPage = () => {
+    navigate("/calendar/dday/new", { state: { from: "/calendar/dday" } });
+  };
+
   return (
     <div className="mt-[170px] flex flex-col items-center">
       <img src={noDday} alt="Day 없음" />
@@ -11,7 +18,7 @@ export const NoDdayMessage = () => {
         <br />
         편지를 작성해보는 건 어떨까요?
       </p>
-      <Button variant="square" size="2xs" className="mt-8">
+      <Button variant="square" size="2xs" className="mt-8" onClick={goCreateDdayPage}>
         디데이 추가
       </Button>
     </div>
