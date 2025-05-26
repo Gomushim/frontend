@@ -74,10 +74,10 @@ export const NewDday = () => {
 
   return (
     <>
-      <header className="mt-5 mb-8 flex flex-col items-center gap-7">
+      <header className="relative mt-5 mb-8 flex flex-col items-center gap-7">
         <div className="">
-          <h1 className="text-xl font-semibold text-gray-900">생성하기</h1>
-          <Button variant="ghost" size="sIcon" className="absolute top-5 left-5" onClick={handleDone}>
+          <h1 className="text-xl font-semibold text-gray-900">{isEditMode ? "수정하기" : "생성하기"}</h1>
+          <Button variant="ghost" size="sIcon" className="absolute top-0 left-5" onClick={handleDone}>
             <img src={backIcon} alt="뒤로가기" />
           </Button>
         </div>
