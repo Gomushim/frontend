@@ -19,7 +19,7 @@ export const getMainDdayList = async (): Promise<MainDdayListResponse> => {
 };
 
 export const updateDday = async (data: DdayRequst): Promise<NewDdayResponse> => {
-  const response = await api.post<NewDdayResponse>("/couple/new-anniversary", data);
+  const response = await api.put<NewDdayResponse>(`/couple/new-anniversary/${data.id}`, data);
   return response.data;
 };
 

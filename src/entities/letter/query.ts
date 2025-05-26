@@ -8,7 +8,7 @@ export const useGetLetterDetail = (scheduleId: string, letterId: string) => {
 
 export const useGetLetterList = () => {
   return useInfiniteQuery({
-    ...letterQueryKey.list(),
+    queryKey: letterQueryKey.list().queryKey,
     queryFn: async ({ pageParam = 1 }) => {
       return getLetterList({
         page: pageParam,

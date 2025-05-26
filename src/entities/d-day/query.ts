@@ -4,7 +4,7 @@ import { getDdayList } from "./service";
 
 export const useGetDdayList = () => {
   return useInfiniteQuery({
-    ...ddayQueryKey.list(),
+    queryKey: ddayQueryKey.list().queryKey,
     queryFn: async ({ pageParam = 1 }) => {
       return getDdayList({
         page: pageParam,

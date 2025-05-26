@@ -21,11 +21,11 @@ const NotConnectedPage = ({ coupleInfo }: { coupleInfo: { userNickname: string; 
       </div>
       <div className="relative z-10 -mt-13 flex-grow rounded-t-[20px] bg-gray-50">
         <main className="container mx-auto max-w-[1920px] px-4 pt-15 pb-[95px]">
-          <div className="grid w-full gap-4 ">
+          <div className="grid w-full gap-4">
             <StatusSection isConnected={false} isInitialized={false} />
-            <ScheduleSection />
+            <ScheduleSection isConnected={false} isInitialized={false} />
             <LetterSection isConnected={false} isInitialized={false} />
-            <DDaySection isConnected={false} />
+            <DDaySection isConnected={false} isInitialized={false} />
           </div>
         </main>
       </div>
@@ -47,9 +47,9 @@ const NotInitializedPage = ({  coupleInfo }: { isLoading: boolean; coupleInfo: {
         <main className="container mx-auto max-w-full px-4 pt-15 pb-[95px]">
           <div className="grid w-full gap-4">
             <StatusSection isConnected={true} isInitialized={false} />
-            <ScheduleSection />
+            <ScheduleSection isConnected={true} isInitialized={false} />
             <LetterSection isConnected={true} isInitialized={false} />
-            <DDaySection isConnected={false} />
+            <DDaySection isConnected={true} isInitialized={false} />
           </div>
         </main>
       </div>
@@ -63,17 +63,19 @@ const NotInitializedPage = ({  coupleInfo }: { isLoading: boolean; coupleInfo: {
 const InitializedPage = ({  coupleInfo }: { isLoading: boolean; coupleInfo: { userNickname: string; coupleNickname: string } }) => {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
+
       <TopSection isConnected={true} isInitialized={true} coupleInfo={coupleInfo} />
       <div >
         <SpecialDateSection isConnected={true} isInitialized={true} />
+
       </div>
       <div className="relative z-10 -mt-13 flex-grow rounded-t-[20px] bg-gray-50">
         <main className="container mx-auto max-w-[1920px] px-4 pt-15 pb-[95px]">
           <div className="grid w-full gap-4">
             <StatusSection isConnected={true} isInitialized={true} />
-            <ScheduleSection />
+            <ScheduleSection isConnected={true} isInitialized={true} />
             <LetterSection isConnected={true} isInitialized={true} />
-            <DDaySection isConnected={true} />
+            <DDaySection isConnected={true} isInitialized={true} />
           </div>
         </main>
       </div>
@@ -131,3 +133,4 @@ export const MainPage = () => {
     </div>
   );
 };
+

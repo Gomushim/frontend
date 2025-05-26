@@ -14,14 +14,32 @@ interface LetterSectionProps {
 export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps) => {
   const enabled = isConnected || isInitialized;
   const { data: letterList } = useGetLetterListMain(enabled);
+
   const navigate = useNavigate();
 
- 
+  const handleLetterListRedirect = () => {
+    if (isConnected) {
+      navigate("/calendar/letters", {
+        state: { previousPath: window.location.pathname },
+      });
+    }
+  };
+
+  const handleLetterCardClick = (letterId: string, scheduleId: string) => {
+    navigate(`/calendar/schedule/${scheduleId}/letter/${letterId}`);
+  };
 
   if (!isConnected || !isInitialized) {
+
     return (
       <>
-        <MainHeader mainTitle="도착한 편지" buttonText="더보기" onClick={() => {}} />
+        <MainHeader
+          mainTitle="도착한 편지"
+          buttonText="더보기"
+          onClick={handleLetterListRedirect}
+          isConnected={isConnected}
+          isInitialized={isInitialized}
+        />
         <div className="flex h-[140px] w-[190px] flex-col gap-2.5 rounded-2xl bg-white p-4">
           <div className="flex flex-col">
             <div className="flex items-center gap-1">
@@ -41,7 +59,13 @@ export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps
 
   return (
     <>
-      <MainHeader mainTitle="도착한 편지" buttonText="더보기" onClick={() => navigate("/calendar/letters")} />
+      <MainHeader
+        mainTitle="도착한 편지"
+        buttonText="더보기"
+        onClick={handleLetterListRedirect}
+        isConnected={isConnected}
+        isInitialized={isInitialized}
+      />
       <div className="relative w-full overflow-x-auto">
         <Carousel
           opts={{
@@ -51,8 +75,16 @@ export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps
           }}
           className="w-full">
           <CarouselContent className="-ml-4 gap-3">
+
             {letterList?.result?.map(letter => (
               <CarouselItem key={letter.letterId} className="basis-[190px] pl-4">
+
+            {letterList.result.map(letter => (
+              <CarouselItem
+                key={letter.letterId}
+                className="basis-[190px] pl-4"
+                onClick={() => handleLetterCardClick(letter.letterId, letter.scheduleId)}>
+
                 <div className="h-[140px] w-[190px] flex-col gap-2.5 rounded-2xl bg-white p-4">
                   <div className="flex h-full flex-col justify-between">
                     <div>

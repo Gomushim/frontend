@@ -8,6 +8,7 @@ export interface Letter {
   content: string;
   pictureUrl: string;
   createdAt: string;
+  isWrittenByMe: boolean;
   comments: Comment[];
 }
 
