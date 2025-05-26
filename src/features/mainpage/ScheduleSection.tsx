@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { MainScheduleCardList, MiniCalendar } from "../schedule";
+import { MainScheduleCardList, MiniCalendar, SimpleCalendar } from "../schedule";
 import { ErrorBoundary } from "react-error-boundary";
 import { MainHeader } from "./ui/MainHeader";
 import { SelectedDateProvider } from "../schedule/context/SelectedDateContext";
@@ -27,7 +27,7 @@ export const ScheduleSection = ({ isConnected, isInitialized }: ScheduleSectionP
         isInitialized={isInitialized}
       />
       <section className="mx-auto w-full max-w-md rounded-2xl bg-white px-4 py-4">
-        <ErrorBoundary fallback={<div>에러 발생</div>}>
+        <ErrorBoundary fallback={<SimpleCalendar />}>
           <Suspense fallback={<div>로딩중</div>}>
             <MiniCalendar isConnected={isConnected} isInitialized={isInitialized} />
           </Suspense>
