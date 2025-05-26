@@ -2,33 +2,21 @@ import HeartIcon from "@/assets/images/heart.svg";
 import BootsIcon from "@/assets/images/boots.svg";
 import HeelsIcon from "@/assets/images/heals.svg";
 import { useAnniversary } from "@/entities/main_anniversary";
-import LoadingSpinner from "@/shared/ui/loading"; 
 
 interface SpecialDateSectionProps {
   isConnected: boolean;
   isInitialized: boolean;
-  isLoading?: boolean;
 }
 
 export const SpecialDateSection = ({
   isConnected,
   isInitialized,
-  isLoading = false,
 }: SpecialDateSectionProps) => {
   const { getDday } = useAnniversary({
     enabled: isConnected && isInitialized,
   });
 
   const ddayInfo = getDday.data?.result;
-  const isDdayLoading = getDday.isLoading;
-
-  if (isLoading || (isConnected && isInitialized && isDdayLoading)) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <LoadingSpinner  />
-      </div>
-    );
-  }
 
   return (
     <div className="relative z-20 -mt-22 px-6">

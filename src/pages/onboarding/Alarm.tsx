@@ -67,7 +67,7 @@ export const Alarm: React.FC = () => {
         onBack={() => navigate(-1)}
         onClose={() => navigate("/onboarding/nickname")}
       />
-      <div className="flex-1 flex items-center justify-center -mt-40">
+      <div className="flex-1 flex items-center justify-center -mt-0">
         <Lottie animationData={pushalarmJson} />
       </div>
       <div className="p-4">
