@@ -10,7 +10,6 @@ export const useEmotionStatusQueries = (options?: UseEmotionStatusQueriesOptions
     queryKey: ["coupleEmotion"],
     queryFn: getCoupleEmotion,
     enabled: options?.enabled,
-    refetchInterval: 1000 * 60,
     staleTime: 0,
     gcTime: 0,
   });
@@ -19,7 +18,6 @@ export const useEmotionStatusQueries = (options?: UseEmotionStatusQueriesOptions
     queryKey: ["statusMessage"],
     queryFn: getStatusMessage,
     enabled: options?.enabled,
-    refetchInterval: 1000 * 60,
     staleTime: 0,
     gcTime: 0,
   });

@@ -10,7 +10,6 @@ export const useAnniversary = (options?: UseAnniversaryOptions) => {
     queryKey: ["dday"],
     queryFn: () => anniversaryQueries.getDday(),
     enabled: options?.enabled,
-    refetchInterval: 1000 * 60,
     staleTime: 0,
     gcTime: 0,
   });
