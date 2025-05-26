@@ -29,7 +29,8 @@ export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps
     navigate(`/calendar/schedule/${scheduleId}/letter/${letterId}`);
   };
 
-  if (!isConnected || !isInitialized || !letterList?.result || letterList.result.length === 0) {
+  if (!isConnected || !isInitialized) {
+
     return (
       <>
         <MainHeader
@@ -74,11 +75,16 @@ export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps
           }}
           className="w-full">
           <CarouselContent className="-ml-4 gap-3">
+
+            {letterList?.result?.map(letter => (
+              <CarouselItem key={letter.letterId} className="basis-[190px] pl-4">
+
             {letterList.result.map(letter => (
               <CarouselItem
                 key={letter.letterId}
                 className="basis-[190px] pl-4"
                 onClick={() => handleLetterCardClick(letter.letterId, letter.scheduleId)}>
+
                 <div className="h-[140px] w-[190px] flex-col gap-2.5 rounded-2xl bg-white p-4">
                   <div className="flex h-full flex-col justify-between">
                     <div>

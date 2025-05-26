@@ -6,7 +6,6 @@ export const useIscouple = () => {
     queryKey: ["checkCoupleConnect"],
     queryFn: () => iscoupleQueries.checkCoupleConnect(),
     retry: false,
-    staleTime: Infinity,
     gcTime: Infinity,
   });
 

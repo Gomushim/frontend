@@ -35,7 +35,7 @@ export const CoupleContact: React.FC = () => {
 
   useEffect(() => {
     if (checkCoupleConnect.data?.result) {
-      navigate("/");
+      window.location.href = "/";
     }
   }, [checkCoupleConnect.data, navigate]);
 
@@ -81,7 +81,7 @@ export const CoupleContact: React.FC = () => {
     try {
       setIsLoading(true);
       await coupleConnectQueries.connectCouple({ coupleCode: inputCode });
-      navigate("/");
+      window.location.href = "/";
     } catch (error) {
       console.error("커플 연결 에러:", error);
       setError("커플 연결에 실패했습니다. 다시 시도해주세요.");
@@ -94,7 +94,7 @@ export const CoupleContact: React.FC = () => {
     <div className="flex min-h-screen flex-col bg-white">
       <div className="bg-white px-4 pt-6 pb-4">
         <div className="mb-3 flex items-center justify-end">
-          <button onClick={() => navigate("/mainpage")}>
+          <button onClick={() => navigate("/")}>
             <img src={CloseIcon} alt="닫기" className="h-6 w-6" />
           </button>
         </div>
