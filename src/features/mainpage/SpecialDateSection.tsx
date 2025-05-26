@@ -38,7 +38,7 @@ export const SpecialDateSection = ({
             <img src={HeartIcon} alt="하트" className="h-12 w-12" />
             <span className="text-md font-medium text-gray-900 mb-2">
               {isConnected && isInitialized
-                ? `D+${ddayInfo?.sinceLove ?? "-"}`
+                ? `D${ddayInfo?.sinceLove ?? "-"}`
                 : "-"}
             </span>
           </div>
@@ -49,7 +49,7 @@ export const SpecialDateSection = ({
             <img src={BootsIcon} alt="부츠" className="h-12 w-12" />
             <span className="text-md font-medium text-gray-900 mb-2">
               {isConnected && isInitialized
-                ? `D+${ddayInfo?.sinceMilitaryStart ?? "-"}`
+                ? `D${ddayInfo?.sinceMilitaryStart ?? "-"}`
                 : "-"}
             </span>
           </div>
