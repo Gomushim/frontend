@@ -129,6 +129,19 @@
   }
 }
 
+body {
+  margin: 0;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  overscroll-behavior-y: none;
+}
+
 /* 스크롤 숨기기 (모바일 포함) */
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE, Edge */
