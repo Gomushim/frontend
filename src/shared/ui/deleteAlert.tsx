@@ -33,12 +33,12 @@ export const DeleteAlert = (props: DeleteAlertProps) => {
         </AlertDialogHeader>
         <AlertDialogFooter className="flex-row !justify-center">
           <AlertDialogCancel
-            className="w-[50%] bg-gray-200 pt-3 text-base font-semibold text-white hover:bg-gray-300 hover:text-white"
+            className="w-[50%] bg-gray-200 p-3 text-base font-semibold text-white hover:bg-gray-300 hover:text-white"
             onClick={e => e.stopPropagation()}>
             {props.cancelText}
           </AlertDialogCancel>
           <AlertDialogAction
-            className="hover:bg-gray-1000 w-[50%] bg-gray-900 pt-3 text-base font-semibold text-white hover:text-white"
+            className="hover:bg-gray-1000 w-[50%] bg-gray-900 p-3 text-base font-semibold text-white hover:text-white"
             onClick={props.onDelete}>
             {props.buttonText}
           </AlertDialogAction>
