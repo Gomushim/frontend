@@ -156,7 +156,7 @@ export const WriteLetterBottomSheet = ({
   return (
     <Drawer open={isToggle} onOpenChange={onToggle}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="min-h-[550px] px-5 pt-2" onClick={e => e.stopPropagation()}>
+      <DrawerContent className="min-h-[550px] overflow-y-auto px-5 pt-2" onClick={e => e.stopPropagation()}>
         <form className="mx-auto w-full max-w-sm" onSubmit={handleSubmit} onClick={e => e.stopPropagation()}>
           <DrawerHeader className="flex-row justify-between px-0">
             <Button
