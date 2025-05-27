@@ -18,6 +18,7 @@ export const useUpdateMyNickname = () => {
     mutationFn: (data: UpdateMyNicknameRequest) => updateMyNickname(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["coupleNickname"] });
+      queryClient.invalidateQueries({ queryKey: ["myInfo"] });
     },
   });
 };
