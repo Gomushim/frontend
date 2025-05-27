@@ -35,39 +35,18 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
+export const messaging = getMessaging(app);
 
-// 메시지 ID를 저장할 Set
-const processedMessageIds = new Set();
-
-// Firebase 백그라운드 메시지 처리
+// 서비스 워커에서 Firebase 사용 시 오류 처리가 중요합니다
 try {
   onBackgroundMessage(messaging, payload => {
     console.log("백그라운드 메시지 수신:", payload);
-
-    // 메시지 ID 확인 (없으면 타임스탬프 사용)
-    const messageId = payload.data?.messageId || payload.messageId || Date.now().toString();
-
-    // 이미 처리된 메시지인지 확인
-    if (processedMessageIds.has(messageId)) {
-      console.log("중복 메시지 무시:", messageId);
-      return;
-    }
-
-    // 메시지 ID 저장
-    processedMessageIds.add(messageId);
-
-    // 1분 후 메시지 ID 제거 (메모리 관리)
-    setTimeout(() => {
-      processedMessageIds.delete(messageId);
-    }, 60000);
 
     const notificationTitle = payload.notification?.title || "새 알림";
     const notificationOptions = {
       body: payload.notification?.body || "",
       icon: "/pwa-192x192.png",
       data: payload.data,
-      tag: messageId, // 같은 tag를 가진 알림은 대체됨
     };
 
     self.registration.showNotification(notificationTitle, notificationOptions);
@@ -75,6 +54,25 @@ try {
 } catch (error) {
   console.error("Firebase 초기화 중 오류:", error);
 }
+
+// 푸시 이벤트 처리
+self.addEventListener("push", event => {
+  if (!event.data) return;
+
+  try {
+    const payload = event.data.json();
+    const title = payload.notification?.title || "새 알림";
+    const options = {
+      body: payload.notification?.body || "",
+      icon: "/pwa-192x192.png",
+      data: payload.data,
+    };
+
+    event.waitUntil(self.registration.showNotification(title, options));
+  } catch (error) {
+    console.error("푸시 메시지 처리 중 오류:", error);
+  }
+});
 
 // 알림 클릭 이벤트 처리
 self.addEventListener("notificationclick", event => {
