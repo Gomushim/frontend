@@ -7,7 +7,6 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-  SInput,
   Textarea,
 } from "@/shared/ui";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui";
@@ -143,7 +142,7 @@ export const WriteLetterBottomSheet = ({
   return (
     <Drawer open={isToggle} onOpenChange={onToggle}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="px-5 pt-2 pb-15">
+      <DrawerContent className="min-h-[750px] px-5 pt-2">
         <form className="mx-auto w-full max-w-sm" onSubmit={handleSubmit}>
           <DrawerHeader className="flex-row justify-between px-0">
             <Button
