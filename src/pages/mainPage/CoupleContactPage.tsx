@@ -25,19 +25,17 @@ export const CoupleContact: React.FC = () => {
   const navigate = useNavigate();
   const { checkCoupleConnect } = useIscouple();
 
+  // 커플 연결 상태 확인
   useEffect(() => {
     const interval = setInterval(() => {
       checkCoupleConnect.refetch();
+      if (checkCoupleConnect.data?.result) {
+        window.location.href = "/";
+      }
     }, 1000);
 
     return () => clearInterval(interval);
   }, [checkCoupleConnect]);
-
-  useEffect(() => {
-    if (checkCoupleConnect.data?.result) {
-      window.location.href = "/";
-    }
-  }, [checkCoupleConnect.data, navigate]);
 
   const handleGenerateCode = async () => {
     try {

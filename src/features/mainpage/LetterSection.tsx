@@ -1,6 +1,5 @@
 import { MainHeader } from "./ui/MainHeader";
 import LetterIcon from "@/assets/images/letter.svg";
-import LetterGreenIcon from "@/assets/images/letter_green.svg";
 import { useGetLetterListMain } from "@/entities/main_letter/queries";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui";
 import { formatDateDot } from "@/shared/utils/date/formatdate";
@@ -83,7 +82,6 @@ export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps
                   <div className="flex h-full flex-col justify-between">
                     <div>
                       <div className="flex items-center gap-1">
-                        <img src={LetterGreenIcon} alt="편지" className="h-5 w-5" />
                         <span className="text-md font-semibold text-gray-900">
                           {letter.title.length > 9 ? `${letter.title.slice(0, 9)}...` : letter.title}
                         </span>
