@@ -1,5 +1,15 @@
 import { useState, useRef, FormEvent } from "react";
-import { Button, Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger, SInput, Textarea } from "@/shared/ui";
+import {
+  Button,
+  CountInput,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+  SInput,
+  Textarea,
+} from "@/shared/ui";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui";
 import crossDeleteIcon from "@/assets/icons/crossDelete.svg";
 import { useCreateLetterMutation, useUpdateLetterMutation } from "@/entities/letter/mutation";
@@ -157,8 +167,8 @@ export const WriteLetterBottomSheet = ({
               <label className="text-md font-semibold text-gray-900" htmlFor="title">
                 제목
               </label>
-              <SInput
-                className="bg-gray-50"
+              <CountInput
+                className="h-12 bg-gray-50"
                 id="title"
                 name="title"
                 type="text"
