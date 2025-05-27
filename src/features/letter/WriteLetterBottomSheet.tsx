@@ -156,7 +156,7 @@ export const WriteLetterBottomSheet = ({
   return (
     <Drawer open={isToggle} onOpenChange={onToggle}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="min-h-[550px] overflow-y-auto px-5 pt-2" onClick={e => e.stopPropagation()}>
+      <DrawerContent className="min-h-[550px] px-5 pt-2" onClick={e => e.stopPropagation()}>
         <form className="mx-auto w-full max-w-sm" onSubmit={handleSubmit} onClick={e => e.stopPropagation()}>
           <DrawerHeader className="flex-row justify-between px-0">
             <Button
@@ -239,17 +239,17 @@ export const WriteLetterBottomSheet = ({
                   <CarouselContent>
                     {/* 기존 이미지 렌더링 */}
                     {existingImages.map((imageUrl, index) => (
-                      <CarouselItem key={`existing-${index}`} className="basis-[200px] pl-4">
+                      <CarouselItem key={`existing-${index}`} className="basis-[140px] pl-4">
                         <div className="relative aspect-square w-full overflow-hidden rounded-md">
                           <img src={imageUrl} alt={`existing-${index}`} className="h-full w-full object-cover" />
                           <Button
                             variant="ghost"
                             size="2xsIcon"
                             type="button"
-                            className="absolute top-3 right-3"
+                            className="absolute top-2 right-2"
                             onClick={() => handleImageDelete(index, "existing")}
                             aria-label="이미지 삭제">
-                            <img src={crossDeleteIcon} alt="이미지 삭제" />
+                            <img src={crossDeleteIcon} alt="이미지 삭제" className="h-4 w-4" />
                           </Button>
                         </div>
                       </CarouselItem>
@@ -258,7 +258,7 @@ export const WriteLetterBottomSheet = ({
                     {newImages.map((image, index) => {
                       const objectUrl = URL.createObjectURL(image);
                       return (
-                        <CarouselItem key={`new-${index}`} className="basis-[200px] pl-4">
+                        <CarouselItem key={`new-${index}`} className="basis-[140px] pl-4">
                           <div className="relative aspect-square w-full overflow-hidden rounded-md">
                             <img
                               src={objectUrl}
@@ -270,10 +270,10 @@ export const WriteLetterBottomSheet = ({
                               variant="ghost"
                               size="2xsIcon"
                               type="button"
-                              className="absolute top-3 right-3"
+                              className="absolute top-2 right-2"
                               onClick={() => handleImageDelete(index, "new")}
                               aria-label="이미지 삭제">
-                              <img src={crossDeleteIcon} alt="이미지 삭제" />
+                              <img src={crossDeleteIcon} alt="이미지 삭제" className="h-4 w-4" />
                             </Button>
                           </div>
                         </CarouselItem>
