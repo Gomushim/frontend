@@ -15,7 +15,7 @@ export const scheduleQueryKey = createQueryKeys("schedule", {
     queryFn: () => getScheduleDetail(scheduleId),
   }),
   week: () => ({
-    queryKey: ["week"],
+    queryKey: ["main"],
     queryFn: () => getWeekSchedule(),
   }),
 });
