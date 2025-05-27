@@ -1,5 +1,4 @@
 import { InfoCard } from "@/shared/ui";
-import { calculateDday } from "@/shared/utils";
 import { useLocation, useNavigate } from "react-router";
 interface CalendrDdayCardProps {
   id: string;
