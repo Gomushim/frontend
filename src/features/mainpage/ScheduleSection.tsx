@@ -4,7 +4,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { MainHeader } from "./ui/MainHeader";
 import { SelectedDateProvider } from "../schedule/context/SelectedDateContext";
 import { useNavigate } from "react-router";
-import CalendarBlack from "@/assets/images/calendar_black.svg";
+import CalendarGray from "@/assets/images/calendar_gray.svg";
 
 interface ScheduleSectionProps {
   isConnected: boolean;
@@ -40,7 +40,7 @@ export const ScheduleSection = ({ isConnected, isInitialized }: ScheduleSectionP
           </ErrorBoundary>
         ) : (
           <div className="flex w-full max-w-md items-center justify-start gap-1 rounded-2xl bg-gray-50 px-4 py-6">
-            <img className="h-5 w-5" src={CalendarBlack} alt="캘린더 아이콘" />
+            <img className="h-5 w-5" src={CalendarGray} alt="캘린더 아이콘" />
             <p className="text-md font-medium text-gray-500">서로의 일정을 공유해보세요.</p>
           </div>
         )}
