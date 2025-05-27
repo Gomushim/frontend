@@ -95,7 +95,7 @@ export const LetterDetailPage = () => {
               <CarouselContent>
                 {letterDetailData?.result.pictures.map((image, index) => {
                   return (
-                    <CarouselItem key={index} className="relative md:basis-1/2 lg:basis-1/2">
+                    <CarouselItem key={index} className="relative max-w-50 md:basis-1/2 lg:basis-1/2">
                       <div className="p-1">
                         <img
                           src={image.pictureUrl}
@@ -145,7 +145,7 @@ export const LetterDetailPage = () => {
 
         {/* 댓글 입력 폼 */}
         <form
-          className="fixed -bottom-8 left-1/2 mx-auto mb-8 max-h-25 w-[375px] -translate-x-1/2 bg-white px-5 shadow-[0px_3px_12px_4px_rgba(218,218,218,0.15)]"
+          className="pc:w-[375px] fixed -bottom-8 left-1/2 mx-auto mb-8 max-h-25 w-full -translate-x-1/2 bg-white px-5 shadow-[0px_3px_12px_4px_rgba(218,218,218,0.15)]"
           onSubmit={handleCommentSubmit}>
           <div className="relative flex items-center">
             <Textarea
@@ -155,7 +155,7 @@ export const LetterDetailPage = () => {
               id="content"
               maxLength={80}
             />
-            <Button type="submit" variant="active" className="absolute right-2 z-10">
+            <Button type="submit" variant="active" className="absolute -top-0 right-2 z-10">
               입력
             </Button>
           </div>

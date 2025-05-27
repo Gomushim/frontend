@@ -22,6 +22,9 @@ export const useCreateScheduleMutation = (data: ScheduleRequst) => {
       queryClient.invalidateQueries({
         queryKey: scheduleQueryKey.list(endDate).queryKey,
       });
+      queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.week().queryKey,
+      });
     },
     onError: error => {
       console.error("Error creating schedule:", error);
@@ -47,6 +50,9 @@ export const useDeleteScheduleMutation = (scheduleId: string, data: ScheduleRequ
       queryClient.invalidateQueries({
         queryKey: scheduleQueryKey.list(endDate).queryKey,
       });
+      queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.week().queryKey,
+      });
     },
     onError: error => {
       console.error("Error creating schedule:", error);
@@ -71,6 +77,9 @@ export const useUpdateScheduleMutation = (data: ScheduleRequst) => {
       });
       queryClient.invalidateQueries({
         queryKey: scheduleQueryKey.list(endDate).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: scheduleQueryKey.week().queryKey,
       });
     },
     onError: error => {

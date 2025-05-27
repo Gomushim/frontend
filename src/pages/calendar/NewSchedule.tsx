@@ -2,19 +2,14 @@
 import { useNavigate, useParams } from "react-router";
 
 // UI
-import { Button, DeleteAlert, Divider, Topbar } from "@/shared/ui";
+import { Button, CountInput, DeleteAlert, Divider, Topbar } from "@/shared/ui";
 
 // 아이콘
 import backIcon from "@/assets/icons/back.svg";
 
 // 도메인: schedule
-import {
-  AllDayToggleButton,
-  DateBottomSheet,
-  FatigueBottomSheet,
-  TimeBottomSheet,
-  TitleInput,
-} from "@/features/schedule/ui";
+import { AllDayToggleButton, DateBottomSheet, FatigueBottomSheet, TimeBottomSheet } from "@/features/schedule/ui";
+
 import { useCreateScheduleMutation, useDeleteScheduleMutation, useUpdateScheduleMutation } from "@/entities/schedule";
 import { useScheduleForm, useInitializeScheduleFormFromCache } from "@/features/schedule/hooks";
 
@@ -78,11 +73,22 @@ export const CalendarNewSchedule = () => {
             <img src={backIcon} alt="뒤로가기" />
           </Button>
         </div>
-        <Topbar />
+        <Topbar isEditMode={isEditMode} />
       </header>
       <main className="flex flex-col gap-6 p-5">
         <section className="flex flex-col gap-2">
-          <TitleInput value={form.title} onTitleChange={value => updateField("title", value)} />
+          <label htmlFor="title" className="text-gary-900 text-xl font-semibold">
+            제목
+          </label>
+          <CountInput
+            type="text"
+            id="title"
+            className="h-12 w-full border bg-gray-50"
+            value={form.title}
+            onChange={e => updateField("title", e.target.value)}
+            maxLength={10}
+            placeholder="제목을 입력해 주세요"
+          />
         </section>
         <Divider thickness="h-px" color="bg-gray-100" />
 

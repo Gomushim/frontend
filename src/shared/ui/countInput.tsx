@@ -2,7 +2,8 @@ import * as React from "react";
 import { SInput } from "./shadcnInput";
 import { cn } from "../utils/lib/utils";
 import { useState } from "react";
-interface CountInputProps extends React.ComponentProps<"input"> {
+
+interface CountInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   maxLength?: number;
   containerClassName?: string;
 }

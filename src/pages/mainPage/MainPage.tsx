@@ -36,9 +36,14 @@ const NotConnectedPage = ({ coupleInfo }: { coupleInfo: { userNickname: string; 
   );
 };
 
-const NotInitializedPage = ({  coupleInfo }: { isLoading: boolean; coupleInfo: { userNickname: string; coupleNickname: string } }) => {
+const NotInitializedPage = ({
+  coupleInfo,
+}: {
+  isLoading: boolean;
+  coupleInfo: { userNickname: string; coupleNickname: string };
+}) => {
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50">
+    <div className="flex flex-col bg-gray-50">
       <TopSection isConnected={true} isInitialized={false} coupleInfo={coupleInfo} />
       <div>
         <SpecialDateSection isConnected={true} isInitialized={false} />
@@ -60,14 +65,17 @@ const NotInitializedPage = ({  coupleInfo }: { isLoading: boolean; coupleInfo: {
   );
 };
 
-const InitializedPage = ({  coupleInfo }: { isLoading: boolean; coupleInfo: { userNickname: string; coupleNickname: string } }) => {
+const InitializedPage = ({
+  coupleInfo,
+}: {
+  isLoading: boolean;
+  coupleInfo: { userNickname: string; coupleNickname: string };
+}) => {
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50">
-
+    <div className="flex flex-col bg-gray-50">
       <TopSection isConnected={true} isInitialized={true} coupleInfo={coupleInfo} />
-      <div >
+      <div>
         <SpecialDateSection isConnected={true} isInitialized={true} />
-
       </div>
       <div className="relative z-10 -mt-13 flex-grow rounded-t-[20px] bg-gray-50">
         <main className="container mx-auto max-w-[1920px] px-4 pt-15 pb-[95px]">
@@ -92,21 +100,18 @@ export const MainPage = () => {
   const isConnected = checkCoupleConnect.data?.result ?? false;
   const isInitialized = getCoupleInfo.data?.result?.isAnniversariesRegistered ?? false;
   const { getNickName } = useCoupleNickname(isConnected || isInitialized);
-  
+
   const coupleInfo = getNickName.data?.result || {
     userNickname: "",
     coupleNickname: "",
   };
 
-  const isLoading = 
-    checkCoupleConnect.isLoading || 
-    getCoupleInfo.isLoading || 
-    getNickName.isLoading;
+  const isLoading = checkCoupleConnect.isLoading || getCoupleInfo.isLoading || getNickName.isLoading;
 
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50">
-        <LoadingSpinner text="메인페이지로 이동 중..."/>
+        <LoadingSpinner text="메인페이지로 이동 중..." />
       </div>
     );
   }
@@ -121,16 +126,15 @@ export const MainPage = () => {
 
   if (!isInitialized) {
     return (
-      <div className="flex min-h-screen flex-col bg-gray-50">
+      <div className="flex flex-col bg-gray-50">
         <NotInitializedPage isLoading={isLoading} coupleInfo={coupleInfo} />
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50">
+    <div className="flex flex-col bg-gray-50">
       <InitializedPage isLoading={isLoading} coupleInfo={coupleInfo} />
     </div>
   );
 };
-

@@ -1,5 +1,4 @@
 import { InfoCard } from "@/shared/ui";
-import { calculateDday } from "@/shared/utils";
 import { useLocation, useNavigate } from "react-router";
 interface CalendrDdayCardProps {
   id: string;
@@ -26,10 +25,6 @@ export const CalendrDdayCard = (props: CalendrDdayCardProps) => {
             디데이
           </InfoCard.Tag>
           <InfoCard.Title>{props.title}</InfoCard.Title>
-        </div>
-        <div className="flex flex-col gap-1 text-end">
-          <InfoCard.Title>{calculateDday(props.anniversaryDate)}</InfoCard.Title>
-          <InfoCard.Text>{props.anniversaryDate}</InfoCard.Text>
         </div>
       </InfoCard.Content>
     </InfoCard>

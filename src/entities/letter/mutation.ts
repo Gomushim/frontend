@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createLetter, deleteLetter, updateLetter } from "./service";
 import { scheduleQueryKey } from "../schedule/queryKey";
 import { letterQueryKey } from "./queryKey";
-import { UpdateLetterRequest } from "./type";
 
 export const useCreateLetterMutation = (scheduleId: string) => {
   const queryClient = useQueryClient();
@@ -41,14 +40,17 @@ export const useDeleteLetterMutation = (scheduleId: string, letterId: string) =>
   });
 };
 
-export const useUpdateLetterMutation = (scheduleId: string) => {
+export const useUpdateLetterMutation = (scheduleId: string, letterId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: UpdateLetterRequest) => await updateLetter(data),
+    mutationFn: async (data: FormData) => await updateLetter(data),
     onSuccess: () => {
       queryClient.refetchQueries({
         queryKey: letterQueryKey.list().queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: letterQueryKey.detail(scheduleId, letterId).queryKey,
       });
       queryClient.invalidateQueries({
         queryKey: scheduleQueryKey.detail(scheduleId).queryKey,

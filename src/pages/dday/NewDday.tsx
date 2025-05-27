@@ -2,10 +2,8 @@
 import { useLocation, useNavigate, useParams } from "react-router";
 
 // UI 컴포넌트
-import { Button, DeleteAlert, Divider, Topbar } from "@/shared/ui";
+import { Button, CountInput, DeleteAlert, Divider, Topbar } from "@/shared/ui";
 import { DdayDateBottomSheet, EmojiSelector } from "@/features/d-day";
-import { TitleInput } from "@/features/schedule";
-
 // 아이콘
 import backIcon from "@/assets/icons/back.svg";
 
@@ -81,11 +79,22 @@ export const NewDday = () => {
             <img src={backIcon} alt="뒤로가기" />
           </Button>
         </div>
-        <Topbar />
+        <Topbar isEditMode={isEditMode} />
       </header>
       <main className="flex flex-col gap-6 p-5">
         <section className="flex flex-col gap-2">
-          <TitleInput value={newDdayState.title} onTitleChange={value => handleChange("title", value)} />
+          <label htmlFor="title" className="text-gary-900 text-xl font-semibold">
+            제목
+          </label>
+          <CountInput
+            type="text"
+            id="title"
+            className="h-12 w-full border bg-gray-50"
+            value={newDdayState.title}
+            onChange={e => handleChange("title", e.target.value)}
+            maxLength={10}
+            placeholder="제목을 입력해 주세요"
+          />
         </section>
         <Divider thickness="h-px" color="bg-gray-100" />
         <section className="flex flex-col gap-4">

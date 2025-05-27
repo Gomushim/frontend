@@ -3,7 +3,6 @@ import { Button } from "@/shared/ui";
 
 // 아이콘
 import backIcon from "@/assets/icons/back.svg";
-import letterIcon from "@/assets/icons/letter.svg";
 import blackHeart from "@/assets/icons/blackHeart.svg";
 
 // 도메인: letter
@@ -60,7 +59,6 @@ export const LetterListPage = () => {
         {/* 커플 정보 섹션 */}
         {letterListData.pages[0].data.length > 0 && (
           <section className="mb-6 flex items-center gap-2">
-            <img className="h-5 w-5 pb-1" src={letterIcon} alt="캘린더 아이콘" />
             <h2 className="text-xl font-semibold text-gray-900">{coupleNickname?.result.userNickname}</h2>
             <img src={blackHeart} alt="캘린더 아이콘" />
             <h2 className="text-xl font-semibold text-gray-900">{coupleNickname?.result.coupleNickname}</h2>

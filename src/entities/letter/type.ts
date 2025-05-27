@@ -55,6 +55,7 @@ export interface UpdateLetterRequest {
     scheduleId: string;
     title: string;
     content: string;
+    pictureUrls?: string[];
   };
   pictures?: string[];
 }

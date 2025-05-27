@@ -168,13 +168,13 @@ export const MiniCalendar = ({ isConnected, isInitialized }: MiniCalendarProps) 
                     } else if (isLastDay) {
                       containerStyle += " w-[calc(100%+4px)] -ml-1 rounded-r-[4px]";
                     } else if (isMiddleDay) {
-                      containerStyle += " w-[calc(100%+12px)] -mx-2";
+                      containerStyle += " w-[calc(100%+4px)] -mx-1";
                     }
 
                     return (
                       <div key={tag.id} style={{ gridRow }} className={`${containerStyle} ${bgColor}`}>
                         <p
-                          className={`w-full px-1 text-[10px] ${textColor} ${isFirstDay ? "absolute left-1 text-left whitespace-nowrap" : ""}`}>
+                          className={`w-full px-1 text-[10px] ${textColor} ${isFirstDay ? "absolute left-1 text-left whitespace-nowrap" : ""} ${isLastDay ? "truncate" : ""}`}>
                           {isFirstDay && tag.title}
                         </p>
                       </div>

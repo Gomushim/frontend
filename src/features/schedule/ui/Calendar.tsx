@@ -153,7 +153,7 @@ export const Calendar = () => {
           return (
             <div
               key={weekIdx}
-              className={weekIdx === weeks.length - 1 ? "" : "overflow-hidden border-b border-gray-50 py-3"}>
+              className={weekIdx === weeks.length - 1 ? "pt-3" : "overflow-hidden border-b border-gray-50 py-3"}>
               <div className="grid grid-cols-7 px-1.5 text-center">
                 {week.map((date, idx) => {
                   const isToday = date && isSameDay(date, today);
@@ -218,7 +218,7 @@ export const Calendar = () => {
                               let containerStyle = "flex h-4 items-center";
 
                               if (isFirstDay) {
-                                containerStyle += " w-[calc(100%)] -mr-4 rounded-l-[4px] relative z-10";
+                                containerStyle += " w-[calc(100%)] -mr-4 rounded-l-[4px] relative z-10 truncate";
                               } else if (isLastDay) {
                                 containerStyle += " w-[calc(100%+4px)] -ml-1 rounded-r-[4px]";
                               } else if (isMiddleDay) {

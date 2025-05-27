@@ -1,5 +1,14 @@
 import { useState, useRef, FormEvent } from "react";
-import { Button, Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger, SInput, Textarea } from "@/shared/ui";
+import {
+  Button,
+  CountInput,
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+  Textarea,
+} from "@/shared/ui";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui";
 import crossDeleteIcon from "@/assets/icons/crossDelete.svg";
 import { useCreateLetterMutation, useUpdateLetterMutation } from "@/entities/letter/mutation";
@@ -19,47 +28,50 @@ export const WriteLetterBottomSheet = ({
   letterId,
   title = "",
   content = "",
-  // imagesUrl = [],
+  imagesUrl = [],
   children,
 }: WriteLetterBottomSheetProps) => {
-  // 생성/수정 분기
   const isEdit = !!letterId;
-
-  // 상태: 수정 모드면 기존 값, 생성 모드면 빈 값
   const [editTitle, setEditTitle] = useState(title);
   const [editContent, setEditContent] = useState(content);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [images, setImages] = useState<File[]>([]);
+  // 기존 이미지 URL과 새로운 File 이미지를 함께 관리
+  const [existingImages, setExistingImages] = useState<string[]>(imagesUrl);
+  const [newImages, setNewImages] = useState<File[]>([]);
   const MAX_IMAGES = 3;
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { isToggle, onToggle } = useToggle();
   const { scheduleId } = useParams<{ scheduleId: string }>();
   const { mutate } = useCreateLetterMutation(scheduleId || "");
-  const { mutate: updateMutate } = useUpdateLetterMutation(scheduleId || "");
+  const { mutate: updateMutate } = useUpdateLetterMutation(scheduleId || "", letterId || "");
 
   const handleImageUpload = (files: FileList) => {
-    const remainingSlots = MAX_IMAGES - images.length;
+    const totalImages = existingImages.length + newImages.length;
+    const remainingSlots = MAX_IMAGES - totalImages;
+
     if (remainingSlots <= 0) {
       alert("이미지는 최대 3개까지만 등록할 수 있습니다.");
       return;
     }
 
-    const newImages = Array.from(files).slice(0, remainingSlots);
-    setImages(prev => [...prev, ...newImages]);
+    const additionalImages = Array.from(files).slice(0, remainingSlots);
+    setNewImages(prev => [...prev, ...additionalImages]);
   };
 
-  const handleImageDelete = (index: number) => {
-    setImages(prev => prev.filter((_, i) => i !== index));
+  const handleImageDelete = (index: number, type: "existing" | "new") => {
+    if (type === "existing") {
+      setExistingImages(prev => prev.filter((_, i) => i !== index));
+    } else {
+      setNewImages(prev => prev.filter((_, i) => i !== index));
+    }
   };
 
-  // 파일 선택창 열기
   const openFileDialog = () => {
     fileInputRef.current?.click();
   };
 
-  // 폼 제출 핸들러 (생성/수정 분기)
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -81,43 +93,54 @@ export const WriteLetterBottomSheet = ({
       scheduleId: scheduleId || "",
       title: editTitle,
       content: editContent,
+      pictureUrls: existingImages,
     };
+
     const finalFormData = new FormData();
     finalFormData.append(
       "upsertLetterRequest",
       new Blob([JSON.stringify(upsertLetterRequest)], { type: "application/json" })
     );
-    images.forEach(file => {
+
+    // 새로 추가된 이미지들을 pictures로 추가
+    newImages.forEach(file => {
       finalFormData.append("pictures", file);
     });
 
-    // 분기: 생성/수정
     if (isEdit) {
-      updateMutate(
-        { upsertLetterRequest },
-        {
-          onSuccess: () => {
-            alert("편지가 수정되었습니다.");
-            setEditTitle("");
-            setEditContent("");
-            setImages([]);
-            onToggle();
-          },
-          onError: error => {
-            console.error(error);
-          },
-          onSettled: () => {
-            setIsSubmitting(false);
-          },
-        }
+      const updateFormData = new FormData();
+      updateFormData.append(
+        "upsertLetterRequest",
+        new Blob([JSON.stringify(upsertLetterRequest)], { type: "application/json" })
       );
+      newImages.forEach(file => {
+        updateFormData.append("pictures", file);
+      });
+
+      updateMutate(updateFormData, {
+        onSuccess: () => {
+          alert("편지가 수정되었습니다.");
+          setEditTitle("");
+          setEditContent("");
+          setExistingImages([]);
+          setNewImages([]);
+          onToggle();
+        },
+        onError: error => {
+          console.error(error);
+        },
+        onSettled: () => {
+          setIsSubmitting(false);
+        },
+      });
     } else {
       mutate(finalFormData, {
         onSuccess: () => {
           alert("편지가 등록되었습니다.");
           setEditTitle("");
           setEditContent("");
-          setImages([]);
+          setExistingImages([]);
+          setNewImages([]);
           onToggle();
         },
         onError: error => {
@@ -133,8 +156,8 @@ export const WriteLetterBottomSheet = ({
   return (
     <Drawer open={isToggle} onOpenChange={onToggle}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="px-5 pt-2 pb-15">
-        <form className="mx-auto w-full max-w-sm" onSubmit={handleSubmit}>
+      <DrawerContent className="min-h-[750px] px-5 pt-2" onClick={e => e.stopPropagation()}>
+        <form className="mx-auto w-full max-w-sm" onSubmit={handleSubmit} onClick={e => e.stopPropagation()}>
           <DrawerHeader className="flex-row justify-between px-0">
             <Button
               type="button"
@@ -157,8 +180,8 @@ export const WriteLetterBottomSheet = ({
               <label className="text-md font-semibold text-gray-900" htmlFor="title">
                 제목
               </label>
-              <SInput
-                className="bg-gray-50"
+              <CountInput
+                className="h-12 bg-gray-50"
                 id="title"
                 name="title"
                 type="text"
@@ -188,7 +211,12 @@ export const WriteLetterBottomSheet = ({
                 <label className="text-md font-semibold text-gray-900" htmlFor="image">
                   이미지
                 </label>
-                <Button variant="square" size="2xs" onClick={openFileDialog} type="button">
+                <Button
+                  variant="square"
+                  size="2xs"
+                  onClick={openFileDialog}
+                  type="button"
+                  disabled={existingImages.length + newImages.length >= MAX_IMAGES}>
                   이미지 첨부
                 </Button>
                 <input
@@ -206,13 +234,31 @@ export const WriteLetterBottomSheet = ({
                 />
               </div>
 
-              {images.length > 0 ? (
+              {existingImages.length > 0 || newImages.length > 0 ? (
                 <Carousel opts={{ align: "start" }} className="w-full max-w-sm">
                   <CarouselContent>
-                    {images.map((image, index) => {
+                    {/* 기존 이미지 렌더링 */}
+                    {existingImages.map((imageUrl, index) => (
+                      <CarouselItem key={`existing-${index}`} className="relative max-w-50 md:basis-1/2 lg:basis-1/2">
+                        <div className="p-1">
+                          <img src={imageUrl} alt={`existing-${index}`} className="h-50 w-50 rounded-md object-cover" />
+                          <Button
+                            variant="ghost"
+                            size="2xsIcon"
+                            type="button"
+                            className="absolute top-3 right-3"
+                            onClick={() => handleImageDelete(index, "existing")}
+                            aria-label="이미지 삭제">
+                            <img src={crossDeleteIcon} alt="이미지 삭제" />
+                          </Button>
+                        </div>
+                      </CarouselItem>
+                    ))}
+                    {/* 새로 추가된 이미지 렌더링 */}
+                    {newImages.map((image, index) => {
                       const objectUrl = URL.createObjectURL(image);
                       return (
-                        <CarouselItem key={index} className="relative max-w-50 md:basis-1/2 lg:basis-1/2">
+                        <CarouselItem key={`new-${index}`} className="relative max-w-50 md:basis-1/2 lg:basis-1/2">
                           <div className="p-1">
                             <img
                               src={objectUrl}
@@ -225,7 +271,7 @@ export const WriteLetterBottomSheet = ({
                               size="2xsIcon"
                               type="button"
                               className="absolute top-3 right-3"
-                              onClick={() => handleImageDelete(index)}
+                              onClick={() => handleImageDelete(index, "new")}
                               aria-label="이미지 삭제">
                               <img src={crossDeleteIcon} alt="이미지 삭제" />
                             </Button>
