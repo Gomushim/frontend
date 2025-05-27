@@ -95,7 +95,7 @@ export const LetterDetailPage = () => {
               <CarouselContent>
                 {letterDetailData?.result.pictures.map((image, index) => {
                   return (
-                    <CarouselItem key={index} className="relative md:basis-1/2 lg:basis-1/2">
+                    <CarouselItem key={index} className="relative max-w-50 md:basis-1/2 lg:basis-1/2">
                       <div className="p-1">
                         <img
                           src={image.pictureUrl}
