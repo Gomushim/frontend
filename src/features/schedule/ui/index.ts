@@ -9,7 +9,6 @@ export * from "./TimeBottomSheet";
 export * from "./AllDayToggleButton";
 export * from "./CalendarBottomSheet";
 export * from "./MainScheduleCardList";
-export * from "./TitleInput";
 export * from "./ScheduleCardList";
 export * from "./CalendrDdayCard";
 export * from "./SimpleCalendar";
