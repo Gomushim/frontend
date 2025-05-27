@@ -1,5 +1,5 @@
 import { api } from "../axios/instance";
-import { LetterDetailResponse, LetterListResponse, UpdateLetterRequest, WriteLetterResponse } from "./type";
+import { LetterDetailResponse, LetterListResponse, WriteLetterResponse } from "./type";
 
 export const createLetter = async (data: FormData): Promise<WriteLetterResponse> => {
   console.log(data);
