@@ -7,7 +7,7 @@ import { Button } from "@/shared/ui";
 // 아이콘
 import letterIcon from "@/assets/icons/letter.svg";
 import backIcon from "@/assets/icons/back.svg";
-import gearIcon from "@/assets/icons/gear.svg";
+import pencilIcon from "@/assets/icons/pencil.svg";
 
 // 도메인: schedule
 import { ScheduleOverView } from "@/features/schedule";
@@ -49,7 +49,7 @@ export const CalendarScheduleDetail = () => {
           </Button>
           <h1 className="text-xl font-semibold text-gray-900">일정 세부사항</h1>
           <Button variant="ghost" size="sIcon" className="" onClick={handleEditSchedule}>
-            <img src={gearIcon} alt="일정 세부사항 설정" />
+            <img src={pencilIcon} alt="일정 세부사항 설정" />
           </Button>
         </header>
         <ScheduleOverView {...rest} />
