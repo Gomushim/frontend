@@ -72,7 +72,11 @@ export const LetterCard = (props: LetterCardProps) => {
           <InfoCard.Text>{formatDateFull(props.createdAt)}</InfoCard.Text>
           {props.isWrittenByMe && (
             <InfoCard.Options className="items-center">
-              <WriteLetterBottomSheet title={props.title} content={props.content} letterId={props.letterId}>
+              <WriteLetterBottomSheet
+                title={props.title}
+                content={props.content}
+                letterId={props.letterId}
+                imagesUrl={props.pictureUrl ? [props.pictureUrl] : []}>
                 <InfoCard.Option>편집</InfoCard.Option>
               </WriteLetterBottomSheet>
               <span className="align-middl inline-block h-3 w-[1.5px] bg-gray-300" />

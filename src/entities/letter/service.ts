@@ -2,6 +2,7 @@ import { api } from "../axios/instance";
 import { LetterDetailResponse, LetterListResponse, UpdateLetterRequest, WriteLetterResponse } from "./type";
 
 export const createLetter = async (data: FormData): Promise<WriteLetterResponse> => {
+  console.log(data);
   const response = await api.post<WriteLetterResponse>("/schedules/letters", data, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -27,7 +28,12 @@ export const deleteLetter = async (scheduleId: string, letterId: string) => {
   return response.data;
 };
 
-export const updateLetter = async (data: UpdateLetterRequest) => {
-  const response = await api.put("/schedules/letters", data);
+export const updateLetter = async (data: FormData) => {
+  console.log(data);
+  const response = await api.post("/schedules/letters", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return response.data;
 };
