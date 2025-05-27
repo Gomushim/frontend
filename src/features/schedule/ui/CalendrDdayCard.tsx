@@ -27,10 +27,6 @@ export const CalendrDdayCard = (props: CalendrDdayCardProps) => {
           </InfoCard.Tag>
           <InfoCard.Title>{props.title}</InfoCard.Title>
         </div>
-        <div className="flex flex-col gap-1 text-end">
-          <InfoCard.Title>{calculateDday(props.anniversaryDate)}</InfoCard.Title>
-          <InfoCard.Text>{props.anniversaryDate}</InfoCard.Text>
-        </div>
       </InfoCard.Content>
     </InfoCard>
   );
