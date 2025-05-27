@@ -156,7 +156,7 @@ export const WriteLetterBottomSheet = ({
   return (
     <Drawer open={isToggle} onOpenChange={onToggle}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="min-h-[650px] px-5 pt-2" onClick={e => e.stopPropagation()}>
+      <DrawerContent className="min-h-[550px] px-5 pt-2" onClick={e => e.stopPropagation()}>
         <form className="mx-auto w-full max-w-sm" onSubmit={handleSubmit} onClick={e => e.stopPropagation()}>
           <DrawerHeader className="flex-row justify-between px-0">
             <Button
@@ -206,7 +206,7 @@ export const WriteLetterBottomSheet = ({
               />
             </div>
 
-            <div className="min-h-[270px]">
+            <div className="mb-3">
               <div className="mb-2 flex items-center justify-between">
                 <label className="text-md font-semibold text-gray-900" htmlFor="image">
                   이미지
