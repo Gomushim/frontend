@@ -86,7 +86,6 @@ export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps
                   <div className="flex h-full flex-col justify-between">
                     <div>
                       <div className="flex items-center gap-1">
-                        <img src={LetterGreenIcon} alt="편지" className="h-5 w-5" />
                         <span className="text-md font-semibold text-gray-900">
                           {letter.title.length > 9 ? `${letter.title.slice(0, 9)}...` : letter.title}
                         </span>
