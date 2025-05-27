@@ -156,7 +156,7 @@ export const WriteLetterBottomSheet = ({
   return (
     <Drawer open={isToggle} onOpenChange={onToggle}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="min-h-[750px] px-5 pt-2" onClick={e => e.stopPropagation()}>
+      <DrawerContent className="min-h-[650px] px-5 pt-2" onClick={e => e.stopPropagation()}>
         <form className="mx-auto w-full max-w-sm" onSubmit={handleSubmit} onClick={e => e.stopPropagation()}>
           <DrawerHeader className="flex-row justify-between px-0">
             <Button
@@ -239,9 +239,9 @@ export const WriteLetterBottomSheet = ({
                   <CarouselContent>
                     {/* 기존 이미지 렌더링 */}
                     {existingImages.map((imageUrl, index) => (
-                      <CarouselItem key={`existing-${index}`} className="relative max-w-50 md:basis-1/2 lg:basis-1/2">
-                        <div className="p-1">
-                          <img src={imageUrl} alt={`existing-${index}`} className="h-50 w-50 rounded-md object-cover" />
+                      <CarouselItem key={`existing-${index}`} className="basis-[200px] pl-4">
+                        <div className="relative aspect-square w-full overflow-hidden rounded-md">
+                          <img src={imageUrl} alt={`existing-${index}`} className="h-full w-full object-cover" />
                           <Button
                             variant="ghost"
                             size="2xsIcon"
@@ -258,12 +258,12 @@ export const WriteLetterBottomSheet = ({
                     {newImages.map((image, index) => {
                       const objectUrl = URL.createObjectURL(image);
                       return (
-                        <CarouselItem key={`new-${index}`} className="relative max-w-50 md:basis-1/2 lg:basis-1/2">
-                          <div className="p-1">
+                        <CarouselItem key={`new-${index}`} className="basis-[200px] pl-4">
+                          <div className="relative aspect-square w-full overflow-hidden rounded-md">
                             <img
                               src={objectUrl}
                               alt={`preview-${index}`}
-                              className="h-50 w-50 rounded-md object-cover"
+                              className="h-full w-full object-cover"
                               onLoad={() => URL.revokeObjectURL(objectUrl)}
                             />
                             <Button
