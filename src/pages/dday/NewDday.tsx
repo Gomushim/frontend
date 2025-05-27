@@ -81,7 +81,7 @@ export const NewDday = () => {
             <img src={backIcon} alt="뒤로가기" />
           </Button>
         </div>
-        <Topbar />
+        <Topbar isEditMode={isEditMode} />
       </header>
       <main className="flex flex-col gap-6 p-5">
         <section className="flex flex-col gap-2">
