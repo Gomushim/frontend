@@ -11,6 +11,7 @@ import { useIscouple } from "@/entities/iscouple";
 import { useCoupleNickname } from "@/entities/couple_nickname/queries";
 import { NavBar } from "@/widgets/navbar/ui";
 import LoadingSpinner from "@/shared/ui/loading";
+import { useEffect } from "react";
 
 const NotConnectedPage = ({ coupleInfo }: { coupleInfo: { userNickname: string; coupleNickname: string } }) => {
   return (
@@ -106,7 +107,16 @@ export const MainPage = () => {
     coupleNickname: "",
   };
 
-  const isLoading = checkCoupleConnect.isLoading || getCoupleInfo.isLoading || getNickName.isLoading;
+  useEffect(() => {
+    if (isInitialized) {
+      window.location.reload();
+    }
+  }, [isInitialized]);
+
+  const isLoading = 
+    checkCoupleConnect.isLoading || 
+    getCoupleInfo.isLoading || 
+    getNickName.isLoading;
 
   if (isLoading) {
     return (
