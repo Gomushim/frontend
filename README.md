@@ -37,7 +37,7 @@
 
 > **배포 URL 및 API 명세서**
 > 
-- https://sarangkkun.site/
+- https://www.sarangkkun.site/
 - https://api.sarangkkun.site/swagger-ui/index.html#/
 
 >
@@ -73,8 +73,6 @@
 
 > **ERD 설계도:** ![Image](https://github.com/user-attachments/assets/9f8d7844-795f-4bd2-87f1-cfa82ea2c83c)
 >
-
-> **API 명세서:** https://sarang-backend.o-r.kr/swagger-ui/index.html
 
 ---
 
