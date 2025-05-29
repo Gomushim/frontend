@@ -21,8 +21,11 @@ export const useConnectCouple = () => {
       return await coupleConnectQueries.connectCouple(data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         queryKey: ["getCoupleInfo"],
+      });
+      queryClient.refetchQueries({
+        queryKey: ["dday"],
       });
     },
     onError: error => {
