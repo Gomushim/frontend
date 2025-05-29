@@ -4,7 +4,7 @@ import { Textinput } from "@/shared/ui";
 import { EmotionType } from "@/entities/types/emotion";
 import { Button } from "@/shared/ui";
 import { useNavigate } from "react-router";
-import { useEmotionStatusMutation } from "@/entities/main_status/mutation";
+import { useUpdateEmotionStatusMutation } from "@/entities/main_status";
 import { useQueryClient } from "@tanstack/react-query";
 
 type ApiEmotionType = "MISS" | "HAPPY" | "COMMON" | "TIRED" | "SAD" | "WORRY" | "ANGRY";
@@ -24,7 +24,7 @@ export const StatusPage = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { updateMyEmotionAndStatusMessage } = useEmotionStatusMutation("post");
+  const { mutate, isPending } = useUpdateEmotionStatusMutation();
 
   const handleSubmit = async () => {
     if (!selectedEmotion) {
@@ -37,7 +37,7 @@ export const StatusPage = () => {
     }
 
     try {
-      await updateMyEmotionAndStatusMessage.mutateAsync({
+      mutate({
         emotion: EMOTION_TO_API[selectedEmotion],
         statusMessage: message,
       });
@@ -58,17 +58,23 @@ export const StatusPage = () => {
         <EmotionSelector selectedEmotion={selectedEmotion} onSelect={setSelectedEmotion} />
         <div className="p-4">
           <p className="pb-2 text-xl font-semibold text-gray-900">상태 메시지</p>
-          <Textinput value={message} onChange={setMessage} placeholder="나의 상태를 연인에게 알려주세요" maxLength={15} />
+          <Textinput
+            value={message}
+            onChange={setMessage}
+            placeholder="나의 상태를 연인에게 알려주세요"
+            maxLength={15}
+          />
         </div>
       </div>
       <div className="p-4">
         <Button
           onClick={handleSubmit}
-          variant={!selectedEmotion || !message || updateMyEmotionAndStatusMessage.isPending ? "inactive" : "active"}
+          variant={!selectedEmotion || !message || isPending ? "inactive" : "active"}
           size="onicon"
-          disabled={!selectedEmotion || !message || updateMyEmotionAndStatusMessage.isPending}
-          className="w-full"
-        >확인</Button>
+          disabled={!selectedEmotion || !message || isPending}
+          className="w-full">
+          확인
+        </Button>
       </div>
     </div>
   );

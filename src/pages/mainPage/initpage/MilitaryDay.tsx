@@ -7,13 +7,20 @@ import { useInitSettingMutation, useInitSettingQueries } from "@/entities/init_s
 import { DatePickerSheet } from "@/widgets/datepicker/ui";
 
 export const MilitaryDay: React.FC = () => {
-  const { militaryBranch, firstMeetDate, enlistmentDate, dischargeDate, setEnlistmentDate, setDischargeDate, resetOnboarding } =
-    useOnboardingStore();
+  const {
+    militaryBranch,
+    firstMeetDate,
+    enlistmentDate,
+    dischargeDate,
+    setEnlistmentDate,
+    setDischargeDate,
+    resetOnboarding,
+  } = useOnboardingStore();
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const { getCoupleInfo } = useInitSettingQueries();
   const coupleId = getCoupleInfo.data?.result.coupleId ?? null;
-  const { mutate: registerAnniversary, isPending } = useInitSettingMutation("post");
+  const { mutate: registerAnniversary, isPending } = useInitSettingMutation();
 
   useEffect(() => {
     if (getCoupleInfo.error) {
@@ -66,8 +73,9 @@ export const MilitaryDay: React.FC = () => {
         progress={3 / 3}
         onBack={() => navigate(-1)}
         onClose={() => {
-          resetOnboarding(); 
-          navigate("/");}}
+          resetOnboarding();
+          navigate("/");
+        }}
       />
 
       <div className="flex-1 px-4">
@@ -80,7 +88,8 @@ export const MilitaryDay: React.FC = () => {
                 onChange={() => {}}
                 placeholder="입대일을 선택해주세요."
                 status={enlistmentDate ? "active" : "inactive"}
-                onClear={() => setEnlistmentDate(null)} readOnly
+                onClear={() => setEnlistmentDate(null)}
+                readOnly
               />
             </DatePickerSheet>
           </div>
@@ -93,7 +102,8 @@ export const MilitaryDay: React.FC = () => {
                 onChange={() => {}}
                 placeholder="전역일을 선택해주세요."
                 status={dischargeDate ? "active" : "inactive"}
-                onClear={() => setDischargeDate(null)} readOnly
+                onClear={() => setDischargeDate(null)}
+                readOnly
               />
             </DatePickerSheet>
           </div>
@@ -101,13 +111,13 @@ export const MilitaryDay: React.FC = () => {
       </div>
 
       <div className="p-4">
-        {error && <p className="mb-2 text-center text-sm text-red-0">{error}</p>}
+        {error && <p className="text-red-0 mb-2 text-center text-sm">{error}</p>}
         <Button
           variant={enlistmentDate && dischargeDate ? "active" : "inactive"}
           disabled={!enlistmentDate || !dischargeDate || isPending}
           onClick={handleNext}
           size="onicon">
-           다음
+          다음
         </Button>
       </div>
     </div>

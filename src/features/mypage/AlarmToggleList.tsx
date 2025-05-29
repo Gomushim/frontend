@@ -10,7 +10,7 @@ const toggleItems = [
 
 export const NotificationToggleList = () => {
   const { data: notificationData } = useNotificationQuery();
-  const { mutate: updateNotification } = useNotificationMutation("post");
+  const { mutate: updateNotification } = useNotificationMutation();
 
   const handleToggle = (key: string) => {
     if (!notificationData?.result) return;

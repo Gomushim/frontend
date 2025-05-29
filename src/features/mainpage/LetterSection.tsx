@@ -1,6 +1,6 @@
 import { MainHeader } from "./ui/MainHeader";
 import LetterIcon from "@/assets/images/letter.svg";
-import { useGetLetterListMain } from "@/entities/main_letter/queries";
+import { useGetLetterListMain } from "@/entities/letter/";
 import { Carousel, CarouselContent, CarouselItem } from "@/shared/ui";
 import { formatDateDot } from "@/shared/utils/date/formatdate";
 import { useNavigate } from "react-router";
@@ -73,7 +73,7 @@ export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps
           }}
           className="w-full">
           <CarouselContent className="-ml-4 gap-3">
-            {letterList?.result?.map(letter => (
+            {letterList?.result.map(letter => (
               <CarouselItem
                 key={letter.letterId}
                 className="basis-[190px] pl-4"

@@ -1,22 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Lottie from "lottie-react";
-import {
-  Input,
-  Button,
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerFooter,
-  DrawerTrigger,
-} from "@/shared/ui";
+import { Input, Button, Drawer, DrawerContent, DrawerHeader, DrawerFooter, DrawerTrigger } from "@/shared/ui";
 import { coupleConnectQueries } from "@/entities/couple_connect/service";
 import checkcircle from "@/assets/images/checkcircle.svg";
 import CloseIcon from "@/assets/images/close.svg";
 import coupleConnectAnimation from "@/assets/json/coupleconnect.json";
 import { useIscouple } from "@/entities/iscouple";
 
-export const CoupleContact: React.FC = () => {
+export const CoupleContact = () => {
   const [coupleCode, setCoupleCode] = useState<string>("");
   const [inputCode, setInputCode] = useState("");
   const [error, setError] = useState("");
@@ -101,14 +93,16 @@ export const CoupleContact: React.FC = () => {
           <span className="text-green-500">커플 연결</span>을 진행해주세요
         </h1>
         <p className="text-md font-regular text-left text-gray-500">
-          초대 코드를 통해 연결을 완료하고<br/>우리만의 소중한 추억을 공유해보세요!
+          초대 코드를 통해 연결을 완료하고
+          <br />
+          우리만의 소중한 추억을 공유해보세요!
         </p>
       </div>
 
-      <div className="flex-1 ">
-        <div className=" flex flex-col items-center justify-center">
+      <div className="flex-1">
+        <div className="flex flex-col items-center justify-center">
           <div className="flex h-60 w-85 items-center justify-center overflow-hidden">
-            <Lottie animationData={coupleConnectAnimation} loop={true}  />
+            <Lottie animationData={coupleConnectAnimation} loop={true} />
           </div>
 
           <div className="w-full">
@@ -136,11 +130,13 @@ export const CoupleContact: React.FC = () => {
         </p>
         <Drawer>
           <DrawerTrigger asChild>
-            <Button variant="special" size="onicon">초대 코드 입력하기</Button>
+            <Button variant="special" size="onicon">
+              초대 코드 입력하기
+            </Button>
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader className="px-6">
-              <h2 className="text-2xl mb-2 font-semibold text-gray-900">초대 코드 입력하기</h2>
+              <h2 className="mb-2 text-2xl font-semibold text-gray-900">초대 코드 입력하기</h2>
               <Input
                 value={inputCode}
                 onChange={setInputCode}

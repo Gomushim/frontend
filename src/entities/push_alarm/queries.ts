@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { getMyNotification } from "./service";
+import { notificationQueryKey } from "./queryKey";
 
 export const useNotificationQuery = () => {
   return useQuery({
-    queryKey: ["myNotification"],
-    queryFn: getMyNotification,
+    ...notificationQueryKey.my(),
     refetchInterval: 1000 * 60,
     staleTime: 0,
     gcTime: 0,
   });
-}; 
+};

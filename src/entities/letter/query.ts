@@ -22,3 +22,10 @@ export const useGetLetterList = () => {
     },
   });
 };
+
+export const useGetLetterListMain = (enabled: boolean) => {
+  return useQuery({
+    ...letterQueryKey.main(),
+    enabled: enabled,
+  });
+};

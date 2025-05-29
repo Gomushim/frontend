@@ -1,5 +1,5 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-import { getLetterDetail } from "./service";
+import { getLetterDetail, getLetterListMain } from "./service";
 
 export const letterQueryKey = createQueryKeys("letter", {
   detail: (scheduleId: string, letterId: string) => ({
@@ -8,5 +8,9 @@ export const letterQueryKey = createQueryKeys("letter", {
   }),
   list: () => ({
     queryKey: ["all"],
+  }),
+  main: () => ({
+    queryKey: ["list"],
+    queryFn: () => getLetterListMain(),
   }),
 });

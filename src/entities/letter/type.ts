@@ -59,3 +59,7 @@ export interface UpdateLetterRequest {
   };
   pictures?: string[];
 }
+
+export interface LetterListMainResponse {
+  result: LetterList;
+}

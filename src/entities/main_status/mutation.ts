@@ -1,23 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateEmotionAndStatusMessage } from "./service";
-import { UpdateEmotionAndStatusMessageRequest } from "./types";
-import { mutationMethodType } from "../types/mutationMethod.type";
+import type { UpdateEmotionAndStatusMessageRequest } from "./types";
 
-export const useEmotionStatusMutation = (mutationMethod: mutationMethodType) => {
+export const useCreateEmotionStatusMutation = () => {
   const queryClient = useQueryClient();
 
-  const updateMyEmotionAndStatusMessage = useMutation({
+  return useMutation({
     mutationFn: async (data: UpdateEmotionAndStatusMessageRequest) => {
-      switch (mutationMethod) {
-        case "delete":
-          return;
-        case "post":
-          return await updateEmotionAndStatusMessage(data);
-        case "update":
-          return await updateEmotionAndStatusMessage(data);
-        default:
-          throw new Error("Invalid mutation method");
-      }
+      return await updateEmotionAndStatusMessage(data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["coupleEmotion"] });
@@ -26,8 +16,20 @@ export const useEmotionStatusMutation = (mutationMethod: mutationMethodType) => 
       console.error("Error:", error);
     },
   });
+};
 
-  return {
-    updateMyEmotionAndStatusMessage,
-  };
-}; 
+export const useUpdateEmotionStatusMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: UpdateEmotionAndStatusMessageRequest) => {
+      return await updateEmotionAndStatusMessage(data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["coupleEmotion"] });
+    },
+    onError: error => {
+      console.error("Error:", error);
+    },
+  });
+};

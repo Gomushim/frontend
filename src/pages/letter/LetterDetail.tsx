@@ -23,7 +23,7 @@ export const LetterDetailPage = () => {
 
   // API 훅
   const { data: letterDetailData } = useGetLetterDetail(scheduleId || "", letterId || "");
-  const { mutate } = useCommentMutation("post", letterId, scheduleId);
+  const { mutate } = useCommentMutation(letterId, scheduleId);
 
   // 이벤트 핸들러
   const handleCommentSubmit = (event: FormEvent<HTMLFormElement>) => {
