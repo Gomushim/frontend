@@ -97,7 +97,7 @@ export const TopSection = ({ isConnected, isInitialized, coupleInfo }: TopSectio
   };
 
   return (
-    <div className="relative w-full h-[290px] px-2">
+    <div className="relative w-full h-[290px] px-2 pt-4">
       <div className="absolute inset-0 -top-11">
         <img src={getBackgroundImage()} alt="배경" className="h-[calc(259px+44px)] w-full object-cover" />
       </div>
