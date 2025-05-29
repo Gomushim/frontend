@@ -97,14 +97,18 @@ export const TopSection = ({ isConnected, isInitialized, coupleInfo }: TopSectio
   };
 
   return (
-    <div className="relative h-[259px] w-full pt-11">
-      <img src={getBackgroundImage()} alt="배경" className="absolute h-full w-full object-cover" />
+    <div className="relative w-full">
+      <div className="absolute inset-0 -top-11">
+        <img src={getBackgroundImage()} alt="배경" className="h-[calc(259px+44px)] w-full object-cover" />
+      </div>
 
-      <button className="absolute top-16 right-4">
-        <img src={NotificationIcon} alt="알림" className="h-6 w-6" />
-      </button>
+      <div className="relative h-[259px]">
+        <button className="absolute top-16 right-4">
+          <img src={NotificationIcon} alt="알림" className="h-6 w-6" />
+        </button>
 
-      <div className="absolute top-16 left-4">{renderContent()}</div>
+        <div className="absolute top-16 left-4">{renderContent()}</div>
+      </div>
     </div>
   );
 };
