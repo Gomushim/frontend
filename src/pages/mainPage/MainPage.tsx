@@ -14,7 +14,7 @@ import LoadingSpinner from "@/shared/ui/loading";
 
 const NotConnectedPage = ({ coupleInfo }: { coupleInfo: { userNickname: string; coupleNickname: string } }) => {
   return (
-    <div className="flex flex-col bg-gray-50 ">
+    <div className="flex flex-col bg-gray-50">
       <TopSection isConnected={false} isInitialized={false} coupleInfo={coupleInfo} />
       <div>
         <SpecialDateSection isConnected={false} isInitialized={false} />
@@ -43,7 +43,7 @@ const NotInitializedPage = ({
   coupleInfo: { userNickname: string; coupleNickname: string };
 }) => {
   return (
-    <div className="flex flex-col bg-gray-50 pt-11">
+    <div className="flex flex-col bg-gray-50">
       <TopSection isConnected={true} isInitialized={false} coupleInfo={coupleInfo} />
       <div>
         <SpecialDateSection isConnected={true} isInitialized={false} />
@@ -72,7 +72,7 @@ const InitializedPage = ({
   coupleInfo: { userNickname: string; coupleNickname: string };
 }) => {
   return (
-    <div className="flex flex-col bg-gray-50 pt-11">
+    <div className="flex flex-col bg-gray-50">
       <TopSection isConnected={true} isInitialized={true} coupleInfo={coupleInfo} />
       <div>
         <SpecialDateSection isConnected={true} isInitialized={true} />
@@ -110,7 +110,7 @@ export const MainPage = () => {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 pt-11">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
         <LoadingSpinner text="메인페이지로 이동 중..." />
       </div>
     );
@@ -118,7 +118,7 @@ export const MainPage = () => {
 
   if (!isConnected) {
     return (
-      <div className="flex flex-col bg-gray-50 pt-11">
+      <div className="flex flex-col bg-gray-50">
         <NotConnectedPage coupleInfo={coupleInfo} />
       </div>
     );
@@ -126,14 +126,14 @@ export const MainPage = () => {
 
   if (!isInitialized) {
     return (
-      <div className="flex flex-col bg-gray-50 pt-11">
+      <div className="flex flex-col bg-gray-50">
         <NotInitializedPage isLoading={isLoading} coupleInfo={coupleInfo} />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col bg-gray-50 pt-11">
+    <div className="flex flex-col bg-gray-50">
       <InitializedPage isLoading={isLoading} coupleInfo={coupleInfo} />
     </div>
   );
