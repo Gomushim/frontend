@@ -7,6 +7,7 @@ import checkcircle from "@/assets/images/checkcircle.svg";
 import CloseIcon from "@/assets/images/close.svg";
 import coupleConnectAnimation from "@/assets/json/coupleconnect.json";
 import { useIscouple } from "@/entities/iscouple";
+import { useConnectCouple } from "@/entities/couple_connect";
 
 export const CoupleContact = () => {
   const [coupleCode, setCoupleCode] = useState<string>("");
@@ -16,6 +17,8 @@ export const CoupleContact = () => {
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
   const { checkCoupleConnect } = useIscouple();
+
+  const { mutate: generateCoupleCode } = useConnectCouple();
 
   // 커플 연결 상태 확인
   useEffect(() => {
@@ -70,7 +73,7 @@ export const CoupleContact = () => {
 
     try {
       setIsLoading(true);
-      await coupleConnectQueries.connectCouple({ coupleCode: inputCode });
+      generateCoupleCode({ coupleCode: inputCode });
       window.location.href = "/";
     } catch (error) {
       console.error("커플 연결 에러:", error);
