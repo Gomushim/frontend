@@ -43,7 +43,8 @@ export default defineConfig({
         description: "사랑꾼",
         theme_color: "#ffffff",
         background_color: "#ffffff",
-        display: "standalone",
+        display: "fullscreen",
+        display_override: ["fullscreen", "standalone"],
         orientation: "portrait-primary",
         start_url: "/",
         launch_handler: {
