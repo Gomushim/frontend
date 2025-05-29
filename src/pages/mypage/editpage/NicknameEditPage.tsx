@@ -36,7 +36,7 @@ export const NicknameEditPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-white">
+    <div className="flex h-screen flex-col bg-white pt-11">
       <EditHeader
         title="사용할 닉네임을 입력해주세요"
         subtitle="3글자 이내로 입력이 가능해요."

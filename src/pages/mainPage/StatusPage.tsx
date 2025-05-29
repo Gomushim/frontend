@@ -53,7 +53,7 @@ export const StatusPage = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-white">
+    <div className="flex h-screen flex-col bg-white pt-11">
       <div className="flex-1">
         <EmotionSelector selectedEmotion={selectedEmotion} onSelect={setSelectedEmotion} />
         <div className="p-4">

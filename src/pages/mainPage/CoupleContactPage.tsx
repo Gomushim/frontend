@@ -84,7 +84,7 @@ export const CoupleContact = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-white">
+    <div className="flex min-h-screen flex-col bg-white pt-11">
       <div className="bg-white px-4 pt-6 pb-4">
         <div className="mb-3 flex items-center justify-end">
           <button onClick={() => navigate("/")}>

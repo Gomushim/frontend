@@ -61,7 +61,7 @@ export const Alarm: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-white">
+    <div className="flex min-h-screen w-full flex-col bg-white pt-11">
       <ProgressHeader
         title="멀리 있어도, 마음은 늘 가까이"
         highlight="마음은 늘 가까이"

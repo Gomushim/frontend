@@ -62,7 +62,7 @@ export const Nickname: React.FC = () => {
   }
 
   return (
-    <div className="flex h-screen flex-col bg-white">
+    <div className="flex h-screen flex-col bg-white pt-11">
       <ProgressHeader
         title="사용할 닉네임을 입력해주세요"
         highlight="닉네임임"

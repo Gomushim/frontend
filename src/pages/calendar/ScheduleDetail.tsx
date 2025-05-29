@@ -41,7 +41,7 @@ export const CalendarScheduleDetail = () => {
   };
 
   return (
-    <>
+    <div className="pt-11">
       <div className="px-[22px]">
         <header className="mt-[20px] mb-4 flex items-center justify-between">
           <Button variant="ghost" size="sIcon" onClick={goBack}>
@@ -72,6 +72,6 @@ export const CalendarScheduleDetail = () => {
           <LetterList letters={letters} />
         </section>
       </main>
-    </>
+    </div>
   );
 };

@@ -71,7 +71,7 @@ export const NewDday = () => {
   };
 
   return (
-    <>
+    <div className="pt-11">
       <header className="relative mt-5 mb-8 flex flex-col items-center gap-7">
         <div className="">
           <h1 className="text-xl font-semibold text-gray-900">{isEditMode ? "수정하기" : "생성하기"}</h1>
@@ -131,6 +131,6 @@ export const NewDday = () => {
           </Button>
         </section>
       </main>
-    </>
+    </div>
   );
 };

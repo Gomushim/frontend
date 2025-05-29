@@ -40,7 +40,7 @@ export const FirstMeetEditPage: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-white px-0">
+    <div className="flex min-h-screen flex-col bg-white px-0 pt-11">
       <EditHeader
         title="연인과 처음 만난 날은 언제인가요?"
         highlight="처음 만난 날"

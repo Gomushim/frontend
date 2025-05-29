@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 export const AlarmSettingPage: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <div className="bg-gray-0 min-h-screen">
+    <div className="bg-gray-0 min-h-screen pt-11">
       <MyHeader title="알림 설정" onBack={() => navigate("/mypage")} />
       <NotificationToggleList />
     </div>

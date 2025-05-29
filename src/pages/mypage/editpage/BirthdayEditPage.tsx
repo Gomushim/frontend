@@ -30,7 +30,7 @@ export const BirthdayEditPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-white">
+    <div className="flex h-screen flex-col bg-white pt-11">
       <EditHeader
         title="생년월일을 선택해주세요"
         subtitle="생일에 상대에게 알림을 줄게요!"

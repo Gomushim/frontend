@@ -65,7 +65,7 @@ export const LetterDetailPage = () => {
   }
 
   return (
-    <>
+    <div className="pt-11">
       {/* 헤더 영역 */}
       <header className="relative mb-8 flex items-center justify-center">
         <Button variant="ghost" size="sIcon" className="absolute top-5 left-5" onClick={goBack}>
@@ -161,6 +161,6 @@ export const LetterDetailPage = () => {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
