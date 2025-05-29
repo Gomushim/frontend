@@ -43,12 +43,13 @@ export default defineConfig({
         description: "사랑꾼",
         theme_color: "#ffffff",
         background_color: "#ffffff",
-        display: "standalone",
+        display: "fullscreen",
         orientation: "portrait-primary",
         start_url: "/",
         launch_handler: {
           client_mode: ["navigate-existing", "auto"],
         },
+        display_override: ["fullscreen", "standalone"],
         icons: [
           // 안드로이드 아이콘
           {
