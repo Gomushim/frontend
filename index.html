@@ -1,17 +1,97 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
-        <meta name="theme-color" content="#ffffff">
-    <link rel="icon" href="/favicon.ico" sizes="48x48">
-    <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png">
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1.0" />
+    <title>사랑꾼</title>
+    <meta name="description" content="사랑꾼 - 당신의 사랑을 더 특별하게" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sarang-mate + TS</title>
+    <!-- 기본 메타 태그 -->
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- 기본 웹 앱 매니페스트 -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- 기본 파비콘 -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/ios/16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/ios/32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/android/android-launchericon-96-96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/android/android-launchericon-192-192.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    <!-- iOS 아이콘 -->
+    <link rel="apple-touch-icon" sizes="76x76" href="/ios/180.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/ios/180.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/ios/180.png" />
+
+    <!-- iOS 설정 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="사랑꾼" />
+
+    <!-- iOS 스플래쉬 (최신 기기별, portrait) -->
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+      href="/splash/ios/iPhone_16_Pro_Max_portrait.png" />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+      href="/splash/ios/iPhone_16_Pro_portrait.png" />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+      href="/splash/ios/iPhone_16_Plus__iPhone_15_Pro_Max__iPhone_15_Plus__iPhone_14_Pro_Max_portrait.png" />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+      href="/splash/ios/iPhone_16__iPhone_15_Pro__iPhone_15__iPhone_14_Pro_portrait.png" />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+      href="/splash/ios/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_portrait.png" />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+      href="/splash/ios/iPhone_16e__iPhone_14__iPhone_13_Pro__iPhone_13__iPhone_12_Pro__iPhone_12_portrait.png" />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+      href="/splash/ios/iPhone_13_mini__iPhone_12_mini__iPhone_11_Pro__iPhone_XS__iPhone_X_portrait.png" />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+      href="/splash/ios/iPhone_11_Pro_Max__iPhone_XS_Max_portrait.png" />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+      href="/splash/ios/iPhone_11__iPhone_XR_portrait.png" />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+      href="/splash/ios/iPhone_8_Plus__iPhone_7_Plus__iPhone_6s_Plus__iPhone_6_Plus_portrait.png" />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+      href="/splash/ios/iPhone_8__iPhone_7__iPhone_6s__iPhone_6__4.7__iPhone_SE_portrait.png" />
+
+    <!-- Windows 11 아이콘 및 메타 태그 -->
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="/windows11/Square150x150Logo.scale-100.png" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+
+    <!-- Windows 11 타일 아이콘 - 주요 사이즈 -->
+    <meta name="msapplication-square70x70logo" content="/windows11/SmallTile.scale-100.png" />
+    <meta name="msapplication-square150x150logo" content="/windows11/Square150x150Logo.scale-100.png" />
+    <meta name="msapplication-wide310x150logo" content="/windows11/Wide310x150Logo.scale-100.png" />
+    <meta name="msapplication-square310x310logo" content="/windows11/LargeTile.scale-100.png" />
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/app/main.tsx"></script>
   </body>
 </html>
