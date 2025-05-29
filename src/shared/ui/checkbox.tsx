@@ -9,7 +9,7 @@ export interface CheckboxProps extends React.ComponentProps<typeof CheckboxPrimi
   style?: React.CSSProperties;
 }
 
-const Checkbox: React.FC<CheckboxProps> = ({ className, style, ...props }) => {
+const Checkbox = ({ className, style, ...props }: CheckboxProps) => {
   return (
     <CheckboxPrimitive.Root
       data-slot="checkbox"

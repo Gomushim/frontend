@@ -11,14 +11,7 @@ interface ProgressHeaderProps {
   onClose?: () => void;
 }
 
-export const ProgressHeader: React.FC<ProgressHeaderProps> = ({
-  title,
-  highlight,
-  subtitle,
-  progress = 0,
-  onBack,
-  onClose,
-}) => {
+export const ProgressHeader = ({ title, highlight, subtitle, progress = 0, onBack, onClose }: ProgressHeaderProps) => {
   return (
     <div className="bg-white px-4 pt-6 pb-4">
       {/* 상단 버튼 */}

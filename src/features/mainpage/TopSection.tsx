@@ -20,11 +20,7 @@ interface TopSectionProps {
 
 type MilitaryBranch = "ARMY" | "NAVY" | "AIR_FORCE" | "MARINE";
 
-export const TopSection: React.FC<TopSectionProps> = ({
-  isConnected,
-  isInitialized,
-  coupleInfo,
-}) => {
+export const TopSection = ({ isConnected, isInitialized, coupleInfo }: TopSectionProps) => {
   const navigate = useNavigate();
   const { militaryBranch, setMilitaryBranch } = useOnboardingStore();
 
@@ -69,8 +65,7 @@ export const TopSection: React.FC<TopSectionProps> = ({
       </h1>
       <button
         onClick={() => navigate("/onboarding/couple-contact")}
-        className="mt-2 flex items-center text-sm font-medium text-gray-700"
-      >
+        className="mt-2 flex items-center text-sm font-medium text-gray-700">
         연결하기 <span className="ml-1">&gt;</span>
       </button>
     </>
@@ -79,14 +74,10 @@ export const TopSection: React.FC<TopSectionProps> = ({
   const renderNotInitializedContent = () => (
     <>
       <h1 className="flex items-center text-2xl font-bold text-gray-50">
-        {coupleInfo.userNickname}{" "}
-        <img src={CoupleHeart} alt="하트" className="mx-2" />
+        {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
         {coupleInfo.coupleNickname}
       </h1>
-      <button
-        onClick={handleInitialize}
-        className="mt-2 flex items-center text-sm font-medium text-gray-700"
-      >
+      <button onClick={handleInitialize} className="mt-2 flex items-center text-sm font-medium text-gray-700">
         초기 설정하기 <span className="ml-1">&gt;</span>
       </button>
     </>
@@ -94,8 +85,7 @@ export const TopSection: React.FC<TopSectionProps> = ({
 
   const renderInitializedContent = () => (
     <h1 className="flex items-center text-2xl font-bold text-gray-50">
-      {coupleInfo.userNickname}{" "}
-      <img src={CoupleHeart} alt="하트" className="mx-2" />
+      {coupleInfo.userNickname} <img src={CoupleHeart} alt="하트" className="mx-2" />
       {coupleInfo.coupleNickname}
     </h1>
   );
@@ -108,11 +98,7 @@ export const TopSection: React.FC<TopSectionProps> = ({
 
   return (
     <div className="relative h-[259px] w-full">
-      <img
-        src={getBackgroundImage()}
-        alt="배경"
-        className="absolute w-full h-full object-cover"
-      />
+      <img src={getBackgroundImage()} alt="배경" className="absolute h-full w-full object-cover" />
 
       <button className="absolute top-16 right-4">
         <img src={NotificationIcon} alt="알림" className="h-6 w-6" />
