@@ -42,14 +42,16 @@ try {
   onBackgroundMessage(messaging, payload => {
     console.log("백그라운드 메시지 수신:", payload);
 
-    const notificationTitle = payload.notification?.title || "새 알림";
-    const notificationOptions = {
-      body: payload.notification?.body || "",
-      icon: "/pwa-192x192.png",
-      data: payload.data,
-    };
-
-    self.registration.showNotification(notificationTitle, notificationOptions);
+    // 데이터 메시지(data-only)인 경우에만 알림 표시
+    if (!payload.notification) {
+      const notificationTitle = payload.data?.title || "새 알림";
+      const notificationOptions = {
+        body: payload.data?.body || "",
+        icon: "/pwa-192x192.png",
+        data: payload.data,
+      };
+      self.registration.showNotification(notificationTitle, notificationOptions);
+    }
   });
 } catch (error) {
   console.error("Firebase 초기화 중 오류:", error);
@@ -61,14 +63,16 @@ self.addEventListener("push", event => {
 
   try {
     const payload = event.data.json();
-    const title = payload.notification?.title || "새 알림";
-    const options = {
-      body: payload.notification?.body || "",
-      icon: "/pwa-192x192.png",
-      data: payload.data,
-    };
-
-    event.waitUntil(self.registration.showNotification(title, options));
+    // notification 메시지가 있는 경우에만 알림 표시
+    if (payload.notification) {
+      const title = payload.notification?.title || "새 알림";
+      const options = {
+        body: payload.notification?.body || "",
+        icon: "/pwa-192x192.png",
+        data: payload.data,
+      };
+      event.waitUntil(self.registration.showNotification(title, options));
+    }
   } catch (error) {
     console.error("푸시 메시지 처리 중 오류:", error);
   }
