@@ -97,7 +97,7 @@ export const TopSection = ({ isConnected, isInitialized, coupleInfo }: TopSectio
   };
 
   return (
-    <div className="relative h-[259px] w-full">
+    <div className="relative h-[259px] w-full pt-11">
       <img src={getBackgroundImage()} alt="배경" className="absolute h-full w-full object-cover" />
 
       <button className="absolute top-16 right-4">

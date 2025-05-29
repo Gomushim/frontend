@@ -14,7 +14,7 @@ import LoadingSpinner from "@/shared/ui/loading";
 
 const NotConnectedPage = ({ coupleInfo }: { coupleInfo: { userNickname: string; coupleNickname: string } }) => {
   return (
-    <div className="flex flex-col bg-gray-50 pt-11">
+    <div className="flex flex-col bg-gray-50 ">
       <TopSection isConnected={false} isInitialized={false} coupleInfo={coupleInfo} />
       <div>
         <SpecialDateSection isConnected={false} isInitialized={false} />

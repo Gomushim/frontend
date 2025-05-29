@@ -25,9 +25,9 @@ export const Where: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-white">
+    <div className="flex h-screen flex-col bg-white pt-11">
       <ProgressHeader
-        title="어느 군에서 복무중이신가요?"
+        title="어디서 근무하시나요?"
         highlight="어느 군"
         subtitle="나 또는 상대의 소속을 선택해주세요."
         progress={2/3}

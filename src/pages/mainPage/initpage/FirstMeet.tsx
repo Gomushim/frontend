@@ -20,7 +20,7 @@ export const FirstMeet: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-white px-0">
+    <div className="flex h-screen flex-col bg-white pt-11">
       <ProgressHeader
         title="연인과 처음 만난 날은 언제인가요?"
         highlight="처음 만난 날"
