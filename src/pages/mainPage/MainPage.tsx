@@ -11,7 +11,6 @@ import { useIscouple } from "@/entities/iscouple";
 import { useCoupleNickname } from "@/entities/couple_nickname/queries";
 import { NavBar } from "@/widgets/navbar/ui";
 import LoadingSpinner from "@/shared/ui/loading";
-import { useEffect } from "react";
 
 const NotConnectedPage = ({ coupleInfo }: { coupleInfo: { userNickname: string; coupleNickname: string } }) => {
   return (

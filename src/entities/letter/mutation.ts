@@ -14,6 +14,9 @@ export const useCreateLetterMutation = (scheduleId: string) => {
       queryClient.refetchQueries({
         queryKey: letterQueryKey.list().queryKey,
       });
+      queryClient.invalidateQueries({
+        queryKey: letterQueryKey.main().queryKey,
+      });
     },
     onError: error => {
       console.error("Error:", error);
@@ -32,6 +35,9 @@ export const useDeleteLetterMutation = (scheduleId: string, letterId: string) =>
       });
       queryClient.invalidateQueries({
         queryKey: scheduleQueryKey.detail(scheduleId).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: letterQueryKey.main().queryKey,
       });
     },
     onError: error => {
@@ -54,6 +60,9 @@ export const useUpdateLetterMutation = (scheduleId: string, letterId: string) =>
       });
       queryClient.invalidateQueries({
         queryKey: scheduleQueryKey.detail(scheduleId).queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: letterQueryKey.main().queryKey,
       });
     },
     onError: error => {
