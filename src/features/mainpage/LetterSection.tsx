@@ -73,6 +73,25 @@ export const LetterSection = ({ isConnected, isInitialized }: LetterSectionProps
           }}
           className="w-full">
           <CarouselContent className="-ml-4 gap-3">
+            {letterList?.result.length === 0 && (
+              <CarouselItem>
+                <div
+                  className="flex h-[140px] w-[190px] flex-col gap-2.5 rounded-2xl bg-white p-4"
+                  onClick={() => navigate("/calendar/letters")}>
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-1">
+                      <img src={LetterIcon} alt="편지" className="h-6 w-6" />
+                      <span className="text-md font-semibold text-gray-900">나의 마음 전하기</span>
+                    </div>
+                    <span className="mt-1 text-sm font-medium text-gray-500">
+                      오늘 연인의 일정에
+                      <br />
+                      따뜻한 격려 어때요?
+                    </span>
+                  </div>
+                </div>
+              </CarouselItem>
+            )}
             {letterList?.result.map(letter => (
               <CarouselItem
                 key={letter.letterId}
