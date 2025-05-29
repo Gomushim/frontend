@@ -42,23 +42,39 @@ try {
   onBackgroundMessage(messaging, payload => {
     console.log("백그라운드 메시지 수신:", payload);
 
-    // data 메시지로만 알림 표시
-    const notificationTitle = payload.data?.title || "새 알림";
-    const notificationOptions = {
-      body: payload.data?.body || "",
-      icon: "/pwa-192x192.png",
-      data: payload.data,
-    };
-    self.registration.showNotification(notificationTitle, notificationOptions);
+    if (!payload.notification) {
+      const notificationTitle = payload.data?.title || "새 알림";
+      const notificationOptions = {
+        body: payload.data?.body || "",
+        icon: "/pwa-192x192.png",
+        data: payload.data,
+      };
+      self.registration.showNotification(notificationTitle, notificationOptions);
+    }
   });
 } catch (error) {
   console.error("Firebase 초기화 중 오류:", error);
 }
 
-// 푸시 이벤트에서는 알림을 띄우지 않음
-// self.addEventListener("push", event => {
-//   // 아무 처리도 하지 않음
-// });
+// 푸시 이벤트 처리
+self.addEventListener("push", event => {
+  if (!event.data) return;
+
+  try {
+    const payload = event.data.json();
+    if (payload.notification) {
+      const title = payload.notification?.title || "새 알림";
+      const options = {
+        body: payload.notification?.body || "",
+        icon: "/pwa-192x192.png",
+        data: payload.data,
+      };
+      event.waitUntil(self.registration.showNotification(title, options));
+    }
+  } catch (error) {
+    console.error("푸시 메시지 처리 중 오류:", error);
+  }
+});
 
 // 알림 클릭 이벤트 처리
 self.addEventListener("notificationclick", event => {
