@@ -107,16 +107,7 @@ export const MainPage = () => {
     coupleNickname: "",
   };
 
-  useEffect(() => {
-    if (isInitialized) {
-      window.location.reload();
-    }
-  }, [isInitialized]);
-
-  const isLoading = 
-    checkCoupleConnect.isLoading || 
-    getCoupleInfo.isLoading || 
-    getNickName.isLoading;
+  const isLoading = checkCoupleConnect.isLoading || getCoupleInfo.isLoading || getNickName.isLoading;
 
   if (isLoading) {
     return (
