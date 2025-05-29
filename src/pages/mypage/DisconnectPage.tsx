@@ -11,7 +11,7 @@ export const DisconnectPage: React.FC = () => {
   const { isToggle: isModalOpen, onOpenToggle: openModal, onCloseToggle: closeModal } = useToggle();
 
   return (
-    <div className="flex h-screen flex-col bg-white">
+    <div className="flex h-screen flex-col bg-white pt-11">
       <MyHeader title="커플 연결 끊기" onBack={() => navigate("/mypage")} />
       <div className="flex-1 flex flex-col items-center">
         <div className="text-center">

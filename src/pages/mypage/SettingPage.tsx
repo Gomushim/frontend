@@ -15,7 +15,7 @@ export const SettingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white pt-11">
       <MyHeader title="설정" onBack={() => navigate("/mypage")} />
       <div className="px-4 pt-2 space-y-4">
         <button

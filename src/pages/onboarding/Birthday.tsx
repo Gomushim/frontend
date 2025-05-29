@@ -30,7 +30,7 @@ export const Birthday: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-white">
+    <div className="flex h-screen flex-col bg-white pt-11">
       <ProgressHeader
         title="생년월일을 선택해주세요"
         highlight="생년월일"

@@ -45,7 +45,7 @@ export const LetterListPage = () => {
   };
 
   return (
-    <div className="px-[22px]">
+    <div className="px-[22px] pt-11">
       {/* 헤더 영역 */}
       <header className="relative flex items-center justify-center">
         <Button variant="ghost" size="sIcon" className="absolute top-5 left-0" onClick={handleBack}>

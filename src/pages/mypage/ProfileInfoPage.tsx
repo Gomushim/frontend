@@ -10,7 +10,7 @@ export const ProfileInfoPage = () => {
   const nicknameData = getNickName.data;
 
   return (
-    <div>
+    <div className="pt-11">
       <MyHeader title="프로필 정보" onBack={() => navigate("/mypage")} />
       <div className="w-full ">
         <EditInfoCard 
