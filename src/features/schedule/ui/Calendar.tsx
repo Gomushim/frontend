@@ -147,237 +147,243 @@ export const Calendar = () => {
 
       {/* 캘린더 날짜 셀들 */}
       <div>
-        {weeks.map((week, weekIdx) => {
+        {(() => {
           /**
-           * 연속 일정의 그리드 행 배치를 위한 로직
-           * 각 연속 일정이 어느 행에 표시될지 결정
+           * 전체 월의 연속 일정 행 배치를 위한 전역 로직
+           * 모든 연속 일정의 행을 미리 계산하여 주 간 일관성 유지
            */
-          const continuousSchedules = new Map<number, number>(); // scheduleId -> gridRow 매핑
-          let maxGridRow = 0; // 현재 주에서 사용되는 최대 행 번호
+          const globalContinuousSchedules = new Map<number, number>(); // scheduleId -> gridRow 매핑
 
-          // 현재 주의 각 날짜에 대해 연속 일정 행 배치 계산
-          week.forEach(date => {
-            if (!date) return;
+          // 모든 연속 일정을 수집하고 시작일 순으로 정렬
+          const allContinuousSchedules = normalizedTags
+            .filter(schedule => schedule.startDate.getTime() !== schedule.endDate.getTime())
+            .sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
 
-            // 현재 날짜에 해당하는 일정들 필터링
-            const dateSchedules = normalizedTags.filter(tag => {
-              const d = normalizeDate(date);
-              return d >= tag.startDate && d <= tag.endDate;
-            });
+          // 각 연속 일정에 대해 전역 행 할당
+          allContinuousSchedules.forEach(schedule => {
+            if (!globalContinuousSchedules.has(schedule.id)) {
+              // 현재 일정과 겹치는 다른 연속 일정이 있는지 확인
+              const overlapping = allContinuousSchedules.some(
+                other =>
+                  other.id !== schedule.id &&
+                  globalContinuousSchedules.has(other.id) &&
+                  other.startDate.getTime() <= schedule.startDate.getTime() &&
+                  other.endDate.getTime() >= schedule.startDate.getTime()
+              );
 
-            // 연속 일정만 필터링 (시작일과 종료일이 다른 일정)
-            const continuous = dateSchedules.filter(
-              schedule => schedule.startDate.getTime() !== schedule.endDate.getTime()
-            );
-
-            // 각 연속 일정에 대해 그리드 행 할당
-            continuous.forEach(schedule => {
-              if (!continuousSchedules.has(schedule.id)) {
-                /**
-                 * 현재 일정과 겹치는 다른 연속 일정이 있는지 확인
-                 * 겹치는 경우: 다른 일정의 기간과 현재 일정의 시작일이 겹치는 경우
-                 */
-                const overlapping = continuous.some(
-                  other =>
-                    other.id !== schedule.id &&
-                    other.startDate.getTime() <= schedule.startDate.getTime() &&
-                    other.endDate.getTime() >= schedule.startDate.getTime()
-                );
-
-                if (overlapping) {
-                  // 겹치는 일정이 있으면 사용되지 않은 새로운 행 찾기
-                  let row = 1;
-                  while (Array.from(continuousSchedules.values()).includes(row)) {
-                    row++;
-                  }
-                  continuousSchedules.set(schedule.id, row);
-                  maxGridRow = Math.max(maxGridRow, row);
-                } else {
-                  // 겹치지 않으면 첫 번째 행에 배치
-                  continuousSchedules.set(schedule.id, 1);
-                  maxGridRow = Math.max(maxGridRow, 1);
+              if (overlapping) {
+                // 겹치는 일정이 있으면 사용되지 않은 새로운 행 찾기
+                let row = 1;
+                while (Array.from(globalContinuousSchedules.values()).includes(row)) {
+                  row++;
                 }
+                globalContinuousSchedules.set(schedule.id, row);
+              } else {
+                // 겹치지 않으면 첫 번째 행에 배치
+                globalContinuousSchedules.set(schedule.id, 1);
               }
-            });
+            }
           });
 
-          return (
-            <div
-              key={weekIdx}
-              className={weekIdx === weeks.length - 1 ? "pt-3" : "overflow-hidden border-b border-gray-50 py-3"}>
-              <div className="grid grid-cols-7 px-1.5 text-center">
-                {week.map((date, idx) => {
-                  // 날짜 상태 확인
-                  const isToday = date && isSameDay(date, today); // 오늘 날짜인지
-                  const isSelected = date && selectedDay && isSameDay(date, selectedDay); // 선택된 날짜인지
-                  const showToday = isToday && selectedDay === null; // 오늘 강조 표시 여부
+          return weeks.map((week, weekIdx) => {
+            // 현재 주에서 사용되는 최대 행 번호 계산
+            let maxGridRow = 0;
+            week.forEach(date => {
+              if (!date) return;
 
-                  /**
-                   * 현재 날짜의 일정들 필터링
-                   * 해당 날짜가 일정의 시작일과 종료일 사이에 있는지 확인
-                   */
-                  const dayTags =
-                    date != null
-                      ? normalizedTags.filter(tag => {
-                          const d = normalizeDate(date);
-                          return d >= tag.startDate && d <= tag.endDate;
-                        })
-                      : [];
+              const dateSchedules = normalizedTags.filter(tag => {
+                const d = normalizeDate(date);
+                return d >= tag.startDate && d <= tag.endDate;
+              });
 
-                  /**
-                   * 현재 날짜의 기념일들 필터링
-                   * 기념일 날짜와 현재 날짜가 정확히 일치하는지 확인
-                   */
-                  const dayAnniversaries =
-                    date != null
-                      ? normalizedAnniversaries.filter(anniversary => {
-                          const d = normalizeDate(date);
-                          return d.getTime() === anniversary.date.getTime();
-                        })
-                      : [];
+              const continuous = dateSchedules.filter(
+                schedule => schedule.startDate.getTime() !== schedule.endDate.getTime()
+              );
 
-                  // 일정을 연속 일정과 단일 일정으로 분리
-                  const continuousTags = dayTags.filter(tag => tag.startDate.getTime() !== tag.endDate.getTime());
-                  const singleDayTags = dayTags.filter(tag => tag.startDate.getTime() === tag.endDate.getTime());
+              continuous.forEach(schedule => {
+                const row = globalContinuousSchedules.get(schedule.id) || 1;
+                maxGridRow = Math.max(maxGridRow, row);
+              });
+            });
 
-                  /**
-                   * 현재 날짜에 실제로 표시되는 연속 일정의 최대 행 번호 계산
-                   * 이를 통해 연속 일정 그리드의 높이를 결정
-                   */
-                  const currentDayMaxRow = continuousTags.reduce((max, tag) => {
-                    const row = continuousSchedules.get(tag.id) || 1;
-                    return Math.max(max, row);
-                  }, 0);
+            return (
+              <div
+                key={weekIdx}
+                className={weekIdx === weeks.length - 1 ? "pt-3" : "overflow-hidden border-b border-gray-50 py-3"}>
+                <div className="grid grid-cols-7 px-1.5 text-center">
+                  {week.map((date, idx) => {
+                    // 날짜 상태 확인
+                    const isToday = date && isSameDay(date, today); // 오늘 날짜인지
+                    const isSelected = date && selectedDay && isSameDay(date, selectedDay); // 선택된 날짜인지
+                    const showToday = isToday && selectedDay === null; // 오늘 강조 표시 여부
 
-                  return (
-                    <div
-                      key={idx}
-                      className="relative flex min-h-16 cursor-pointer flex-col items-center"
-                      onClick={() => date && setSelectedDay(date)}>
-                      {/* 날짜 숫자 표시 */}
-                      <p
-                        className={`text-md mb-2 flex h-8 w-8 items-center justify-center rounded-[12px] pt-0.5 text-center font-normal transition ${
-                          showToday || isSelected ? "bg-gray-900 font-bold text-white" : ""
-                        } ${!date ? "cursor-default text-gray-300" : ""} ${
-                          date && !isSelected && !showToday ? "hover:bg-gray-100" : ""
-                        }`}>
-                        {date ? date.getDate() : ""}
-                      </p>
+                    /**
+                     * 현재 날짜의 일정들 필터링
+                     * 해당 날짜가 일정의 시작일과 종료일 사이에 있는지 확인
+                     */
+                    const dayTags =
+                      date != null
+                        ? normalizedTags.filter(tag => {
+                            const d = normalizeDate(date);
+                            return d >= tag.startDate && d <= tag.endDate;
+                          })
+                        : [];
 
-                      {/* 일정 표시 영역 */}
-                      <div className="flex w-full flex-col gap-1 px-0.5">
-                        {/* 연속 일정 그리드 표시 */}
-                        {currentDayMaxRow > 0 && (
-                          <div className="relative">
-                            {/* 연속 일정 배경 바 */}
-                            <div
-                              className="grid w-full gap-1"
-                              style={{
-                                gridTemplateRows: `repeat(${currentDayMaxRow}, 20px)`, // 동적으로 행 개수 설정
-                              }}>
-                              {continuousTags.map(tag => {
-                                // 피로도에 따른 색상 가져오기
-                                const { bgColor } = FATIGUE_TAG[tag.fatigue || "VERY_TIRED"];
-                                const currentDate = normalizeDate(date!);
+                    /**
+                     * 현재 날짜의 기념일들 필터링
+                     * 기념일 날짜와 현재 날짜가 정확히 일치하는지 확인
+                     */
+                    const dayAnniversaries =
+                      date != null
+                        ? normalizedAnniversaries.filter(anniversary => {
+                            const d = normalizeDate(date);
+                            return d.getTime() === anniversary.date.getTime();
+                          })
+                        : [];
 
-                                // 연속 일정에서 현재 날짜의 위치 확인
-                                const isFirstDay = currentDate.getTime() === tag.startDate.getTime(); // 시작일
-                                const isLastDay = currentDate.getTime() === tag.endDate.getTime(); // 종료일
-                                const isMiddleDay = !isFirstDay && !isLastDay; // 중간일
+                    // 일정을 연속 일정과 단일 일정으로 분리
+                    const continuousTags = dayTags.filter(tag => tag.startDate.getTime() !== tag.endDate.getTime());
+                    const singleDayTags = dayTags.filter(tag => tag.startDate.getTime() === tag.endDate.getTime());
 
-                                // 해당 일정이 배치될 그리드 행 번호
-                                const gridRow = continuousSchedules.get(tag.id) || 1;
+                    /**
+                     * 현재 날짜에 실제로 표시되는 연속 일정의 최대 행 번호 계산
+                     * 이를 통해 연속 일정 그리드의 높이를 결정
+                     */
+                    const currentDayMaxRow = continuousTags.reduce((max, tag) => {
+                      const row = globalContinuousSchedules.get(tag.id) || 1;
+                      return Math.max(max, row);
+                    }, 0);
 
-                                /**
-                                 * 연속 일정의 시각적 연결을 위한 스타일 설정
-                                 * 시작일: 왼쪽 둥근 모서리
-                                 * 중간일: 직사각형 모양
-                                 * 종료일: 오른쪽 둥근 모서리
-                                 */
-                                let containerStyle = "flex h-4 items-center";
+                    return (
+                      <div
+                        key={idx}
+                        className="relative flex min-h-16 cursor-pointer flex-col items-center"
+                        onClick={() => date && setSelectedDay(date)}>
+                        {/* 날짜 숫자 표시 */}
+                        <p
+                          className={`text-md mb-2 flex h-8 w-8 items-center justify-center rounded-[12px] pt-0.5 text-center font-normal transition ${
+                            showToday || isSelected ? "bg-gray-900 font-bold text-white" : ""
+                          } ${!date ? "cursor-default text-gray-300" : ""} ${
+                            date && !isSelected && !showToday ? "hover:bg-gray-100" : ""
+                          }`}>
+                          {date ? date.getDate() : ""}
+                        </p>
 
-                                if (isFirstDay) {
-                                  containerStyle += " w-[calc(100%)] -mr-4 rounded-l-[4px]";
-                                } else if (isLastDay) {
-                                  containerStyle += " w-[calc(100%+4px)] -ml-1 rounded-r-[4px]";
-                                } else if (isMiddleDay) {
-                                  containerStyle += " w-[calc(100%+4px)] -mx-1";
-                                }
+                        {/* 일정 표시 영역 */}
+                        <div className="flex w-full flex-col gap-1 px-0.5">
+                          {/* 연속 일정 그리드 표시 */}
+                          {currentDayMaxRow > 0 && (
+                            <div className="relative">
+                              {/* 연속 일정 배경 바 */}
+                              <div
+                                className="grid w-full gap-1"
+                                style={{
+                                  gridTemplateRows: `repeat(${currentDayMaxRow}, 20px)`, // 동적으로 행 개수 설정
+                                }}>
+                                {continuousTags.map(tag => {
+                                  // 피로도에 따른 색상 가져오기
+                                  const { bgColor } = FATIGUE_TAG[tag.fatigue || "VERY_TIRED"];
+                                  const currentDate = normalizeDate(date!);
 
-                                return (
-                                  <div key={tag.id} style={{ gridRow }} className={`${containerStyle} ${bgColor}`} />
-                                );
-                              })}
-                            </div>
+                                  // 연속 일정에서 현재 날짜의 위치 확인
+                                  const isFirstDay = currentDate.getTime() === tag.startDate.getTime(); // 시작일
+                                  const isLastDay = currentDate.getTime() === tag.endDate.getTime(); // 종료일
+                                  const isMiddleDay = !isFirstDay && !isLastDay; // 중간일
 
-                            {/* 연속 일정 제목 레이어 (최상위) */}
-                            <div
-                              className="pointer-events-none absolute top-0 left-0 grid w-full gap-1"
-                              style={{
-                                gridTemplateRows: `repeat(${currentDayMaxRow}, 20px)`,
-                              }}>
-                              {continuousTags.map(tag => {
-                                const { textColor } = FATIGUE_TAG[tag.fatigue || "VERY_TIRED"];
-                                const currentDate = normalizeDate(date!);
-                                const isFirstDay = currentDate.getTime() === tag.startDate.getTime();
-                                const isLastDay = currentDate.getTime() === tag.endDate.getTime();
-                                const isSunday = date!.getDay() === 0; // 일요일인지 확인
-                                const gridRow = continuousSchedules.get(tag.id) || 1;
+                                  // 해당 일정이 배치될 그리드 행 번호
+                                  const gridRow = globalContinuousSchedules.get(tag.id) || 1;
 
-                                // 시작일이거나 일요일(주의 시작)인 경우에만 제목 표시
-                                // 단, 일요일이 종료일인 경우는 제외
-                                const shouldShowTitle =
-                                  isFirstDay || (isSunday && currentDate > tag.startDate && !isLastDay);
+                                  /**
+                                   * 연속 일정의 시각적 연결을 위한 스타일 설정
+                                   * 시작일: 왼쪽 둥근 모서리
+                                   * 중간일: 직사각형 모양
+                                   * 종료일: 오른쪽 둥근 모서리
+                                   */
+                                  let containerStyle = "flex h-4 items-center";
 
-                                if (!shouldShowTitle) return null;
+                                  if (isFirstDay) {
+                                    containerStyle += " w-[calc(100%)] -mr-4 rounded-l-[4px]";
+                                  } else if (isLastDay) {
+                                    containerStyle += " w-[calc(100%+4px)] -ml-1 rounded-r-[4px]";
+                                  } else if (isMiddleDay) {
+                                    containerStyle += " w-[calc(100%+4px)] -mx-1";
+                                  }
 
-                                return (
-                                  <div
-                                    key={`title-${tag.id}`}
-                                    style={{ gridRow }}
-                                    className="relative flex h-4 items-center">
-                                    <p className={`absolute left-1 z-50 px-1 text-[10px] ${textColor} text-nowrap`}>
-                                      {/* 토요일(6)이거나 달의 마지막 날인 경우 3글자만 표시, 아니면 전체 표시 */}
-                                      {date!.getDay() === 6 || date!.getDate() === lastDate
-                                        ? tag.title.slice(0, 3)
-                                        : tag.title}
-                                    </p>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* 단일 일정 및 기념일 스택 표시 */}
-                        <div className="flex w-full flex-col gap-1">
-                          {/* 기념일 표시 (고정된 노란색 스타일) */}
-                          {dayAnniversaries.map((anniversary, index) => (
-                            <div
-                              key={`${anniversary.title}-${index}`}
-                              className="flex h-4 w-full items-center rounded-[4px] bg-[rgb(255,232,117,0.6)]">
-                              <p className="w-full truncate px-1 text-[10px] text-[#7B6901]">{anniversary.title}</p>
-                            </div>
-                          ))}
-
-                          {/* 단일 일정 표시 (피로도에 따른 색상) */}
-                          {singleDayTags.map(tag => {
-                            const { bgColor, textColor } = FATIGUE_TAG[tag.fatigue || "VERY_TIRED"];
-                            return (
-                              <div key={tag.id} className={`flex h-4 w-full items-center rounded-[4px] ${bgColor}`}>
-                                <p className={`w-full truncate text-[10px] ${textColor}`}>{tag.title}</p>
+                                  return (
+                                    <div key={tag.id} style={{ gridRow }} className={`${containerStyle} ${bgColor}`} />
+                                  );
+                                })}
                               </div>
-                            );
-                          })}
+
+                              {/* 연속 일정 제목 레이어 (최상위) */}
+                              <div
+                                className="pointer-events-none absolute top-0 left-0 grid w-full gap-1"
+                                style={{
+                                  gridTemplateRows: `repeat(${currentDayMaxRow}, 20px)`,
+                                }}>
+                                {continuousTags.map(tag => {
+                                  const { textColor } = FATIGUE_TAG[tag.fatigue || "VERY_TIRED"];
+                                  const currentDate = normalizeDate(date!);
+                                  const isFirstDay = currentDate.getTime() === tag.startDate.getTime();
+                                  const isLastDay = currentDate.getTime() === tag.endDate.getTime();
+                                  const isSunday = date!.getDay() === 0; // 일요일인지 확인
+                                  const gridRow = globalContinuousSchedules.get(tag.id) || 1;
+
+                                  // 시작일이거나 일요일(주의 시작)인 경우에만 제목 표시
+                                  // 단, 일요일이 종료일인 경우는 제외
+                                  const shouldShowTitle =
+                                    isFirstDay || (isSunday && currentDate > tag.startDate && !isLastDay);
+
+                                  if (!shouldShowTitle) return null;
+
+                                  return (
+                                    <div
+                                      key={`title-${tag.id}`}
+                                      style={{ gridRow }}
+                                      className="relative flex h-4 items-center">
+                                      <p className={`absolute left-1 z-50 px-1 text-[10px] ${textColor} text-nowrap`}>
+                                        {/* 토요일(6)이거나 달의 마지막 날인 경우 3글자만 표시, 아니면 전체 표시 */}
+                                        {date!.getDay() === 6 || date!.getDate() === lastDate
+                                          ? tag.title.slice(0, 3)
+                                          : tag.title}
+                                      </p>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* 단일 일정 및 기념일 스택 표시 */}
+                          <div className="flex w-full flex-col gap-1">
+                            {/* 기념일 표시 (고정된 노란색 스타일) */}
+                            {dayAnniversaries.map((anniversary, index) => (
+                              <div
+                                key={`${anniversary.title}-${index}`}
+                                className="flex h-4 w-full items-center rounded-[4px] bg-[rgb(255,232,117,0.6)]">
+                                <p className="w-full truncate px-1 text-[10px] text-[#7B6901]">{anniversary.title}</p>
+                              </div>
+                            ))}
+
+                            {/* 단일 일정 표시 (피로도에 따른 색상) */}
+                            {singleDayTags.map(tag => {
+                              const { bgColor, textColor } = FATIGUE_TAG[tag.fatigue || "VERY_TIRED"];
+                              return (
+                                <div key={tag.id} className={`flex h-4 w-full items-center rounded-[4px] ${bgColor}`}>
+                                  <p className={`w-full truncate text-[10px] ${textColor}`}>{tag.title}</p>
+                                </div>
+                              );
+                            })}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          });
+        })()}
       </div>
     </div>
   );
