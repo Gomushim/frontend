@@ -2,12 +2,15 @@ import {EditInfoCard,MyHeader} from "@/features/mypage";
 import { useNavigate } from "react-router";
 import { useCoupleBirthDay } from "@/entities/couple_birthday";
 import { useCoupleNickname } from "@/entities/couple_nickname";
+import { useIscouple } from "@/entities/iscouple";
 
 export const ProfileInfoPage = () => {
   const navigate = useNavigate();
   const { data: coupleBirthDayData } = useCoupleBirthDay();
   const { getNickName } = useCoupleNickname();
   const nicknameData = getNickName.data;
+  const { checkCoupleConnect } = useIscouple();
+  const isCouple = checkCoupleConnect.data?.result ?? false;
 
   return (
     <div className="pt-11">
@@ -23,17 +26,21 @@ export const ProfileInfoPage = () => {
         />
         <div className="border-b-10 border-gray-50 my-3" />
 
-        <div className="mx-5 my-3 py-5 bg-gray-50 rounded-lg p-4 flex items-center justify-between mb-2">
-          <div className="text-gray-500 text-md font-medium">
-            {nicknameData?.result.coupleNickname || "-"}
-          </div>
-        </div>
-        <div className="mx-5 my-3 py-5 bg-gray-50 rounded-lg p-4 flex items-center justify-between mb-2">
-          <div className="text-gray-500 text-md font-medium">
-            {coupleBirthDayData?.result.partnerBirthday || "-"}
-          </div>
-        </div>
-        <div className="border-b-10 border-gray-50 my-3" />
+        {isCouple && (
+          <>
+            <div className="mx-5 my-3 py-5 bg-gray-50 rounded-lg p-4 flex items-center justify-between mb-2">
+              <div className="text-gray-500 text-md font-medium">
+                {nicknameData?.result.coupleNickname || "-"}
+              </div>
+            </div>
+            <div className="mx-5 my-3 py-5 bg-gray-50 rounded-lg p-4 flex items-center justify-between mb-2">
+              <div className="text-gray-500 text-md font-medium">
+                {coupleBirthDayData?.result.partnerBirthday || "-"}
+              </div>
+            </div>
+            <div className="border-b-10 border-gray-50 my-3" />
+          </>
+        )}
 
         <EditInfoCard 
           title="입대 및 전역일" 
