@@ -10,8 +10,8 @@ export const ProfileCardSection = () => {
 
   return (
     <div
-      className={"bg-gray-50 rounded-lg p-4 flex items-center justify-between"}
-      onClick={() =>  navigate("/mypage/profileinfo")}
+      className={"bg-gray-50 rounded-lg p-4 flex items-center justify-between "}
+      onClick={() =>navigate("/mypage/profileinfo")}
     >
       <div className="w-8 h-8 font-medium text-md text-gray-900 mr-3 ">
         <img src={profileImage} alt="프로필" className="w-8 h-8 object-cover" />
