@@ -25,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </QueryClientProvider>
   </StrictMode>
 );
+
 if (import.meta.env.DEV) {
   const { worker } = await import("./mocks/browser");
   worker.start({

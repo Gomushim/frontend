@@ -3,10 +3,13 @@ import { LogoutModal } from "@/features/mypage/ui";
 import NextArrow  from "@/assets/images/next_arrow.svg";
 import { useNavigate } from "react-router";
 import { useToggle } from "@/shared/hooks/useToggle";
+import { useIscouple } from "@/entities/iscouple/queries";
 
 export const SettingPage = () => {
   const navigate = useNavigate();
   const { isToggle: isLogoutModalOpen, onOpenToggle: openLogoutModal, onCloseToggle: closeLogoutModal } = useToggle();
+  const { checkCoupleConnect } = useIscouple();
+  const isConnected = checkCoupleConnect.data?.result ?? false;
 
   const handleLogout = () => {
     // 실제 로그아웃 로직으로 대체
@@ -24,7 +27,11 @@ export const SettingPage = () => {
         >
           로그아웃
         </button>
-        <button onClick={() => navigate("/mypage/disconnect")} className="w-full flex items-center justify-between bg-gray-50 rounded-2xl mb-1 px-4 py-5 text-gray-900 text-base font-medium">
+        <button
+          onClick={() => isConnected && navigate("/mypage/disconnect")}
+          className={`w-full flex items-center justify-between bg-gray-50 rounded-2xl mb-1 px-4 py-5 text-gray-900 text-base font-medium ${!isConnected ? "opacity-50 cursor-not-allowed" : ""}`}
+          disabled={!isConnected}
+        >
           <span>커플 연결 끊기</span>
           <img src={NextArrow}  alt="설정" className="w-4 h-4" />
         </button>
