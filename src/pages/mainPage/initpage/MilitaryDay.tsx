@@ -65,7 +65,7 @@ export const MilitaryDay: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-white">
+    <div className="flex h-screen flex-col bg-white pt-11">
       <ProgressHeader
         title="군 복무 기간을 입력해주세요"
         highlight="복무 기간"

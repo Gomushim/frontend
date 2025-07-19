@@ -25,6 +25,10 @@ export const Alarm: React.FC = () => {
 
       const fcmToken = await requestNotificationPermission();
 
+      if (!fcmToken) {
+        return;
+      }
+
       const response = await onboardingQueries.postOnboarding({
         nickname,
         birthDate: birthday,
@@ -70,7 +74,7 @@ export const Alarm: React.FC = () => {
         onBack={() => navigate(-1)}
         onClose={() => navigate("/onboarding/nickname")}
       />
-      <div className="flex-1 flex items-center justify-center -mt-0">
+      <div className="-mt-0 flex flex-1 items-center justify-center">
         <Lottie animationData={pushalarmJson} />
       </div>
       <div className="p-4">

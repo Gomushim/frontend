@@ -2,6 +2,7 @@ import profileImage from "@/assets/images/profile_image.svg";
 import nextArrow from "@/assets/images/next_arrow.svg";
 import { useMyInfo } from "@/entities/mypage_info";
 import { useNavigate } from "react-router";
+
 export const ProfileCardSection = () => {
   const { data: myInfoData } = useMyInfo();
   const nickname = myInfoData?.result.nickname;
