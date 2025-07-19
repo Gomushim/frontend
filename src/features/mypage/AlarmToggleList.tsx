@@ -1,6 +1,7 @@
 import { Switch } from "@/shared/ui/switch";
 import { useNotificationQuery } from "../../entities/push_alarm";
 import { useNotificationMutation } from "../../entities/push_alarm";
+import { useState, useEffect } from "react";
 
 const toggleItems = [
   { label: "앱 전체 알림", key: "app" },
@@ -10,36 +11,64 @@ const toggleItems = [
 
 export const NotificationToggleList = () => {
   const { data: notificationData } = useNotificationQuery();
-  const { mutate: updateNotification } = useNotificationMutation();
+  const { mutate: updateNotification, isPending } = useNotificationMutation();
+  const [localData, setLocalData] = useState(notificationData?.result);
+
+  useEffect(() => {
+    if (notificationData?.result) {
+      setLocalData(notificationData.result);
+    }
+  }, [notificationData?.result]);
 
   const handleToggle = (key: string) => {
-    if (!notificationData?.result) return;
+    if (!localData || isPending) return;
 
-    const current = notificationData.result;
+    const current = localData;
 
     if (key === "app") {
       const isAllEnabled = current.dday && current.partnerStatus;
+      const newValue = !isAllEnabled;
+      
+      setLocalData({
+        ...current,
+        dday: newValue,
+        partnerStatus: newValue,
+      });
 
       updateNotification({
-        dday: !isAllEnabled,
-        partnerStatus: !isAllEnabled,
+        dday: newValue,
+        partnerStatus: newValue,
       });
     } else if (key === "dday") {
+      const newValue = !current.dday;
+      
+      setLocalData({
+        ...current,
+        dday: newValue,
+      });
+
       updateNotification({
         ...current,
-        dday: !current.dday,
+        dday: newValue,
       });
     } else if (key === "partnerStatus") {
+      const newValue = !current.partnerStatus;
+      
+      setLocalData({
+        ...current,
+        partnerStatus: newValue,
+      });
+
       updateNotification({
         ...current,
-        partnerStatus: !current.partnerStatus,
+        partnerStatus: newValue,
       });
     }
   };
 
-  if (!notificationData?.result) return null;
+  if (!localData) return null;
 
-  const isAllNotificationsEnabled = notificationData.result.dday && notificationData.result.partnerStatus;
+  const isAllNotificationsEnabled = localData.dday && localData.partnerStatus;
 
   return (
     <div className="mt-2 flex flex-col gap-4 px-4">
@@ -51,10 +80,11 @@ export const NotificationToggleList = () => {
               item.key === "app"
                 ? isAllNotificationsEnabled
                 : item.key === "dday"
-                  ? notificationData.result.dday
-                  : notificationData.result.partnerStatus
+                  ? localData.dday
+                  : localData.partnerStatus
             }
             onCheckedChange={() => handleToggle(item.key)}
+            disabled={isPending}
             className="ml-2"
           />
         </div>
