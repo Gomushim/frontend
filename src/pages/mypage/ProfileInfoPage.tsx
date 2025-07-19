@@ -3,6 +3,8 @@ import { useNavigate } from "react-router";
 import { useCoupleBirthDay } from "@/entities/couple_birthday";
 import { useCoupleNickname } from "@/entities/couple_nickname";
 import { useIscouple } from "@/entities/iscouple";
+import { useMyInfo } from "@/entities/mypage_info";
+
 
 export const ProfileInfoPage = () => {
   const navigate = useNavigate();
@@ -11,17 +13,19 @@ export const ProfileInfoPage = () => {
   const nicknameData = getNickName.data;
   const { checkCoupleConnect } = useIscouple();
   const isCouple = checkCoupleConnect.data?.result ?? false;
+  const { data: myInfoData } = useMyInfo();
+
 
   return (
     <div className="pt-11">
       <MyHeader title="프로필 정보" onBack={() => navigate("/mypage")} />
       <div className="w-full ">
         <EditInfoCard 
-          title={nicknameData?.result.userNickname || "-"} 
+          title={isCouple ? (myInfoData?.result.nickname || "-") : (nicknameData?.result.userNickname || "-")} 
           onEdit={() => navigate("/mypage/nicknameedit")} 
         />
         <EditInfoCard 
-          title={coupleBirthDayData?.result.myBirthDay || "-"} 
+          title={isCouple ? (coupleBirthDayData?.result.myBirthDay || "-") : (coupleBirthDayData?.result.myBirthDay || "-")} 
           onEdit={() => navigate("/mypage/birthdayedit")} 
         />
         <div className="border-b-10 border-gray-50 my-3" />

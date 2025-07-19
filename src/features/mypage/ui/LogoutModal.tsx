@@ -1,6 +1,7 @@
 import React from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
+import { useLogout } from "../../../entities/logout";
 
 interface LogoutModalProps {
   open: boolean;
@@ -10,11 +11,17 @@ interface LogoutModalProps {
 
 export const LogoutModal: React.FC<LogoutModalProps> = ({ open, onClose, onLogout }) => {
   const navigate = useNavigate();
+  const { logout } = useLogout();
 
-  const handleLogout = () => {
-    Cookies.remove("accessToken");
-    onLogout();
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await logout.mutateAsync();
+      Cookies.remove("accessToken");
+      onLogout();
+      navigate("/login");
+    } catch (error) {
+      console.error("로그아웃 실패:", error);
+    }
   };
 
   if (!open) return null;
