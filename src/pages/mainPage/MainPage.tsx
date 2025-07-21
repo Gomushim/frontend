@@ -30,7 +30,7 @@ const NotConnectedPage = ({ coupleInfo }: { coupleInfo: { userNickname: string; 
         </main>
       </div>
       <div className="pc:w-[375px] fixed bottom-0 left-1/2 z-10 w-full -translate-x-1/2 bg-white">
-        <NavBar />
+        <NavBar isConnected={false} isInitialized={false} />
       </div>
     </div>
   );
@@ -59,7 +59,7 @@ const NotInitializedPage = ({
         </main>
       </div>
       <div className="pc:w-[375px] fixed bottom-0 left-1/2 z-10 w-full -translate-x-1/2 bg-white">
-        <NavBar />
+        <NavBar isConnected={true} isInitialized={false} />
       </div>
     </div>
   );
@@ -88,7 +88,7 @@ const InitializedPage = ({
         </main>
       </div>
       <div className="pc:w-[375px] fixed bottom-0 left-1/2 z-10 w-full -translate-x-1/2 bg-white">
-        <NavBar />
+        <NavBar isConnected={true} isInitialized={true} />
       </div>
     </div>
   );
