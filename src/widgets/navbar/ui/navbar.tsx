@@ -7,7 +7,6 @@ import CalendarBlack from "@/assets/images/calendar_black.svg";
 import CalendarGray from "@/assets/images/calendar_gray.svg";
 import MypageBlack from "@/assets/images/mypage_black.svg";
 import MypageGray from "@/assets/images/mypage_gray.svg";
-import { CopleCheckAlert } from "@/features/mainpage/ui/CopleCheckAlert";
 
 type Tab = "home" | "calendar" | "my";
 
