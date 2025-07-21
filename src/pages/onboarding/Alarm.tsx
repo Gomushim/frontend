@@ -23,10 +23,31 @@ export const Alarm: React.FC = () => {
         throw new Error("입력되지 않은 정보가 있어요");
       }
 
-      const fcmToken = await requestNotificationPermission();
+      let fcmToken = null;
+      let retryCount = 0;
+      const maxRetries = 5;
+
+      // FCM 토큰을 받을 때까지 재시도
+      while (!fcmToken && retryCount < maxRetries) {
+        try {
+          fcmToken = await requestNotificationPermission();
+          if (!fcmToken) {
+            retryCount++;
+            // 1초 대기 후 재시도
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+        } catch (error) {
+          console.error(`FCM 토큰 요청 실패 (${retryCount + 1}/${maxRetries}):`, error);
+          retryCount++;
+          if (retryCount < maxRetries) {
+            // 재시도 전 2초 대기
+            await new Promise(resolve => setTimeout(resolve, 2000));
+          }
+        }
+      }
 
       if (!fcmToken) {
-        return;
+        throw new Error("알림 권한을 설정해주세요. 브라우저에서 알림을 허용하고 다시 시도해주세요.");
       }
 
       const response = await onboardingQueries.postOnboarding({
