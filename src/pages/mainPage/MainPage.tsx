@@ -106,7 +106,11 @@ export const MainPage = () => {
     coupleNickname: "",
   };
 
-  const isLoading = checkCoupleConnect.isLoading || getCoupleInfo.isLoading || getNickName.isLoading;
+  // 데이터가 없고 로딩 중일 때만 로딩 화면 표시
+  const isLoading =
+    (checkCoupleConnect.isLoading && !checkCoupleConnect.data) ||
+    (getCoupleInfo.isLoading && !getCoupleInfo.data) ||
+    (getNickName.isLoading && !getNickName.data);
 
   if (isLoading) {
     return (

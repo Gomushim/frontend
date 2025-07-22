@@ -6,6 +6,7 @@ export const useIscouple = () => {
     queryKey: ["checkCoupleConnect"],
     queryFn: () => iscoupleQueries.checkCoupleConnect(),
     retry: false,
+    staleTime: 1000 * 60 * 5, // 5분 동안 fresh 상태 유지
     gcTime: Infinity,
   });
 
