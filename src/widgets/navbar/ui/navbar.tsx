@@ -55,7 +55,7 @@ export const NavBar = ({ isConnected, isInitialized }: { isConnected: boolean; i
   };
 
   return (
-    <nav className="fixed bottom-0 left-1/2 flex h-[95px] w-full -translate-x-1/2 transform items-center justify-between bg-white px-4 sm:h-[80px] sm:px-6 md:h-[95px]">
+    <nav className="fixed bottom-0 left-1/2 flex h-[143px] w-full -translate-x-1/2 transform items-center justify-between bg-white px-4 sm:h-[80px] sm:px-6 md:h-[143px]">
       {tabs.map(({ key, label, activeIcon, inactiveIcon, path }) => {
         const isActive = activeTab === key;
         const isDisabled = key === "calendar" && (!isConnected || !isInitialized);
@@ -73,7 +73,7 @@ export const NavBar = ({ isConnected, isInitialized }: { isConnected: boolean; i
             <span
               className={`text-xs sm:text-sm ${
                 isDisabled ? "text-gray-300" : isActive ? "text-gray-1000" : "text-gray-200"
-              } font-medium`}>
+              } font-medium pb-[48px]`}>
               {label}
             </span>
           </button>

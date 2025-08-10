@@ -25,7 +25,7 @@ export const LoginButton = () => {
       type="button"
       variant="login"
       size="xl"
-      className="text-md absolute right-5 bottom-5 left-5 flex pt-5"
+      className="text-md absolute right-5 bottom-[68px] left-5 flex pt-5"
       onClick={handleLogin}>
       <img src={kakaoIcon} alt="로그인 버튼" />
       카카오로 계속하기
